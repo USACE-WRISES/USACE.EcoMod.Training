@@ -1,0 +1,51 @@
+---
+title: "Using R for ecological modeling in USACE"
+author: "Ed Stowe"
+site: bookdown::bookdown_site
+\documentclass: book
+output:
+  #bookdown::gitbook: default
+  bookdown::bs4_book: default
+github-repo: edstowe/USACE_ecomod_training.git
+---
+
+# Overview {-}
+
+## Course motivation {-}
+Ecological modeling within USACE is primarily a spreadsheet-based activity featuring deterministic habitat models. However, the ecological modeling capacity of USACE biologists can be greatly improved by incorporating modern data science practices, especially the uptake of R, a programming language that used in nearly all ecological research being conducted today. R promotes research that is well-documented, reproducible, interdisciplinary, and extensible. R also works on all kinds of data, produces high-quality graphics, has a broad supportive network of users, and is easier to learn than ever before. This training series will focus on teaching USACE biologists and other practitioners how to use R for ecological modeling.
+
+
+## Intended audience {-}
+* Modeling experience: Those considering themselves “modelers” on projects, with some familiarity with ecological modeling, or wanting to expand their modeling toolbox. Those open to learning how to use code.
+* Career trajectory: USACE biologists and geospatial analysts; this course may also benefit ecological/environmental engineers.
+* Institutional context: USACE team members; partners working closely with USACE.
+* Pre-requisites: Some familiarity with ecological models and how they are used in USACE. Experience with numerical modeling, coding, and data analysis may be useful but not required.
+
+## Learning objectives {-}
+* Become familiar with R coding basics, the RStudio environment, and the benefits of using these tools for conducting analyses.
+* Learn some important building blocks of data “wrangling” and visualization in R.
+* Learn key methods for seeking help with R coding problems.
+* Increase familiarity with existing habitat modeling tools.
+* Develop ability to conduct basic non-habitat ecological modeling and compare with traditional habitat models.
+
+## Module format {-}
+Asynchronous, self-directed video modules loaded to Youtube, accompanied by written walkthroughs and R scripts. This format was selected because it is:
+* Durable (i.e., videos/tutorials persist online)
+* Flexible for learners
+* Has potential impact beyond USACE
+
+## Module structure {-}
+* Background with slides for context (5-10 minutes)
+* Coding mechanics (10-20 minutes)
+* Application of the code to a real problem (10-20 minutes)
+
+## Additional resources to be provided by instructors {-}
+* Potential zoom “office hours” to assist trainees with coding and data troubleshooting
+* Links to vetted resources for working with R, RStudio, and ecological models
+
+
+## Course subject matter {-}
+
+The training course will include modules that introduce users to coding in R, followed by modules that focus on different ecological modeling topics. Users who are already proficient with R and RStudio but wish to learn more about ecological modeling may skip directly to specific modeling videos relevant to their goals.
+
+Modules on the basics of using R and RStudio will be adapted from an open-source course entitled “Data Analysis and Visualization in R for Ecologists,”created by the Carpentries, a community of instructors and trainers who teach foundational data science skills to other researchers. This course is designed for a ~6 hour workshop, but has also been adapted into multiple standalone videos (e.g., here); we will divide these workshop materials into four modules (Table 1). We will also create an introductory video describing how to get set-up for the training series, including how to download R and R studio.

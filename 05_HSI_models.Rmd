@@ -1,0 +1,5 @@
+# (PART) Ecological Modeling in R {-} 
+
+# (PART) Habitat Models {-} 
+
+# Habitat Suitability Index models
