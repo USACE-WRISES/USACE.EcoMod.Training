@@ -6,7 +6,7 @@ site: bookdown::bookdown_site
 output:
   #bookdown::gitbook: default
   bookdown::bs4_book: default
-github-repo: edstowe/USACE_ecomod_training.git
+github-repo: USACE-WRISES/USACE.EcoMod.Training
 ---
 
 # Overview {-}
