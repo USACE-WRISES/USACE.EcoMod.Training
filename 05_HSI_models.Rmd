@@ -4,6 +4,13 @@
 
 # Habitat Suitability Index models
 
+## Background
+
+Across all business lines, the U.S. Army Corps of Engineers (USACE) engages in a large variety of decisions that affect a multitude ecological outcomes (e.g., ecosystem restoration of oyster reefs, environmental flows for imperiled fishes, and bird breeding grounds impacted by dredge material management). While numerous aquatic, riparian, and terrestrial analytical tools exist, ecological models typically have not been easily accessible or in the most usable form for field practitioners and often require significant data and modeling expertise to effectively employ. However, ecological models must be used to quantify environmental impacts and benefits throughout the project life-cycle of planning, engineering, construction, operations, and maintenance. 
+
+A common approach to ecological modeling of environmental impacts and benefits is based on quantity and quality of habitat. These "index" models (Swannack et al. 2012) were originally developed for species-specific applications (e.g., slider turtles), but the general approach has also been adapted to guilds (e.g., salmonids), communities (e.g., floodplain vegetation), and ecosystem processes (e.g., the Hydrogeomorphic Method). No standard platform for exists for computing outcomes from index models, and users often develop ad hoc spreadsheet models, which are highly prone to numerical errors (McKay 2009). The common quantity-quality structure of index models provides an opportunity to develop a consistent, error-checked index modeling calculator adaptable to a variety of applications across the Corps.
+
+Furthermore, ecological modeling often seeks to inform trade-offs between a monetary assessment of social benefits or costs (e.g., restoration investment cost or economic damages avoided) and a non-monetary assessment of environmental benefits and costs (e.g., habitat gains of restoration or impact to an imperiled taxa's habitat). Cost-effectiveness and incremental cost analyses (CEICA) provide a useful set of techniques for comparing non-monetary and monetary costs and benefits of management actions (Robinson et al. 1995). CEICA is commonly applied in planning and designing ecosystem restoration projects and is often coupled with index models to inform management decisions.  
 
 
 #### *2.1. Index-Based Ecological Models*  
@@ -31,3 +38,7 @@ Cost-effectiveness and incremental cost analyses (CEICA) are analytical tools fo
 Cost-effectiveness analysis provides a mechanism for examining the efficiency of alternative actions. For any given level of investment, the agency wants to identify the plan with the most return-on-investment (i.e., the most environmental benefits), and for any given level of environmental benefits, the agency wants a plan with the least cost. An “efficiency frontier” identifies all plans that efficiently provide benefits on a per cost basis (i.e., cost-effective plans). These "non-dominated" alternatives compose the Pareto-optimal frontier.
 
 Incremental cost analysis is conducted on the set of cost-effective plans. This technique sequentially compares each plan to all higher cost plans to reveal changes in unit cost as output levels increase and eliminates plans that do not efficiently provide benefits on a per unit cost basis. Specifically, this analysis examines the slope of the cost-effectiveness frontier to isolate how the incremental unit cost ($/unit) increases as the magnitude of environmental benefit increases. Incremental cost analysis is ultimately intended to inform decision-makers about the consequences of increasing unit cost when increasing benefits (i.e., each unit becomes more expensive). Plans emerging from incremental cost analysis efficiently accomplish the objective relative to unit costs and are typically referred to as “best buys”. Importantly, all “best buys” are cost-effective, but all cost-effective plans are not best buys.
+
+
+
+### Include TAM model here?
