@@ -1,368 +1,286 @@
-# Habitat Suitability Index models
+# Habitat Suitability Index models with `ecorest`  
 
-* *Model Purpose*: Ad hoc development of index models is leading to significant USACE investments in computational tool development, user learning, model review, and certification. This platform seeks to provide an error-checked, computationally accurate tool for assessing ecological outcomes with index models. Furthermore, the platform should also provide seamless integration of decision support tools to avoid potential errors associated with data transfer between separate ecological and decision models.  
-* *Target Application*: This toolkit is intended primarily for USACE ecosystem restoration planning; however, index models are also often applied for impact assessment, compensatory mitigation, and wetland regulatory issues.  
-* *Target Users:* The primary audience for these tools is USACE planners, biologists, and engineers involved in ecosystem restoration projects.  
-* *Model Engine vs. User-Interface:* This document addresses the development of computational engines for index models and decision support tools, both of which are developed as the `ecorest` "package" for broad distribution via the [R statistical software language](https://cran.r-project.org/). The R-package may be accessed through the (ACE-IT approved) R freeware and associated user-interfaces such as [RStudio](https://rstudio.com/). The models may also be accessed through a "point-and-click" user interface via a simple web application.  
-* *Modular Design:* All model capability is developed as separate databases and functions, which can be accessed independently. For instance, the toolkit is intended to provide "one stop shopping" for USACE restoration planning needs by integrating index and decision support models. However, users may also use non-index models (e.g., population demography models via `popbio`) to examine other ecological outcomes in the decision modules. Likewise, users could compute index model outcomes without using decision support tools.  
+***
 
+**This module will teach you how to use the `ecorest` package in `R` to efficiently and reproducibly carry out HSI modeling and generate useful output like this:**
 
-**Ultimately, the overarching objective of this model is to develop a technically sound and computationally accurate suite of tools for assessing ecosystem restoration project planning with index models, which are easily accessible use by USACE planners, biologists, and engineers.** This report describes the development of a suite of restoration modeling tools called `ecorest`. While developed for ecosystem restoration applications, the tools may be applied in a variety of other contexts including impact assessment and non-restoration cost-benefit analysis. 
+![*Output from HSI modeling for the Delta Islands and Levees Feasibility Study (adapted). Users will learn to generate identical values using the ecorest package*](images/hep_output_mod.png){width=100%}
+  
+  ***
+  
+## Background on HSI modeling with `ecorest`
 
+Before `ecorest`, there was no standard platform for computing outcomes from habitat or other index models. Then and now, users often develop ad hoc spreadsheet models, but these can be highly prone to numerical errors (McKay 2009). The common quantity-quality structure of index models, however, provided an opportunity to develop a consistent, error-checked index modeling calculator adaptable to a variety of applications across USACE. That tool was `ecorest`, which can greatly increase the efficiency of performing habitat modeling as well as decrease the likelihood of computational errors.
 
-#### *2.3. `ecorest` Model Workflow*  
+The `ecorest` package can be used to quickly apply over 350 of the HSI models developed by the U.S. Fish and Wildlife Service, often referred to as the "bluebook" models, but is flexible enough to carry out any user-defined HSI model, including ones that appear in the literature or custom models developed for specific projects.
 
+In this tutorial, we will demonstrate how the `ecorest` package can be used for two different HSI modeling scenarios, one that relies on a bluebook model, and another that uses a custom HSI model.
 
-Conceptual models provide a useful mechanism for many aspects of ecosystem restoration projects such as increasing understanding about a subject, identifying restoration alternatives, and facilitating dialog among team members (Fischenich 2008, USACE 2011). However,conceptual models also inform the development of quantitative ecological models and can document the general workflow of models (Grant and Swannack 2008, Swannack et al. 2012). Here, a conceptual model is presented to describe the general workflow of the `ecorest` computational platform. A stepwise conceptual model development process (Fischenich 2008) was used to develop the model workflow (Table 1), and Figure 1 summarizes the general flow of logic guiding the development of `ecorest`.
+## Run an HSI analysis with `ecorest` using a bluebook model
 
+For this scenario, we will use `ecorest` to carry out a modeling analysis that was originally done by the Sacramento District as part of the Delta Islands and Levees Feasibility Study. In this study, the Marsh Wren HSI model was used to examine the ecosystem effects of intertidal marsh restoration. The overall Feasibility Study can be found [here](https://www.spk.usace.army.mil/Portals/12/documents/civil_works/Delta/DeltaStudy/FinalEIS/Delta_FSEIS_%20Nov18_Updated_May19.pdf?ver=oOkiNfBdSLY34I8P2aK82Q%3d%3d), and the appendix with details on the habitat evaluation procedure can be found [here](https://www.spk.usace.army.mil/Portals/12/documents/civil_works/Delta/DeltaStudy/FinalEIS/Appendix-F_Delta-HEP-Report.pdf?ver=2018-09-14-162500-980).  
+
+To conduct the HSI modeling in this scenario, we first need to add the necessary packages to our `R` session.
+
+```{r, warning = FALSE, message = FALSE}
+library(ecorest)
+library(tidyverse)
+
+```
+
+```{r, include=FALSE}
+#Code chunk for scrollable output
+options(width = 100)
+local({
+  hook_output <- knitr::knit_hooks$get('output')
+  knitr::knit_hooks$set(output = function(x, options) {
+    if (!is.null(options$max.height)) options$attr.output <- c(
+      options$attr.output,
+      sprintf('style="max-height: %s;"', options$max.height)
+    )
+    hook_output(x, options)
+  })
+})
+```
+
+The `ecorest` package contains a list object called `HSImodels`. Each of the 351 elements of the list is a data frame representing one of the U.S. Fish and Wildlife Service Habitat suitability index (HSI) models. Each HSI model consists of multiple independent variables (e.g., percent canopy cover) and their associated habitat suitability values ranging from 0 to 1. Categorical input variables are coded as letters. All models can be called in `R` with the corresponding model name using `HSImodels$modelname` (e.g., `HSImodels$barredowl`).
+
+To look at the HSI models that are available, run the following code:
+```{r, max.height = '100px'}
+names(HSImodels)
+
+```
+
+Another important object that is contained within the package is the `HSImetadata` dataframe. This contains important information on each HSI model, including how the different suitability variables within a model should be aggregated to calculate an overall HSI value for a project alternative. The following code generates a small subset of the variables and rows of this dataframe
 
 
 ```{r}
-
-##########
-#Load all necessary R packages
-#library(viridis)    #Contains color-blind friendly color schemes
-library(ecorest)    #Contains habitat suitability and CEICA models
+HSImetadata %>%
+  select(model, submodel, Eqtn) %>% # Select which columns to display
+  slice(1,4:6) # Select which rows to display
 ```
 
+### Explore the Marsh Wren HSI model 
+To use the Marsh Wren HSI model, we extract it from the `HSImodels` object.
+```{r}
+wren_hsi <- HSImodels$marshwren
+```
+
+Print the Marsh Wren model to the console to look at its structure: 
+```{r}
+print(wren_hsi)
+```
+As you can see, it's a series of suitability curves ordered as parameter breakpoints and associated suitability indices for each parameter.  Each column with an environmental variable (e.g., emerg.hydrophytes.class) is followed by a column (whose name ends with `.SIV`) of suitability index values for the associated environmental predictor.  
+
+The marsh wren HSI model can also be viewed graphically. The `HSIplotter` function creates a JPEG image file in the images folder of your working directory. The user selects the name of the file, but should keep the ".jpg" file extension.
+```{r}
+HSIplotter(wren_hsi, "images/marshwren_hsi.jpg")
+```
+
+If you open the plot file in your working directory, it should look like this:
+![](images/marshwren_hsi.jpg){width=100%}
+
+### Calculate suitability values from environmental variables  
+
+To calculate the acres of habitat that a project would produce, we need estimates of the environmental variables that make up the chosen HSI model. For the Marsh Wren, these variables include:
+
+* Growth form of emergent hydrophytes
+* Canopy cover of emergent herbaceous vegetation
+* Mean water depth
+* Canopy cover of woody vegetation
+
+Values for these variables can be imported from a .csv file, or can be entered them manually as we do below. Here we take values from the row of the table that corresponds with target year 1 (TY1). *Environmental variables must be in the same order as they appear in the HSI model.* Categorical variables, such as emergent hydrophyte growth form, are coded as letters.
+```{r}
+env_vars <- tibble(v1 = "a",
+                   v2 = 4,
+                   v3 = 99.1,
+                   v4 = 0)
+```
+
+In order to calculate habitat units, we also need to provide the project area in acres. Here we provide the area listed for TY1 above.  
+```{r}
+area = 34
+```
+
+Next, we use the `SIcalc` function to calculate the suitability value for each variable in the model. The `SIcalc` function computes suitability indices using two inputs: the suitability model (`wren_hsi`) and the project-specific environmental variables that we've provided (``env_vars`).
 
 ```{r}
-#Create empty table
-Table1 <- as.data.frame(matrix(NA, nrow = 5, ncol = 2))
-colnames(Table1) <- c("Step", "ecorest")
+si_vars <- SIcalc(wren_hsi, env_vars)
+print(si_vars)
+```
 
-#Specify rows of the table
-Table1[1,] <- c("1. State the model objectives.", "To develop a technically sound and computationally accurate suite of tools for assessing ecosystem restoration project planning with index models and informing restoration decisions, which are easily accessible use by USACE planners, biologists, and engineers.")
-Table1[2,] <- c("2. Bound the system of interest.", "Index models of ecological systems structured around the quantity and quality of habitat, where quality is defined by a set of independent variables and suitability index curves.")
-Table1[3,] <- c("3. Identify critical model components within the system.", "The model platform needs to include six basic elements: (1) a generic format for defining suitability index curves, (2) a library of existing index models developed by the US Fish and Wildlife Service, (3) a computational engine for computing index model outcomes, (4) a computational engine for conducting decision support modelings, (5) a simple, adaptable, and modular input-output structure, and (6) a user friendly interface for audiences without programming experience.")
-Table1[4,] <- c("4. Articulate relationships among model components.", "A computational engine may be embedded within a user-friendly interface, both of which can access model inputs and create model outputs.")
-Table1[5,] <- c("5. Represent the conceptual model.", "Figure 1 provides an overview of computational workflow for the `ecorest` modeling platform")
+### Aggregate HSI value and Habitat Units
 
-##########
-#Send output table
-rownames(Table1) <- NULL
-knitr::kable(Table1, caption="**Table 1. Stepwise development of the SMURF conceptual model (following steps in Fischenich 2008).**") 
+A crucial part of HSI modeling is determining how the SI values of our different variables will be combined to create the overarching HSI score. SI values can be combined in numerous ways (e.g., geometric mean, minimum value, etc.). Most bluebook models, however, identify a species/submodel-specific way to combine SI values, according to the specific attributes of the species. Therefore, when a bluebook model is being used, the `HSIeqtn` function should be used to  calculate the cummulative HSI score using the appropriate equation. This function requires the name of the HSI model, the variables for each of the individual metrics that we've calculated, and the `HSImetadata` file, where the euqation is stored.
+```{r}
+total_HSI <- HSIeqtn("marshwren", si_vars, HSImetadata)
+print(total_HSI)
+```
+Once we have calculated our cummulative HSI score from our separate SI values, we can lastly calculate the **Habitat Units** associated with the given project.
+```{r}
+Total_hab <- total_HSI*area
+print(Total_hab)
+```
+  
+### Habitat Units for multiple years or alternative projects
+  
+If multiple project alternatives exist, or there are multiple years of environmental data, we can perform the same operations as above using the below code. Here, a for-loop allows us to iterate through each of the scenarios/years to calculate SI values and habitat units
+```{r, warning = FALSE}
+# Create dataframe of environmental variables for 4 scenarios/years
+new_env_vars <- tibble(V1 = rep("a", 4),
+                       V2 = c(5, 8.5, 12, 16),
+                       V3 = c(94.5, 89.9, 85.3, 80.8),
+                       V4 = c(0, 0, 0, 0))
+
+nyears <- nrow(new_env_vars) # Number of years/alternatives
+nvars <- ncol(new_env_vars) # Number of environmental variables
+
+new_area = c(68, 102, 136, 170)
+
+# Create an empty matrix and vector to hold the results of the SI and HSI calculations, respectively
+new_si_vars <- matrix(0, nrow=nyears, ncol=nvars)
+new_total_HSI <- rep(NA, 4)
+
+# Use a for-loop to calculate SI values and HSI scores for each year/scenario
+for (i in 1:nyears) {
+  new_si_vars[i, ] <- SIcalc(wren_hsi, new_env_vars[i, ])
+  new_total_HSI[i] <- HSIeqtn("marshwren", new_si_vars[i, ], HSImetadata)
+}
+
+# Create a dataframe of the new SI values
+new_si_df <- as_tibble(new_si_vars) %>%
+  set_names(c("SI_V1","SI_V2","SI_V3","SI_V4"))
+
+# Create an output table with all of the input and output
+output_tab_wren <- new_env_vars %>%
+  bind_cols(new_si_df) %>%
+  mutate(output_HSI = round(new_total_HSI, 2),
+         total_acres = new_area,
+         HUs = output_HSI*total_acres)
+
+# Print the table using the knitr package
+knitr::kable(output_tab_wren, 
+             digits = 2, 
+             padding = 2,
+             caption = "Habitat Suitability Index (HSI) Variables and 
+             Resulting Outputs for the Marsh Wren Model With-Project.")
+
+```
+
+The results we've generated using the `ecorest` package are identical to the ones in the report, as you can see:
+![](images/hep_output_box.png){width=100%}
+
+The beauty of carrying this out in `R` using a script is that we can change an input value and reproduce all the results in a matter of seconds by re-running the code, instead of having to go through all the steps manually. And using the `ecorest` package means instant access to hundreds of quality-controlled bluebook models.
+
+## HSI Modeling with custom model
+
+Sometimes, a project will use a custom index model instead of a bluebook model to calculate habitat units. For example, for its South San Francisco Bay Shoreline Study, USACE-SPN collaborated with ERDC’s Coastal Ecology and Integrated Ecological Modeling, to develop a quantitative model for tidal marsh restoration in subsided former baylands that is sensitive to multiple restoration measures, including the import of beneficially used material for bathymetry lifts, ecotones and other refugia.
+
+They used the `ecorest` package for their habitat model caclulations.
+
+### Explore model and data
+
+Import a .csv of the marsh model, print the names of the variables, and plot the model. *Note: for the plotting function to work, the model must be read in using the base R function `read.csv` instead of the Tidyverse function `read_csv`*
+```{r}
+# Import marsh HSI model
+marsh_model<-read.csv("data/SF-TM-HEI_InputData.csv")
+print(names(marsh_model))
+HSIplotter(marsh_model,"images/marsh_model.jpg")
+```
+![*Figure X. Marsh model *](images/marsh_model.jpg){width=100%}
+
+Next, read in the environmental data associated with the alternative project designs.
+```{r}
+# Dataset of environmental conditions associated with project alternatives
+marsh_alts <- read.csv("data/SF-TM-HEI_FieldData.csv")
+
+# marsh_alts %>% 
+#   pivot_longer(V1:V4, names_to = "variable", values_to = "value") %>%
+#   ggplot() +
+#   geom_point(aes(variable, value))+
+#   facet_wrap(~alt, nrow = 15)
+
+print(marsh_alts)
 
 ```
 
 
-![**Figure 1. Conceptual workflow of the `ecorest` index and decision support modeling toolkit.**](Fig01.IndexModelCalculator_2020-07-30-Workflow.jpg)
+### Calculate individual suitability indices 
 
+Again, we will create an empty matrix to store the results and calculate the SI values for each parameter using `SICalc()`.
+```{r}
+ # Create a dataframe of just environmental variables associated with each alternative
+env_marsh <- select(marsh_alts, -alt)
+nalternatives<-length(marsh_alts$alt) # Number of alternatives
 
-## **3. Quantification**
+# Create empty matrix to store SI values for each alternative
+si_marsh <- matrix(NA, nrow=nalternatives, ncol=4)
 
+# Calculate the SI values for each alternative using a for-loop
+for(i in 1:nalternatives) {
+  si_marsh[i, ] <- SIcalc(marsh_model, env_marsh[i, ])
+}
 
-**RESUME EDITING HERE**
+# Convert matrix of SI values to dataframe and name the columns
+si_marsh_df <- as_tibble(si_marsh) %>%
+  set_names(paste0("SI_", names(env_marsh)))
+```
 
-Review of Existing Models: An enormous array of models has been developed for THIS SUBJECT.  Briefly review types and constraints of other models.  Why is a new model needed?  Are their prior tools being built from?
+### Calculate the Total HSI score
 
-Theoretical basis: Is there a population modeling framework?  Are there nutrient cycling theories being captured?  Is there a prior field framework?  Cite literature explaining the mechanisms being captured in the model.
+Here, the analysis team developed a custom formula to combine the different HSI scores:
+Cube root((Tidal connectivity* Marsh Age)*(Ecotone + Refugia)/2) 
 
-Modeling approach: What basic modeling approach (index, agent, nutrient flow)?  Input requirements (e.g., few parameters vs. extensive geospatial layers), and the degree of development (e.g., long history vs. ad hoc)?  Key assumptions and limitations (bulleted or listed) – scope of the model, caveats, what does the modeler want the user to know about its soft-underbelly.
+In R syntax, that code looks like this
+`((((SIV2*SIV1)(SIV4+SIV3)/2))^(1/3)) `
 
-Scale: Review the treatment of time (time step, simulation period) and space (lumped v. explicit).  
+To calculate the cummulative score, we'll use the mutate function to create a new column in our dataframe of suitability index values, and calculate the total HSI values from the other columns.
+```{r}
+# Calculate overall HSI from individual SI values
+si_total <- si_marsh_df %>%
+  mutate(total_hsi = ((((SI_V4+SI_V3)/2)*(SI_V2*SI_V1))^(1/3)))
+```
 
-Functional form: Insert the formulae, algorithms, equations, variables, etc.  Insert math.  
+### Cummulative HSI and Habitat Units
 
-Numerical Toolkit: What number cruncher is being used (language)?  Who developed it?  How is it used?  Input-output workflow (data format and processing).  What are the model specs (software / hardware requirements)?  Training / users?   
+Next, we'll calculate the habitat units associated with the project, assuming a total project area of 300 acres.
+```{r}
+# Calculate habitat units by multiplying total HSI by project area (300 acres)
+area_marsh <- 300
 
-First, a common data structure was developed for index models, data were compiled for existing habitat suitability index (HSI) models, and a Toolkit for interActive Modeling (TAM) was developed to facilitate development of new index models (Carrillo et al. 2019). Second, an engine was developed for computing index models with functions for both generic model evaluation outputs (e.g., suitability curve visualization and sensitivity analysis) and application-specific outputs (e.g., forecasts of with and without project conditions). Third, a series of functions were developed to conduct cost-effectiveness and incremental cost analyses (CEICA), which can be applied to index model outputs or any other trade-off between benefits and costs. These three topics are synthesized into a R-package and will be the focus of this report. Future activities will include the development of a user interface for calling these data and functions (without prior programming expertise) along with associated user manuals and guidance documents.
+si_total_hu<-si_total %>%
+  mutate(HUs = area_marsh*total_hsi)
+```
 
-US Fish and Wildlife Service. (1980a). Habitat as a basis for environmental assessment. Ecological Services Manual, 101.
+Finally, we can create an ouput table with all of the data.
+```{r}
+output_tab <- bind_cols(marsh_alts, si_total_hu) %>%
+  set_names(c("Alternative", "PTR", "MA", "HTR", "E", "PTR-SI", "MA-SI", 
+              "HTR-SI", "E-SI", "HSI-Total", "Marsh Units"))
 
-US Fish and Wildlife Service. (1980b). Habitat Evaluation Procedures (HEP). Ecological Services Manual, 102.
+knitr::kable(output_tab, caption="SF Salt Marsh HSI Values and Marsh Units.", 
+             align="c", 
+             digits = 2)
+```
 
-US Fish and Wildlife Service. (1981). Standards for the Development of Habitat Suitability Index Models. Ecological Services Manual, 103.
+### Linking steps using pipes
 
+The last several operations that we conducted above can be done in a single "tidy" way by using the pipe operator `%>%`.
 
-Background on R
-
-
-#### *3.1. USFWS Habitat Suitability Model Data*  
-
-
-**Insert introductory text.**
-
-
-*`HSImodels$modelname`*
-
-This list of data frames contains 519 U.S. Fish and Wildlife Service Habitat suitability index (HSI) models. A list with 519 data frames each containing an HSI model with multiple independent variables and associated habitat suitability indices (a 0 to 1 value). Data represent break points in curves with linear extrapolation between. Categorical input variables are coded as letters. A comprehensive listing of all models is included in Appendix B. Variable names often required abbreviation, and all nomenclature is also summarized in Appendix B. Table 2 provides and example of one such HSI model for barred owl model (Allen 1987). All models can be called with the corresponding model name using `HSImodels$modelname` (e.g., `HSImodels$barredowl`).
+The final line of code checks demonstrates that the two output dataframes are identical. 
 
 ```{r}
-Table2 <- ecorest::HSImodels$barredowl
-knitr::kable(Table2, caption="**Table 2. Example of USFWS Habitat Suitability Model Data: Barred Owl (Allen 1987).**")
+area_marsh = 300
 
-```
+output_tab_2 <- as_tibble(si_marsh) %>%
+  set_names(paste0("SI_", names(env_marsh))) %>%
+  mutate(total_hsi = ((((SI_V4+SI_V3)/2)*(SI_V2*SI_V1))^(1/3)),
+         HUs = area_marsh*total_hsi) %>%
+  bind_cols(marsh_alts,.) %>% # This code is slightly different so that marsh_alts data will come first; the "." symbol indicates everything that has come before this function
+  set_names(c("Alternative", "PTR", "MA", "HTR", "E", "PTR-SI", "MA-SI", 
+              "HTR-SI", "E-SI", "HSI-Total", "Marsh Units"))
 
-*`HSImetadata`*
-
-This data frame contains metadata for 519 U.S. Fish and Wildlife Service Habitat suitability index (HSI) models, such as model names, documentation, and websites for documentation among other fields. Table 3 provides a full listing of all fields contained within `HSImetadata` along with an example for the barred owl model (Allen 1987).
-
-
-```{r}
-#Variable descriptions from R-package
-Table3 <- data.frame(c("Model name", "Model specifications", "Scientific nomenclature of modeled taxa", "Geographic range of organism", "Type of habitat", "Citation of original model", "Conditions under which model may be applied", "Link to original individual model source", "Suitability index values for each organism specific condition", "Suitability index values for each organism specific condition", "Suitability index values for each organism specific condition", "Suitability index values for each organism specific condition", "Suitability index values for each organism specific condition", "Suitability index values for each organism specific condition", "Suitability index values for each organism specific condition", "Suitability index values for each organism specific condition", "Suitability index values for each organism specific condition", "Suitability index values for each organism specific condition", "Suitability index values for each organism specific condition", "Suitability index values for each organism specific condition", "Suitability index values for each organism specific condition", "Suitability index values for each organism specific condition", "Suitability index values for each organism specific condition", "Suitability index values for each organism specific condition", "Suitability index values for each organism specific condition", "Suitability index values for each organism specific condition", "Suitability index values for each organism specific condition", "Suitability index values for each organism specific condition", "Suitability index values for each organism specific condition", "Suitability index values for each organism specific condition", "Food component equation", "Cover component equation", "Cover-food component equation", "Winter food component", "Water component", "Cover breeding component", "Cover nesting component", "Water quality component", "Reproduction component", "Cover reproduction component", "Disturbance component", "Other component", "Larval component", "Embryo and larval component", "Embryo component", "Juvenile component", "Fry component", "Spawning component", "Adult component", "Island component", "Non-island component", "Winter cover food component", "Topography component", "Juvenile adult component", "HSI overarching model equation in R syntax"))
-
-#Variable names from R-package
-Table3$names <- colnames(HSImetadata)
-
-#Isolate barred owl model on row 32 (which(HSImetadata$model=="barredowl"))
-Table3$barred <- paste(t(HSImetadata[32,]))
-
-#Send pretty table output
-colnames(Table3) <- c("Description", "HSImetadata() Field", "Barred Owl Model Value")
-rownames(Table3) <- NULL
-knitr::kable(Table3, caption="**Table 3. Example of model information embedded within HSImetadata(): Barred Owl (Allen 1987).**")
-
-```
-
-#### *3.2. Index Model Computational Engine*  
-
-
-**Insert introductory text.**
-
-
-*`HSIplotter(SI, figure.name)`*
-
-Plots suitability index curves relative to multiple variables. 
-
-Inputs are:  
-
-* `SI`: a matrix of suitability curves ordered as parameter breakpoints and associated suitability indices for each parameter with appropriate column names.  
-* `figure.name`: output figure file name structured as "filename.jpeg".
-
-Function returns a multi-panel *.jpeg figure showing all suitability curves (e.g., Figure 2).
-
-```{r echo=TRUE}
-HSIplotter
-HSIplotter(HSImodels$barredowl, "Fig02.BarredOwl.jpeg")
-```
-
-![**Figure 2. Example output from `HSIplotter()` for the barred owl model (Allen 1987).**](Fig02.BarredOwl.jpeg)
-
-*`SIcalc(SI, input.proj)`*
-
-Computes suitability indices given a set of suitability curves and project-specific inputs. Suitability indices may be computed based on either linear interpolation (for continuous variables) or a lookup method (for categorical variables). 
-
-Inputs are:  
-
-* `SI`: a matrix of suitability curves ordered as parameter breakpoints and associated suitability indices for each parameter with appropriate column names.  
-* `input.proj`: numeric or categorical vector of application-specific input parameters associated with the suitability curve data from SI.
-
-Function returns a vector of the suitability index values that match given user inputs. Values are returned as equal to the extreme of a range if inputs are outside of model range.
-
-```{r echo=TRUE}
-SIcalc
+all.equal(output_tab, output_tab_2)
 ```
 
 
-*`HSIarimean(x)`*
-
-Uses arithmetic mean to combine suitability indices into an overarching habitat suitability index.
-
-Inputs are:
-
-* `x`: a vector of suitability indices.  
-
-Function returns a value of habitat quality from 0 to 1 ignoring NA values.
-
-```{r echo=TRUE}
-HSIarimean
-```
-
-
-*`HSIwarimean(x, w)`*
-
-Uses a weighted arithmetic mean to combine suitability indices into an overarching habitat suitability index.
-
-Inputs are:
-
-* `x`: a vector of suitability indices.  
-* `w`: a vector of weights (0 to 1 values that must sum to one).  
-
-Function returns a value of habitat quality from 0 to 1 ignoring NA values.
-
-
-```{r echo=TRUE}
-HSIwarimean
-```
-
-
-*`HSIgeomean(x)`*
-
-Uses geometric mean to combine suitability indices into an overarching habitat suitability index.
-
-Inputs are:
-
-* `x`: a vector of suitability indices.  
-
-Function returns a value of habitat quality from 0 to 1 ignoring NA values.
-
-
-```{r echo=TRUE}
-HSIgeomean
-```
-
-
-*`HSImin(x)`*
-
-Uses the minimum of given suitability indices to calculate an overarching habitat suitability index.
-
-Inputs are:
-
-* `x`: a vector of suitability indices.  
-
-Function returns a value of habitat quality from 0 to 1 ignoring NA values.
-
-
-```{r echo=TRUE}
-HSImin
-```
-
-
-*`HSIeqtn(HSImodelname, SIV, HSImetadata)`*
-
-Computes a habitat suitability index based on equations specified in USFWS habitat suitability models contained within `ecorest` via `HSImodels` and `HSImetadata`. Habitat suitability indices represent an overall assessment of habitat quality from combining individual suitability indices for multiple independent variables. The function computes an overall habitat suitability index. This function only applies to built-in index models described in Section 3.1.
-
-Inputs are:
-
-* `HSImodelname`: a character string in quotations that must match an existing model name in `HSImetadata`.  
-* `SIV`: a vector of suitability index values used in the model specified in `HSImodelname`.  
-* `HSImetadata`: a data frame of HSI model metadata within the `ecores`t package.  
-
-Function returns a numeric of the habitat suitability index ranging from 0 to 1.
-
-
-```{r echo=TRUE}
-HSIeqtn
-```
-
-
-*`HUcalc(SI.out, habitat.quantity, HSIfunc, ...)`*
-
-Computes habitat units given a set of suitability indices, a habitat suitability index equation, and habitat quantity.
-
-Inputs are:
-
-* `SI.out`: a vector of application-specific suitability indices, which can be produced from `SIcalc` or other functions.  
-* `habitat.quantity`: a numeric of habitat size associated with these suitability indices (i.e., length, area, or volume).  
-* `HSIfunc`: a function for combination of the suitability indices.  
-* `...`: optional arguments to `HSIfunc`.  
-
-Function returns a vector of habitat quality, habitat quantity, and index units (quantity times quality).
-
-
-```{r echo=TRUE}
-HUcalc
-```
-
-
-#### *3.3. Decision Support Engine*  
-
-
-**Insert.**
-
-
-*`annualizer(timevec, benefits)`*
-
-Computes time-averaged quantities based on linear interpolation.
-
-Inputs are:
-
-* `timevec`: numeric vector of time intervals.  
-* `benefits`: numeric vector of values to be interpolated.  
-
-Function returns a time-averaged value over the specified time horizon.
-
-```{r echo=TRUE}
-annualizer
-```
-
-
-*`CEfinder(benefit, cost)`*
-
-Returns cost-effectiveness analysis for a particular set of alternatives.
-
-Inputs are:
-
-* `benefit`: a vector of restoration benefits. Typically, these are time-averaged ecological outcomes (e.g., average annual habitat units). Often project benefits are best presented as the "lift" associated with a restoration action(i.e., the benefits of an alternative minus the benefits of a "no action" plan).  
-* `cost`: a vector of restoration costs. Typically, these are monetary costs associated with a given restoration action such as project first cost or annualized economic cost. Notably, these functions are agnostic to units, so costs could also be non-monetary such as lost political capital or social costs of each alternative.  
-
-Function returns a numeric vector identifying each plan as cost-effective (1) or non-cost-effective (0). The cost-effective actions comprise the Pareto frontier of non-dominated alternatives at a given level of cost or benefit.
-
-
-```{r echo=TRUE}
-CEfinder
-```
-
-
-*`BBfinder(benefit, cost, CE)`*
-
-Examines the slope of the cost-effectiveness frontier to isolate how unit cost (cost/benefit) increases with increasing environmental benefit. Restoration actions with the lowest slope of unit cost are considered "best buys".
-
-Inputs are:
-
-* `benefit`: a vector of restoration benefits. Typically, these are time-averagedecological outcomes (e.g., average annual habitat units). Often project benefits are best presented as the "lift" associated with a restoration action(i.e., the benefits of an alternative minus the benefits of a "no action" plan).  
-* `cost`: a vector of restoration costs. Typically, these are monetary costs associated with a given restoration action such as project first cost or annualized economic cost. Notably, these functions are agnostic to units, so costs could also be non-monetary such as lost political capital or social costs of each alternative.  
-* `CE`: numeric vector of 0's and 1's indicating whether a plan is cost-effective (1) or non-cost-effective (0). Can be derived from `CEfinder`.  
-
-Function returns a list with summaries of all restoration actions as well as best buy plans only.
-
-
-```{r echo=TRUE}
-BBfinder
-```
-
-
-*`CEICAplotter(altnames, benefit, cost, CE, BB, figure.name)`*
-
-Plots summary outputs of Cost-effective Incremental Cost Analysis (CEICA) in *.jpeg format.
-
-Inputs are:
-
-* `altnames`: a vector of numerics or characters as unique restoration action identifiers.  
-* `benefit`: a vector of restoration benefits. Typically, these are time-averagedecological outcomes (e.g., average annual habitat units). Often project benefits are best presented as the "lift" associated with a restoration action(i.e., the benefits of an alternative minus the benefits of a "no action" plan).  
-* `cost`: a vector of restoration costs. Typically, these are monetary costs associated with a given restoration action such as project first cost or annualized economic cost. Notably, these functions are agnostic to units, so costs could also be non-monetary such as lost political capital or social costs of each alternative.  
-* `CE`: numeric vector of 0's and 1's indicating whether a plan is cost-effective (1) or non-cost-effective (0). Can be derived from `CEfinder`.  
-* `BB`: numeric vector of 0's and 1's indicating whether a plan is a best buy (1) or not (0). Can be derived by isolating select outputs from `BBfinder`.  
-* `figure.name`: output figure file name structured as "filename.jpeg".  
-
-Function returns a multi-panel *.jpeg figure summarizing cost-effectiveness and incremental cost analysesvalue of habitat quality from 0 to 1 ignoring NA values.
-
-
-```{r echo=TRUE}
-CEICAplotter
-```
-
-
-#### *3.4. ecorest Web Application*  
-
-
-**Insert description of the Shiny app once complete. The goal of this section is to describe app construction and basic flow of logic (testing will be described below).**
-
-To increase usability of ecorest, a "point and click" web application was implemented. No R knowledge or coding for that matter is needed to run the model through the web application. However, strict adherence to formatting conventions are necessary for user inputs. All file inputs must be of comma separated values (csv) file extension.
-
-The ecorest webapp contains five main tabs each containing their own subtabs. Listed below are the tabs along with their description: 
-
-1. Home Page 
-  *   ReadMe 
-  *   Website
-  *   Reference Manual
-2. Model Selection
-  *   Choose model
-  *   Visualize model
-3. Habitat Suitability Calculator
-  *   SI Calculator
-  *   HU Calculator
-4. Cost-effective Incremental Cost Analysis
-  *   Annualizer
-  *   CEICA Plotter
-5. Download Outputs
-  *   Export Files
-
-The ecorest web app was implemented using Shiny, an R package. App construction presided in a singular file, using embedded HTML code and model code in two distinct sections, ui and server functions, respectively. The UI function contains usage of Shiny specific functions which populates the web app with an interface. The server function references elements defined in the UI code and allows for reactive changes HTML outputs using Shiny functions and model code. The web app relies on user inputs from .csv inputs and drop down menus to display model outputs. 
-
-This web app can be run locally through opening the webapp code in R Studio in conjunction with the R Shiny Package by pressing <run>. Similarly, there will be a website available for use in which any sort of IDE will not be necessary.
-
-
--Talk about website vs executable-
