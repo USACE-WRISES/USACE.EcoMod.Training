@@ -6,6 +6,8 @@
 
 ## Background
 
+THIS IS AN INTRO TO HABITAT MODELS IN GENERAL; CONSIDER WHETHER TO PARE DOWN OR REMOVE
+
 Across all business lines, the U.S. Army Corps of Engineers (USACE) engages in a large variety of decisions that affect a multitude ecological outcomes (e.g., ecosystem restoration of oyster reefs, environmental flows for imperiled fishes, and bird breeding grounds impacted by dredge material management). While numerous aquatic, riparian, and terrestrial analytical tools exist, ecological models typically have not been easily accessible or in the most usable form for field practitioners and often require significant data and modeling expertise to effectively employ. However, ecological models must be used to quantify environmental impacts and benefits throughout the project life-cycle of planning, engineering, construction, operations, and maintenance. 
 
 A common approach to ecological modeling of environmental impacts and benefits is based on quantity and quality of habitat. These "index" models (Swannack et al. 2012) were originally developed for species-specific applications (e.g., slider turtles), but the general approach has also been adapted to guilds (e.g., salmonids), communities (e.g., floodplain vegetation), and ecosystem processes (e.g., the Hydrogeomorphic Method). No standard platform for exists for computing outcomes from index models, and users often develop ad hoc spreadsheet models, which are highly prone to numerical errors (McKay 2009). The common quantity-quality structure of index models provides an opportunity to develop a consistent, error-checked index modeling calculator adaptable to a variety of applications across the Corps.
