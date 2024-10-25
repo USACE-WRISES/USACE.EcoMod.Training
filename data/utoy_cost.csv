@@ -1,0 +1,32 @@
+ReachID,SiteAction,Description,DurationMon,RipAreaFt2,ReachLengthFt,ProjectFirst,Monitoring,AdMan
+17F2M,FWOP,No action,0,0,0,0,0,0
+17F2M,Alternative1,Concrete channel removal with extensive riparian restoration,10,94150.00003464,2639.11,776047,60000,77605
+17F2M,Alternative2,Remove concrete with small scale channel restoration,9,33894.00001944,2378.15424,691092,56000,69109
+17F2M,Alternative3,Chain of wetlands,11,232812.000036,2639.11,798779,48000,79878
+17D2E,FWOP,No action,0,0,0,0,0,0
+17D2E,Alternative1,Concrete channel removal with left bank wetland,14,916856.3960028,3610.57488,1070854,48000,160628
+17D2E,Alternative2,Concrete channel removal with bankfull bench,14,804130.39627272,3610.57488,1065670,48000,106567
+17D2E,Alternative3,Stabilization with natural bed and grade control,2,664130.39616,3610.57488,276233,48000,27623
+17B,FWOP,No action,0,0,0,0,0,0
+17B,Alternative1,Channel and bank stabilization with beaver removal,12,4380716.0568204,6461.98608,1002697,48000,150405
+17B,Alternative2,Channel and bank stabilization,12,4380716.0568204,6461.98608,880983,48000,132147
+17B,Alternative3,Bank stabilization,2,4362826.056732,6461.98608,257611,48000,38642
+2A,FWOP,No action,0,0,0,0,0,0
+2A,Alternative1,Channel realignment,6,2744180.7467976003,3889,557695,48000,55770
+2A,Alternative2,Channel shaping with bankfull bench,5,2779340.7466044,3739.6656,498094,48000,74714
+2A,Alternative3,Minor instream structures,2,2674686.7467143997,3739.6656,276233,48000,55247
+2B,FWOP,No action,0,0,0,0,0,0
+2B,Alternative1,Channel realignment,4,2187947.0579868,4504.98576,394496,48000,39450
+2B,Alternative2,Channel shaping with bankfull bench,4,2146718.0576952,4504.98576,400638,48000,60096
+2B,Alternative3,Minor instream structures,2,2072843.0576568001,4504.98576,276233,48000,55247
+3E,FWOP,No action,0,0,0,0,0,0
+3E,Alternative1,Bridge replacement with extensive action,8,880397.87094072,2494.04496,1762881,48000,132216
+3E,Alternative2,Bridge replacement with minor action,14,880397.87094072,2494.04496,1679017,48000,167902
+3E,Alternative3,Bank stabilization,2,880397.87094072,2494.04496,267190,48000,40079
+3F,FWOP,No action,0,0,0,0,0,0
+3F,Alternative1,Large wood structures for 50% of reach,3,1919139.6788387997,4381.59744,276883,48000,69221
+3F,Alternative2,Large wood structures for 25% of reach,2,1919139.6788387997,4381.59744,232705,48000,58176
+3F,Alternative3,Beaver reintroduction,5,1919139.6788387997,4381.59744,121714,48000,30429
+19A,FWOP,No action,0,0,0,0,0,0
+19A,Alternative2,Floodplain bench for floodplain connectivity,6,1791745.2654551999,5026.9824,551647,48000,110329
+19A,Alternative3,Regrade segment around culvert,3,1352258.26547724,5026.9824,228693,48000,45739
