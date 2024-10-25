@@ -1,1 +1,141 @@
-# Network Models
+# Network Models and Connectivity
+
+Placeholder for edited exploration of WUCT Tool, combined from some of the materials on the WUCT Github repo  
+
+Can also consider a tutorial of Riverconn package
+https://cran.r-project.org/web/packages/riverconn/vignettes/Tutorial.html
+
+## Overview
+
+This model document describes a procedure for quantifying benefits associated with removal of organism movement barriers within a watershed (e.g., dam removal, culvert repair, fish ladder installation) or impacts of barrier addition (e.g., dam construction, weir installation). The model focuses on upstream movement of migratory organisms such as fish and is intended for application at the watershed-scale.The algorithm is based on four primary components: habitat quantity upstream of a dam, habitat quality upstream of a dam, the passability of a structure for a given organism, and the shape/topology of the watershed. This algorithm combines these data to estimate quality-weighted, accessible habitat at the watershed scale. This model documentation is intented for the U.S. Army Corps of Engineers (USACE) model certification process and details the development, technical details, and application of this adaptable modeling framework.  
+
+## Background
+
+Water resources and transportation infrastructure such as dams and culverts provide countless socio-economic benefits; however, this infrastructure can also disconnect the movement of organisms, sediment, and water through river ecosystems (Pringle 2001). Trade-offs associated with these competing costs and benefits occur globally, with applications in barrier addition (e.g., dam and road construction), reengineering (e.g., culvert repair, fish ladder installation), and removal (e.g., dam removal and aging infrastructure). Nationwide, millions of barriers inhibit the movement of aquatic organisms, and barrier removal and repair have emerged as key techniques for river restoration.  As of 2016, over 1,200 dams have been removed nationwide (Bellmore et al. 2016) as well as countless road-stream crossings repaired to facilitate movement (Januchowski-Hartley et al. 2013). 
+
+Restoration practitioners require tools for informing barrier removal, repair, and retrofit decisions. An important application is the rapid selection of efficient sites for removal, given the large number of watershed barriers (i.e., Is barrier-A or barrier-B the priority for restoration?). Another application is the computation of restoration benefits at a particular site to compare the relative effects of alternative management actions (e.g., Is a fish ladder or dam removal preferrable?). Dozens of studies globally have examined these questions with different methods and techniques (O'Hanley and Tomberlin 2005, Neeson et al. 2015, McKay et al. 2016). 
+
+This document reviews the development of a framework for prioritizing barriers or quantifying benefits of restoration actions at a watershed-scale. The purpose of this model is to assess watershed scale habitat connectivity and quality for migratory organisms to inform restoration planning. The framework is adaptable to varying project timelines, scopes, and applications. The following issues are crucial to the **scoping and application** of this framework:  
+
+* The focus is on migratory organisms moving upstream through a watershed (e.g., salmon seeking access to breeding habitat). Downstream movement is not considered to be limiting in this model framework and is neglected, although it can be an important limiting factor for some species.  
+* The framework focuses on quantifying the accessibility of habitat to a focal taxa, and habitat quantity and quality can be incorporated through multiple methods.  
+* Overall, this modeling approach may be used to rapidly screen barriers for site selection or quantify benefits of alternative restoration actions at a site scale. For simplicity, this document will refer to these methods as "barrier prioritization techniques".  
+* The framework can be used in the context of benefits of barrier removal for desired taxa or impacts of barrier removal relative to invasive species. In either case, watershed connectivity may be assessed following this procedure, but the interpretation of results may be different. For instance, a user may chose to maximize connectivity for desirable species while minimizing connectivity for invasive species.  
+* Many barrier prioritization studies address multiple taxa in development of watershed priorities. The framework could be applied to multiple taxa separately (i.e., developing connectivity estimates for each taxa), and then an overall assessment of could be obtained using a combined metric (e.g., sum or average of connected habitat for all species).
+
+Given these scoping factors, the model will be referred to as the Watershed-Scale Upstream Connectivity Toolkit (WUCT).  This document intends to record the WUCT framework's technical details, use, and relevant information for the purpose of the USACE planning model certification requirement (EC 1105-2-412, PB 2013-02). Regional certification is requested, and a procedure is recommended for tailoring the framework for local applications.
+
+## Application: Bronx River
+
+This model application examines fish passage prioritization for the Hudson-Raritan Estuary (HRE) project led by the USACE New York District (NAN). Specifically, this application quantifies fish passage benefits associated with two sites in the Bronx River watershed, which were proposed in the 2017 Draft Feasibility Report (USACE 2017) and supported by the Comprehensive Restoration Plan (USACE 2016). Fish passage outputs are quantified in terms of "accessible habitat" using the Watershed-Scale Upstream Connectivity Toolkit (WUCT) with river herring as the focal taxa. 
+
+Three dams are of interest in the Bronx River system moving from downstream to upstream. First, the East 182nd Street Dam is the first barrier encountered, where a fish ladder (Alaskan Steep pass) has been constructed by partners including NYC Parks, the Bronx Borough, the Wildlife Conservation Society, the National Oceanic and Atmospheric Administration, the US Fish and Wildlife Service, New York State, and the National Fish and Wildlife Foundation (Lumbian and Larson 2015). Second, the Bronx Zoo Dam is the next structure, where USACE has proposed three restoration alternatives as part of this feasibility study (all including a fish ladder). Third, the Stone Mill Dam (aka. Snuff Mill Dam) is the next structure, where USACE has proposed three restoration alternatives as part of this feasibility study (one with a fish ladder + attractors, one with a fish ladder, and one without a fish ladder). A significant amount of habitat is accessible above the Stone Mill Dam, when considering both main steam and tributary habitats. The Bronx River has been shown to support river herring populations, where accessibility is not limiting (Larson and Sugar 2004), and the 182nd St Dam fish ladder has subsequently demonstrated that river herring will utilize technical fishways in this region.
+
+The WUCT requires three general types of inputs, and the HRE parameterization is as follows (also shown in Table 3):  
+
+* *Habitat Quantity* - For each barrier, an area of upstream habitat opened is used as the primary basis for habitat quantity. First, the length of upstream habitat was computed (i.e., the distance between the dam and the next upstream barrier) and included all tributary habitats that would be newly accessible. River width was estimated from aerial photos in Google Earth as the smallest observable width upstream of the structure (i.e., an extremely conservative estimate). To create an area-based metric , the length of river is multiplied by width.  
+* *Habitat Quality* - Habitat quality was predicted based on a watershed-scale, geospatial analysis of all upstream habitat as presented in McKay et al. (2017). The model included three metrics accounting for land use development pressure, water quality, and the proportion of the basin in conservation status.   
+* *Passability* - Local studies of fish passage rates (i.e., passability) are unavailable in the Bronx River. As such, passability was estimated based on studies elsewhere on the efficacy of technical fishways in general and for river herring specifically. Prior to restoration actions, all structures are assumed to have zero passage of river herring. Alewife studies in New England (Franklin et al. 2012) report high overall passage rates of 64-99% passage in the East River, Massachusetts with particularly high rates for technical steep passes of 94-97%.  These values are in line with a meta-analysis of 65 published fish passage studies (Noonan et al. 2011), which indicated that fish passage efforts typically result in 42% fish passage on average across a variety of taxa. Based on the Massachusetts data, we used 80% passability for all fish ladders as a conservative estimate of passage efficiency. The 182nd Street Dam and Ladder were included in all analyses as part of the future without prokect condition. At Stone Mill Dam, Alternative-A includes fish attractors to increase utilization of the ladder, which were assumed to increase passability by 10% (i.e., to 88% total).
+
+The following script imports data, isolates the necessary input data, computes all permutations of restoration actions, and computes connectivity for each watershed-scale restoration plan. Table 4 presents the output of the WUCT in this application. The connectivity values represent a connectivity- and quality-weighted assessment of total habitat at the watershed scale. 
+
+EVAL FALSE FOR NOW
+
+```{r}
+#Dummy example - Import data
+barrieralts <- read.csv("data/WUCT_HREData_2018-07-18_BarrierAlts.csv", header=TRUE, dec=".")
+A <- data.matrix(read.csv("data/WUCT_HREData_2018-07-18_Adjacency.csv", header=FALSE, dec="."))
+
+##########
+#Send input data from the example problem as a table
+knitr::kable(barrieralts, caption="Table 3. Input data for the WUCT to the Bronx River as described in the text. Each node specifies the existing condition (shown as Alt=0), and multiple restoration alternatives are also be specified for each node (shown as Alt>0).")
+```
+
+Create `connectivity` function. Perhaps this can be loaded.
+
+```{r, echo = FALSE}
+connectivity <- function(n,A,pass,hab){
+  #Combine network morphology, passage rates, and dam configuration into a "passage matrix"
+  #
+  #Args: 
+  #   Variables are defined as follows:
+  #   n: numeric; number of nodes in the watershed
+  #   A: matrix; adjacency matrix summarizing watershed topology
+  #   pass: numeric; vector of passage rates at each node
+  #   hab: numeric; vector of habitat directly above each node (including quantity and quality)
+  #
+  #Returns:
+  #   numeric; total accessible habitat score
+  
+  #Create an empty upstream passage matrix
+  Ptemp <- matrix(0,nrow=n,ncol=n)
+  
+  #Populate passage rates throughout the network (passage matrix)
+  for(i in 1:n){
+    Ptemp[i,] <- A[i,] * t(pass)
+  }	
+  
+  #Compute the cumulative passage rate to the node
+  Con <- solve(diag(n) - Ptemp)
+  
+  #Compute the cumulative passage rate beyond the node
+  cpass <- Con[,1] * pass
+  
+  #Incorporate habitat quantity and quality into the metric
+  habtot <- sum(cpass * hab)
+  
+  #Return the final output list (total accesible habitat)
+  habtot
+}
+
+```
+
+```{r}
+#Isolate properties of the alternatives at each barrier
+bnames <- paste(unique(barrieralts$BarrierID))
+nbar <- length(bnames)
+
+##########
+#Compute the number of alternatives at each barrier
+nalts <- c()
+for(i in 1:nbar){nalts[i] <- length(which(barrieralts$BarrierID == bnames[i]))}
+nalts.total <- prod(nalts) #Compute the total number of combinations of actions
+
+##########
+#Create a list which stores all alternatives at each site
+  #This list stores the row number of each alternative from "barrieralts".
+site.alts <- list() #Create an empty list to store the combinations of sites/alts
+for(i in 1:nbar){site.alts[i] <- list(which(barrieralts$BarrierID == bnames[i]))}
+
+#Compute all combinations of alternatives and sites
+  #This returns a data frame where each columns is a site or barrier and each row is a unique plan with a combination of sites and alternatives.
+sitealts.combos <- expand.grid(site.alts)
+
+#Convert this data frame to a matrix 
+sitealts.combos <- data.matrix(sitealts.combos)
+
+##########
+#Compute connectivity for each plan
+WC.out <- c() #Empty vector to store watershed connectivity for each plan
+for(i in 1:nalts.total){
+  #Isolate the passability and habitat values to be used
+  pass.temp <- barrieralts$Passability[sitealts.combos[i,]]
+  hab.temp <- barrieralts$QualityUpstream[sitealts.combos[i,]] * barrieralts$QuantityUpstream[sitealts.combos[i,]]
+  
+  #Compute connectivity and store result
+  WC.out[i] <- connectivity(nbar,A,pass.temp,hab.temp)
+}
+
+##########
+#Send output from the example problem as a table
+WC.HRE <- matrix(NA, nrow=nalts.total,ncol=nbar+2)
+for(i in 1:nalts.total){WC.HRE[i,] <- c(i,barrieralts$Alt[sitealts.combos[i,]],WC.out[i])}
+colnames(WC.HRE) <- c("Plan",bnames,"Connectivity")
+knitr::kable(WC.HRE, caption="Table 4. Alternatives analysis using the WUCT in the Bronx River Watershed. Competing restoration alternatives are shown as rows, and the alternative used in the plan is denoted by the number shown.")
+
+```
+
+
+
+
+
