@@ -1,0 +1,210 @@
+# Cost-Effectiveness and Incremental Cost Analysis (CEICA) with `ecorest` 
+
+***
+
+**This module will teach you how to use the `ecorest` package in `R` to efficiently and reproducibly carry out Cost Effectivness and Incremental Cost Analysis (CEICA) and generate useful output like this in just a few lines of code:**
+
+![*Output from HSI modeling for the Delta Islands and Levees Feasibility Study (adapted). Users will learn to generate identical values using the ecorest package*](images/CEICAexample.jpeg){width=100%}
+  
+***
+  
+## Background on Cost Effectivness and Incremental Cost Analysis
+
+PARE THIS SECTION DOWN
+
+The USACE ecosystem restoration mission was first authorized in the Water Resources Development Act of 1986 with the stated purpose “…to restore significant structure, function and dynamic processes that have been degraded” (USACE 1999, ER 1165-2-501). Given this goal, USACE programs emphasize ecological outcomes (as opposed to social or economic outcomes). Generally, ecological resources may be quantified in a variety of ways ranging from habitat suitability for a focal taxa (e.g., an endangered species) to changes in physical processes (e.g., sediment delivery from geomorphic change) to changes in biological processes (e.g., carbon uptake and storage). In other USACE business lines (e.g., navigation), costs and benefits of actions are compared in monetary terms, and the benefit-cost ratio serves as a crucial decision metric. However, outputs of restoration are typically not monetized, and a different set of methods are required to inform restoration decision-making and address the issue of “Is ecosystem restoration worth the Federal investment?” In particular, cost-effectiveness and incremental cost analyses provide techniques for comparing non-monetary ecological benefits relative to monetary costs of restoration actions (Robinson et al. 1995).
+
+Cost-effectiveness and incremental cost analyses (CEICA) are analytical tools for assessing the relative benefits and costs of ecosystem restoration actions and informing decisions. Benefits and costs are assessed prior to these analyses using ecological models (e.g., index models) and cost engineering methods, respectively. CEICA may then be conducted at the site scale to compare alternatives at a single location (e.g., no action vs. dam removal vs. fish ladder) or at the system scale to compare relative merits of multiple sites (e.g., no sites vs. Site-A only vs. Site-B only vs. Site-A and Site-B). Within the USACE, the Institute of Water Resources has provided a toolkit for conducting CEICA, the IWR Planning Suite (http://www.iwr.usace.army.mil/Missions/Economics/IWR-Planning-Suite/).
+
+Cost-effectiveness analysis provides a mechanism for examining the efficiency of alternative actions. For any given level of investment, the agency wants to identify the plan with the most return-on-investment (i.e., the most environmental benefits), and for any given level of environmental benefits, the agency wants a plan with the least cost. An “efficiency frontier” identifies all plans that efficiently provide benefits on a per cost basis (i.e., cost-effective plans). These "non-dominated" alternatives compose the Pareto-optimal frontier.
+
+Incremental cost analysis is conducted on the set of cost-effective plans. This technique sequentially compares each plan to all higher cost plans to reveal changes in unit cost as output levels increase and eliminates plans that do not efficiently provide benefits on a per unit cost basis. Specifically, this analysis examines the slope of the cost-effectiveness frontier to isolate how the incremental unit cost ($/unit) increases as the magnitude of environmental benefit increases. Incremental cost analysis is ultimately intended to inform decision-makers about the consequences of increasing unit cost when increasing benefits (i.e., each unit becomes more expensive). Plans emerging from incremental cost analysis efficiently accomplish the objective relative to unit costs and are typically referred to as “best buys”. Importantly, all “best buys” are cost-effective, but all cost-effective plans are not best buys.
+
+To demonstrate CEICA analysis, we will use an example from the Beaver Island HREP project. PROVIDE MORE BACKGROUND HERE
+
+Read in cost and benefit data:
+```{r, warning = FALSE, message = FALSE}
+library(tidyverse)
+library(ecorest)
+
+# Most basic with Beaver Island
+df <- read_csv("data/beaver_island_cost_ben.csv")
+
+knitr::kable(df, padding = 2)
+```
+
+## CEICA with `ecorest` in 4 easy steps!
+
+Section X.X of this tutorial walks through how CEICA works step-by-step to develop a deeper understanding of what this analysis actually does. But first, we will demonstrate how easy the process is using functions from the `ecorest` package. The following code does everything one needs to determine which alternatives are cost effective and which are 'best buys', and to plot the results.
+
+First, we determine which project alternatives are cost effective using the `CEfinder` function.
+The inputs consist of 2 vectors: 1) Project benefits; 2) Project annualized costs
+
+```{r}
+restCE <- CEfinder(df$RestBen, df$AnnCost)
+restCE
+```
+
+The output here is a vector of 1s and 0s, with 1s being cost effective options.
+
+Next, we determine which of the cost effective alternatives are 'best buys' using the `BBfinder` function
+The inputs are again vectors of benefits and costs, as well as the vector of cost effectiveness scores that we've just calculated.
+
+```{r}
+BB <- BBfinder(df$RestBen, df$AnnCost, restCE)
+BB
+```
+
+The output of the BB function is a list comprised of two dataframes. The first data frame has columns for restoration benefits, costs, and whether alternatives are cost effectiveness and best buys.
+
+The second dataframe features the cost, benefit, and incremental costs per benefit of each best buy compared to the previous best buy. For example, the third best buy costs *`r 836488 - 518462`* more than the second best buy, and yields additional benefits of *`r 224.2 - 179.2`* habitat units. By dividing these incremental costs and benefits, we can see that the per-unit incremental cost of best buy three is `r round((836488 - 518462)/(224.2 - 179.2), 2)`
+
+Now that we've determined the cost effective and best buy options we can create a table of the output. *Note*: because the BB object is a list of two dataframes, we need to extract just the column of 1s and 0s indicating "best buy" status. To do so, we use the code `BB[[1]][,4]`, which pulls the first dataframe in the list (i.e., `[[1]]`), and then the fourth column of that dataframe (i.e., `[,4]`). See [here](https://rpubs.com/tomhopper/brackets) for more information about subsetting with brackets.
+
+```{r}
+#Create a table of the results
+df %>% 
+  select(AltID, RestBen, AnnCost, AvgCost) %>%
+  mutate(CE = restCE,
+         BB = BB[[1]][,4]) %>%
+  knitr::kable(padding = 2)
+
+```
+
+Finally, we can use the `CEICAplotter` function to create plots depicting the results of the cost effectiveness analysis, and the incremental cost analysis. The 5 required inputs for this function are the project alternative names, benefits, annualized costs, cost effectiveness score, best buy score, and a file name for the plot.
+```{r}
+# Create a plot of CEICA results
+CEICAplotter(df$AltID, df$RestBen, df$AnnCost, restCE, BB[[1]][,4], "images/CEICAexample1.jpeg")
+
+```
+
+![*Output from CEICA analysis*](images/CEICAexample1.jpeg){width=100%}
+
+## CEICA in-depth
+We've seen that CEICA can be accomplished very quickly with the above code. However, if a user wishes to understanding how projects are determined to be cost effective or best buys, we go into greater depth below.
+
+The first component of CEICA is the cost effectiveness analysis.
+
+Here, for each alternative, we ask: *are there any alternatives that produce higher ecological outcomes for equal or lower costs?*
+If the answer is yes, that alternative is considered non-cost effective.
+
+Non-cost effectiveness can be though of in two ways:
+*Inefficient in Production*: any alternative where the same output level can be generated at a lesser cost by another alternative
+
+*Ineffective in Production*: any alternative where a greater output level can be generated at a lesser or equal cost by another alternative
+
+Let's look more closely at the cost/benefit data above:
+```{r}
+df %>% select(AltID, AnnCost, RestBen) %>% knitr::kable()
+
+```
+
+The first alternative, with a cost of $0, will be considered cost effective, because there are not any projects of lesser or equal cost. So let's look at the second option to see if it's cost effective. To do so, we will first see which alternatives have greater benefits 
+```{r}
+# Vectors defined to make calculations easier
+benefit <- df$RestBen
+cost <- df$AnnCost
+
+#Find which projects have greater than or equal benefits than the second project's benefits
+greater_bens <- which(benefit >= benefit[2])
+greater_bens
+```
+This shows the position in the benefit vector of all the projects with greater values.
+
+Now, we're looking to see if there are any projects with equal or greater benefits but for lower costs.
+
+```{r}
+which(cost[greater_bens] <= cost[2])
+```
+A value of 1 indicates that no alternatives other than itself has that level of benefits for that low of a cost.
+
+Let's look at a different alternative: Alternatuve E2L1, which is the sixth alternative:
+
+```{r}
+greater_bens <- which(benefit >= benefit[6])
+greater_bens
+
+which(cost[greater_bens] <= cost[6])
+
+```
+
+This suggests that another alternative with a greater or equal level of benefits costs less than E2L1. The index value of 3 (compared to the index value of 1 for E2L1), suggests that it's two projects after E2L1 in the project list: E2L2, which has a lower cost but higher benefit. Therefore, E2L1 will not be considered cost effective.
+
+To iterate through each project and do what we've just done, we can use a for loop, as the following code indicates
+
+```{r}
+# Set up empty vector to store whether each alternative is cost effective
+CE <- c()
+
+# Iterate through each project to see if another project renders that one cost ineffective
+# An ifelse statement assigns a value of 1 to projects that are cost effective, and 0 to ones that are not
+for (i in 1:length(benefit)) {
+        bigben <- which(benefit >= benefit[i])
+        CE[i] <- ifelse(length(which(cost[bigben] <= cost[i])) == 
+            1, 1, 0)
+    }
+
+cbind(df$AltID, CE)
+```
+This lets us quickly see which alternatives are cost-effective and which are not.
+
+## Identifying 'best buys'
+Identifying best buys is a matter of finding which of the cost effective alternatives can increase environmental benefits at the lowest incremental cost (i.e., lowest cost per additional habitat unit).
+
+The first best buy is always the one with the lowest average cost after 0. 
+
+NEED TO ANNOTATE BELOW MORE
+
+```{r}
+# We can start again with our vectors of benefits, and costs, but we also now have a vector of cost effectiveness  
+
+#First we filter to just cost effective benefits and costs
+ben.CE <- benefit[which(CE == 1)]
+cost.CE <- cost[which(CE == 1)]
+
+# Reorder benefits and costs from lowest to greatest cost
+ben.CE2 <- ben.CE[order(cost.CE)] 
+cost.CE2 <- cost.CE[order(cost.CE)]
+
+#All costs and benefits are greater, so we can look at the incremental costs of all others options to find the best_buy
+inccost <- (cost.CE[-1] - cost.CE2[1])/(ben.CE2[-1] - ben.CE2[1])
+            
+inccost
+
+which(inccost == min(inccost)) + 1
+
+#This indicates that the fifth alternative is the second best-buy after zero
+
+# To look for the next best buy, we want to just look at projects after the fifth project
+ce.bentemp <- ben.CE2[-1:-5] # Selects all the project benefits with greater benefits than the current best buy
+ce.costtemp <- cost.CE2[-1:-5] # All the project costs with greater costs than current best buy
+inccost <- (ce.costtemp - cost.CE2[5])/(ce.bentemp - ben.CE2[5]) # calculate avg. costs from each costlier option compared to the current best buy
+
+inccost  
+          
+which(inccost == min(inccost)) + 5
+```
+This indicates that the 9th option (among the cost effective options) is the next best one
+
+The user could iterate "by hand" through all the options. But when iterations are required, this is often a great time to use for-loops. The following code accomplishes this. Most of this code is nearly identical to what we've already run. The main difference is the use of the `BB` object to store which alternatives are best buys and to be sure that for each iteration, the new set of alternatives to consider are exclusively the subsequent iterations.
+
+
+NEED TO FIX THIS
+```{r, eval = FALSE}
+BB <- c(1)
+nCE <- length(CE)
+
+for (i in 1:nCE) {
+        ce.bentemp <- ben.CE2[-1:-BB[i]] # Selects all the project benefits with greater benefits than the current best buy
+        ce.costtemp <- cost.CE2[-1:-BB[i]] # All the project costs with greater costs than current best buy
+        inccost <- (ce.costtemp - cost.CE2[BB[i]])/(ce.bentemp - # calculate incremental costs from each subsequent option compared to the current best buy
+            ben.CE2[BB[i]])
+        BB[i + 1] <- which(inccost == min(inccost)) + BB[i] # Of all the incremental costs above this best_buy, which has the lowest?
+        if (BB[i + 1] >= nCE) {
+            break
+        }
+    }
+
+BB
+```    
+This indicates that the best buys are in positions 1, 5, 9, 12, and 16 of the cost effective vector. To see which projects those are we can run the following code. This first subsets the Project ID column to just alternatives that are cost effective, and then of those options, finds the alt ID's in the positions stored in the BB option (e.g., the first, fifth, ninth, etc. IDs).
