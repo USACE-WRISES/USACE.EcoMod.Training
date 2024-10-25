@@ -1,1 +1,4 @@
 # Spatial Habitat Models
+
+Consider exploring "Geospatial suitability indices (GSI) toolbox : user's guide"
+https://erdc-library.erdc.dren.mil/items/7e880360-d004-4601-9a42-eddd64233e34
