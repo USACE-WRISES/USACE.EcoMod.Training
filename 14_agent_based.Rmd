@@ -1,1 +1,5 @@
 # Agent-based Models
+
+Consider exploring the abmR package to conduct agent-based models in R
+
+https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.14014
