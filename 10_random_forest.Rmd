@@ -1,3 +1,11 @@
 # (PART) Machine Learning {-} 
 
 # Random Forest
+
+Adapted from this Carpentries workshop
+https://carpentries-incubator.github.io/r-ml-tabular-data/
+
+Random forest portion here:
+https://carpentries-incubator.github.io/r-ml-tabular-data/04-Decision-Forests/index.html
+
+
