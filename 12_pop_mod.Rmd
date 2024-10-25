@@ -1,1 +1,34 @@
 # Population Modeling
+
+
+
+### Occupancy models in R with unmarked: James Paterson
+
+Intro to occupancy models
+https://jamesepaterson.github.io/jamespatersonblog/2020-09-01_occupancyintroduction.html
+
+Part 2: Comparing Occ. Models
+https://jamesepaterson.weebly.com/blog/occupancy-models-in-r-part-2-model-comparisons
+
+Dynamic occupancy modeling:
+https://jamesepaterson.github.io/jamespatersonblog/2021-01-01_dynamicoccupancy.html
+
+See here for other mark recapture models (e.g., JS, CJS):
+https://jamesepaterson.weebly.com/blog
+
+## Course outline
+
+* Population modeling
+  + Background on population modeling, drawing from:
+    - Primer of Ecology using R (https://hankstevens.github.io/Primer-of-Ecology/expo.html)
+    - Modeling Population Growth module from UNL (https://dshizuka.github.io/RCourse/09.2.PopGrowth.html)
+  + Density independent growth
+  + Density-independent demography
+  + Density dependent growth
+  + Populations in space
+  + Use simple analyses in Wenger et al. (https://onlinelibrary.wiley.com/doi/pdfdirect/10.1002/ece3.9339) to demonstrate relating poulations to environmental covariates
+
+
+
+
+
