@@ -1,5 +1,7 @@
 # Ecorest Web App
 
+THIS IS NOT STRICTLY USING R SO WE COULD KEEP OR REMOVE
+
 ## **Purpose**
 This user guide provides general information on Habitat Suitability Index modeling and  Cost-Effective Incremental Cost Analysis, and a step-by-step guidance on how to use the *ecorest webapp*.
 
