@@ -1,1 +1,7 @@
 # Boosted Regression Trees
+
+Adapted from this Carpentries workshop
+https://carpentries-incubator.github.io/r-ml-tabular-data/
+
+Boosted trees portion here
+https://carpentries-incubator.github.io/r-ml-tabular-data/05-Gradient-Boosting/index.html
