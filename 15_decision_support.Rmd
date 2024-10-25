@@ -2,4 +2,4 @@
 
 # Decision Support
 
-Using ecological model output in restoration decisions
+Using ecological model output in restoration decisions.
