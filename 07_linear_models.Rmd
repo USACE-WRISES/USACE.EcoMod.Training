@@ -1,3 +1,52 @@
 # (PART) Linear Models {-} 
 
 # Simple Linear Models
+
+Quebec Center for biodiversity science
+Linear model workshop
+https://r.qcbs.ca/workshop04/book-en/index.html
+Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+
+Model assumptions
+https://janhove.github.io/posts/2019-04-11-assumptions-relevance/
+
+## Learning Objectives: 
+* Learn the purpose and structure of a linear model
+* Learn how to run a linear model in R
+* Learn how to understand the output of a linear model
+* Learn how to interpret linear model validity
+
+## Lecture:
+* Purpose of using linear models in the context of USACE
+  + Linear models determine the relationship between variables
+  + Linear models can e.g., examine how habitat characteristics correlate with organism presence/abundance or other ecosystem components, key to restoration
+* Components/equation of a linear model
+  + Response variable
+  + Predictor variables
+    - Continuos predictors
+    - Categorical predictors
+    - Error:Graphical illustration of residuals and underscore their importance for allude to importance for assessing validity of lm() approach
+* Linear model output
+  + Intercepts
+  + Slopes
+  + Amount of variance explained
+* Predicting values
+* Important assumptions of linear models (Gelman & Hill)
+  + How to think about these assumptions: less as mathematical rules, more as things that, when violated, may make the inferences less relevant 
+  + Validity: the data should map to the research question
+  + Additivity and linearity: deterministic component is a linear function of the separate predictors
+  + Independence of errors: residuals not autocorrelated
+  + Equal variance of errors
+  + Normality of errors
+
+![*Graphical depiction of linear modeling assumptions from Jan Vanhove*](images/residuals_janhove.png){width=100%}
+
+## Coding mechanics and application
+* Use lm() for linear regression with subset of Upper Miss. data
+* Assess model assumptions using gglm package to make diagnostic plots
+  + Residuals vs. fitted for linear relationship
+  + Normal Q-Q for normal distribution of residuals
+  + Scale-location for equal variance of errors
+  + Residuals vs. leverage for influential points
+* Interpret model output
+
