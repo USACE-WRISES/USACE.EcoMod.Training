@@ -1,3 +1,11 @@
 # Required set-up for the course {-}
 
+The user will need to install several `R` packages to carry out the modules. This can be accomplished with the following code:
 
+```{r, eval = FALSE}
+install.packages(c("tidyverse",
+                 "ratdat",
+                 "ecorest",
+                 "EngrEcon",
+                 "knitr"))
+```
