@@ -1,1 +1,9 @@
 # Generalized Linear Models
+
+Quebec Center for biodiversity science
+Generalized linear model workshop
+https://r.qcbs.ca/workshop06/book-en/
+Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+
+Logistic regression
+Poisson (and negative binomial regression?)
