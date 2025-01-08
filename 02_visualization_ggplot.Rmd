@@ -1,5 +1,12 @@
 # Data Visualization with ggplot2
 
+***
+
+**This module will teach you how to use the `ggplot` package in `R` to efficiently generate customizable and complex plots like this:**
+
+![*Output from HSI modeling for the Delta Islands and Levees Feasibility Study (adapted). Users will learn to generate identical values using the ecorest package*](images/rodent_size_plots.jpg){width=100%}
+  
+***
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
@@ -26,22 +33,22 @@
 knitr::opts_chunk$set(dpi = 200, out.height = 600, out.width = 600, R.options = list(max.print = 100))
 ```
 
-We are going to be using **functions** from the **`ggplot2`** package to create visualizations of data. Functions are predefined bits of code that automate more complicated actions. R itself has many built-in functions, but we can access many more by loading other **packages** of functions and data into R.
+We are going to be using **functions** from the **`ggplot2`** package to visualize data. Functions are predefined bits of code that automate more complicated actions. R itself has many built-in functions, but we can access many more by loading other **packages** of functions and data into R.
 
 If you don't have a blank, untitled script open yet, go ahead and open one with <kbd>Shift+Cmd+N</kbd> (Mac) or <kbd>Shift+Ctrl+N</kbd> (Windows). Then save the file to your `scripts/` folder, and title it `workshop_code.R`.
 
-Earlier, you had to **install** the `ggplot2` package by running `install.packages("ggplot2")`. That installed the package onto your computer so that R can access it. In order to use it in our current session, we have to **load** the package using the `library()` function.
+Earlier, you had to **install** the `tidyverse` series of packages, which includes the `ggplot2` package by running `install.packages("tidyverse")`. That installed the package onto your computer so that R can access it. In order to use it in our current session, we have to **load** the package using the `library()` function.
 
 ::::::::::::::::::::::::::::: callout
 
-If you do not have `ggplot2` installed, you can run `install.packages("ggplot2")` in the **console**. 
+If you do not have `ggplot2` installed, you can run `install.packages("tidyverse")` in the **console**. 
 
 It is a good practice not to put `install.packages()` into a script. This is because every time you run that whole script, the package will be reinstalled, which is typically unnecessary. You want to install the package to your computer once, and then load it with `library()` in each script where you need to use it.
 
 :::::::::::::::::::::::::::::::::::::
 
 ```{r load-tidyverse-package1, message=FALSE}
-library(ggplot2)
+library(tidyverse)
 ```
 
 Later we will learn how to read data from external files into R, but for now we are going to use a clean and ready-to-use dataset that is provided by the **`ratdat`** data package. To make our dataset available, we need to load this package too.
@@ -52,7 +59,7 @@ library(ratdat)
 
 The `ratdat` package contains data from the [Portal Project](https://github.com/weecology/PortalData), which is a long-term dataset from Portal, Arizona, in the Chihuahuan desert. 
 
-We will be using a dataset called `complete_old`, which contains older years of survey data. Let's try to learn a little bit about the data. We can use a `?` in front of the name of the dataset, which will bring up the help page for the data.
+We will be using a dataset called `complete_old`, which contains older years of mammal survey data. Let's try to learn a little bit about the data. We can use a `?` in front of the name of the dataset, which will bring up the help page for the data.
 
 ```{r data-help}
 ?complete_old
@@ -78,13 +85,7 @@ str(complete_old)
 
 ## Plotting with **`ggplot2`**
 
-:::::::::::::::::::::::::::::::::::::::::::: instructor
-
-Probably worth mentioning that people often just say **ggplot** when referring to the package `ggplot2`.
-
-::::::::::::::::::::::::::::::::::::::::::::
-
-**`ggplot2`** is a powerful package that allows you to create complex plots from tabular data (data in a table format with rows and columns). The **`gg`** in **`ggplot2`** stands for "grammar of graphics", and the package uses consistent vocabulary to create plots of widely varying types. Therefore, we only need small changes to our code if the underlying data changes or we decide to make a box plot instead of a scatter plot. This approach helps you create publication-quality plots with minimal adjusting and tweaking.
+**`ggplot2`** is a powerful package that allows you to create complex plots from tabular data (data in a table format with rows and columns). The package uses consistent vocabulary to create plots of widely varying types. Therefore, we only need small changes to our code if the underlying data changes or we decide to make a box plot instead of a scatter plot. This approach helps you create publication-quality plots with minimal adjusting and tweaking.
 
 **`ggplot2`** is part of the **`tidyverse`** series of packages, which tend to like data in the "long" or "tidy" format, which means each column represents a single variable, and each row represents a single observation. Well-structured data will save you lots of time making figures with **`ggplot2`**. For now, we will use data that are already in this format. We start learning R by using **`ggplot2`** because it relies on concepts that we will need when we talk about data transformation in the next lessons.
 
@@ -565,12 +566,34 @@ finalplot <- myplot +
        y = "Hindfoot length (mm)",
        color = "Plot type") +
   facet_wrap(vars(sex), ncol = 1)
+
+
+
+complete_old %>%
+filter(sex %in% c("M", "F")) %>%
+mutate(sex = case_when(sex == "M" ~ "Male", TRUE ~ "Female")) %>%
+ggplot(mapping = aes(x = plot_type, y = hindfoot_length)) +
+  geom_jitter(aes(color = plot_type), alpha = 0.2) +
+  geom_boxplot(outlier.shape = NA, fill = NA) +
+  theme_bw() +
+  theme(axis.title = element_text(size = 14), 
+        legend.position = "none", 
+        panel.grid.major.x = element_blank()) +
+  labs(title = "Rodent size by plot type",
+       x = "Plot type",
+       y = "Hindfoot length (mm)",
+       color = "Plot type") +
+  facet_wrap(vars(sex), ncol = 1)
+
+
+
+
 ```
 
 After this, we can run `ggsave()` to save our plot. The first argument we give is the path to the file we want to save, including the correct file extension. This code will make an image called `rodent_size_plots.jpg` in the `images/` folder of our current project. We are making a `.jpg`, but you can save `.pdf`, `.tiff`, and other file formats. Next, we tell it the name of the plot object we want to save. We can also specify things like the width and height of the plot in inches.
 
 ```{r save-plot, eval=FALSE}
-ggsave(filename = "images/rodent_size_plots.jpg", plot = finalplot,
+ggsave(filename = "images/rodent_size_plots.jpg",
        height = 6, width = 8)
 ```
 
