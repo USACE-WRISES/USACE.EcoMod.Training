@@ -1,0 +1,7 @@
+# (PART) Other R uses {-} 
+
+# Spatial Data Manipulation
+
+Use this info here:
+https://rspatial.org/index.html
+
