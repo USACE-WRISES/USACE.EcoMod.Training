@@ -6,7 +6,7 @@
 
 ![*Output from HSI modeling for the Delta Islands and Levees Feasibility Study (adapted). Users will learn to generate identical values using the ecorest package*](images/hep_output_mod.png){width=100%}
   
-  ***
+***
   
 ## Background on HSI modeling with `ecorest`
 
