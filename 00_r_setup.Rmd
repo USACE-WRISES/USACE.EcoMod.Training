@@ -8,22 +8,18 @@ output:
   bookdown::bs4_book: default
 ---
 
-
 # Required set-up for the course {-}
-
-From Data carpentry setup:
 
 ## Preparations
 
-These lessons are hands-on, so to follow along,
-learners must have R and RStudio installed on their computers. They also need
+These modules are designed so that learners will carry out the computing as they follow the material. Consequently, learners must have R and RStudio installed on their computers. They also need
 to be able to install a number of R packages, create directories, and download
 files.
 
 To avoid troubleshooting during the lesson, learners should follow the
 instructions below to download and install everything beforehand.
 
-User's with ACE-IT machines may need assistance from their IT departments to download R and R Studio and to install packages.
+User's with ACE-IT machines may need assistance from their IT departments to download R and R Studio and to install packages. Therefore, give yourself ample time to get set-up with R and R Studio before any potential training sessions.
 
 ### Install R and RStudio
 
