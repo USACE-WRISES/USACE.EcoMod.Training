@@ -19,10 +19,10 @@ Ecological modeling within USACE is primarily a spreadsheet-based activity featu
 * Modeling experience: Those considering themselves “modelers” on projects, with some familiarity with ecological modeling, or wanting to expand their modeling toolbox. Those open to learning how to use code.
 * Career trajectory: USACE biologists and geospatial analysts; this course may also benefit ecological/environmental engineers.
 * Institutional context: USACE team members; partners working closely with USACE.
-* Pre-requisites: Some familiarity with ecological models and how they are used in USACE. Experience with numerical modeling, coding, and data analysis may be useful but not required.
+* Pre-requisites: None! Some familiarity with ecological models and how they are used in USACE may be useful. Similarly, experience with numerical modeling, coding, and data analysis may also help but is not required.
 
 ## Learning objectives {-}
-* Become familiar with R coding basics, the RStudio environment, and the benefits of using these tools for conducting analyses.
+* Become familiar with R coding basics, the RStudio environment, and the benefits of using R for conducting analyses.
 * Learn some important building blocks of data “wrangling” and visualization in R.
 * Learn key methods for seeking help with R coding problems.
 * Increase familiarity with existing habitat modeling tools.
@@ -42,7 +42,6 @@ Asynchronous, self-directed video modules loaded to Youtube, accompanied by writ
 ## Additional resources to be provided by instructors {-}
 * Potential zoom “office hours” to assist trainees with coding and data troubleshooting
 * Links to vetted resources for working with R, RStudio, and ecological models
-
 
 ## Course subject matter {-}
 
