@@ -1,6 +1,6 @@
 # (PART) Habitat Models {-} 
 
-## Background on habitat models in USACE
+# Background on habitat models in USACE
 
 THIS IS AN INTRO TO HABITAT MODELS IN GENERAL; CONSIDER WHETHER TO PARE DOWN OR REMOVE
 
