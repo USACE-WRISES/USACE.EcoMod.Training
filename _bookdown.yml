@@ -1,0 +1,24 @@
+book_filename: "usace_R_training.Rmd"
+
+rmd_files: [
+"index.Rmd",
+"00_r_setup.Rmd", 
+"01_intro_r_rstudio.Rmd", 
+"02_visualization_ggplot.Rmd", 
+"03_data_basics.Rmd", 
+"04_data_wrangling.Rmd", 
+"20_conceptual_ecol_models.Rmd",
+"05_hab_model_intro.Rmd",
+"05b_ecorest_web.Rmd", 
+"05c_HSI_models_ecorest.Rmd", 
+"06_spatial_habitat_models.Rmd", 
+"07_linear_models.Rmd", 
+"08_glm.Rmd", "09_random_effs.Rmd", 
+"10_random_forest.Rmd", 
+"11_brt.Rmd", 
+"12_pop_mod.Rmd", 
+"13_network_models.Rmd", 
+"14_agent_based.Rmd", 
+"15_decision_support.Rmd", "16_CEICA.Rmd", "17_annualization.Rmd", 
+"18_r_spatial.Rmd", 
+"19_data_sources.Rmd"]
