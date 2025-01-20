@@ -1,0 +1,134 @@
+# Important data sources 
+
+Adapted rom Brian Breaker:
+
+## USGS gage data using the dataRetrieval package
+
+This exercise uses the USGS dataRetrieval package from the USGS to explore 
+data availability and retrieve data. The USGS dataRetrieval package accesses the NWIS web portal.
+Documentation for the packages can be found at: 
+https://github.com/USGS-R/dataRetrieval
+
+```{r, warning = FALSE, message = FALSE}
+library(tidyverse)
+library(dataRetrieval)
+```
+
+
+Let's start by seeing what streamflow data is available for Arkansas (AR)? To do this we can use the `whatNWISsites` function.
+Here, Parameter code 00060 refers to daily flow in cubic feet per second (cfs).  
+
+```{r}
+whatSites <- whatNWISsites(stateCd = "AR", parameterCd = "00060")
+```
+
+
+These can be subset to just active sites, or just ones with unit-value flow data (e.g., 15 min flow).
+
+```{r}
+whatSites <- whatNWISsites(stateCd = "AR", parameterCd = "00060", 
+                           siteStatus = "active")
+
+whatSites <- whatNWISsites(stateCd = "AR", parameterCd = "00060", 
+                           siteStatus = "active", hasDataTypeCd = "dv")
+```
+
+Now we have some sites to look at, but we can further reduce these. For example, what if we just want sites on the Buffalo River? This will require some filtering using character strings. Hint: look at ?str_detect
+```{r, warning = FALSE}
+# filter all of our sites by the "Buffalo" in station name
+whatSites <- whatSites %>% 
+  dplyr::filter(str_detect(station_nm, "Buffalo"))
+
+# what information is available for those sites? includes start and end dates
+whatInfo <- whatNWISdata(siteNumber = whatSites$site_no)
+
+# we don't want to look at water quality data... so let's filter it out
+whatInfo <-  dplyr::filter(whatInfo, !data_type_cd == "qw")
+
+```  
+
+Now we can get some flow data for these 5 sites on the Buffalo River. 
+
+The "uv" is going to retrieve the 15min data and Sys.Date is set equal to the date the script is run. 
+
+```{r}
+flowDat <- readNWISuv(whatSites$site_no, startDate = Sys.Date(), parameterCd = "00060")
+
+# Rename unwieldy names; dataRetrieval has a function to do that.
+flowDat <- renameNWISColumns(flowDat)
+```
+
+We can also get data associated with each of these gages using the `siteInfo` function, including data on drainage area.
+```{r}
+siteInfo <- readNWISsite(whatSites$site_no)
+
+# What if we just want site number and drainage area for the sites
+siteInfo <-  dplyr::select(siteInfo, site_no, drain_area_va)
+```
+
+Let's have look at our data, the mean flow data for the last hour for each site create a simple time-series plot
+```{r}
+
+p <- ggplot(flowDat, aes(x = dateTime, y = Flow_Inst, color = site_no)) + 
+  geom_line()
+
+p
+```
+
+Now if we wanted to convert the data to hourly data saved at the end of the hour. 
+
+Create a new data frame so you can open both up and look back and forth to see what you are changing with each step
+
+```{r, message=FALSE}
+flowDat2 <- flowDat %>% 
+  mutate(dateTime = as.POSIXct(dateTime, format = "%Y-%m-%d %H:%M:%S", tz = "UTC")) %>%
+  mutate(date_hour = floor_date(dateTime, unit = "hour")) %>%
+  group_by(site_no, date_hour) %>%  
+  summarize(flow = mean(Flow_Inst)) %>% 
+  ungroup()
+
+# is there a relationship between flow and drainage area
+ggplot(data = flowDat, aes(x = dateTime, y = Flow_Inst, color = site_no)) + 
+     geom_line()+
+     geom_line(data = flowDat2, aes(x = date_hour, y = flow , color = site_no),
+               linetype="dashed")
+
+```
+
+We can also download daily data starting many years ago, including data starting in water year 2020 from these 5 sites on the Buffalo River. 
+
+```{r, warning = FALSE, message = FALSE}
+flowDatdaily <- readNWISdv(whatSites$site_no, startDate = "2019-10-01", parameterCd = "00060")
+flowDatdaily <- renameNWISColumns(flowDatdaily)
+```
+
+We can plot the data using ggplot.
+```{r}
+library(scales)
+
+ggplot(data = flowDatdaily, aes(x = Date, y = Flow, color = site_no)) + 
+     geom_line()+
+     scale_y_continuous(breaks = seq(0, 500000, 5000) )+ 
+     scale_x_date(breaks="6 month", labels=date_format("%Y-%m"),expand = c(0,0) )
+     
+
+
+```
+
+If you wanted to write out the gages instead of filtering the data, 
+you can reference the site number directly in the function. 
+```{r}
+flowDatdailyone <- readNWISdv("07055646", startDate = "2019-10-01", parameterCd = "00060")
+
+flowDatdailytwo <- readNWISdv(c("07055646", "07055660"), startDate = "2019-10-01", parameterCd = "00060")
+```
+
+# National Hydrography Dataset with nhdplusTools
+https://doi-usgs.github.io/nhdplusTools/
+
+# NLCD
+
+# Precipitation data (PRISM)
+
+# Other data sources commonly used in USACE?
+
