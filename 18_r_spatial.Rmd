@@ -1,4 +1,4 @@
-# (PART) Other R uses {-} 
+# (PART) Other R applications {-} 
 
 # Spatial Data Manipulation
 
