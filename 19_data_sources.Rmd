@@ -123,12 +123,12 @@ flowDatdailyone <- readNWISdv("07055646", startDate = "2019-10-01", parameterCd 
 flowDatdailytwo <- readNWISdv(c("07055646", "07055660"), startDate = "2019-10-01", parameterCd = "00060")
 ```
 
-# National Hydrography Dataset with nhdplusTools
+## National Hydrography Dataset with nhdplusTools
 https://doi-usgs.github.io/nhdplusTools/
 
-# NLCD
+## NLCD
 
-# Precipitation data (PRISM)
+## Precipitation data (PRISM)
 
-# Other data sources commonly used in USACE?
+## Other data sources commonly used in USACE?
 
