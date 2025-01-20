@@ -1,13 +1,3 @@
----
-title: "Using R for ecological modeling in USACE"
-author: "Ed Stowe"
-site: bookdown::bookdown_site
-\documentclass: book
-output:
-  #bookdown::gitbook: default
-  bookdown::bs4_book: default
----
-
 # Required set-up for the course {-}
 
 ## Preparations
