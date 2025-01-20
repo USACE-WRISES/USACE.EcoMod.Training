@@ -49,7 +49,7 @@ The training course will include modules that introduce users to coding in R, fo
 
 Modules on the basics of using R and RStudio will be adapted from an open-source course entitled “Data Analysis and Visualization in R for Ecologists,”created by the Carpentries, a community of instructors and trainers who teach foundational data science skills to other researchers. This course is designed for a ~6 hour workshop, but has also been adapted into multiple standalone videos (e.g., here); we will divide these workshop materials into four modules (Table 1). We will also create an introductory video describing how to get set-up for the training series, including how to download R and R studio.
 
-## Materials to use for overall formatting/inspiration
+## Materials to use for overall formatting/inspiration {-}
 R packages bookdown document
 https://r-pkgs.org/
 
