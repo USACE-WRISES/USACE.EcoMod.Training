@@ -1,14 +1,328 @@
 # Generalized Linear Models
 
-Quebec Center for biodiversity science
-Generalized linear model workshop
-https://r.qcbs.ca/workshop06/book-en/
-Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+**This module will teach you how to use Generalized Linear Models to assess the importance of management-relevant environmental factors for fish species**
 
-Logistic regression
-Poisson (and negative binomial regression?)
+**Acknowledgments**:  
+Some inspiration/code adapted with permission from:
+Ben Staton's [Intro to R for Natural Resources course](https://bstaton1.github.io/au-r-workshop/ch3.html#glms)
+Quebec Center for biodiversity Science's [Generalized linear model workshop](https://r.qcbs.ca/workshop06/book-en/)
 
-GLM with bluegill data from ltrm
-Following chapters use in ML approach
+## Generalized Linear Model Background
+
+The models we examined in the previous section are linear models. They assume that the residuals are normally-distributed and that the response variable and the predictor variables are linearly-related. However several ubiquitous types of data used in ecological modeling--such as presence/absence data or counts of organisms--do not follow these assumptions. For these types of data, **Generalized linear models (GLMs)** can overcome these problems.
+
+Here we will not go into all of the statistical details of GLMs, but for a more in-depth description of the statistical underpinnings, see [here] (https://r.qcbs.ca/workshop06/book-en/) and elsewhere. It is important to, however, to understand the three key elements of GLMs:
+
+1. **Response distribution**: A probability distribution for the response variable Y, such as the binomial distribution for binary data or the Poisson distribution for count data.  
+2. **Linear predictor**: A linear combination of explanatory variables (η=Xβ), analogous to a standard linear model.  
+3. **Link function**: A function that relates the mean of the response variable's distribution (μ) to the linear predictor (η). The choice of link function is typically guided by the response distribution; for example, count data modeled with a Poisson distribution often use the natural logarithm as the link function.  
+
+The most common examples of GLMs in ecology are logistic regression for binary data or poisson and negative binomial regression for count data.
+
+## Logistic regression
+
+**Binary** data, which have two opposite outcomes, is common in ecology, for example, present/absent, success/failure, lived/died, male/female, etc. If you want to predict how the probability of one outcome over its opposite changes depending on some other variable(s), then you need to use the **logistic regression model**, which is written as:
+
+\begin{equation}
+  logit(p_i)=\beta_0 + \beta_1 x_{i1} + ... + \beta_j x_{ij}+ ... + \beta_n x_{in}, y_i \sim Bernoulli(p_i)
+(\#eq:logis-reg)
+\end{equation}
+
+Here, $p_i$ is the probability of success for trial $i$ at the values of the predictor variables $x_{ij}$. The $logit(p_i)$ is the **link function** that links the linear parameter scale to the data scale. The logit link function constrains the value of $p_i$ to be between 0 and 1 regardless of the values of the $\beta$ coefficients. 
+
+The logit link is equivalent to the log odds ratio, in other words, the natural log of how likely an event is compared to it not happening.
+
+Therefore, with logistic regression, the model will calculate the log odds of an outcome, so if we want to know the odds ratio (i.e., ), we just take the inverse log. The example analysis that we conduct will make this more obvious.
+
+### Example logistic regression anaysis
+
+In our example logistic regression analysis, we'll use the same fisheries dataset from three of the navigation pools in the Upper Mississippi River that we used in our chapter on linear models. These fish data are collected to understand long-term trends of the river, but we'll use the data to see what relationships may exist between habitat predictors and fish responses. 
+
+#### Import and explore data
+First we read in the data filter it so that it only includes data from daylight electrofishing (`gear == "D"`), backwater habitat, and depths < 5 m, as this is where this gear is most accurate. 
+```{r, message = FALSE, warning = FALSE}
+library(tidyverse)
+
+umr_wide <- read_csv("data/umr_counts_wide.csv")
+
+#Period already filtered to 3
+umr_sub <-  umr_wide %>%
+  filter(gear == "D",
+         stratum_full == "Backwater",
+         depth < 5)
+```
+
+Let's look at the column names of our dataframe. We see that the last 10 columns, starting with BLGL are codes for species. These columns are counts of the different species in each sampling event.
+
+```{r}
+names(umr_sub)
+```
+
+Counts can be very "noisy" data and often difficult to predict, so it's common to instead model presence/absence. In order to do this, we can convert our counts to 1's and 0's using the following code. Here we are using `mutate` to change the values of each of the species columns. `case_when` is a `dplyr` function that operates similarly to an if-else statement. So here, we are saying that in all the columns with species names, if the value is greater than 0, we convert this to 1, and if the value is not (i.e., if it's 0), it will remain 0.
+
+```{r}
+species <- names(umr_sub)[17:26]
+
+fish_binary <- umr_sub %>% 
+ mutate(across(any_of(species), ~ case_when(. > 0 ~ 1, TRUE ~ 0)))
+
+```
+
+We're going to examine whether any of the predictor variables in the dataset are predictive of the occurrence of one of the species, the common carp. Being able to predict habitat variables that influence the presence of a species might be the basis for predicting how USACE management activities impact species.
+
+First, let's plot common carp occurrence as a function of several predictor variables: temperature, water transparency (i.e., secchi disk reading), depth, and conductivity. To do this most easily with ggplot, we need all of the variables in one column so we can use the `facet_wrap` function to make a singe panel for each variable. To do this we create a dataframe called `carp_long` using the `pivot_longer` function to go from a wide format to a long format, which makes the plotting seemless. 
+```{r, warning = FALSE}
+carp_long <- fish_binary %>%
+  select(CARP, secchi:do) %>%
+  pivot_longer(cols = secchi:cond, names_to = "variable", values_to = "value")
+```  
+In `pivot_longer` we tell which columns we want to combine, what we should name the column that now inclues the variable names and what we should name the column that includes the variable values.
+
+Now we can plot the variables.
+```{r}
+ggplot(carp_long, 
+         aes(value, CARP))+
+  geom_jitter(height = .1, width = .02, alpha =0.5, color = "steelblue")+
+  geom_boxplot(aes(group = CARP), 
+                   width = 0.5, alpha = 0.5, color = "black", fill = "gray")+
+  facet_wrap(~variable, nrow = 2, scales = "free_x")+
+  scale_y_continuous(breaks = c(0,1))+
+  labs(x = "Value of predictor", y = "Carp occurrence")+
+  theme_classic()
+```
+
+From these plots, a few variables pop out as being potentially important. For example locations with carp occurrences appear to have lower secchi disk readings (i.e., less clear water) and higher temperatures, but the strength of these relationships are unclear, which is where modeling comes in to play.
+
+#### Fit model with `glm` function
+
+We'll use the `glm` function in base R to do this, and the same kind of formula notation as with linear models, here indicating that we want to model carp occurrences as a function of four of our predictor variables. We'll use the `fish_binary` dataset to do this. Finally we need to select a 'family' for the error distribution of our response variable. For presence/absence data, the binomial distribution is typically chosen because it's a distribution with only two states, typically 1 for "success" and 0 for "failure."
+
+```{r}
+glm.bin<- glm(CARP ~ secchi + temp + depth + cond,
+            data = fish_binary,
+            family = binomial)
+```
+
+We can look at the results of the model with the `summary` function.
+```{r}
+summary(glm.bin)
+```
+The summary function generates output very similar to what we've observed with linear modeling. The Estimate column shows us the parameter estimate for our different model parameters, and we can also get an indication of whether the parameters are considered to be significant, e.g., with p-values less than 0.05. Here, we see that all the parameters are considered significant, except for conductivity.
+
+But how do we interpret the model coefficient values? Let's look at these values again:
+```{r}
+# Extracting model coefficients
+glm.bin$coefficients
+```
+Because logistic regression involves the logit link function, it's not as easy as with linear modeling. Here, the coefficient values can be interpreted as the additive effect of, for example, temperature on the **log odds** of success. 
+
+The **odds ratio** is more interpretable than the log odds. We get this by taking the inverse natural log of the coefficicent values, in other words raising e to the power of the coefficients. In R, we use the `exp()` function to do this. 
+```{r}
+exp(glm.bin$coefficient)
+```
+These values indicate that the odds of occurrence are `r round(exp(glm.bin$coefficient[4]), 2)` times (or `r (round(exp(glm.bin$coefficient[4]), 2)-1)*100`% higher) when depth increases by a meter.
+
+We can now use ggplot to generate a graph of these model results looking at the effect of depth on Carp occurrence probability. Note, however, that this is only approximate, as our model also included other parameters, and this plot merely considers depth. 
+
+```{r}
+ggplot(fish_binary, aes(x = depth, y = CARP)) +
+  geom_jitter(height = 0.05, width = 0.05) +
+  stat_smooth(
+    method = "glm",
+    method.args = list(family = binomial),
+    se = TRUE
+  ) +
+  xlab("Depth (m)") +
+  ylab("Probability of presence") +
+  ggtitle("Probability of presence of  Carp as a function of depth") +
+  theme_classic()
+
+```
+
+#### GLM with the tidymodels package
+
+In R, for certain kinds of analysis, there may be different packages that can perform the same statistical procedures, but have different strengths. For our simple glm of CARP, the `glm` function in base R works well, but as model complexity increases there may be instances where additional capacities make sense. One package that enables this is the `tidymodels` package, so we'll first introduce it here, so that we can come back to it later. The following code implements the same type of analysis, but now using tidymodels code.
+```{r, eval=FALSE}
+# Load required libraries
+library(tidymodels)
+
+results <- data.frame()
+
+for (i in 1:length(species)){
+
+data <- fish_binary %>%
+  rename(species = species[i])
+
+# Split the data into training and testing sets
+set.seed(123)
+data_split <- initial_split(data, prop = 0.8)
+train_data <- training(data_split)
+test_data <- testing(data_split)
+
+# Specify the model: GLM for regression
+glm_spec <- linear_reg() %>%
+  set_engine("glm") %>%
+  set_mode("regression")
+
+# Define a recipe: Preprocessing steps
+glm_recipe <- recipe(species ~ secchi + temp + depth + current + do, data = train_data) %>%
+  step_normalize(all_numeric_predictors())
+
+# Create a workflow
+glm_workflow <- workflow() %>%
+  add_recipe(glm_recipe) %>%
+  add_model(glm_spec)
+
+# Perform 10-fold cross-validation
+set.seed(123)
+cv_splits <- vfold_cv(train_data, v = 10)
+
+# Fit the model with cross-validation
+cv_results <- fit_resamples(
+  glm_workflow,
+  resamples = cv_splits,
+  metrics = metric_set(rmse, rsq),
+  control = control_resamples(save_pred = TRUE)
+)
+
+# View cross-validation metrics
+collect_metrics(cv_results)
+
+# Finalize the model on the entire training set
+final_glm <- fit(glm_workflow, data = train_data)
+
+# Test the finalized model on the testing set
+test_results <- predict(final_glm, test_data) %>%
+  bind_cols(test_data) %>%
+  metrics(truth = species, estimate = .pred) %>%
+  mutate(sp = species[i])
+
+#print(test_results)
+
+results <- bind_rows(results, test_results)
+
+}
+
+```
+
+What if we want to model counts?
+
+```{r, eval=FALSE}
+# Load required libraries
+umr_sub %>%
+  select(LMBS, secchi:do) %>%
+  pivot_longer(cols = secchi:do, names_to = "variable", values_to = "value") %>%
+  ggplot(aes(value, LMBS))+
+  geom_jitter(height = .05, pch = 21, alpha =0.5)+
+  geom_smooth(method = "glm")+
+  facet_wrap(~variable, nrow = 2, scales = "free_x")
+```
+```{r}
+glm.poisson = glm(LMBS ~ secchi + temp + depth + current + do,
+  data = umr_sub,
+  family = poisson) # this is what makes it a Poisson GLM! Note the default link is log.
+
+summary(glm.poisson)
+
+```
+
+```{r, eval=FALSE}
+glm.poisson$coefficients
+```
+
+To interpret these coefficients, we can say that for a one-unit increase in current, the log count of 
+Y increases significantly by  5.246739516, or the expected count increases by 189.85
+exp(5.246739516)≈189.85. A one-unit increase in current is a lot on this scale, though so it may be better to consider that a 0.1 m/s increase in current increases counts by about 19 fish
+
+Tidymodels version
+```{r, eval=FALSE}
+library(poissonreg)
+
+results_counts <- data.frame()
+
+for (i in 1:length(species)){
+
+data <- umr_sub %>%
+  rename(count = species[i])
+
+# Split the data into training and testing sets
+set.seed(123)
+data_split <- initial_split(data, prop = 0.8)
+train_data <- training(data_split)
+test_data <- testing(data_split)
+
+# Specify the model: Poisson Regression
+poisson_spec <- poisson_reg() %>%
+  set_engine("glm") %>%
+  set_mode("regression")
+
+# Specify the model: Negative Binomial Regression
+#nb_spec <- gen_additive_mod() %>%
+ # set_engine("glm", family = MASS::negative.binomial(theta = 1)) %>%
+  #set_mode("regression")
+
+# Define a recipe: Preprocessing steps
+reg_recipe <- recipe(count ~ secchi + temp + depth + current + do, data = train_data) %>%
+  step_normalize(all_numeric_predictors())
+
+# Create workflows
+poisson_workflow <- workflow() %>%
+  add_recipe(reg_recipe) %>%
+  add_model(poisson_spec)
+
+#nb_workflow <- workflow() %>%
+ # add_recipe(reg_recipe) %>%
+  #add_model(nb_spec)
+
+# Perform 10-fold cross-validation
+set.seed(123)
+cv_splits <- vfold_cv(train_data, v = 10)
+
+# Fit the Poisson model with cross-validation
+poisson_cv_results <- fit_resamples(
+  poisson_workflow,
+  resamples = cv_splits,
+  metrics = metric_set(rmse, mae, rsq),
+  control = control_resamples(save_pred = TRUE)
+)
+
+# Fit the Negative Binomial model with cross-validation
+# nb_cv_results <- fit_resamples(
+#   nb_workflow,
+#   resamples = cv_splits,
+#   metrics = metric_set(rmse, mae, rsq),
+#   control = control_resamples(save_pred = TRUE)
+# )
+
+# View cross-validation metrics
+print(species[i])
+cat("Poisson Regression Metrics:\n")
+collect_metrics(poisson_cv_results)
+
+#cat("\nNegative Binomial Regression Metrics:\n")
+#collect_metrics(nb_cv_results)
+
+# Finalize and test the Poisson model
+final_poisson <- fit(poisson_workflow, data = train_data)
+poisson_test_results <- predict(final_poisson, test_data) %>%
+  bind_cols(test_data) %>%
+  metrics(truth = count, estimate = .pred) %>%
+  mutate(sp = species[i],
+         model = "pois")
+
+# Finalize and test the Negative Binomial model
+#final_nb <- fit(nb_workflow, data = train_data)
+#nb_test_results <- predict(final_nb, test_data) %>%
+ # bind_cols(test_data) %>%
+  #metrics(truth = count, estimate = .pred) %>%
+  #mutate(sp = comm_sp[i],
+   #      model = "nb")
+
+results_counts <- bind_rows(results_counts, poisson_test_results)#, nb_test_results)
+
+}
+
+```
+
 
 
