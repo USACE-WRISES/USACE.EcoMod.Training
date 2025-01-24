@@ -1,61 +1,11 @@
-# (PART) Basic Training in R and RStudio {-} 
+# (PART) Basic Training on R and RStudio {-} 
 
 # Introduction to R and RStudio
 
 ## Learning Objectives:  {-}
-* Understand why R can benefit USACE biologists  
-* Understand the basic workflow of R and RStudio  
-* Understand how to get help for R problems  
-
-
-## Lecture:
-
-* Why use programming instead of the status quo?
-  + Makes steps of analysis clear, repeatable, reproducible, powerful, reviewable
-* Why R specifically?
-  + Most commonly used programming language for ecology
-  + Interdisciplinary and extensible
-  + Works on data of all shapes and sizes
-  + Produces high quality graphics
-  + Supportive and productive community of users
-  + Free and open-source
-* What is RStudio
-  + Four panes
-* Working with scripts vs. console
-* Getting help
-  + RStudio interface
-  + Google -> Stack Overflow
-  + GitHub
-  + ChatGPT (with large caveats)
-
-
-## Coding mechanics:
-
-* Use RStudio to create R project and project folder structure
-* Very briefly show how R is used, emphasizing that using it will be the feature of subsequent lessons
-  + Console usage and when it makes sense (i.e., for temporary things): arithmetic, assigning values to variables
-  + Script usage to show workflow, not explain code
-    -Import a .csv (subset of UMR data)
-    -View using RStudio/head
-    -Calculate some summary statistics
-    -Make a plot (to show power of tool and encourage subsequent lesson)
-    
-:::::::::::::::::::::::::::::::::::::: questions 
-
-- Why should you use R and RStudio?
-- How do you get started working in R and RStudio?
-
-::::::::::::::::::::::::::::::::::::::::::::::::
-
-::::::::::::::::::::::::::::::::::::: objectives
-
-- Understand the difference between R and RStudio
-- Describe the purpose of the different RStudio panes
-- Organize files and directories into R Projects
-- Use the RStudio help interface to get help with R functions
-- Be able to format questions to get help in the broader R community
-
-::::::::::::::::::::::::::::::::::::::::::::::::
+* Understand how and why R can benefit USACE biologists  
+* Understand the basic workflow of using R and RStudio  
+* Understand how to get help for R problems in several ways 
 
 ## What are R and RStudio?
 
