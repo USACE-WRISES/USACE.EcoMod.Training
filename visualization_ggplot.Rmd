@@ -4,18 +4,11 @@
 
 **This module will teach you how to use the `ggplot` package in `R` to efficiently generate customizable and complex plots like this:**
 
-![*Output from HSI modeling for the Delta Islands and Levees Feasibility Study (adapted). Users will learn to generate identical values using the ecorest package*](images/rodent_size_plots.jpg){width=100%}
+![*GGplot figure depicting rodent size data by sex and experimental type. Complex plots like this are easy to make using the ggplot package for R.*](images/rodent_size_plots.jpg){width=100%}
   
 ***
 
-:::::::::::::::::::::::::::::::::::::: questions 
-
-- How do you make plots using R?
-- How do you customize and modify plots?
-
-::::::::::::::::::::::::::::::::::::::::::::::::
-
-::::::::::::::::::::::::::::::::::::: objectives
+## Learning objectives
 
 - Produce scatter plots and boxplots using `ggplot2`.
 - Represent data variables with plot components.
