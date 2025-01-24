@@ -1,22 +1,13 @@
 # Exploring and understanding data
 
 
-:::::::::::::::::::::::::::::::::::::: questions 
-
-- How does R store and represent data?
-
-::::::::::::::::::::::::::::::::::::::::::::::::
-
-::::::::::::::::::::::::::::::::::::: objectives
+## Learning Objectives
 
 - Explore the structure and content of data.frames
 - Understand vector types and missing data
 - Use vectors as function arguments
 - Create and convert factors
 - Understand how R assigns values to objects
-
-::::::::::::::::::::::::::::::::::::::::::::::::
-
 
 ## Setup
 
