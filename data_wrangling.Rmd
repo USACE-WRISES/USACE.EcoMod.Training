@@ -1,50 +1,6 @@
 # Manipulating Tabular Data
 
-
-<!-- - importing complete_old CSV -->
-<!--     - touch on column parsing -->
-<!--     - talk about file paths and tab completion -->
-<!--     - should we teach the `here()` package? -->
-<!-- - base vs. tidyverse -->
-<!-- - pipes -->
-<!-- - select -->
-<!-- - filter -->
-<!--     - idea of conditional subsetting -->
-<!--     - ==, >, !, |, & -->
-<!--     - show %in% -->
-<!-- - mutate -->
-<!-- - making a date column -->
-<!-- - group_by -->
-<!--   - summarize -->
-<!--   - mutate -->
-<!--   - ungroup -->
-<!-- - pivot_wider -->
-<!-- - exporting data -->
-
-<!-- Challenge ideas: -->
-
-<!-- - plotting a time series using the date -->
-<!-- - predicting # of rows before pivoting -->
-<!--   - important to plan out reshaping steps in advance -->
-<!-- - filter operations -->
-<!--   - weight between two values -->
-<!--   - maybe throw in an | example -->
-<!-- - combination filter and select where doing the order wrong yields an error -->
-<!--   - only has columns record_id, species_id, sex, and hindfoot_length, but weight has to be NA -->
-<!-- - a couple of simple group_by operations -->
-<!--   - how many combinations of plot id and genus are there -->
-<!--     - could show that distinct also works here -->
-<!--   - what will happen if you group by weight? -->
-<!--   - an operation that requires group_by and mutate -->
-<!--   - an operation that requires multiple group_by steps -->
-  
-:::::::::::::::::::::::::::::::::::::: questions 
-
-- How do you manipulate tabular data in R?
-
-::::::::::::::::::::::::::::::::::::::::::::::::
-
-::::::::::::::::::::::::::::::::::::: objectives
+## Learning Objectives
 
 - Import CSV data into R.
 - Understand the difference between base R and `tidyverse` approaches.
@@ -55,8 +11,6 @@
 - Reshape data between wide and long formats.
 - Export data to a CSV file.
 
-::::::::::::::::::::::::::::::::::::::::::::::::
-  
 
 ```{r load-tidyverse-package, message=FALSE}
 library(tidyverse)
