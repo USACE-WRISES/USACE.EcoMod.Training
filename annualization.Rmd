@@ -2,6 +2,8 @@
 
 **This module will teach you how to use the `ecorest` and `EngrEcon` packages in `R` to efficiently and reproducibly calculated annualized benefits and costs for restoration project planning:**
 
+## Background on annualization
+
 Annualization is a technique for determining the costs and benefits of projects on an annual time scale, regardless of the overall time horizon of the project. Calculating annualized costs and benefits is an important component of restoration planning because it enables a fair comparison between alternatives project whose costs and/or benefits occur at different periods of time following implementtion. 
 
 ## Annualizing benefits
@@ -99,7 +101,6 @@ costs_omrrr <- costs %>%
 ```
 
 Now we have the present value of all costs in one dataframe: Project_first, Monitoring, AdapMan the same; OMRR costs from previous step
-
 
 Calculate Interest during construction using  based on discount rate, duration of construction, and construction cost using the interest_during_construction function
 ```{r}
