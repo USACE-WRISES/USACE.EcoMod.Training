@@ -2,14 +2,12 @@
 
 ## Preparations
 
-These modules are designed so that learners will carry out the computing as they follow the material. Consequently, learners must have R and RStudio installed on their computers. They also need
-to be able to install a number of R packages, create directories, and download
-files.
+These modules are designed so that learners will carry out the computing as they follow the material. Consequently, learners must have R and RStudio installed on their computers. They also need to be able to install a number of R packages, create directories, and download files.
 
 To avoid troubleshooting during the lesson, learners should follow the
 instructions below to download and install everything beforehand.
 
-User's with ACE-IT machines may need assistance from their IT departments to download R and R Studio and to install packages. Therefore, give yourself ample time to get set-up with R and R Studio before any potential training sessions.
+USACE user's with ACE-IT machines may need assistance from their IT departments to download R and R Studio and to install packages. Therefore, give yourself ample time to get set-up with R and R Studio before any potential training sessions.
 
 ### Install R and RStudio
 
@@ -83,7 +81,7 @@ The training modules use various R packages, which are useful R code written by 
 To try to install these packages, open RStudio and copy and paste the following command into the console window (look for a blinking cursor on the bottom left), then press the <kbd>Enter</kbd> (Windows and Linux) or <kbd>Return</kbd> (MacOS) to execute the command.
 
 ```r
-install.packages(c("tidyverse", "lubridate", "ratdat", "ecorest", "EngrEcon", "knitr"))
+install.packages(c("tidyverse", "lubridate", "ratdat"))
 ```
 
 Alternatively, you can install the packages using RStudio's graphical user interface by going to `Tools > Install Packages` and typing the names of the packages separated by a comma.
