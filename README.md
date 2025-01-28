@@ -14,3 +14,5 @@ ecorest
 EngrEcon
 dataRetrieval
 knitr
+tidymodels
+poissonreg
