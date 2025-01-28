@@ -4,3 +4,5 @@ _book
 .DS_Store
 _bookdown_files
 _main_files
+_usace_R_training_files
+usace_R_training.RMD
