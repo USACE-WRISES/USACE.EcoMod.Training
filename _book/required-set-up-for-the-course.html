@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Required set-up for the course | Using R for ecological modeling in USACE</title>
+<meta name="author" content="Ed Stowe">
+<meta name="generator" content="bookdown 0.42 with bs4_book()">
+<meta property="og:title" content="Required set-up for the course | Using R for ecological modeling in USACE">
+<meta property="og:type" content="book">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Required set-up for the course | Using R for ecological modeling in USACE">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.8.0/transition.js"></script><script src="libs/bs3compat-0.8.0/tabs.js"></script><script src="libs/bs3compat-0.8.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<meta name="description" content="0.1 Preparations These modules are designed so that learners will carry out the computing as they follow the material. Consequently, learners must have R and RStudio installed on their computers....">
+<meta property="og:description" content="0.1 Preparations These modules are designed so that learners will carry out the computing as they follow the material. Consequently, learners must have R and RStudio installed on their computers....">
+<meta name="twitter:description" content="0.1 Preparations These modules are designed so that learners will carry out the computing as they follow the material. Consequently, learners must have R and RStudio installed on their computers....">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Using R for ecological modeling in USACE</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Overview</a></li>
+<li><a class="active" href="required-set-up-for-the-course.html">Required set-up for the course</a></li>
+<li class="book-part">Basic Training on R and RStudio</li>
+<li><a class="" href="introduction-to-r-and-rstudio.html"><span class="header-section-number">1</span> Introduction to R and RStudio</a></li>
+<li><a class="" href="data-visualization-with-ggplot2.html"><span class="header-section-number">2</span> Data Visualization with ggplot2</a></li>
+<li><a class="" href="exploring-and-understanding-data.html"><span class="header-section-number">3</span> Exploring and understanding data</a></li>
+<li><a class="" href="manipulating-tabular-data.html"><span class="header-section-number">4</span> Manipulating Tabular Data</a></li>
+<li class="book-part">Ecological Modeling in R</li>
+<li><a class="" href="conceptual-ecological-models.html"><span class="header-section-number">5</span> Conceptual Ecological Models</a></li>
+<li class="book-part">Habitat Models</li>
+<li><a class="" href="background-on-habitat-models-in-usace.html"><span class="header-section-number">6</span> Background on habitat models in USACE</a></li>
+<li><a class="" href="ecorest-web-app.html"><span class="header-section-number">7</span> Ecorest Web App</a></li>
+<li><a class="" href="habitat-suitability-index-models-with-ecorest.html"><span class="header-section-number">8</span> Habitat Suitability Index models with ecorest</a></li>
+<li><a class="" href="spatial-habitat-models.html"><span class="header-section-number">9</span> Spatial Habitat Models</a></li>
+<li class="book-part">Linear Models</li>
+<li><a class="" href="linear-models.html"><span class="header-section-number">10</span> Linear Models</a></li>
+<li><a class="" href="generalized-linear-models.html"><span class="header-section-number">11</span> Generalized Linear Models</a></li>
+<li><a class="" href="random-effects.html"><span class="header-section-number">12</span> Random Effects</a></li>
+<li class="book-part">Machine Learning</li>
+<li><a class="" href="random-forest.html"><span class="header-section-number">13</span> Random Forest</a></li>
+<li><a class="" href="boosted-regression-trees.html"><span class="header-section-number">14</span> Boosted Regression Trees</a></li>
+<li><a class="" href="population-modeling.html"><span class="header-section-number">15</span> Population Modeling</a></li>
+<li><a class="" href="network-models-and-connectivity.html"><span class="header-section-number">16</span> Network Models and Connectivity</a></li>
+<li><a class="" href="agent-based-models.html"><span class="header-section-number">17</span> Agent-based Models</a></li>
+<li class="book-part">Models and decisionmaking</li>
+<li><a class="" href="decision-support.html"><span class="header-section-number">18</span> Decision Support</a></li>
+<li><a class="" href="cost-effectiveness-and-incremental-cost-analysis-ceica-with-ecorest.html"><span class="header-section-number">19</span> Cost-Effectiveness and Incremental Cost Analysis (CEICA) with ecorest</a></li>
+<li><a class="" href="annualizing-benefits-and-costs.html"><span class="header-section-number">20</span> Annualizing benefits and costs</a></li>
+<li class="book-part">Other R applications</li>
+<li><a class="" href="spatial-data-manipulation.html"><span class="header-section-number">21</span> Spatial Data Manipulation</a></li>
+<li><a class="" href="important-data-sources.html"><span class="header-section-number">22</span> Important data sources</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="required-set-up-for-the-course" class="section level1 unnumbered">
+<h1>Required set-up for the course<a class="anchor" aria-label="anchor" href="#required-set-up-for-the-course"><i class="fas fa-link"></i></a>
+</h1>
+<div id="preparations" class="section level2" number="0.1">
+<h2>
+<span class="header-section-number">0.1</span> Preparations<a class="anchor" aria-label="anchor" href="#preparations"><i class="fas fa-link"></i></a>
+</h2>
+<p>These modules are designed so that learners will carry out the computing as they follow the material. Consequently, learners must have R and RStudio installed on their computers. They also need to be able to install a number of R packages, create directories, and download files.</p>
+<p>To avoid troubleshooting during the lesson, learners should follow the
+instructions below to download and install everything beforehand.</p>
+<p>USACE user’s with ACE-IT machines may need assistance from their IT departments to download R and R Studio and to install packages. Therefore, give yourself ample time to get set-up with R and R Studio before any potential training sessions.</p>
+<div id="install-r-and-rstudio" class="section level3" number="0.1.1">
+<h3>
+<span class="header-section-number">0.1.1</span> Install R and RStudio<a class="anchor" aria-label="anchor" href="#install-r-and-rstudio"><i class="fas fa-link"></i></a>
+</h3>
+<p>R and RStudio are two separate pieces of software:</p>
+<ul>
+<li>
+<strong>R</strong> is a programming language and software used to run code written in R.</li>
+<li>
+<strong>RStudio</strong> is an integrated development environment (IDE) that makes using R easier. In this course we use RStudio to interact with R.</li>
+</ul>
+<p>If you don’t already have R and RStudio installed, follow the instructions for your operating system below.
+You have to install R before you install RStudio.</p>
+</div>
+</div>
+<div id="for-windows" class="section level2 spoiler" number="0.2">
+<h2>
+<span class="header-section-number">0.2</span> For Windows<a class="anchor" aria-label="anchor" href="#for-windows"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li>Download R from the <a href="https://cran.r-project.org/bin/windows/base/release.htm">CRAN website</a>.</li>
+<li>Run the <code>.exe</code> file that was just downloaded</li>
+<li>Go to the <a href="https://www.rstudio.com/products/rstudio/download/#download">RStudio download page</a>
+</li>
+<li>Under <em>Installers</em> select <strong>RStudio x.yy.zzz - Windows Vista/7/8/10</strong> (where x, y, and z represent version numbers)</li>
+<li>Double click the file to install it</li>
+<li>Once it’s installed, open RStudio to make sure it works and you don’t get any error messages.</li>
+</ul>
+</div>
+<div id="for-macos" class="section level2 spoiler" number="0.3">
+<h2>
+<span class="header-section-number">0.3</span> For MacOS<a class="anchor" aria-label="anchor" href="#for-macos"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li>Download R from the <a href="https://cran.r-project.org/bin/macosx/">CRAN website</a>.</li>
+<li>Select the <code>.pkg</code> file for the latest R version</li>
+<li>Double click on the downloaded file to install R</li>
+<li>It is also a good idea to install <a href="https://www.xquartz.org/">XQuartz</a> (needed by some packages)</li>
+<li>Go to the <a href="https://www.rstudio.com/products/rstudio/download/#download">RStudio download page</a>
+</li>
+<li>Under <em>Installers</em> select <strong>RStudio x.yy.zzz - Mac OS X 10.6+ (64-bit)</strong> (where x, y, and z represent version numbers)</li>
+<li>Double click the file to install RStudio</li>
+<li>Once it’s installed, open RStudio to make sure it works and you don’t get any error messages.</li>
+</ul>
+</div>
+<div id="for-linux" class="section level2 spoiler" number="0.4">
+<h2>
+<span class="header-section-number">0.4</span> For Linux<a class="anchor" aria-label="anchor" href="#for-linux"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li>Download R from the <a href="https://cran.r-project.org/bin/macosx/">CRAN website</a>.</li>
+<li>Select the <code>.pkg</code> file for the latest R version</li>
+<li>Double click on the downloaded file to install R</li>
+<li>It is also a good idea to install <a href="https://www.xquartz.org/">XQuartz</a> (needed by some packages)</li>
+<li>Go to the <a href="https://www.rstudio.com/products/rstudio/download/#download">RStudio download page</a>
+</li>
+<li>Under <em>Installers</em> select <strong>RStudio x.yy.zzz - Mac OS X 10.6+ (64-bit)</strong> (where x, y, and z represent version numbers)</li>
+<li>Double click the file to install RStudio</li>
+<li>Once it’s installed, open RStudio to make sure it works and you don’t get any error messages.</li>
+</ul>
+</div>
+<div id="update-r-and-rstudio" class="section level3" number="0.4.1">
+<h3>
+<span class="header-section-number">0.4.1</span> Update R and RStudio<a class="anchor" aria-label="anchor" href="#update-r-and-rstudio"><i class="fas fa-link"></i></a>
+</h3>
+<p>If you already have R and RStudio installed, first check if your R version is up to date:</p>
+<ul>
+<li>When you open RStudio your R version will be printed in the console on the bottom left. Alternatively, you can type <code><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo()</a></code> into the console. If your R version is 4.0.0 or later, you don’t need to update R for this lesson. If your version of R is older than that, download and install the latest version of R from the R project website <a href="https://cran.r-project.org/bin/windows/base/">for Windows</a>, <a href="https://cran.r-project.org/bin/macosx/">for MacOS</a>, or <a href="https://cran.r-project.org/bin/linux/">for Linux</a>
+</li>
+<li>It is not necessary to remove old versions of R from your system, but if you wish to do so you can check <a href="https://cran.r-project.org/bin/windows/base/rw-FAQ.html#How-do-I-UNinstall-R_003f">How do I uninstall R?</a>
+</li>
+<li>After installing a new version of R, you will have to reinstall all your packages with the new version. For Windows, there is a package called <code>installr</code> that can help you with upgrading your R version and migrate your package library. A similar package called <code>pacman</code> can help with updating R packages across
+To update RStudio to the latest version, open RStudio and click on
+<code>Help &gt; Check for Updates</code>. If a new version is available follow the
+instruction on screen. By default, RStudio will also automatically notify you
+of new versions every once in a while.</li>
+</ul>
+</div>
+<div id="install-required-r-packages" class="section level3" number="0.4.2">
+<h3>
+<span class="header-section-number">0.4.2</span> Install required R packages<a class="anchor" aria-label="anchor" href="#install-required-r-packages"><i class="fas fa-link"></i></a>
+</h3>
+<p>The training modules use various R packages, which are useful R code written by other people to supplement the code included in the base R language. Several of the modules use R packages specific to the analyses covered in those modules; in those instances, users will be prompted to download and load the required packages. For the first four lessons covering the introduction to R, we will use the packages <code>tidyverse</code>, <code>lubridate</code>, and <code>ratdat</code>, so learners planning to complete the intro to R should install these packages.</p>
+<p>To try to install these packages, open RStudio and copy and paste the following command into the console window (look for a blinking cursor on the bottom left), then press the <kbd>Enter</kbd> (Windows and Linux) or <kbd>Return</kbd> (MacOS) to execute the command.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"tidyverse"</span>, <span class="st">"lubridate"</span>, <span class="st">"ratdat"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Alternatively, you can install the packages using RStudio’s graphical user interface by going to <code>Tools &gt; Install Packages</code> and typing the names of the packages separated by a comma.</p>
+<p>R tries to download and install the packages on your machine.</p>
+<p>When the installation has finished, you can try to load the packages by pasting the following code into the console:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://lubridate.tidyverse.org">lubridate</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">ratdat</span><span class="op">)</span></span></code></pre></div>
+<p>If you do not see an error like <code>there is no package called ‘...’</code> you are good to go!</p>
+</div>
+<div id="updating-r-packages" class="section level3" number="0.4.3">
+<h3>
+<span class="header-section-number">0.4.3</span> Updating R packages<a class="anchor" aria-label="anchor" href="#updating-r-packages"><i class="fas fa-link"></i></a>
+</h3>
+<p>Generally, it is recommended to keep your R version and all packages up to date, because new versions bring improvements and important bugfixes. To update the packages that you have installed, click <code>Update</code> in the <code>Packages</code> tab in the bottom right panel of RStudio, or go to <code>Tools &gt; Check for Package Updates...</code></p>
+<p>You should update <strong>all of the packages</strong> required for the course, even if you installed them relatively recently.</p>
+</div>
+<div id="download-the-data" class="section level3" number="0.4.4">
+<h3>
+<span class="header-section-number">0.4.4</span> Download the data<a class="anchor" aria-label="anchor" href="#download-the-data"><i class="fas fa-link"></i></a>
+</h3>
+<p>We will download the data directly from R during the modules. However, if you are expecting problems with the network, it may be better to download the data beforehand and store it on your machine.</p>
+<p>The data files for the lesson can be downloaded manually:</p>
+<ul>
+<li>
+<a href="../episodes/data/cleaned/surveys_complete_77_89.csv">cleaned data</a> and</li>
+<li>
+<a href="../episodes/data/new_data.zip">zip file of raw data</a>.</li>
+</ul>
+</div>
+</div>
+
+
+
+  <div class="chapter-nav">
+<div class="prev"><a href="index.html">Overview</a></div>
+<div class="next"><a href="introduction-to-r-and-rstudio.html"><span class="header-section-number">1</span> Introduction to R and RStudio</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#required-set-up-for-the-course">Required set-up for the course</a></li>
+<li>
+<a class="nav-link" href="#preparations"><span class="header-section-number">0.1</span> Preparations</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#install-r-and-rstudio"><span class="header-section-number">0.1.1</span> Install R and RStudio</a></li></ul>
+</li>
+<li><a class="nav-link" href="#for-windows"><span class="header-section-number">0.2</span> For Windows</a></li>
+<li><a class="nav-link" href="#for-macos"><span class="header-section-number">0.3</span> For MacOS</a></li>
+<li>
+<a class="nav-link" href="#for-linux"><span class="header-section-number">0.4</span> For Linux</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#update-r-and-rstudio"><span class="header-section-number">0.4.1</span> Update R and RStudio</a></li>
+<li><a class="nav-link" href="#install-required-r-packages"><span class="header-section-number">0.4.2</span> Install required R packages</a></li>
+<li><a class="nav-link" href="#updating-r-packages"><span class="header-section-number">0.4.3</span> Updating R packages</a></li>
+<li><a class="nav-link" href="#download-the-data"><span class="header-section-number">0.4.4</span> Download the data</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Using R for ecological modeling in USACE</strong>" was written by Ed Stowe. </p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

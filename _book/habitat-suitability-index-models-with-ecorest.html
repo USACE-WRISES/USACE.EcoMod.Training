@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>8 Habitat Suitability Index models with ecorest | Using R for ecological modeling in USACE</title>
+<meta name="author" content="Ed Stowe">
+<meta name="generator" content="bookdown 0.42 with bs4_book()">
+<meta property="og:title" content="8 Habitat Suitability Index models with ecorest | Using R for ecological modeling in USACE">
+<meta property="og:type" content="book">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="8 Habitat Suitability Index models with ecorest | Using R for ecological modeling in USACE">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.8.0/transition.js"></script><script src="libs/bs3compat-0.8.0/tabs.js"></script><script src="libs/bs3compat-0.8.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<meta name="description" content="This module will teach you how to use the ecorest package in R to efficiently and reproducibly carry out HSI modeling and generate useful output like this: Output from HSI modeling for the Delta...">
+<meta property="og:description" content="This module will teach you how to use the ecorest package in R to efficiently and reproducibly carry out HSI modeling and generate useful output like this: Output from HSI modeling for the Delta...">
+<meta name="twitter:description" content="This module will teach you how to use the ecorest package in R to efficiently and reproducibly carry out HSI modeling and generate useful output like this: Output from HSI modeling for the Delta...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Using R for ecological modeling in USACE</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Overview</a></li>
+<li><a class="" href="required-set-up-for-the-course.html">Required set-up for the course</a></li>
+<li class="book-part">Basic Training on R and RStudio</li>
+<li><a class="" href="introduction-to-r-and-rstudio.html"><span class="header-section-number">1</span> Introduction to R and RStudio</a></li>
+<li><a class="" href="data-visualization-with-ggplot2.html"><span class="header-section-number">2</span> Data Visualization with ggplot2</a></li>
+<li><a class="" href="exploring-and-understanding-data.html"><span class="header-section-number">3</span> Exploring and understanding data</a></li>
+<li><a class="" href="manipulating-tabular-data.html"><span class="header-section-number">4</span> Manipulating Tabular Data</a></li>
+<li class="book-part">Ecological Modeling in R</li>
+<li><a class="" href="conceptual-ecological-models.html"><span class="header-section-number">5</span> Conceptual Ecological Models</a></li>
+<li class="book-part">Habitat Models</li>
+<li><a class="" href="background-on-habitat-models-in-usace.html"><span class="header-section-number">6</span> Background on habitat models in USACE</a></li>
+<li><a class="" href="ecorest-web-app.html"><span class="header-section-number">7</span> Ecorest Web App</a></li>
+<li><a class="active" href="habitat-suitability-index-models-with-ecorest.html"><span class="header-section-number">8</span> Habitat Suitability Index models with ecorest</a></li>
+<li><a class="" href="spatial-habitat-models.html"><span class="header-section-number">9</span> Spatial Habitat Models</a></li>
+<li class="book-part">Linear Models</li>
+<li><a class="" href="linear-models.html"><span class="header-section-number">10</span> Linear Models</a></li>
+<li><a class="" href="generalized-linear-models.html"><span class="header-section-number">11</span> Generalized Linear Models</a></li>
+<li><a class="" href="random-effects.html"><span class="header-section-number">12</span> Random Effects</a></li>
+<li class="book-part">Machine Learning</li>
+<li><a class="" href="random-forest.html"><span class="header-section-number">13</span> Random Forest</a></li>
+<li><a class="" href="boosted-regression-trees.html"><span class="header-section-number">14</span> Boosted Regression Trees</a></li>
+<li><a class="" href="population-modeling.html"><span class="header-section-number">15</span> Population Modeling</a></li>
+<li><a class="" href="network-models-and-connectivity.html"><span class="header-section-number">16</span> Network Models and Connectivity</a></li>
+<li><a class="" href="agent-based-models.html"><span class="header-section-number">17</span> Agent-based Models</a></li>
+<li class="book-part">Models and decisionmaking</li>
+<li><a class="" href="decision-support.html"><span class="header-section-number">18</span> Decision Support</a></li>
+<li><a class="" href="cost-effectiveness-and-incremental-cost-analysis-ceica-with-ecorest.html"><span class="header-section-number">19</span> Cost-Effectiveness and Incremental Cost Analysis (CEICA) with ecorest</a></li>
+<li><a class="" href="annualizing-benefits-and-costs.html"><span class="header-section-number">20</span> Annualizing benefits and costs</a></li>
+<li class="book-part">Other R applications</li>
+<li><a class="" href="spatial-data-manipulation.html"><span class="header-section-number">21</span> Spatial Data Manipulation</a></li>
+<li><a class="" href="important-data-sources.html"><span class="header-section-number">22</span> Important data sources</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="habitat-suitability-index-models-with-ecorest" class="section level1" number="8">
+<h1>
+<span class="header-section-number">8</span> Habitat Suitability Index models with <code>ecorest</code><a class="anchor" aria-label="anchor" href="#habitat-suitability-index-models-with-ecorest"><i class="fas fa-link"></i></a>
+</h1>
+<hr>
+<p><strong>This module will teach you how to use the <code>ecorest</code> package in <code>R</code> to efficiently and reproducibly carry out HSI modeling and generate useful output like this:</strong></p>
+<div class="float">
+<img src="images/hep_output_mod.png" style="width:100.0%" alt="Output from HSI modeling for the Delta Islands and Levees Feasibility Study (adapted). Users will learn to generate identical values using the ecorest package"><div class="figcaption"><em>Output from HSI modeling for the Delta Islands and Levees Feasibility Study (adapted). Users will learn to generate identical values using the ecorest package</em></div>
+</div>
+<hr>
+<div id="background-on-hsi-modeling-with-ecorest" class="section level2" number="8.1">
+<h2>
+<span class="header-section-number">8.1</span> Background on HSI modeling with <code>ecorest</code><a class="anchor" aria-label="anchor" href="#background-on-hsi-modeling-with-ecorest"><i class="fas fa-link"></i></a>
+</h2>
+<p>Before <code>ecorest</code>, there was no standard platform for computing outcomes from habitat or other index models. Then and now, users often develop ad hoc spreadsheet models, but these can be highly prone to numerical errors (McKay 2009). The common quantity-quality structure of index models, however, provided an opportunity to develop a consistent, error-checked index modeling calculator adaptable to a variety of applications across USACE. That tool was <code>ecorest</code>, which can greatly increase the efficiency of performing habitat modeling as well as decrease the likelihood of computational errors.</p>
+<p>The <code>ecorest</code> package can be used to quickly apply over 350 of the HSI models developed by the U.S. Fish and Wildlife Service, often referred to as the “bluebook” models, but is flexible enough to carry out any user-defined HSI model, including ones that appear in the literature or custom models developed for specific projects.</p>
+<p>In this tutorial, we will demonstrate how the <code>ecorest</code> package can be used for two different HSI modeling scenarios, one that relies on a bluebook model, and another that uses a custom HSI model.</p>
+</div>
+<div id="run-an-hsi-analysis-with-ecorest-using-a-bluebook-model" class="section level2" number="8.2">
+<h2>
+<span class="header-section-number">8.2</span> Run an HSI analysis with <code>ecorest</code> using a bluebook model<a class="anchor" aria-label="anchor" href="#run-an-hsi-analysis-with-ecorest-using-a-bluebook-model"><i class="fas fa-link"></i></a>
+</h2>
+<p>For this scenario, we will use <code>ecorest</code> to carry out a modeling analysis that was originally done by the Sacramento District as part of the Delta Islands and Levees Feasibility Study. In this study, the Marsh Wren HSI model was used to examine the ecosystem effects of intertidal marsh restoration. The overall Feasibility Study can be found <a href="https://www.spk.usace.army.mil/Portals/12/documents/civil_works/Delta/DeltaStudy/FinalEIS/Delta_FSEIS_%20Nov18_Updated_May19.pdf?ver=oOkiNfBdSLY34I8P2aK82Q%3d%3d">here</a>, and the appendix with details on the habitat evaluation procedure can be found <a href="https://www.spk.usace.army.mil/Portals/12/documents/civil_works/Delta/DeltaStudy/FinalEIS/Appendix-F_Delta-HEP-Report.pdf?ver=2018-09-14-162500-980">here</a>.</p>
+<p>To conduct the HSI modeling in this scenario, we first need to add the necessary packages to our <code>R</code> session.</p>
+<div class="sourceCode" id="cb252"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">ecorest</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code></pre></div>
+<p>The <code>ecorest</code> package contains a list object called <code>HSImodels</code>. Each of the 351 elements of the list is a data frame representing one of the U.S. Fish and Wildlife Service Habitat suitability index (HSI) models. Each HSI model consists of multiple independent variables (e.g., percent canopy cover) and their associated habitat suitability values ranging from 0 to 1. Categorical input variables are coded as letters. All models can be called in <code>R</code> with the corresponding model name using <code>HSImodels$modelname</code> (e.g., <code>HSImodels$barredowl</code>).</p>
+<p>To look at the HSI models that are available, run the following code:</p>
+<div class="sourceCode" id="cb253"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">HSImodels</span><span class="op">)</span></span></code></pre></div>
+<pre style="max-height: 100px;"><code>##   [1] "alewifeJuv"                             "alewifeJuvAndSAEL"                     
+##   [3] "alewifeSAEL"                            "americanalligatorNontidal"             
+##   [5] "americanalligatorTidal"                 "americanblackduckWinteringEVegWetland" 
+##   [7] "americanblackduckWinteringNCapeCod"     "americanblackduckWinteringSCapeCod"    
+##   [9] "americancoot"                           "americaneiderBreeding"                 
+##  [11] "americanoysterGulfofMexModifier"        "americanoysterGulfofMexTypical"        
+##  [13] "americanshadEstu"                       "americanshadRiv"                       
+##  [15] "americanwoodcockWinteringForestedDry"   "americanwoodcockWinteringForestedMoist"
+##  [17] "americanwoodcockWinteringForestedWet"   "americanwoodcockWinteringShrubDry"     
+##  [19] "americanwoodcockWinteringShrubMoist"    "americanwoodcockWinteringShrubWet"     
+##  [21] "arcticgrayling"                         "arcticgraylingAdultJuv"                
+##  [23] "arcticgraylingSEF"                      "atlanticcroakerLATideLt0.5m"           
+##  [25] "atlanticcroakerLATideMt0.5m"            "atlanticcroakerOtherTideLt0.5m"        
+##  [27] "atlanticcroakerOtherTideMt0.5m"         "atlanticcroakerWetlandLATideLt0.5m"    
+##  [29] "atlanticcroakerWetlandLATideMt0.5m"     "atlanticcroakerWetlandOtherTideLt0.5m" 
+##  [31] "atlanticcroakerWetlandOtherTideMt0.5m"  "bairdssparrow"                         
+##  [33] "baldeagleBreeding"                      "barredowl"                             
+##  [35] "beaverLacAreaLt8ha"                     "beaverLacAreaMtoe8ha"                  
+##  [37] "beaverPalu"                             "beaverRiv"                             
+##  [39] "beltedkingfishLenticConstWave"          "beltedkingfishLenticNoConstWave"       
+##  [41] "beltedkingfishLotic"                    "bigmouthbuffaloLacNoSal"               
+##  [43] "bigmouthbuffaloLacSal"                  "bigmouthbuffaloRivNoSal"               
+##  [45] "bigmouthbuffaloRivSal"                  "blackbear"                             
+##  [47] "blackbelliedwhistlingduck"              "blackbrant"                            
+##  [49] "blackbullheadLac"                       "blackbullheadRiv"                      
+##  [51] "blackcappedchickadeeFoodCanH"           "blackcappedchickadeeFoodCanVol"        
+##  [53] "blackcrappieLacNoSal"                   "blackcrappieLacSal"                    
+##  [55] "blackcrappieRivNoSal"                   "blackcrappieRivSal"                    
+##  [57] "blacknosedaceLac"                       "blacknosedaceRiv"                      
+##  [59] "blackshoulderedkite"                    "blacktailedprairiedog"                 
+##  [61] "bluegillLac"                            "bluegillRiv"                           
+##  [63] "bluegrouse"                             "blueherringJuv"                        
+##  [65] "blueherringJuvAndSAEL"                  "blueherringSAEL"                       
+##  [67] "bluewingedtealBreeding"                 "bobcatLt4ha"                           
+##  [69] "bobcatMtoe4ha"                          "brewerssparrow"                        
+##  [71] "brooktroutLacAllLtoe15C"                "brooktroutLacAllMt15C"                 
+##  [73] "brooktroutRivAllLtoe15CLtoe5mEC"        "brooktroutRivAllLtoe15CMt5mEC"         
+##  [75] "brooktroutRivAllMt15CLtoe5mEC"          "brooktroutRivAllMt15CMt5mEC"           
+##  [77] "brownshrimpNGulfofMex"                  "brownthrasher"                         
+##  [79] "browntroutCompLtoe10C"                  "browntroutCompMt10C"                   
+##  [81] "browntroutLimitLtoe10C"                 "browntroutLimitMt10C"                  
+##  [83] "bullfrog"                               "cactuswren"                            
+##  [85] "canvasbackBreeding"                     "channelcatfishLac"                     
+##  [87] "channelcatfishRiv"                      "chinooksalmonComp5to10CSand"           
+##  [89] "chinooksalmonComp5to10CSilt"            "chinooksalmonCompLtoe5CSand"           
+##  [91] "chinooksalmonCompLtoe5CSilt"            "chinooksalmonCompMt10CSand"            
+##  [93] "chinooksalmonCompMt10CSilt"             "chinooksalmonLimit5to10CSand"          
+##  [95] "chinooksalmonLimit5to10CSilt"           "chinooksalmonLimitLtoe5CSand"          
+##  [97] "chinooksalmonLimitLtoe5CSilt"           "chinooksalmonLimitMt10CSand"           
+##  [99] "chinooksalmonLimitMt10CSilt"            "chumsalmonAlevin"                      
+##  [ reached getOption("max.print") -- omitted 251 entries ]</code></pre>
+<p>Another important object that is contained within the package is the <code>HSImetadata</code> dataframe. This contains important information on each HSI model, including how the different suitability variables within a model should be aggregated to calculate an overall HSI value for a project alternative. The following code generates a small subset of the variables and rows of this dataframe</p>
+<div class="sourceCode" id="cb255"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">HSImetadata</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">submodel</span>, <span class="va">Eqtn</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="co"># Select which columns to display</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">4</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span> <span class="co"># Select which rows to display</span></span></code></pre></div>
+<pre><code>##                                   model                     submodel            Eqtn
+## 1                            alewifeJuv    Juvenile life stage model    min(CF, CWQ)
+## 2             americanalligatorNontidal             Nontidal wetland (CCB*CCN)^(1/2)
+## 3                americanalligatorTidal               Tidal wetlands (CCB*CCN)^(1/2)
+## 4 americanblackduckWinteringEVegWetland Estuarine vegetated wetlands              CF</code></pre>
+<div id="explore-the-marsh-wren-hsi-model" class="section level3" number="8.2.1">
+<h3>
+<span class="header-section-number">8.2.1</span> Explore the Marsh Wren HSI model<a class="anchor" aria-label="anchor" href="#explore-the-marsh-wren-hsi-model"><i class="fas fa-link"></i></a>
+</h3>
+<p>To use the Marsh Wren HSI model, we extract it from the <code>HSImodels</code> object.</p>
+<div class="sourceCode" id="cb257"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">wren_hsi</span> <span class="op">&lt;-</span> <span class="va">HSImodels</span><span class="op">$</span><span class="va">marshwren</span></span></code></pre></div>
+<p>Print the Marsh Wren model to the console to look at its structure:</p>
+<div class="sourceCode" id="cb258"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">wren_hsi</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##   emerg.hydrophytes.class emerg.hydrophytes.SIV emerg.herb.can.cov.pct emerg.herb.can.cov.SIV
+## 1                       a                   1.0                      0                    0.0
+## 2                       b                   0.5                     50                    0.1
+## 3                       c                   0.1                     80                    1.0
+## 4                       d                   0.0                    100                    1.0
+##   avg.wtr.d.cm avg.wtr.d.cm.SIV woody.can.cov.pct woody.can.cov.SIV
+## 1            0                0                 0                 1
+## 2           15                1               100                 0
+## 3           40                1                NA                NA
+## 4           NA               NA                NA                NA</code></pre>
+<p>As you can see, it’s a series of suitability curves ordered as parameter breakpoints and associated suitability indices for each parameter. Each column with an environmental variable (e.g., emerg.hydrophytes.class) is followed by a column (whose name ends with <code>.SIV</code>) of suitability index values for the associated environmental predictor.</p>
+<p>The marsh wren HSI model can also be viewed graphically. The <code>HSIplotter</code> function creates a JPEG image file in the images folder of your working directory. The user selects the name of the file, but should keep the “.jpg” file extension.</p>
+<div class="sourceCode" id="cb260"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/ecorest/man/HSIplotter.html">HSIplotter</a></span><span class="op">(</span><span class="va">wren_hsi</span>, <span class="st">"images/marshwren_hsi.jpg"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure">If you open the plot file in your working directory, it should look like this:
+<img src="images/marshwren_hsi.jpg" style="width:100.0%">
+</div>
+</div>
+<div id="calculate-suitability-values-from-environmental-variables" class="section level3" number="8.2.2">
+<h3>
+<span class="header-section-number">8.2.2</span> Calculate suitability values from environmental variables<a class="anchor" aria-label="anchor" href="#calculate-suitability-values-from-environmental-variables"><i class="fas fa-link"></i></a>
+</h3>
+<p>To calculate the acres of habitat that a project would produce, we need estimates of the environmental variables that make up the chosen HSI model. For the Marsh Wren, these variables include:</p>
+<ul>
+<li>Growth form of emergent hydrophytes</li>
+<li>Canopy cover of emergent herbaceous vegetation</li>
+<li>Mean water depth</li>
+<li>Canopy cover of woody vegetation</li>
+</ul>
+<p>Values for these variables can be imported from a .csv file, or can be entered them manually as we do below. Here we take values from the row of the table that corresponds with target year 1 (TY1). <em>Environmental variables must be in the same order as they appear in the HSI model.</em> Categorical variables, such as emergent hydrophyte growth form, are coded as letters.</p>
+<div class="sourceCode" id="cb261"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">env_vars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>v1 <span class="op">=</span> <span class="st">"a"</span>,</span>
+<span>                   v2 <span class="op">=</span> <span class="fl">4</span>,</span>
+<span>                   v3 <span class="op">=</span> <span class="fl">99.1</span>,</span>
+<span>                   v4 <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
+<p>In order to calculate habitat units, we also need to provide the project area in acres. Here we provide the area listed for TY1 above.</p>
+<div class="sourceCode" id="cb262"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">area</span> <span class="op">=</span> <span class="fl">34</span></span></code></pre></div>
+<p>Next, we use the <code>SIcalc</code> function to calculate the suitability value for each variable in the model. The <code>SIcalc</code> function computes suitability indices using two inputs: the suitability model (<code>wren_hsi</code>) and the project-specific environmental variables that we’ve provided (`<code>env_vars</code>).</p>
+<div class="sourceCode" id="cb263"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">si_vars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ecorest/man/SIcalc.html">SIcalc</a></span><span class="op">(</span><span class="va">wren_hsi</span>, <span class="va">env_vars</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">si_vars</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] 1.000 0.008 1.000 1.000</code></pre>
+</div>
+<div id="aggregate-hsi-value-and-habitat-units" class="section level3" number="8.2.3">
+<h3>
+<span class="header-section-number">8.2.3</span> Aggregate HSI value and Habitat Units<a class="anchor" aria-label="anchor" href="#aggregate-hsi-value-and-habitat-units"><i class="fas fa-link"></i></a>
+</h3>
+<p>A crucial part of HSI modeling is determining how the SI values of our different variables will be combined to create the overarching HSI score. SI values can be combined in numerous ways (e.g., geometric mean, minimum value, etc.). Most bluebook models, however, identify a species/submodel-specific way to combine SI values, according to the specific attributes of the species. Therefore, when a bluebook model is being used, the <code>HSIeqtn</code> function should be used to calculate the cummulative HSI score using the appropriate equation. This function requires the name of the HSI model, the variables for each of the individual metrics that we’ve calculated, and the <code>HSImetadata</code> file, where the euqation is stored.</p>
+<div class="sourceCode" id="cb265"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">total_HSI</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ecorest/man/HSIeqtn.html">HSIeqtn</a></span><span class="op">(</span><span class="st">"marshwren"</span>, <span class="va">si_vars</span>, <span class="va">HSImetadata</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">total_HSI</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] 0.2</code></pre>
+<p>Once we have calculated our cummulative HSI score from our separate SI values, we can lastly calculate the <strong>Habitat Units</strong> associated with the given project.</p>
+<div class="sourceCode" id="cb267"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Total_hab</span> <span class="op">&lt;-</span> <span class="va">total_HSI</span><span class="op">*</span><span class="va">area</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">Total_hab</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] 6.8</code></pre>
+</div>
+<div id="habitat-units-for-multiple-years-or-alternative-projects" class="section level3" number="8.2.4">
+<h3>
+<span class="header-section-number">8.2.4</span> Habitat Units for multiple years or alternative projects<a class="anchor" aria-label="anchor" href="#habitat-units-for-multiple-years-or-alternative-projects"><i class="fas fa-link"></i></a>
+</h3>
+<p>If multiple project alternatives exist, or there are multiple years of environmental data, we can perform the same operations as above using the below code. Here, a for-loop allows us to iterate through each of the scenarios/years to calculate SI values and habitat units</p>
+<div class="sourceCode" id="cb269"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Create dataframe of environmental variables for 4 scenarios/years</span></span>
+<span><span class="va">new_env_vars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>V1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="fl">4</span><span class="op">)</span>,</span>
+<span>                       V2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">8.5</span>, <span class="fl">12</span>, <span class="fl">16</span><span class="op">)</span>,</span>
+<span>                       V3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">94.5</span>, <span class="fl">89.9</span>, <span class="fl">85.3</span>, <span class="fl">80.8</span><span class="op">)</span>,</span>
+<span>                       V4 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">nyears</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">new_env_vars</span><span class="op">)</span> <span class="co"># Number of years/alternatives</span></span>
+<span><span class="va">nvars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">new_env_vars</span><span class="op">)</span> <span class="co"># Number of environmental variables</span></span>
+<span></span>
+<span><span class="va">new_area</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">68</span>, <span class="fl">102</span>, <span class="fl">136</span>, <span class="fl">170</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Create an empty matrix and vector to hold the results of the SI and HSI calculations, respectively</span></span>
+<span><span class="va">new_si_vars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">0</span>, nrow<span class="op">=</span><span class="va">nyears</span>, ncol<span class="op">=</span><span class="va">nvars</span><span class="op">)</span></span>
+<span><span class="va">new_total_HSI</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fl">4</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Use a for-loop to calculate SI values and HSI scores for each year/scenario</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">nyears</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">new_si_vars</span><span class="op">[</span><span class="va">i</span>, <span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ecorest/man/SIcalc.html">SIcalc</a></span><span class="op">(</span><span class="va">wren_hsi</span>, <span class="va">new_env_vars</span><span class="op">[</span><span class="va">i</span>, <span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="va">new_total_HSI</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ecorest/man/HSIeqtn.html">HSIeqtn</a></span><span class="op">(</span><span class="st">"marshwren"</span>, <span class="va">new_si_vars</span><span class="op">[</span><span class="va">i</span>, <span class="op">]</span>, <span class="va">HSImetadata</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># Create a dataframe of the new SI values</span></span>
+<span><span class="va">new_si_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="va">new_si_vars</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rlang.r-lib.org/reference/set_names.html">set_names</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"SI_V1"</span>,<span class="st">"SI_V2"</span>,<span class="st">"SI_V3"</span>,<span class="st">"SI_V4"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Create an output table with all of the input and output</span></span>
+<span><span class="va">output_tab_wren</span> <span class="op">&lt;-</span> <span class="va">new_env_vars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_cols.html">bind_cols</a></span><span class="op">(</span><span class="va">new_si_df</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>output_HSI <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">new_total_HSI</span>, <span class="fl">2</span><span class="op">)</span>,</span>
+<span>         total_acres <span class="op">=</span> <span class="va">new_area</span>,</span>
+<span>         HUs <span class="op">=</span> <span class="va">output_HSI</span><span class="op">*</span><span class="va">total_acres</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Print the table using the knitr package</span></span>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">output_tab_wren</span>, </span>
+<span>             digits <span class="op">=</span> <span class="fl">2</span>, </span>
+<span>             padding <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>             caption <span class="op">=</span> <span class="st">"Habitat Suitability Index (HSI) Variables and </span></span>
+<span><span class="st">             Resulting Outputs for the Marsh Wren Model With-Project."</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:unnamed-chunk-19">Table 8.1: </span>Habitat Suitability Index (HSI) Variables and
+Resulting Outputs for the Marsh Wren Model With-Project.</caption>
+<colgroup>
+<col width="5%">
+<col width="7%">
+<col width="7%">
+<col width="5%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="15%">
+<col width="16%">
+<col width="8%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">V1</th>
+<th align="right">V2</th>
+<th align="right">V3</th>
+<th align="right">V4</th>
+<th align="right">SI_V1</th>
+<th align="right">SI_V2</th>
+<th align="right">SI_V3</th>
+<th align="right">SI_V4</th>
+<th align="right">output_HSI</th>
+<th align="right">total_acres</th>
+<th align="right">HUs</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">a</td>
+<td align="right">5.0</td>
+<td align="right">94.5</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0.22</td>
+<td align="right">68</td>
+<td align="right">14.96</td>
+</tr>
+<tr class="even">
+<td align="left">a</td>
+<td align="right">8.5</td>
+<td align="right">89.9</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.02</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0.26</td>
+<td align="right">102</td>
+<td align="right">26.52</td>
+</tr>
+<tr class="odd">
+<td align="left">a</td>
+<td align="right">12.0</td>
+<td align="right">85.3</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.02</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0.29</td>
+<td align="right">136</td>
+<td align="right">39.44</td>
+</tr>
+<tr class="even">
+<td align="left">a</td>
+<td align="right">16.0</td>
+<td align="right">80.8</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.03</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0.32</td>
+<td align="right">170</td>
+<td align="right">54.40</td>
+</tr>
+</tbody>
+</table></div>
+<p>The results we’ve generated using the <code>ecorest</code> package are identical to the ones in the report, as you can see:
+<img src="images/hep_output_box.png" style="width:100.0%"></p>
+<p>The beauty of carrying this out in <code>R</code> using a script is that we can change an input value and reproduce all the results in a matter of seconds by re-running the code, instead of having to go through all the steps manually. And using the <code>ecorest</code> package means instant access to hundreds of quality-controlled bluebook models.</p>
+</div>
+</div>
+<div id="hsi-modeling-with-custom-model" class="section level2" number="8.3">
+<h2>
+<span class="header-section-number">8.3</span> HSI Modeling with custom model<a class="anchor" aria-label="anchor" href="#hsi-modeling-with-custom-model"><i class="fas fa-link"></i></a>
+</h2>
+<p>Sometimes, a project will use a custom index model instead of a bluebook model to calculate habitat units. For example, for its South San Francisco Bay Shoreline Study, USACE-SPN collaborated with ERDC’s Coastal Ecology and Integrated Ecological Modeling, to develop a quantitative model for tidal marsh restoration in subsided former baylands that is sensitive to multiple restoration measures, including the import of beneficially used material for bathymetry lifts, ecotones and other refugia.</p>
+<p>They used the <code>ecorest</code> package for their habitat model caclulations.</p>
+<div id="explore-model-and-data" class="section level3" number="8.3.1">
+<h3>
+<span class="header-section-number">8.3.1</span> Explore model and data<a class="anchor" aria-label="anchor" href="#explore-model-and-data"><i class="fas fa-link"></i></a>
+</h3>
+<p>Import a .csv of the marsh model, print the names of the variables, and plot the model. <em>Note: for the plotting function to work, the model must be read in using the base R function <code>read.csv</code> instead of the Tidyverse function <code>read_csv</code></em></p>
+<div class="sourceCode" id="cb270"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Import marsh HSI model</span></span>
+<span><span class="va">marsh_model</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/SF-TM-HEI_InputData.csv"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">marsh_model</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "percent.tidal.range"                                     
+## [2] "percent.tidal.range.SIV"                                 
+## [3] "Average.Marsh.Age"                                       
+## [4] "Average.Marsh.Age.SIV"                                   
+## [5] "Percent.Marsh.within.500.or.200"                         
+## [6] "Percent.Marsh.within.500.or.200.SIV"                     
+## [7] "Percent.Marsh.Shoreward.Edge.with.Ecotone.Transition"    
+## [8] "Percent.Marsh.Shoreward.Edge.with.Ecotone.Transition.SIV"</code></pre>
+<div class="sourceCode" id="cb272"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/ecorest/man/HSIplotter.html">HSIplotter</a></span><span class="op">(</span><span class="va">marsh_model</span>,<span class="st">"images/marsh_model.jpg"</span><span class="op">)</span></span></code></pre></div>
+<div class="float">
+<img src="images/marsh_model.jpg" style="width:100.0%" alt="Figure X. Marsh model "><div class="figcaption"><em>Figure X. Marsh model </em></div>
+</div>
+<p>Next, read in the environmental data associated with the alternative project designs.</p>
+<div class="sourceCode" id="cb273"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Dataset of environmental conditions associated with project alternatives</span></span>
+<span><span class="va">marsh_alts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/SF-TM-HEI_FieldData.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># marsh_alts %&gt;% </span></span>
+<span><span class="co">#   pivot_longer(V1:V4, names_to = "variable", values_to = "value") %&gt;%</span></span>
+<span><span class="co">#   ggplot() +</span></span>
+<span><span class="co">#   geom_point(aes(variable, value))+</span></span>
+<span><span class="co">#   facet_wrap(~alt, nrow = 15)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">marsh_alts</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##      alt  V1  V2  V3  V4
+## 1   FWOP   0   0   0   0
+## 2  Alt1a  20 100   0   0
+## 3  Alt1b  50 100   0   0
+## 4  Alt1c 100 100   0   0
+## 5  Alt2a  20 100  20 100
+## 6  Alt2b  50 100  20 100
+## 7  Alt2c 100 100  20 100
+## 8  Alt3a  20 100 100 100
+## 9  Alt3b  50 100 100 100
+## 10 Alt3c 100 100 100 100
+## 11 Alt3d 100  20 100 100
+## 12 Alt3e 100  10 100 100
+## 13 Alt3f 100   1 100 100
+## 14 Alt3g 100   0 100 100
+## 15 Alt3h 100   0   0   0</code></pre>
+</div>
+<div id="calculate-individual-suitability-indices" class="section level3" number="8.3.2">
+<h3>
+<span class="header-section-number">8.3.2</span> Calculate individual suitability indices<a class="anchor" aria-label="anchor" href="#calculate-individual-suitability-indices"><i class="fas fa-link"></i></a>
+</h3>
+<p>Again, we will create an empty matrix to store the results and calculate the SI values for each parameter using <code>SICalc()</code>.</p>
+<div class="sourceCode" id="cb275"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span> <span class="co"># Create a dataframe of just environmental variables associated with each alternative</span></span>
+<span><span class="va">env_marsh</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">marsh_alts</span>, <span class="op">-</span><span class="va">alt</span><span class="op">)</span></span>
+<span><span class="va">nalternatives</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">marsh_alts</span><span class="op">$</span><span class="va">alt</span><span class="op">)</span> <span class="co"># Number of alternatives</span></span>
+<span></span>
+<span><span class="co"># Create empty matrix to store SI values for each alternative</span></span>
+<span><span class="va">si_marsh</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="cn">NA</span>, nrow<span class="op">=</span><span class="va">nalternatives</span>, ncol<span class="op">=</span><span class="fl">4</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Calculate the SI values for each alternative using a for-loop</span></span>
+<span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">nalternatives</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">si_marsh</span><span class="op">[</span><span class="va">i</span>, <span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ecorest/man/SIcalc.html">SIcalc</a></span><span class="op">(</span><span class="va">marsh_model</span>, <span class="va">env_marsh</span><span class="op">[</span><span class="va">i</span>, <span class="op">]</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># Convert matrix of SI values to dataframe and name the columns</span></span>
+<span><span class="va">si_marsh_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="va">si_marsh</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rlang.r-lib.org/reference/set_names.html">set_names</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"SI_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">env_marsh</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="calculate-the-total-hsi-score" class="section level3" number="8.3.3">
+<h3>
+<span class="header-section-number">8.3.3</span> Calculate the Total HSI score<a class="anchor" aria-label="anchor" href="#calculate-the-total-hsi-score"><i class="fas fa-link"></i></a>
+</h3>
+<p>Here, the analysis team developed a custom formula to combine the different HSI scores:
+Cube root((Tidal connectivity* Marsh Age)*(Ecotone + Refugia)/2)</p>
+<p>In R syntax, that code looks like this
+<code>((((SIV2*SIV1)(SIV4+SIV3)/2))^(1/3))</code></p>
+<p>To calculate the cummulative score, we’ll use the mutate function to create a new column in our dataframe of suitability index values, and calculate the total HSI values from the other columns.</p>
+<div class="sourceCode" id="cb276"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Calculate overall HSI from individual SI values</span></span>
+<span><span class="va">si_total</span> <span class="op">&lt;-</span> <span class="va">si_marsh_df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>total_hsi <span class="op">=</span> <span class="op">(</span><span class="op">(</span><span class="op">(</span><span class="op">(</span><span class="va">SI_V4</span><span class="op">+</span><span class="va">SI_V3</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span><span class="op">*</span><span class="op">(</span><span class="va">SI_V2</span><span class="op">*</span><span class="va">SI_V1</span><span class="op">)</span><span class="op">)</span><span class="op">^</span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="cummulative-hsi-and-habitat-units" class="section level3" number="8.3.4">
+<h3>
+<span class="header-section-number">8.3.4</span> Cummulative HSI and Habitat Units<a class="anchor" aria-label="anchor" href="#cummulative-hsi-and-habitat-units"><i class="fas fa-link"></i></a>
+</h3>
+<p>Next, we’ll calculate the habitat units associated with the project, assuming a total project area of 300 acres.</p>
+<div class="sourceCode" id="cb277"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Calculate habitat units by multiplying total HSI by project area (300 acres)</span></span>
+<span><span class="va">area_marsh</span> <span class="op">&lt;-</span> <span class="fl">300</span></span>
+<span></span>
+<span><span class="va">si_total_hu</span><span class="op">&lt;-</span><span class="va">si_total</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>HUs <span class="op">=</span> <span class="va">area_marsh</span><span class="op">*</span><span class="va">total_hsi</span><span class="op">)</span></span></code></pre></div>
+<p>Finally, we can create an ouput table with all of the data.</p>
+<div class="sourceCode" id="cb278"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">output_tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_cols.html">bind_cols</a></span><span class="op">(</span><span class="va">marsh_alts</span>, <span class="va">si_total_hu</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rlang.r-lib.org/reference/set_names.html">set_names</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Alternative"</span>, <span class="st">"PTR"</span>, <span class="st">"MA"</span>, <span class="st">"HTR"</span>, <span class="st">"E"</span>, <span class="st">"PTR-SI"</span>, <span class="st">"MA-SI"</span>, </span>
+<span>              <span class="st">"HTR-SI"</span>, <span class="st">"E-SI"</span>, <span class="st">"HSI-Total"</span>, <span class="st">"Marsh Units"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">output_tab</span>, caption<span class="op">=</span><span class="st">"SF Salt Marsh HSI Values and Marsh Units."</span>, </span>
+<span>             align<span class="op">=</span><span class="st">"c"</span>, </span>
+<span>             digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:unnamed-chunk-25">Table 8.2: </span>SF Salt Marsh HSI Values and Marsh Units.</caption>
+<colgroup>
+<col width="15%">
+<col width="5%">
+<col width="5%">
+<col width="5%">
+<col width="5%">
+<col width="9%">
+<col width="8%">
+<col width="9%">
+<col width="6%">
+<col width="12%">
+<col width="15%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Alternative</th>
+<th align="center">PTR</th>
+<th align="center">MA</th>
+<th align="center">HTR</th>
+<th align="center">E</th>
+<th align="center">PTR-SI</th>
+<th align="center">MA-SI</th>
+<th align="center">HTR-SI</th>
+<th align="center">E-SI</th>
+<th align="center">HSI-Total</th>
+<th align="center">Marsh Units</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center">FWOP</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0.00</td>
+<td align="center">0.03</td>
+<td align="center">0.5</td>
+<td align="center">0.5</td>
+<td align="center">0.00</td>
+<td align="center">0.00</td>
+</tr>
+<tr class="even">
+<td align="center">Alt1a</td>
+<td align="center">20</td>
+<td align="center">100</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0.03</td>
+<td align="center">1.00</td>
+<td align="center">0.5</td>
+<td align="center">0.5</td>
+<td align="center">0.23</td>
+<td align="center">69.62</td>
+</tr>
+<tr class="odd">
+<td align="center">Alt1b</td>
+<td align="center">50</td>
+<td align="center">100</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0.20</td>
+<td align="center">1.00</td>
+<td align="center">0.5</td>
+<td align="center">0.5</td>
+<td align="center">0.46</td>
+<td align="center">139.25</td>
+</tr>
+<tr class="even">
+<td align="center">Alt1c</td>
+<td align="center">100</td>
+<td align="center">100</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1.00</td>
+<td align="center">1.00</td>
+<td align="center">0.5</td>
+<td align="center">0.5</td>
+<td align="center">0.79</td>
+<td align="center">238.11</td>
+</tr>
+<tr class="odd">
+<td align="center">Alt2a</td>
+<td align="center">20</td>
+<td align="center">100</td>
+<td align="center">20</td>
+<td align="center">100</td>
+<td align="center">0.03</td>
+<td align="center">1.00</td>
+<td align="center">0.6</td>
+<td align="center">1.0</td>
+<td align="center">0.27</td>
+<td align="center">81.43</td>
+</tr>
+<tr class="even">
+<td align="center">Alt2b</td>
+<td align="center">50</td>
+<td align="center">100</td>
+<td align="center">20</td>
+<td align="center">100</td>
+<td align="center">0.20</td>
+<td align="center">1.00</td>
+<td align="center">0.6</td>
+<td align="center">1.0</td>
+<td align="center">0.54</td>
+<td align="center">162.87</td>
+</tr>
+<tr class="odd">
+<td align="center">Alt2c</td>
+<td align="center">100</td>
+<td align="center">100</td>
+<td align="center">20</td>
+<td align="center">100</td>
+<td align="center">1.00</td>
+<td align="center">1.00</td>
+<td align="center">0.6</td>
+<td align="center">1.0</td>
+<td align="center">0.93</td>
+<td align="center">278.50</td>
+</tr>
+<tr class="even">
+<td align="center">Alt3a</td>
+<td align="center">20</td>
+<td align="center">100</td>
+<td align="center">100</td>
+<td align="center">100</td>
+<td align="center">0.03</td>
+<td align="center">1.00</td>
+<td align="center">1.0</td>
+<td align="center">1.0</td>
+<td align="center">0.29</td>
+<td align="center">87.72</td>
+</tr>
+<tr class="odd">
+<td align="center">Alt3b</td>
+<td align="center">50</td>
+<td align="center">100</td>
+<td align="center">100</td>
+<td align="center">100</td>
+<td align="center">0.20</td>
+<td align="center">1.00</td>
+<td align="center">1.0</td>
+<td align="center">1.0</td>
+<td align="center">0.58</td>
+<td align="center">175.44</td>
+</tr>
+<tr class="even">
+<td align="center">Alt3c</td>
+<td align="center">100</td>
+<td align="center">100</td>
+<td align="center">100</td>
+<td align="center">100</td>
+<td align="center">1.00</td>
+<td align="center">1.00</td>
+<td align="center">1.0</td>
+<td align="center">1.0</td>
+<td align="center">1.00</td>
+<td align="center">300.00</td>
+</tr>
+<tr class="odd">
+<td align="center">Alt3d</td>
+<td align="center">100</td>
+<td align="center">20</td>
+<td align="center">100</td>
+<td align="center">100</td>
+<td align="center">1.00</td>
+<td align="center">0.95</td>
+<td align="center">1.0</td>
+<td align="center">1.0</td>
+<td align="center">0.98</td>
+<td align="center">294.91</td>
+</tr>
+<tr class="even">
+<td align="center">Alt3e</td>
+<td align="center">100</td>
+<td align="center">10</td>
+<td align="center">100</td>
+<td align="center">100</td>
+<td align="center">1.00</td>
+<td align="center">0.80</td>
+<td align="center">1.0</td>
+<td align="center">1.0</td>
+<td align="center">0.93</td>
+<td align="center">278.50</td>
+</tr>
+<tr class="odd">
+<td align="center">Alt3f</td>
+<td align="center">100</td>
+<td align="center">1</td>
+<td align="center">100</td>
+<td align="center">100</td>
+<td align="center">1.00</td>
+<td align="center">0.13</td>
+<td align="center">1.0</td>
+<td align="center">1.0</td>
+<td align="center">0.51</td>
+<td align="center">153.90</td>
+</tr>
+<tr class="even">
+<td align="center">Alt3g</td>
+<td align="center">100</td>
+<td align="center">0</td>
+<td align="center">100</td>
+<td align="center">100</td>
+<td align="center">1.00</td>
+<td align="center">0.03</td>
+<td align="center">1.0</td>
+<td align="center">1.0</td>
+<td align="center">0.29</td>
+<td align="center">87.72</td>
+</tr>
+<tr class="odd">
+<td align="center">Alt3h</td>
+<td align="center">100</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1.00</td>
+<td align="center">0.03</td>
+<td align="center">0.5</td>
+<td align="center">0.5</td>
+<td align="center">0.23</td>
+<td align="center">69.62</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div id="linking-steps-using-pipes" class="section level3" number="8.3.5">
+<h3>
+<span class="header-section-number">8.3.5</span> Linking steps using pipes<a class="anchor" aria-label="anchor" href="#linking-steps-using-pipes"><i class="fas fa-link"></i></a>
+</h3>
+<p>The last several operations that we conducted above can be done in a single “tidy” way by using the pipe operator <code>%&gt;%</code>.</p>
+<p>The final line of code checks demonstrates that the two output dataframes are identical.</p>
+<div class="sourceCode" id="cb279"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">area_marsh</span> <span class="op">=</span> <span class="fl">300</span></span>
+<span></span>
+<span><span class="va">output_tab_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="va">si_marsh</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rlang.r-lib.org/reference/set_names.html">set_names</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"SI_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">env_marsh</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>total_hsi <span class="op">=</span> <span class="op">(</span><span class="op">(</span><span class="op">(</span><span class="op">(</span><span class="va">SI_V4</span><span class="op">+</span><span class="va">SI_V3</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span><span class="op">*</span><span class="op">(</span><span class="va">SI_V2</span><span class="op">*</span><span class="va">SI_V1</span><span class="op">)</span><span class="op">)</span><span class="op">^</span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>         HUs <span class="op">=</span> <span class="va">area_marsh</span><span class="op">*</span><span class="va">total_hsi</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_cols.html">bind_cols</a></span><span class="op">(</span><span class="va">marsh_alts</span>,<span class="va">.</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="co"># This code is slightly different so that marsh_alts data will come first; the "." symbol indicates everything that has come before this function</span></span>
+<span>  <span class="fu"><a href="https://rlang.r-lib.org/reference/set_names.html">set_names</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Alternative"</span>, <span class="st">"PTR"</span>, <span class="st">"MA"</span>, <span class="st">"HTR"</span>, <span class="st">"E"</span>, <span class="st">"PTR-SI"</span>, <span class="st">"MA-SI"</span>, </span>
+<span>              <span class="st">"HTR-SI"</span>, <span class="st">"E-SI"</span>, <span class="st">"HSI-Total"</span>, <span class="st">"Marsh Units"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="va">output_tab</span>, <span class="va">output_tab_2</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="ecorest-web-app.html"><span class="header-section-number">7</span> Ecorest Web App</a></div>
+<div class="next"><a href="spatial-habitat-models.html"><span class="header-section-number">9</span> Spatial Habitat Models</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#habitat-suitability-index-models-with-ecorest"><span class="header-section-number">8</span> Habitat Suitability Index models with ecorest</a></li>
+<li><a class="nav-link" href="#background-on-hsi-modeling-with-ecorest"><span class="header-section-number">8.1</span> Background on HSI modeling with ecorest</a></li>
+<li>
+<a class="nav-link" href="#run-an-hsi-analysis-with-ecorest-using-a-bluebook-model"><span class="header-section-number">8.2</span> Run an HSI analysis with ecorest using a bluebook model</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#explore-the-marsh-wren-hsi-model"><span class="header-section-number">8.2.1</span> Explore the Marsh Wren HSI model</a></li>
+<li><a class="nav-link" href="#calculate-suitability-values-from-environmental-variables"><span class="header-section-number">8.2.2</span> Calculate suitability values from environmental variables</a></li>
+<li><a class="nav-link" href="#aggregate-hsi-value-and-habitat-units"><span class="header-section-number">8.2.3</span> Aggregate HSI value and Habitat Units</a></li>
+<li><a class="nav-link" href="#habitat-units-for-multiple-years-or-alternative-projects"><span class="header-section-number">8.2.4</span> Habitat Units for multiple years or alternative projects</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#hsi-modeling-with-custom-model"><span class="header-section-number">8.3</span> HSI Modeling with custom model</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#explore-model-and-data"><span class="header-section-number">8.3.1</span> Explore model and data</a></li>
+<li><a class="nav-link" href="#calculate-individual-suitability-indices"><span class="header-section-number">8.3.2</span> Calculate individual suitability indices</a></li>
+<li><a class="nav-link" href="#calculate-the-total-hsi-score"><span class="header-section-number">8.3.3</span> Calculate the Total HSI score</a></li>
+<li><a class="nav-link" href="#cummulative-hsi-and-habitat-units"><span class="header-section-number">8.3.4</span> Cummulative HSI and Habitat Units</a></li>
+<li><a class="nav-link" href="#linking-steps-using-pipes"><span class="header-section-number">8.3.5</span> Linking steps using pipes</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Using R for ecological modeling in USACE</strong>" was written by Ed Stowe. </p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
