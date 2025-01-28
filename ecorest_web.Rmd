@@ -1,19 +1,8 @@
 # Ecorest Web App
 
-THIS IS NOT STRICTLY USING R SO WE COULD KEEP OR REMOVE
+## Background
 
-## **Purpose**
-This user guide provides general information on Habitat Suitability Index modeling and  Cost-Effective Incremental Cost Analysis, and a step-by-step guidance on how to use the *ecorest webapp*.
-
-## **Introduction to HSI and CEICA Tools**
-
-Ecosystem management projects often use ecological modeling to quantify the environmental impacts and benefits of alternative project scenarios or to assess current ecosystem condition. Cost-Effective and Incremental Cost Analysis (CEICA) is another management tool that provides information on the efficiency of alternative project scenarios to produce environmental outputs and the monetary and non-monetary costs of the outputs (Robinson et al. 1995). Ecological models and CEICA are often incorporated in the planning, design and decision-informing steps of restoration projects to compare the potential ecological and economic outcomes of a series of alternatives that target project goals. 
-
-Index models are a type of ecological model commonly used in environmental assessments and restoration projects. Index models combine habitat or ecosystem quality and sometimes quantity into a metric for assessing habitat condition. An output from a habitat Suitability Index (HSI) model is defined as “a numerical index that represents the capacity of a given habitat to support a selected fish or wildlife species” (USFWS 1991). Habitat quality is assessed by identifying key variables correlated with habitat or ecosystem condition. Each variable is then translated into a suitability index curve, which transforms dimensional quantities into dimensionless values of quality. Suitability index values range from 0 to 1, where 0 is unsuitable/low condition and 1 is suitable/ideal condition. Multiple suitability curves are then combined through equations into an overarching assessment of habitat quality. Habitat quantity, also used sometimes in HSI analysis, is commonly expressed as metric of area (e.g., miles, acres) and combined with quality values for a given area.
-
-Cost-effectiveness and incremental cost analysis is also a project planning tool that supports decision-making by comparing costs associated to the level of benefits each project alternative can produce. In environmental restoration planning, CEICA compares non-monetary environmental outputs (e.g., environmental benefits) relative to monetary costs of restoration actions or plans (Robinson et al. 1995). The US Army Corps of Engineers (USACE) restoration plans compare project alternatives to future without project (FWOP) scenarios in order to determine the effects of each plan in the ecosystem that is being restored. The [IWR Planning Suite](http://www.iwrplan.com/) is an existing USACE tool used to conduct CEICA. A guide to CEICA can be found [here](https://www.iwr.usace.army.mil/Portals/70/docs/iwrreports/95-R-1.pdf).
-
-## **Ecorest Webapp**
+In the previous module, we learned how to build HSI models in R using the `ecorest` package. However, there is also a webapp for using the `ecorest` package, and in this tutorial, users can learn how to use this webapp.
 
 The ecosrest webapp combines HSI and CEICA capabilities, package in [ecorest](https://cran.r-project.org/web/packages/ecorest/index.html), under a single graphical user interface. Users can access ecosrest data and functions without the need to use the R programming language. Below are the instructions on how to conduct HSI and CEICA using the *ecorest* webapp.
 
