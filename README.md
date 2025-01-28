@@ -1,4 +1,4 @@
-# USACE_ecomod_training
+# USACE ecomod training
 Training series on using R for ecological modeling within USACE projects
 
 To compile the book, the following R packages should be installed:
