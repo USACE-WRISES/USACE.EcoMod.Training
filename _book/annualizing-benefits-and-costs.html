@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>20 Annualizing benefits and costs | Using R for ecological modeling in USACE</title>
+<meta name="author" content="Ed Stowe">
+<meta name="generator" content="bookdown 0.42 with bs4_book()">
+<meta property="og:title" content="20 Annualizing benefits and costs | Using R for ecological modeling in USACE">
+<meta property="og:type" content="book">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="20 Annualizing benefits and costs | Using R for ecological modeling in USACE">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.8.0/transition.js"></script><script src="libs/bs3compat-0.8.0/tabs.js"></script><script src="libs/bs3compat-0.8.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<meta name="description" content="This module will teach you how to use the ecorest and EngrEcon packages in R to efficiently and reproducibly calculated annualized benefits and costs for restoration project planning:  20.1...">
+<meta property="og:description" content="This module will teach you how to use the ecorest and EngrEcon packages in R to efficiently and reproducibly calculated annualized benefits and costs for restoration project planning:  20.1...">
+<meta name="twitter:description" content="This module will teach you how to use the ecorest and EngrEcon packages in R to efficiently and reproducibly calculated annualized benefits and costs for restoration project planning:  20.1...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Using R for ecological modeling in USACE</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Overview</a></li>
+<li><a class="" href="required-set-up-for-the-course.html">Required set-up for the course</a></li>
+<li class="book-part">Basic Training on R and RStudio</li>
+<li><a class="" href="introduction-to-r-and-rstudio.html"><span class="header-section-number">1</span> Introduction to R and RStudio</a></li>
+<li><a class="" href="data-visualization-with-ggplot2.html"><span class="header-section-number">2</span> Data Visualization with ggplot2</a></li>
+<li><a class="" href="exploring-and-understanding-data.html"><span class="header-section-number">3</span> Exploring and understanding data</a></li>
+<li><a class="" href="manipulating-tabular-data.html"><span class="header-section-number">4</span> Manipulating Tabular Data</a></li>
+<li class="book-part">Ecological Modeling in R</li>
+<li><a class="" href="conceptual-ecological-models.html"><span class="header-section-number">5</span> Conceptual Ecological Models</a></li>
+<li class="book-part">Habitat Models</li>
+<li><a class="" href="background-on-habitat-models-in-usace.html"><span class="header-section-number">6</span> Background on habitat models in USACE</a></li>
+<li><a class="" href="habitat-suitability-index-models-with-ecorest.html"><span class="header-section-number">7</span> Habitat Suitability Index models with ecorest</a></li>
+<li><a class="" href="ecorest-web-app.html"><span class="header-section-number">8</span> Ecorest Web App</a></li>
+<li><a class="" href="spatial-habitat-models.html"><span class="header-section-number">9</span> Spatial Habitat Models</a></li>
+<li class="book-part">Linear Models</li>
+<li><a class="" href="linear-models.html"><span class="header-section-number">10</span> Linear Models</a></li>
+<li><a class="" href="generalized-linear-models.html"><span class="header-section-number">11</span> Generalized Linear Models</a></li>
+<li><a class="" href="random-effects.html"><span class="header-section-number">12</span> Random Effects</a></li>
+<li class="book-part">Machine Learning</li>
+<li><a class="" href="random-forest.html"><span class="header-section-number">13</span> Random Forest</a></li>
+<li><a class="" href="boosted-regression-trees.html"><span class="header-section-number">14</span> Boosted Regression Trees</a></li>
+<li><a class="" href="population-modeling.html"><span class="header-section-number">15</span> Population Modeling</a></li>
+<li><a class="" href="network-models-and-connectivity.html"><span class="header-section-number">16</span> Network Models and Connectivity</a></li>
+<li><a class="" href="agent-based-models.html"><span class="header-section-number">17</span> Agent-based Models</a></li>
+<li class="book-part">Models and decisionmaking</li>
+<li><a class="" href="decision-support.html"><span class="header-section-number">18</span> Decision Support</a></li>
+<li><a class="" href="cost-effectiveness-and-incremental-cost-analysis-ceica-with-ecorest.html"><span class="header-section-number">19</span> Cost-Effectiveness and Incremental Cost Analysis (CEICA) with ecorest</a></li>
+<li><a class="active" href="annualizing-benefits-and-costs.html"><span class="header-section-number">20</span> Annualizing benefits and costs</a></li>
+<li class="book-part">Other R applications</li>
+<li><a class="" href="spatial-data-manipulation.html"><span class="header-section-number">21</span> Spatial Data Manipulation</a></li>
+<li><a class="" href="important-data-sources.html"><span class="header-section-number">22</span> Important data sources</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="annualizing-benefits-and-costs" class="section level1" number="20">
+<h1>
+<span class="header-section-number">20</span> Annualizing benefits and costs<a class="anchor" aria-label="anchor" href="#annualizing-benefits-and-costs"><i class="fas fa-link"></i></a>
+</h1>
+<p><strong>This module will teach you how to use the <code>ecorest</code> and <code>EngrEcon</code> packages in <code>R</code> to efficiently and reproducibly calculated annualized benefits and costs for restoration project planning:</strong></p>
+<div id="background-on-annualization" class="section level2" number="20.1">
+<h2>
+<span class="header-section-number">20.1</span> Background on annualization<a class="anchor" aria-label="anchor" href="#background-on-annualization"><i class="fas fa-link"></i></a>
+</h2>
+<p>Annualization is a technique for determining the costs and benefits of projects on an annual time scale, regardless of the overall time horizon of the project. Calculating annualized costs and benefits is an important component of restoration planning because it enables a fair comparison between alternatives project whose costs and/or benefits occur at different periods of time following implementtion.</p>
+</div>
+<div id="annualizing-benefits" class="section level2" number="20.2">
+<h2>
+<span class="header-section-number">20.2</span> Annualizing benefits<a class="anchor" aria-label="anchor" href="#annualizing-benefits"><i class="fas fa-link"></i></a>
+</h2>
+<p>Annualization of benefits can be easily carried out in the <code>ecorest</code> package. ALong with <code>ecorest</code> we will also load the <code>tidyverse</code> package for plotting/wrangling and the <code>EngrEcon</code> package for cost annualization.</p>
+<div class="sourceCode" id="cb346"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">ecorest</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">EngrEcon</span><span class="op">)</span></span></code></pre></div>
+<p>Imagine a simple scenario with ecosystem or restoration benefits calculated at four time periods. We can store these benefits in a dataframe and plot them with <code>ggplot</code> as follows:</p>
+<div class="sourceCode" id="cb347"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#User-specified time intervals</span></span>
+<span><span class="va">ben_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>year <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">2</span>,<span class="fl">20</span>,<span class="fl">50</span><span class="op">)</span>,</span>
+<span>                     ben <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">100</span>,<span class="fl">90</span>,<span class="fl">80</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">ben_df</span><span class="op">)</span><span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">ben</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">ben</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Year"</span>, y <span class="op">=</span> <span class="st">"Benefits"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  </span>
+<span><span class="va">p</span></span></code></pre></div>
+<div class="inline-figure">
+<img src="usace_R_training_files/figure-html/unnamed-chunk-69-1.png" width="600" height="600">
+What annualization does is calculate the total area under this benefits curve, and then divide by the number of years. This essentially looks like carving the area into triangles and rectangles, calculating the areas of these shapes, and dividing to get an annual benefit.</div>
+<div class="sourceCode" id="cb348"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">df_rect</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>xmin <span class="op">=</span> <span class="va">ben_df</span><span class="op">$</span><span class="va">year</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>,</span>
+<span>                  xmax <span class="op">=</span> <span class="va">ben_df</span><span class="op">$</span><span class="va">year</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>,</span>
+<span>                  ymin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>,</span>
+<span>                  ymax <span class="op">=</span> <span class="va">ben_df</span><span class="op">$</span><span class="va">ben</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html">geom_rect</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">df_rect</span>,</span>
+<span>            <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>xmin <span class="op">=</span> <span class="va">xmin</span>, xmax <span class="op">=</span> <span class="va">xmax</span>, ymin <span class="op">=</span> <span class="va">ymin</span>, ymax <span class="op">=</span> <span class="va">ymax</span><span class="op">)</span>,</span>
+<span>            fill <span class="op">=</span> <span class="cn">NA</span>, lty <span class="op">=</span> <span class="st">"dashed"</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-70-1.png" width="600" height="600"></div>
+<p>The <code>ecorest</code> package provides an easy way to achieve this with the annualizer function, which computes “time-averaged quantities based on linear interpolation,” which does exactly this.</p>
+<p>Inputs for the function are: 1) a vector of time intervals and
+2) a vector of values to interpolate&gt;</p>
+<div class="sourceCode" id="cb349"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/ecorest/man/annualizer.html">annualizer</a></span><span class="op">(</span><span class="va">ben_df</span><span class="op">$</span><span class="va">year</span>, <span class="va">ben_df</span><span class="op">$</span><span class="va">ben</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] 87.2</code></pre>
+<p>This indicates that the annualized ecological benefits of the project are 87.2 units (e.g., acres, habitat units, etc.)</p>
+</div>
+<div id="annualizing-costs" class="section level2" number="20.3">
+<h2>
+<span class="header-section-number">20.3</span> Annualizing costs<a class="anchor" aria-label="anchor" href="#annualizing-costs"><i class="fas fa-link"></i></a>
+</h2>
+<p>Cost annualization is carried out so that fair comparisons can be made between projects with different temporal scales.</p>
+<p>EDIT THE FOLLOWING.</p>
+<p>Cost estimates were compiled for each site-scale restoration action following standard cost engineering methods. At this phase, construction cost represents a parametric cost for comparative purposes only, which is confined to construction activities. No real estate, pre-construction engineering and design, construction management, or cultural resources costs were included at present.</p>
+<p>Monitoring and adaptive management are typically conducted over a ten-year window for ecosystem restoration projects (WRDA 2007, Section 2036). Monitoring cost was estimated for four points in time, a sampling event during pre-construction engineering design as well as sampling in years 1, 3, and 5 following construction. Each sampling event assumed collection of data on fish communities, invertebrate communities, bathymetric mapping, and hydraulic outcomes. Adaptive management was estimated a proportion of construction cost ranging between 7.5% and 25% depending on site- and alternative-complexity (Appendix B).</p>
+<p>Operations, maintenance, repair, replacement, and rehabilitation (OMRRR) costs were estimated relative to four common practices. First, quarterly site visits were planned for general maintenance to any small-scale restoration features, trash removal, and minor maintenance of educational features (signage, benches, or classrooms) at a cost of $10,000 per year. Second, bi-annual site visits were planned to include a simple inspection, which were estimated as $4.00 per linear foot of stream every other year. Third, invasive species removal was estimated to cost $15,000 per site and occur once every 10-years. Fourth, repair of structural restoration features (e.g., rock, wood, and earth work) was assumed to occur once every 25 years. These estimates resulted in OMRRR costs ranging from 1.2% to 16.7% or construction cost depending on the site and alternative (Appendix B, Table B1), which is approximately in line with other stream restoration projects (Abera and McKay 2023).</p>
+<p>Average annual economic costs were computed for all cost categories. Interest during construction was computed based on construction costs with site- and alternative-specific construction durations. The FY24 Federal discount rate (2.75%, USACE 2023) was used to annualize construction cost, interest during construction, and monitoring and adaptive management expenses over a 50-year planning horizon. Cost data were annualized using the <a href="https://cran.r-project.org/web/packages/EngrEcon/index.html">EngrEcon</a> software package, although a <a href="https://wrises.shinyapps.io/engrecon-webapp/">web application</a> also exists for conducting these calculations. Table 3 provides an example of cost estimates for Site-17F2M, and Appendix B provides a cost summary for all sites and actions.</p>
+<p>Cost data were annualized using the EngrEcon software package, although a web application also exists for conducting these calculations.</p>
+<div id="steps-for-annualization" class="section level3" number="20.3.1">
+<h3>
+<span class="header-section-number">20.3.1</span> Steps for annualization:<a class="anchor" aria-label="anchor" href="#steps-for-annualization"><i class="fas fa-link"></i></a>
+</h3>
+<p>Read in initial costs: Project_first, Monitoring, AdaptiveMan</p>
+<div class="sourceCode" id="cb351"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#Populate these sections of code from code below</span></span>
+<span></span>
+<span><span class="co"># Set federal discont rate for water resources projects in FY24</span></span>
+<span><span class="va">discount</span> <span class="op">&lt;-</span> <span class="fl">0.0275</span></span>
+<span></span>
+<span><span class="co"># Read in initial costs</span></span>
+<span><span class="va">costs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/utoy_cost.csv"</span><span class="op">)</span></span></code></pre></div>
+<p>Calculate present value of OMRR costs using <code>om_distribute</code> function. This function…</p>
+<div class="sourceCode" id="cb352"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">costs_omrrr</span> <span class="op">&lt;-</span> <span class="va">costs</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rowwise.html">rowwise</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>General <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/EngrEcon/man/om_distribute.html">om_distribute</a></span><span class="op">(</span><span class="va">discount</span>, <span class="fl">50</span>, <span class="fl">1</span>, <span class="fl">10000</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">RipAreaFt2</span><span class="op">&gt;</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>         InspectionTrash <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/EngrEcon/man/om_distribute.html">om_distribute</a></span><span class="op">(</span><span class="va">discount</span>, <span class="fl">50</span>, <span class="fl">2</span>, <span class="fl">4</span><span class="op">*</span><span class="va">ReachLengthFt</span><span class="op">)</span>,</span>
+<span>         Invasives <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/EngrEcon/man/om_distribute.html">om_distribute</a></span><span class="op">(</span><span class="va">discount</span>, <span class="fl">50</span>, <span class="fl">10</span>, <span class="fl">15000</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">RipAreaFt2</span><span class="op">&gt;</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>         WoodRockEarth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/EngrEcon/man/om_distribute.html">om_distribute</a></span><span class="op">(</span><span class="va">discount</span>, <span class="fl">50</span>, <span class="fl">25</span>, <span class="fl">0.1</span><span class="op">*</span><span class="va">ProjectFirst</span><span class="op">)</span>,</span>
+<span>         TotalOMRR <span class="op">=</span> <span class="va">InspectionTrash</span> <span class="op">+</span> <span class="va">General</span> <span class="op">+</span> <span class="va">Invasives</span> <span class="op">+</span> <span class="va">WoodRockEarth</span><span class="op">)</span></span></code></pre></div>
+<p>Now we have the present value of all costs in one dataframe: Project_first, Monitoring, AdapMan the same; OMRR costs from previous step</p>
+<p>Calculate Interest during construction using based on discount rate, duration of construction, and construction cost using the interest_during_construction function</p>
+<div class="sourceCode" id="cb353"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">costs_idc</span> <span class="op">&lt;-</span> <span class="va">costs_omrrr</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rowwise.html">rowwise</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>IDC <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span><span class="va">DurationMon</span><span class="op">==</span><span class="fl">0</span><span class="op">~</span><span class="fl">0</span>, <span class="cn">TRUE</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/pkg/EngrEcon/man/interest_during_construction.html">interest_during_construction</a></span><span class="op">(</span><span class="va">discount</span>, <span class="va">DurationMon</span>, <span class="va">ProjectFirst</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Last step: annualize all costs using present_to_annual function using discount rate and 50 year time horizon</p>
+<div class="sourceCode" id="cb354"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">costs_ann</span> <span class="op">&lt;-</span> <span class="va">costs_idc</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rowwise.html">rowwise</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>ProjectFirstAnn <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/EngrEcon/man/present_to_annual.html">present_to_annual</a></span><span class="op">(</span><span class="va">discount</span>, <span class="fl">50</span>, <span class="va">ProjectFirst</span><span class="op">)</span>,</span>
+<span>         IDCAnn <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/EngrEcon/man/present_to_annual.html">present_to_annual</a></span><span class="op">(</span><span class="va">discount</span>, <span class="fl">50</span>, <span class="va">IDC</span><span class="op">)</span>,</span>
+<span>         MonitoringAnn <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/EngrEcon/man/present_to_annual.html">present_to_annual</a></span><span class="op">(</span><span class="va">discount</span>, <span class="fl">50</span>, <span class="va">Monitoring</span><span class="op">)</span>,</span>
+<span>         AdManAnn <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/EngrEcon/man/present_to_annual.html">present_to_annual</a></span><span class="op">(</span><span class="va">discount</span>, <span class="fl">50</span>, <span class="va">AdMan</span><span class="op">)</span>,</span>
+<span>         OMAnn <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/EngrEcon/man/present_to_annual.html">present_to_annual</a></span><span class="op">(</span><span class="va">discount</span>, <span class="fl">50</span>, <span class="va">TotalOMRR</span><span class="op">)</span>,</span>
+<span>         TotalAnn <span class="op">=</span> <span class="va">ProjectFirstAnn</span> <span class="op">+</span> <span class="va">MonitoringAnn</span> <span class="op">+</span> <span class="va">AdManAnn</span> <span class="op">+</span> <span class="va">IDCAnn</span> <span class="op">+</span> <span class="va">OMAnn</span><span class="op">)</span></span></code></pre></div>
+<p>Finally, we will create a table to display a subset of the results.</p>
+<div class="sourceCode" id="cb355"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Table1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">costs_ann</span><span class="op">$</span><span class="va">ReachID</span>, <span class="va">costs_ann</span><span class="op">$</span><span class="va">SiteAction</span>, <span class="va">costs_ann</span><span class="op">$</span><span class="va">DurationMon</span>,</span>
+<span>                 <span class="fu"><a href="https://rdrr.io/r/base/formatc.html">formatC</a></span><span class="op">(</span><span class="va">costs_ann</span><span class="op">$</span><span class="va">ProjectFirst</span>, format<span class="op">=</span><span class="st">"f"</span>, digits<span class="op">=</span><span class="fl">0</span>, big.mark <span class="op">=</span> <span class="st">","</span><span class="op">)</span>,</span>
+<span>                 <span class="fu"><a href="https://rdrr.io/r/base/formatc.html">formatC</a></span><span class="op">(</span><span class="va">costs_ann</span><span class="op">$</span><span class="va">Monitoring</span>, format<span class="op">=</span><span class="st">"f"</span>, digits<span class="op">=</span><span class="fl">0</span>, big.mark <span class="op">=</span> <span class="st">","</span><span class="op">)</span>,</span>
+<span>                 <span class="fu"><a href="https://rdrr.io/r/base/formatc.html">formatC</a></span><span class="op">(</span><span class="va">costs_ann</span><span class="op">$</span><span class="va">AdMan</span>, format<span class="op">=</span><span class="st">"f"</span>, digits<span class="op">=</span><span class="fl">0</span>, big.mark <span class="op">=</span> <span class="st">","</span><span class="op">)</span>,</span>
+<span>                 <span class="fu"><a href="https://rdrr.io/r/base/formatc.html">formatC</a></span><span class="op">(</span><span class="va">costs_ann</span><span class="op">$</span><span class="va">OMAnn</span>, format<span class="op">=</span><span class="st">"f"</span>, digits<span class="op">=</span><span class="fl">0</span>, big.mark <span class="op">=</span> <span class="st">","</span><span class="op">)</span>,</span>
+<span>                 <span class="fu"><a href="https://rdrr.io/r/base/formatc.html">formatC</a></span><span class="op">(</span><span class="va">costs_ann</span><span class="op">$</span><span class="va">TotalAnn</span>, format<span class="op">=</span><span class="st">"f"</span>, digits<span class="op">=</span><span class="fl">0</span>, big.mark <span class="op">=</span> <span class="st">","</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">Table1</span> <span class="op">&lt;-</span> <span class="va">Table1</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>,<span class="op">]</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">Table1</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Site"</span>, <span class="st">"Alternative"</span>, <span class="st">"Construction Duration (mo)"</span>, </span>
+<span>                       <span class="st">"Construction Cost"</span>, <span class="st">"Monitoring Cost"</span>, <span class="st">"Adapative Management Cost"</span>,</span>
+<span>                       <span class="st">"OMRRR Annual Cost"</span>, <span class="st">"Total Annualized Cost"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">Table1</span>, caption<span class="op">=</span><span class="st">"Table 1. Example of monetary cost data for Site-17F2M."</span>, align<span class="op">=</span><span class="st">'c'</span><span class="op">)</span> </span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:unnamed-chunk-76">Table 20.1: </span>Table 1. Example of monetary cost data for Site-17F2M.</caption>
+<colgroup>
+<col width="4%">
+<col width="9%">
+<col width="18%">
+<col width="12%">
+<col width="11%">
+<col width="17%">
+<col width="12%">
+<col width="14%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Site</th>
+<th align="center">Alternative</th>
+<th align="center">Construction Duration (mo)</th>
+<th align="center">Construction Cost</th>
+<th align="center">Monitoring Cost</th>
+<th align="center">Adapative Management Cost</th>
+<th align="center">OMRRR Annual Cost</th>
+<th align="center">Total Annualized Cost</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center">17F2M</td>
+<td align="center">FWOP</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">17F2M</td>
+<td align="center">Alternative1</td>
+<td align="center">10</td>
+<td align="center">776,047</td>
+<td align="center">60,000</td>
+<td align="center">77,605</td>
+<td align="center">18,730</td>
+<td align="center">52,867</td>
+</tr>
+<tr class="odd">
+<td align="center">17F2M</td>
+<td align="center">Alternative2</td>
+<td align="center">9</td>
+<td align="center">691,092</td>
+<td align="center">56,000</td>
+<td align="center">69,109</td>
+<td align="center">17,974</td>
+<td align="center">48,440</td>
+</tr>
+<tr class="even">
+<td align="center">17F2M</td>
+<td align="center">Alternative3</td>
+<td align="center">11</td>
+<td align="center">798,779</td>
+<td align="center">48,000</td>
+<td align="center">79,878</td>
+<td align="center">18,794</td>
+<td align="center">53,455</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+
+
+
+  <div class="chapter-nav">
+<div class="prev"><a href="cost-effectiveness-and-incremental-cost-analysis-ceica-with-ecorest.html"><span class="header-section-number">19</span> Cost-Effectiveness and Incremental Cost Analysis (CEICA) with ecorest</a></div>
+<div class="next"><a href="spatial-data-manipulation.html"><span class="header-section-number">21</span> Spatial Data Manipulation</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#annualizing-benefits-and-costs"><span class="header-section-number">20</span> Annualizing benefits and costs</a></li>
+<li><a class="nav-link" href="#background-on-annualization"><span class="header-section-number">20.1</span> Background on annualization</a></li>
+<li><a class="nav-link" href="#annualizing-benefits"><span class="header-section-number">20.2</span> Annualizing benefits</a></li>
+<li>
+<a class="nav-link" href="#annualizing-costs"><span class="header-section-number">20.3</span> Annualizing costs</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#steps-for-annualization"><span class="header-section-number">20.3.1</span> Steps for annualization:</a></li></ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Using R for ecological modeling in USACE</strong>" was written by Ed Stowe. </p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

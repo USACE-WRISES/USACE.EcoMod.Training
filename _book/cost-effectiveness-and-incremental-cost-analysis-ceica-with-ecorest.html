@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>19 Cost-Effectiveness and Incremental Cost Analysis (CEICA) with ecorest | Using R for ecological modeling in USACE</title>
+<meta name="author" content="Ed Stowe">
+<meta name="generator" content="bookdown 0.42 with bs4_book()">
+<meta property="og:title" content="19 Cost-Effectiveness and Incremental Cost Analysis (CEICA) with ecorest | Using R for ecological modeling in USACE">
+<meta property="og:type" content="book">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="19 Cost-Effectiveness and Incremental Cost Analysis (CEICA) with ecorest | Using R for ecological modeling in USACE">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.8.0/transition.js"></script><script src="libs/bs3compat-0.8.0/tabs.js"></script><script src="libs/bs3compat-0.8.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<meta name="description" content="This module will teach you how to use the ecorest package in R to efficiently and reproducibly carry out Cost Effectivness and Incremental Cost Analysis (CEICA) and generate useful output like...">
+<meta property="og:description" content="This module will teach you how to use the ecorest package in R to efficiently and reproducibly carry out Cost Effectivness and Incremental Cost Analysis (CEICA) and generate useful output like...">
+<meta name="twitter:description" content="This module will teach you how to use the ecorest package in R to efficiently and reproducibly carry out Cost Effectivness and Incremental Cost Analysis (CEICA) and generate useful output like...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Using R for ecological modeling in USACE</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Overview</a></li>
+<li><a class="" href="required-set-up-for-the-course.html">Required set-up for the course</a></li>
+<li class="book-part">Basic Training on R and RStudio</li>
+<li><a class="" href="introduction-to-r-and-rstudio.html"><span class="header-section-number">1</span> Introduction to R and RStudio</a></li>
+<li><a class="" href="data-visualization-with-ggplot2.html"><span class="header-section-number">2</span> Data Visualization with ggplot2</a></li>
+<li><a class="" href="exploring-and-understanding-data.html"><span class="header-section-number">3</span> Exploring and understanding data</a></li>
+<li><a class="" href="manipulating-tabular-data.html"><span class="header-section-number">4</span> Manipulating Tabular Data</a></li>
+<li class="book-part">Ecological Modeling in R</li>
+<li><a class="" href="conceptual-ecological-models.html"><span class="header-section-number">5</span> Conceptual Ecological Models</a></li>
+<li class="book-part">Habitat Models</li>
+<li><a class="" href="background-on-habitat-models-in-usace.html"><span class="header-section-number">6</span> Background on habitat models in USACE</a></li>
+<li><a class="" href="habitat-suitability-index-models-with-ecorest.html"><span class="header-section-number">7</span> Habitat Suitability Index models with ecorest</a></li>
+<li><a class="" href="ecorest-web-app.html"><span class="header-section-number">8</span> Ecorest Web App</a></li>
+<li><a class="" href="spatial-habitat-models.html"><span class="header-section-number">9</span> Spatial Habitat Models</a></li>
+<li class="book-part">Linear Models</li>
+<li><a class="" href="linear-models.html"><span class="header-section-number">10</span> Linear Models</a></li>
+<li><a class="" href="generalized-linear-models.html"><span class="header-section-number">11</span> Generalized Linear Models</a></li>
+<li><a class="" href="random-effects.html"><span class="header-section-number">12</span> Random Effects</a></li>
+<li class="book-part">Machine Learning</li>
+<li><a class="" href="random-forest.html"><span class="header-section-number">13</span> Random Forest</a></li>
+<li><a class="" href="boosted-regression-trees.html"><span class="header-section-number">14</span> Boosted Regression Trees</a></li>
+<li><a class="" href="population-modeling.html"><span class="header-section-number">15</span> Population Modeling</a></li>
+<li><a class="" href="network-models-and-connectivity.html"><span class="header-section-number">16</span> Network Models and Connectivity</a></li>
+<li><a class="" href="agent-based-models.html"><span class="header-section-number">17</span> Agent-based Models</a></li>
+<li class="book-part">Models and decisionmaking</li>
+<li><a class="" href="decision-support.html"><span class="header-section-number">18</span> Decision Support</a></li>
+<li><a class="active" href="cost-effectiveness-and-incremental-cost-analysis-ceica-with-ecorest.html"><span class="header-section-number">19</span> Cost-Effectiveness and Incremental Cost Analysis (CEICA) with ecorest</a></li>
+<li><a class="" href="annualizing-benefits-and-costs.html"><span class="header-section-number">20</span> Annualizing benefits and costs</a></li>
+<li class="book-part">Other R applications</li>
+<li><a class="" href="spatial-data-manipulation.html"><span class="header-section-number">21</span> Spatial Data Manipulation</a></li>
+<li><a class="" href="important-data-sources.html"><span class="header-section-number">22</span> Important data sources</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="cost-effectiveness-and-incremental-cost-analysis-ceica-with-ecorest" class="section level1" number="19">
+<h1>
+<span class="header-section-number">19</span> Cost-Effectiveness and Incremental Cost Analysis (CEICA) with <code>ecorest</code><a class="anchor" aria-label="anchor" href="#cost-effectiveness-and-incremental-cost-analysis-ceica-with-ecorest"><i class="fas fa-link"></i></a>
+</h1>
+<hr>
+<p><strong>This module will teach you how to use the <code>ecorest</code> package in <code>R</code> to efficiently and reproducibly carry out Cost Effectivness and Incremental Cost Analysis (CEICA) and generate useful output like this in just a few lines of code:</strong></p>
+<div class="float">
+<img src="images/CEICAexample.jpeg" style="width:100.0%" alt="Output from HSI modeling for the Delta Islands and Levees Feasibility Study (adapted). Users will learn to generate identical values using the ecorest package"><div class="figcaption"><em>Output from HSI modeling for the Delta Islands and Levees Feasibility Study (adapted). Users will learn to generate identical values using the ecorest package</em></div>
+</div>
+<hr>
+<div id="background-on-cost-effectivness-and-incremental-cost-analysis" class="section level2" number="19.1">
+<h2>
+<span class="header-section-number">19.1</span> Background on Cost Effectivness and Incremental Cost Analysis<a class="anchor" aria-label="anchor" href="#background-on-cost-effectivness-and-incremental-cost-analysis"><i class="fas fa-link"></i></a>
+</h2>
+<p>PARE THIS SECTION DOWN</p>
+<p>The USACE ecosystem restoration mission was first authorized in the Water Resources Development Act of 1986 with the stated purpose “…to restore significant structure, function and dynamic processes that have been degraded” (USACE 1999, ER 1165-2-501). Given this goal, USACE programs emphasize ecological outcomes (as opposed to social or economic outcomes). Generally, ecological resources may be quantified in a variety of ways ranging from habitat suitability for a focal taxa (e.g., an endangered species) to changes in physical processes (e.g., sediment delivery from geomorphic change) to changes in biological processes (e.g., carbon uptake and storage). In other USACE business lines (e.g., navigation), costs and benefits of actions are compared in monetary terms, and the benefit-cost ratio serves as a crucial decision metric. However, outputs of restoration are typically not monetized, and a different set of methods are required to inform restoration decision-making and address the issue of “Is ecosystem restoration worth the Federal investment?” In particular, cost-effectiveness and incremental cost analyses provide techniques for comparing non-monetary ecological benefits relative to monetary costs of restoration actions (Robinson et al. 1995).</p>
+<p>Cost-effectiveness and incremental cost analyses (CEICA) are analytical tools for assessing the relative benefits and costs of ecosystem restoration actions and informing decisions. Benefits and costs are assessed prior to these analyses using ecological models (e.g., index models) and cost engineering methods, respectively. CEICA may then be conducted at the site scale to compare alternatives at a single location (e.g., no action vs. dam removal vs. fish ladder) or at the system scale to compare relative merits of multiple sites (e.g., no sites vs. Site-A only vs. Site-B only vs. Site-A and Site-B). Within the USACE, the Institute of Water Resources has provided a toolkit for conducting CEICA, the IWR Planning Suite (<a href="http://www.iwr.usace.army.mil/Missions/Economics/IWR-Planning-Suite/" class="uri">http://www.iwr.usace.army.mil/Missions/Economics/IWR-Planning-Suite/</a>).</p>
+<p>Cost-effectiveness analysis provides a mechanism for examining the efficiency of alternative actions. For any given level of investment, the agency wants to identify the plan with the most return-on-investment (i.e., the most environmental benefits), and for any given level of environmental benefits, the agency wants a plan with the least cost. An “efficiency frontier” identifies all plans that efficiently provide benefits on a per cost basis (i.e., cost-effective plans). These “non-dominated” alternatives compose the Pareto-optimal frontier.</p>
+<p>Incremental cost analysis is conducted on the set of cost-effective plans. This technique sequentially compares each plan to all higher cost plans to reveal changes in unit cost as output levels increase and eliminates plans that do not efficiently provide benefits on a per unit cost basis. Specifically, this analysis examines the slope of the cost-effectiveness frontier to isolate how the incremental unit cost ($/unit) increases as the magnitude of environmental benefit increases. Incremental cost analysis is ultimately intended to inform decision-makers about the consequences of increasing unit cost when increasing benefits (i.e., each unit becomes more expensive). Plans emerging from incremental cost analysis efficiently accomplish the objective relative to unit costs and are typically referred to as “best buys”. Importantly, all “best buys” are cost-effective, but all cost-effective plans are not best buys.</p>
+<p>To demonstrate CEICA analysis, we will use an example from the Beaver Island HREP project. PROVIDE MORE BACKGROUND HERE</p>
+<p>Read in cost and benefit data:</p>
+<div class="sourceCode" id="cb319"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">ecorest</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Most basic with Beaver Island</span></span>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/beaver_island_cost_ben.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">df</span>, padding <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-table"><table style="width:100%;" class="table table-sm">
+<colgroup>
+<col width="4%">
+<col width="75%">
+<col width="6%">
+<col width="6%">
+<col width="6%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">AltID</th>
+<th align="left">AltName</th>
+<th align="right">AnnCost</th>
+<th align="right">RestBen</th>
+<th align="right">AvgCost</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">0</td>
+<td align="left">No Action Plan</td>
+<td align="right">0</td>
+<td align="right">0.0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">D2L3</td>
+<td align="left">Lower Cut, Stewart, Small, Riprap, Closure</td>
+<td align="right">496526</td>
+<td align="right">162.5</td>
+<td align="right">3056</td>
+</tr>
+<tr class="odd">
+<td align="left">D2L4</td>
+<td align="left">Lower Cut, Stewart, Small, Riprap w/substrate, Closure</td>
+<td align="right">499260</td>
+<td align="right">163.4</td>
+<td align="right">3055</td>
+</tr>
+<tr class="even">
+<td align="left">D2L1</td>
+<td align="left">Lower Cut, Stewart, Small, Chevron, Closure</td>
+<td align="right">513615</td>
+<td align="right">172.1</td>
+<td align="right">2984</td>
+</tr>
+<tr class="odd">
+<td align="left">D2L2</td>
+<td align="left">Lower Cut, Stewart, Small, Chevron w/substrate, Closure</td>
+<td align="right">518462</td>
+<td align="right">179.2</td>
+<td align="right">2893</td>
+</tr>
+<tr class="even">
+<td align="left">E2L1</td>
+<td align="left">Lower Cut, Blue Bell, Sand Burr, Chevron, Closure</td>
+<td align="right">721698</td>
+<td align="right">196.1</td>
+<td align="right">3680</td>
+</tr>
+<tr class="odd">
+<td align="left">F2L1</td>
+<td align="left">Lower Cut, Stewart, Blue Bell, Sand Burr, Closure, Chevron</td>
+<td align="right">804896</td>
+<td align="right">203.1</td>
+<td align="right">3963</td>
+</tr>
+<tr class="even">
+<td align="left">E2L2</td>
+<td align="left">Lower Cut, Blue Bell, Sand Burr, Chevron w/substrate, Closure</td>
+<td align="right">719258</td>
+<td align="right">203.2</td>
+<td align="right">3540</td>
+</tr>
+<tr class="odd">
+<td align="left">F2L2</td>
+<td align="left">Lower Cut, Stewart, Blue Bell, Sand Burr, Closure, Chevron w/substrate</td>
+<td align="right">809741</td>
+<td align="right">210.2</td>
+<td align="right">3852</td>
+</tr>
+<tr class="even">
+<td align="left">H2L1</td>
+<td align="left">Lower Cut, Blue Bell, Sand Burr, Lower Lake, Closure, Chevron</td>
+<td align="right">831390</td>
+<td align="right">217.1</td>
+<td align="right">3830</td>
+</tr>
+<tr class="odd">
+<td align="left">H2L2</td>
+<td align="left">Lower Cut, Blue Bell, Sand Burr, Lower Lake, Closure, Chevron w/substrate</td>
+<td align="right">836488</td>
+<td align="right">224.2</td>
+<td align="right">3731</td>
+</tr>
+<tr class="even">
+<td align="left">I2L3</td>
+<td align="left">Lower Cut, Stewart, Blue Bell, Sand Burr, Lower Lake, Closure, Riprap</td>
+<td align="right">927732</td>
+<td align="right">224.5</td>
+<td align="right">4132</td>
+</tr>
+<tr class="odd">
+<td align="left">H2L3</td>
+<td align="left">Lower Cut, Stewart, Blue Bell, Sand Burr, Lower Lake, Closure, Riprap w/substrate</td>
+<td align="right">933020</td>
+<td align="right">207.5</td>
+<td align="right">4496</td>
+</tr>
+<tr class="even">
+<td align="left">G2L1</td>
+<td align="left">Lower Cut, Stewart, Blue Bell, Sand Burr, Lower Lake, Closure, Chevron</td>
+<td align="right">944914</td>
+<td align="right">233.1</td>
+<td align="right">4054</td>
+</tr>
+<tr class="odd">
+<td align="left">G2L2</td>
+<td align="left">Lower Cut, Stewart, Blue Bell, Sand Burr, Lower Lake, Closure, Chevron w/substrate</td>
+<td align="right">950447</td>
+<td align="right">240.2</td>
+<td align="right">3957</td>
+</tr>
+<tr class="even">
+<td align="left">J2L1</td>
+<td align="left">Lower Cut, Blue Bell, Sand Burr, Lower Lake, Upper Lake, Upper Cut, Closure, Chevron</td>
+<td align="right">1117284</td>
+<td align="right">252.1</td>
+<td align="right">4432</td>
+</tr>
+<tr class="odd">
+<td align="left">J2L2</td>
+<td align="left">Lower Cut, Blue Bell, Sand Burr, Lower Lake, Upper Lake, Upper Cut, Closure, Chevron w/substrate</td>
+<td align="right">1120429</td>
+<td align="right">259.2</td>
+<td align="right">4323</td>
+</tr>
+<tr class="even">
+<td align="left">K2L1</td>
+<td align="left">Lower Cut, Stewart, Blue Bell, Sand Burr, Lower Lake, Upper Lake, Upper Cut, Closure, Chevron</td>
+<td align="right">1202194</td>
+<td align="right">262.1</td>
+<td align="right">4587</td>
+</tr>
+<tr class="odd">
+<td align="left">K2L2</td>
+<td align="left">Lower Cut, Stewart, Blue Bell, Sand Burr, Lower Lake, Upper Lake, Upper Cut, Closure, Chevron w/substrate</td>
+<td align="right">1204094</td>
+<td align="right">269.2</td>
+<td align="right">4473</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div id="ceica-with-ecorest-in-4-easy-steps" class="section level2" number="19.2">
+<h2>
+<span class="header-section-number">19.2</span> CEICA with <code>ecorest</code> in 4 easy steps!<a class="anchor" aria-label="anchor" href="#ceica-with-ecorest-in-4-easy-steps"><i class="fas fa-link"></i></a>
+</h2>
+<p>Section X.X of this tutorial walks through how CEICA works step-by-step to develop a deeper understanding of what this analysis actually does. But first, we will demonstrate how easy the process is using functions from the <code>ecorest</code> package. The following code does everything one needs to determine which alternatives are cost effective and which are ‘best buys’, and to plot the results.</p>
+<p>First, we determine which project alternatives are cost effective using the <code>CEfinder</code> function.
+The inputs consist of 2 vectors: 1) Project benefits; 2) Project annualized costs</p>
+<div class="sourceCode" id="cb320"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">restCE</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ecorest/man/CEfinder.html">CEfinder</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">RestBen</span>, <span class="va">df</span><span class="op">$</span><span class="va">AnnCost</span><span class="op">)</span></span>
+<span><span class="va">restCE</span></span></code></pre></div>
+<pre><code>##  [1] 1 1 1 1 1 0 0 1 1 1 1 1 0 1 1 1 1 1 1</code></pre>
+<p>The output here is a vector of 1s and 0s, with 1s being cost effective options.</p>
+<p>Next, we determine which of the cost effective alternatives are ‘best buys’ using the <code>BBfinder</code> function
+The inputs are again vectors of benefits and costs, as well as the vector of cost effectiveness scores that we’ve just calculated.</p>
+<div class="sourceCode" id="cb322"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">BB</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ecorest/man/BBfinder.html">BBfinder</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">RestBen</span>, <span class="va">df</span><span class="op">$</span><span class="va">AnnCost</span>, <span class="va">restCE</span><span class="op">)</span></span>
+<span><span class="va">BB</span></span></code></pre></div>
+<pre><code>## [[1]]
+##       benefit    cost CE BB
+##  [1,]     0.0       0  1  1
+##  [2,]   162.5  496526  1  0
+##  [3,]   163.4  499260  1  0
+##  [4,]   172.1  513615  1  0
+##  [5,]   179.2  518462  1  1
+##  [6,]   196.1  721698  0  0
+##  [7,]   203.1  804896  0  0
+##  [8,]   203.2  719258  1  0
+##  [9,]   210.2  809741  1  0
+## [10,]   217.1  831390  1  0
+## [11,]   224.2  836488  1  1
+## [12,]   224.5  927732  1  0
+## [13,]   207.5  933020  0  0
+## [14,]   233.1  944914  1  0
+## [15,]   240.2  950447  1  1
+## [16,]   252.1 1117284  1  0
+## [17,]   259.2 1120429  1  0
+## [18,]   262.1 1202194  1  0
+## [19,]   269.2 1204094  1  1
+## 
+## [[2]]
+##      benefit    cost  inccost
+## [1,]     0.0       0    0.000
+## [2,]   179.2  518462 2893.203
+## [3,]   224.2  836488 7067.244
+## [4,]   240.2  950447 7122.438
+## [5,]   269.2 1204094 8746.448</code></pre>
+<p>The output of the BB function is a list comprised of two dataframes. The first data frame has columns for restoration benefits, costs, and whether alternatives are cost effectiveness and best buys.</p>
+<p>The second dataframe features the cost, benefit, and incremental costs per benefit of each best buy compared to the previous best buy. For example, the third best buy costs <em>3.18026^{5}</em> more than the second best buy, and yields additional benefits of <em>45</em> habitat units. By dividing these incremental costs and benefits, we can see that the per-unit incremental cost of best buy three is 7067.24</p>
+<p>Now that we’ve determined the cost effective and best buy options we can create a table of the output. <em>Note</em>: because the BB object is a list of two dataframes, we need to extract just the column of 1s and 0s indicating “best buy” status. To do so, we use the code <code>BB[[1]][,4]</code>, which pulls the first dataframe in the list (i.e., <code>[[1]]</code>), and then the fourth column of that dataframe (i.e., <code>[,4]</code>). See <a href="https://rpubs.com/tomhopper/brackets">here</a> for more information about subsetting with brackets.</p>
+<div class="sourceCode" id="cb324"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#Create a table of the results</span></span>
+<span><span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">AltID</span>, <span class="va">RestBen</span>, <span class="va">AnnCost</span>, <span class="va">AvgCost</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>CE <span class="op">=</span> <span class="va">restCE</span>,</span>
+<span>         BB <span class="op">=</span> <span class="va">BB</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span>,<span class="fl">4</span><span class="op">]</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>padding <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">AltID</th>
+<th align="right">RestBen</th>
+<th align="right">AnnCost</th>
+<th align="right">AvgCost</th>
+<th align="right">CE</th>
+<th align="right">BB</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">0</td>
+<td align="right">0.0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">D2L3</td>
+<td align="right">162.5</td>
+<td align="right">496526</td>
+<td align="right">3056</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">D2L4</td>
+<td align="right">163.4</td>
+<td align="right">499260</td>
+<td align="right">3055</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">D2L1</td>
+<td align="right">172.1</td>
+<td align="right">513615</td>
+<td align="right">2984</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">D2L2</td>
+<td align="right">179.2</td>
+<td align="right">518462</td>
+<td align="right">2893</td>
+<td align="right">1</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">E2L1</td>
+<td align="right">196.1</td>
+<td align="right">721698</td>
+<td align="right">3680</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">F2L1</td>
+<td align="right">203.1</td>
+<td align="right">804896</td>
+<td align="right">3963</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">E2L2</td>
+<td align="right">203.2</td>
+<td align="right">719258</td>
+<td align="right">3540</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">F2L2</td>
+<td align="right">210.2</td>
+<td align="right">809741</td>
+<td align="right">3852</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">H2L1</td>
+<td align="right">217.1</td>
+<td align="right">831390</td>
+<td align="right">3830</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">H2L2</td>
+<td align="right">224.2</td>
+<td align="right">836488</td>
+<td align="right">3731</td>
+<td align="right">1</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">I2L3</td>
+<td align="right">224.5</td>
+<td align="right">927732</td>
+<td align="right">4132</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">H2L3</td>
+<td align="right">207.5</td>
+<td align="right">933020</td>
+<td align="right">4496</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">G2L1</td>
+<td align="right">233.1</td>
+<td align="right">944914</td>
+<td align="right">4054</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">G2L2</td>
+<td align="right">240.2</td>
+<td align="right">950447</td>
+<td align="right">3957</td>
+<td align="right">1</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">J2L1</td>
+<td align="right">252.1</td>
+<td align="right">1117284</td>
+<td align="right">4432</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">J2L2</td>
+<td align="right">259.2</td>
+<td align="right">1120429</td>
+<td align="right">4323</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">K2L1</td>
+<td align="right">262.1</td>
+<td align="right">1202194</td>
+<td align="right">4587</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">K2L2</td>
+<td align="right">269.2</td>
+<td align="right">1204094</td>
+<td align="right">4473</td>
+<td align="right">1</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table></div>
+<p>Finally, we can use the <code>CEICAplotter</code> function to create plots depicting the results of the cost effectiveness analysis, and the incremental cost analysis. The 5 required inputs for this function are the project alternative names, benefits, annualized costs, cost effectiveness score, best buy score, and a file name for the plot.</p>
+<div class="sourceCode" id="cb325"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Create a plot of CEICA results</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/ecorest/man/CEICAplotter.html">CEICAplotter</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">AltID</span>, <span class="va">df</span><span class="op">$</span><span class="va">RestBen</span>, <span class="va">df</span><span class="op">$</span><span class="va">AnnCost</span>, <span class="va">restCE</span>, <span class="va">BB</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span>,<span class="fl">4</span><span class="op">]</span>, <span class="st">"images/CEICAexample1.jpeg"</span><span class="op">)</span></span></code></pre></div>
+<div class="float">
+<img src="images/CEICAexample1.jpeg" style="width:100.0%" alt="Output from CEICA analysis"><div class="figcaption"><em>Output from CEICA analysis</em></div>
+</div>
+</div>
+<div id="ceica-in-depth" class="section level2" number="19.3">
+<h2>
+<span class="header-section-number">19.3</span> CEICA in-depth<a class="anchor" aria-label="anchor" href="#ceica-in-depth"><i class="fas fa-link"></i></a>
+</h2>
+<p>We’ve seen that CEICA can be accomplished very quickly with the above code. However, if a user wishes to understanding how projects are determined to be cost effective or best buys, we go into greater depth below.</p>
+<p>The first component of CEICA is the cost effectiveness analysis.</p>
+<p>Here, for each alternative, we ask: <em>are there any alternatives that produce higher ecological outcomes for equal or lower costs?</em>
+If the answer is yes, that alternative is considered non-cost effective.</p>
+<p>Non-cost effectiveness can be though of in two ways:
+<em>Inefficient in Production</em>: any alternative where the same output level can be generated at a lesser cost by another alternative</p>
+<p><em>Ineffective in Production</em>: any alternative where a greater output level can be generated at a lesser or equal cost by another alternative</p>
+<p>Let’s look more closely at the cost/benefit data above:</p>
+<div class="sourceCode" id="cb326"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">AltID</span>, <span class="va">AnnCost</span>, <span class="va">RestBen</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">AltID</th>
+<th align="right">AnnCost</th>
+<th align="right">RestBen</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">0</td>
+<td align="right">0</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="even">
+<td align="left">D2L3</td>
+<td align="right">496526</td>
+<td align="right">162.5</td>
+</tr>
+<tr class="odd">
+<td align="left">D2L4</td>
+<td align="right">499260</td>
+<td align="right">163.4</td>
+</tr>
+<tr class="even">
+<td align="left">D2L1</td>
+<td align="right">513615</td>
+<td align="right">172.1</td>
+</tr>
+<tr class="odd">
+<td align="left">D2L2</td>
+<td align="right">518462</td>
+<td align="right">179.2</td>
+</tr>
+<tr class="even">
+<td align="left">E2L1</td>
+<td align="right">721698</td>
+<td align="right">196.1</td>
+</tr>
+<tr class="odd">
+<td align="left">F2L1</td>
+<td align="right">804896</td>
+<td align="right">203.1</td>
+</tr>
+<tr class="even">
+<td align="left">E2L2</td>
+<td align="right">719258</td>
+<td align="right">203.2</td>
+</tr>
+<tr class="odd">
+<td align="left">F2L2</td>
+<td align="right">809741</td>
+<td align="right">210.2</td>
+</tr>
+<tr class="even">
+<td align="left">H2L1</td>
+<td align="right">831390</td>
+<td align="right">217.1</td>
+</tr>
+<tr class="odd">
+<td align="left">H2L2</td>
+<td align="right">836488</td>
+<td align="right">224.2</td>
+</tr>
+<tr class="even">
+<td align="left">I2L3</td>
+<td align="right">927732</td>
+<td align="right">224.5</td>
+</tr>
+<tr class="odd">
+<td align="left">H2L3</td>
+<td align="right">933020</td>
+<td align="right">207.5</td>
+</tr>
+<tr class="even">
+<td align="left">G2L1</td>
+<td align="right">944914</td>
+<td align="right">233.1</td>
+</tr>
+<tr class="odd">
+<td align="left">G2L2</td>
+<td align="right">950447</td>
+<td align="right">240.2</td>
+</tr>
+<tr class="even">
+<td align="left">J2L1</td>
+<td align="right">1117284</td>
+<td align="right">252.1</td>
+</tr>
+<tr class="odd">
+<td align="left">J2L2</td>
+<td align="right">1120429</td>
+<td align="right">259.2</td>
+</tr>
+<tr class="even">
+<td align="left">K2L1</td>
+<td align="right">1202194</td>
+<td align="right">262.1</td>
+</tr>
+<tr class="odd">
+<td align="left">K2L2</td>
+<td align="right">1204094</td>
+<td align="right">269.2</td>
+</tr>
+</tbody>
+</table></div>
+<p>The first alternative, with a cost of $0, will be considered cost effective, because there are not any projects of lesser or equal cost. So let’s look at the second option to see if it’s cost effective. To do so, we will first see which alternatives have greater benefits</p>
+<div class="sourceCode" id="cb327"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Vectors defined to make calculations easier</span></span>
+<span><span class="va">benefit</span> <span class="op">&lt;-</span> <span class="va">df</span><span class="op">$</span><span class="va">RestBen</span></span>
+<span><span class="va">cost</span> <span class="op">&lt;-</span> <span class="va">df</span><span class="op">$</span><span class="va">AnnCost</span></span>
+<span></span>
+<span><span class="co">#Find which projects have greater than or equal benefits than the second project's benefits</span></span>
+<span><span class="va">greater_bens</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">benefit</span> <span class="op">&gt;=</span> <span class="va">benefit</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">greater_bens</span></span></code></pre></div>
+<pre><code>##  [1]  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19</code></pre>
+<p>This shows the position in the benefit vector of all the projects with greater values.</p>
+<p>Now, we’re looking to see if there are any projects with equal or greater benefits but for lower costs.</p>
+<div class="sourceCode" id="cb329"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">cost</span><span class="op">[</span><span class="va">greater_bens</span><span class="op">]</span> <span class="op">&lt;=</span> <span class="va">cost</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<p>A value of 1 indicates that no alternatives other than itself has that level of benefits for that low of a cost.</p>
+<p>Let’s look at a different alternative: Alternatuve E2L1, which is the sixth alternative:</p>
+<div class="sourceCode" id="cb331"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">greater_bens</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">benefit</span> <span class="op">&gt;=</span> <span class="va">benefit</span><span class="op">[</span><span class="fl">6</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">greater_bens</span></span></code></pre></div>
+<pre><code>##  [1]  6  7  8  9 10 11 12 13 14 15 16 17 18 19</code></pre>
+<div class="sourceCode" id="cb333"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">cost</span><span class="op">[</span><span class="va">greater_bens</span><span class="op">]</span> <span class="op">&lt;=</span> <span class="va">cost</span><span class="op">[</span><span class="fl">6</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] 1 3</code></pre>
+<p>This suggests that another alternative with a greater or equal level of benefits costs less than E2L1. The index value of 3 (compared to the index value of 1 for E2L1), suggests that it’s two projects after E2L1 in the project list: E2L2, which has a lower cost but higher benefit. Therefore, E2L1 will not be considered cost effective.</p>
+<p>To iterate through each project and do what we’ve just done, we can use a for loop, as the following code indicates</p>
+<div class="sourceCode" id="cb335"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Set up empty vector to store whether each alternative is cost effective</span></span>
+<span><span class="va">CE</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Iterate through each project to see if another project renders that one cost ineffective</span></span>
+<span><span class="co"># An ifelse statement assigns a value of 1 to projects that are cost effective, and 0 to ones that are not</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">benefit</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>        <span class="va">bigben</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">benefit</span> <span class="op">&gt;=</span> <span class="va">benefit</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span></span>
+<span>        <span class="va">CE</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">cost</span><span class="op">[</span><span class="va">bigben</span><span class="op">]</span> <span class="op">&lt;=</span> <span class="va">cost</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">==</span> </span>
+<span>            <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span></span>
+<span>    <span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">AltID</span>, <span class="va">CE</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##              CE 
+##  [1,] "0"    "1"
+##  [2,] "D2L3" "1"
+##  [3,] "D2L4" "1"
+##  [4,] "D2L1" "1"
+##  [5,] "D2L2" "1"
+##  [6,] "E2L1" "0"
+##  [7,] "F2L1" "0"
+##  [8,] "E2L2" "1"
+##  [9,] "F2L2" "1"
+## [10,] "H2L1" "1"
+## [11,] "H2L2" "1"
+## [12,] "I2L3" "1"
+## [13,] "H2L3" "0"
+## [14,] "G2L1" "1"
+## [15,] "G2L2" "1"
+## [16,] "J2L1" "1"
+## [17,] "J2L2" "1"
+## [18,] "K2L1" "1"
+## [19,] "K2L2" "1"</code></pre>
+<p>This lets us quickly see which alternatives are cost-effective and which are not.</p>
+</div>
+<div id="identifying-best-buys" class="section level2" number="19.4">
+<h2>
+<span class="header-section-number">19.4</span> Identifying ‘best buys’<a class="anchor" aria-label="anchor" href="#identifying-best-buys"><i class="fas fa-link"></i></a>
+</h2>
+<p>Identifying best buys is a matter of finding which of the cost effective alternatives can increase environmental benefits at the lowest incremental cost (i.e., lowest cost per additional habitat unit).</p>
+<p>The first best buy is always the one with the lowest average cost after 0.</p>
+<p>NEED TO ANNOTATE BELOW MORE</p>
+<div class="sourceCode" id="cb337"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># We can start again with our vectors of benefits, and costs, but we also now have a vector of cost effectiveness  </span></span>
+<span></span>
+<span><span class="co">#First we filter to just cost effective benefits and costs</span></span>
+<span><span class="va">ben.CE</span> <span class="op">&lt;-</span> <span class="va">benefit</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">CE</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">cost.CE</span> <span class="op">&lt;-</span> <span class="va">cost</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">CE</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span><span class="op">]</span></span>
+<span></span>
+<span><span class="co"># Reorder benefits and costs from lowest to greatest cost</span></span>
+<span><span class="va">ben.CE2</span> <span class="op">&lt;-</span> <span class="va">ben.CE</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span><span class="op">(</span><span class="va">cost.CE</span><span class="op">)</span><span class="op">]</span> </span>
+<span><span class="va">cost.CE2</span> <span class="op">&lt;-</span> <span class="va">cost.CE</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span><span class="op">(</span><span class="va">cost.CE</span><span class="op">)</span><span class="op">]</span></span>
+<span></span>
+<span><span class="co">#All costs and benefits are greater, so we can look at the incremental costs of all others options to find the best_buy</span></span>
+<span><span class="va">inccost</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">cost.CE</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span> <span class="op">-</span> <span class="va">cost.CE2</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="va">ben.CE2</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span> <span class="op">-</span> <span class="va">ben.CE2</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
+<span>            </span>
+<span><span class="va">inccost</span></span></code></pre></div>
+<pre><code>##  [1] 3055.545 3055.447 2984.399 2893.203 3539.656 3852.241 3829.526 3730.990 4132.437 4053.685
+## [11] 3956.898 4431.908 4322.643 4586.776 4472.860</code></pre>
+<div class="sourceCode" id="cb339"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">inccost</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">inccost</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span></span></code></pre></div>
+<pre><code>## [1] 5</code></pre>
+<div class="sourceCode" id="cb341"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#This indicates that the fifth alternative is the second best-buy after zero</span></span>
+<span></span>
+<span><span class="co"># To look for the next best buy, we want to just look at projects after the fifth project</span></span>
+<span><span class="va">ce.bentemp</span> <span class="op">&lt;-</span> <span class="va">ben.CE2</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="op">-</span><span class="fl">5</span><span class="op">]</span> <span class="co"># Selects all the project benefits with greater benefits than the current best buy</span></span>
+<span><span class="va">ce.costtemp</span> <span class="op">&lt;-</span> <span class="va">cost.CE2</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="op">-</span><span class="fl">5</span><span class="op">]</span> <span class="co"># All the project costs with greater costs than current best buy</span></span>
+<span><span class="va">inccost</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">ce.costtemp</span> <span class="op">-</span> <span class="va">cost.CE2</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="va">ce.bentemp</span> <span class="op">-</span> <span class="va">ben.CE2</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span> <span class="co"># calculate avg. costs from each costlier option compared to the current best buy</span></span>
+<span></span>
+<span><span class="va">inccost</span>  </span></code></pre></div>
+<pre><code>##  [1] 8366.500 9396.097 8256.675 7067.244 9034.658 7911.911 7081.721 8214.294 7524.587 8247.672
+## [11] 7618.133</code></pre>
+<div class="sourceCode" id="cb343"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">inccost</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">inccost</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fl">5</span></span></code></pre></div>
+<pre><code>## [1] 9</code></pre>
+<p>This indicates that the 9th option (among the cost effective options) is the next best one</p>
+<p>The user could iterate “by hand” through all the options. But when iterations are required, this is often a great time to use for-loops. The following code accomplishes this. Most of this code is nearly identical to what we’ve already run. The main difference is the use of the <code>BB</code> object to store which alternatives are best buys and to be sure that for each iteration, the new set of alternatives to consider are exclusively the subsequent iterations.</p>
+<p>NEED TO FIX THIS</p>
+<div class="sourceCode" id="cb345"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">BB</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">nCE</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">CE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">nCE</span><span class="op">)</span> <span class="op">{</span></span>
+<span>        <span class="va">ce.bentemp</span> <span class="op">&lt;-</span> <span class="va">ben.CE2</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="op">-</span><span class="va">BB</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span> <span class="co"># Selects all the project benefits with greater benefits than the current best buy</span></span>
+<span>        <span class="va">ce.costtemp</span> <span class="op">&lt;-</span> <span class="va">cost.CE2</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="op">-</span><span class="va">BB</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span> <span class="co"># All the project costs with greater costs than current best buy</span></span>
+<span>        <span class="va">inccost</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">ce.costtemp</span> <span class="op">-</span> <span class="va">cost.CE2</span><span class="op">[</span><span class="va">BB</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="va">ce.bentemp</span> <span class="op">-</span> <span class="co"># calculate incremental costs from each subsequent option compared to the current best buy</span></span>
+<span>            <span class="va">ben.CE2</span><span class="op">[</span><span class="va">BB</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span>        <span class="va">BB</span><span class="op">[</span><span class="va">i</span> <span class="op">+</span> <span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">inccost</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">inccost</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="va">BB</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="co"># Of all the incremental costs above this best_buy, which has the lowest?</span></span>
+<span>        <span class="kw">if</span> <span class="op">(</span><span class="va">BB</span><span class="op">[</span><span class="va">i</span> <span class="op">+</span> <span class="fl">1</span><span class="op">]</span> <span class="op">&gt;=</span> <span class="va">nCE</span><span class="op">)</span> <span class="op">{</span></span>
+<span>            <span class="kw">break</span></span>
+<span>        <span class="op">}</span></span>
+<span>    <span class="op">}</span></span>
+<span></span>
+<span><span class="va">BB</span></span></code></pre></div>
+<p>This indicates that the best buys are in positions 1, 5, 9, 12, and 16 of the cost effective vector. To see which projects those are we can run the following code. This first subsets the Project ID column to just alternatives that are cost effective, and then of those options, finds the alt ID’s in the positions stored in the BB option (e.g., the first, fifth, ninth, etc. IDs).</p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="decision-support.html"><span class="header-section-number">18</span> Decision Support</a></div>
+<div class="next"><a href="annualizing-benefits-and-costs.html"><span class="header-section-number">20</span> Annualizing benefits and costs</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#cost-effectiveness-and-incremental-cost-analysis-ceica-with-ecorest"><span class="header-section-number">19</span> Cost-Effectiveness and Incremental Cost Analysis (CEICA) with ecorest</a></li>
+<li><a class="nav-link" href="#background-on-cost-effectivness-and-incremental-cost-analysis"><span class="header-section-number">19.1</span> Background on Cost Effectivness and Incremental Cost Analysis</a></li>
+<li><a class="nav-link" href="#ceica-with-ecorest-in-4-easy-steps"><span class="header-section-number">19.2</span> CEICA with ecorest in 4 easy steps!</a></li>
+<li><a class="nav-link" href="#ceica-in-depth"><span class="header-section-number">19.3</span> CEICA in-depth</a></li>
+<li><a class="nav-link" href="#identifying-best-buys"><span class="header-section-number">19.4</span> Identifying ‘best buys’</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Using R for ecological modeling in USACE</strong>" was written by Ed Stowe. </p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
