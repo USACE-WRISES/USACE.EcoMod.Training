@@ -1,5 +1,7 @@
 book_filename: "usace_R_training.Rmd"
 
+output_dir: "docs"
+
 rmd_files: [
 "index.Rmd",
 "r_setup.Rmd", 
