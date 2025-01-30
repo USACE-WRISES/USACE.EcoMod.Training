@@ -2,6 +2,7 @@
 .Rhistory
 .DS_Store
 _bookdown_files
+_book/
 _main_files
 _usace_R_training_files
 usace_R_training.RMD
