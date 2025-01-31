@@ -2,12 +2,15 @@
 
 # Linear Models
 
-**This module will teach you how to use linear models in R to assess relationships among environmental factors in a USACE-managed Upper Mississippi River.**
+**This module will teach you how to use linear models in R to assess relationships among environmental factors in the USACE-managed Upper Mississippi River.**
 
-*Acknowledgements:
-Some inspiration/language/code have been used or adapted with permission from:
-Ben Staton's [Intro to R for Natural Resources course](https://bstaton1.github.io/au-r-workshop/ch3.html#lm)
-Quebec Center for biodiversity Science's [Linear model workshop](https://r.qcbs.ca/workshop04/book-en/index.html)*
+![*Linear model results showing the relationship betwee temperature, vegetation density, and dissolved oxygen in the Upper Mississippi River.*](images/ancova_plot.png){width=100%}  
+
+
+
+*Authors: Ed Stowe*  
+*Last update: `r as.Date(file.info('linear_models.Rmd')$mtime)`*  
+*Acknowledgements: Some inspiration/language/code have been used or adapted with permission from: Ben Staton's [Intro to R for Natural Resources course](https://bstaton1.github.io/au-r-workshop/ch3.html#lm) Quebec Center for biodiversity Science's [Linear model workshop](https://r.qcbs.ca/workshop04/book-en/index.html)*
 
 ## Relevance of linear models to USACE 
 Linear models and their offshoots estimate the relationship between a response variable and one or more predictor variables. These models are used widely by ecologists to understand, for example, which environmental or management factors are important for determining biological outcomes or phenomena. Linear models have several potential applications to USACE projects or ecological modeling practices:  
@@ -162,7 +165,7 @@ ggplot(umr_sub,
        aes(temp, do, color = vegd))+
   geom_point(alpha = .5, pch = 21, size = 1.5)+
   geom_smooth(method = "lm")+
-  labs(x = "Temperature (C)", y = "Dissolved Oxygen (mg/L)")+
+  labs(x = "Temperature (C)", y = "Dissolved Oxygen (mg/L)", color = "Veg.\ndensity")+
   theme_classic()
 ```
 Somewhat surprisingly, when we plot this, we see the possibility that sampling location with sparser vegetation tend to have higher dissolved oxygen concentrations, not higher dissolved oxygen as we might have expected.
