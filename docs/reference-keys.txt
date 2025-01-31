@@ -163,3 +163,4 @@ national-hydrography-dataset-with-nhdplustools
 nlcd
 precipitation-data-prism
 other-data-sources-commonly-used-in-usace
+manual-input
