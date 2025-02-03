@@ -6,8 +6,6 @@
 
 ![*Linear model results showing the relationship betwee temperature, vegetation density, and dissolved oxygen in the Upper Mississippi River.*](images/ancova_plot.png){width=100%}  
 
-
-
 *Authors: Ed Stowe*  
 *Last update: `r as.Date(file.info('linear_models.Rmd')$mtime)`*  
 *Acknowledgements: Some inspiration/language/code have been used or adapted with permission from: Ben Staton's [Intro to R for Natural Resources course](https://bstaton1.github.io/au-r-workshop/ch3.html#lm) Quebec Center for biodiversity Science's [Linear model workshop](https://r.qcbs.ca/workshop04/book-en/index.html)*
