@@ -1,5 +1,9 @@
 # (PART) Habitat Models {-} 
 
+*Authors: Kyle McKay (writing), Darixa Hernandez-Abrams (writing), Ed Stowe (writing, editing), ; Background from the draft ecorest tech report, authors: Kyle McKay, Darixa Hernández-Abrams, Rachel Nifong, Todd Swannack*   
+*Last update: `r as.Date(file.info('hab_model_intro.Rmd')$mtime)`*  
+*Acknowledgements: *
+
 # Background on habitat models in USACE
 
 THIS IS AN INTRO TO HABITAT MODELS IN GENERAL; CONSIDER WHETHER TO PARE DOWN OR REMOVE
