@@ -1,5 +1,8 @@
 # Exploring and understanding data
 
+*Authors: Data Carpentry contributors - Copyright (c) Data Carpentry; Ed Stowe (adaptation for USACE, Getting R Help Section)*  
+*Last update: `r as.Date(file.info('data_basics.Rmd')$mtime)`*  
+*Acknowledgements: The bulk of this [section](https://datacarpentry.github.io/R-ecology-lesson/introduction-r-rstudio.html) is adapted from the [Data Carpentry](https://datacarpentry.org) course [Data Analysis and Visualization in R for Ecologists](https://datacarpentry.github.io/R-ecology-lesson/) which is licensed under [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/) by the authors*
 
 ## Learning Objectives
 
