@@ -2,10 +2,9 @@
 
 **This module will teach you how to use Generalized Linear Models to assess the importance of management-relevant environmental factors for fish species**
 
-**Acknowledgments**:  
-Some inspiration/code adapted with permission from:
-Ben Staton's [Intro to R for Natural Resources course](https://bstaton1.github.io/au-r-workshop/ch3.html#glms)
-Quebec Center for biodiversity Science's [Generalized linear model workshop](https://r.qcbs.ca/workshop06/book-en/)
+*Authors: Ed Stowe*  
+*Last update: `r as.Date(file.info('glm.Rmd')$mtime)`*  
+*Acknowledgements: Some inspiration/language/code have been used or adapted with permission from: Ben Staton's [Intro to R for Natural Resources course](https://bstaton1.github.io/au-r-workshop/ch3.html#glms); and Quebec Center for biodiversity Science's [Generalized linear model workshop](https://r.qcbs.ca/workshop06/book-en/)*
 
 ## Generalized Linear Model Background
 
