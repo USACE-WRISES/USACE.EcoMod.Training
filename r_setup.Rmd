@@ -19,9 +19,9 @@ R and RStudio are two separate pieces of software:
 If you don't already have R and RStudio installed, follow the instructions for your operating system below.
 You have to install R before you install RStudio. 
 
-::::::: spoiler
+#### Operating System {.tabset .tabset-fade .tabset-pills}
 
-## For Windows
+##### For Windows
 
 * Download R from the [CRAN website](https://cran.r-project.org/bin/windows/base/release.htm).
 * Run the `.exe` file that was just downloaded
@@ -29,12 +29,8 @@ You have to install R before you install RStudio.
 * Under *Installers* select **RStudio x.yy.zzz - Windows Vista/7/8/10** (where x, y, and z represent version numbers)
 * Double click the file to install it
 * Once it's installed, open RStudio to make sure it works and you don't get any error messages.
-  
-:::::::::::::::::::::::::
 
-:::::::::::::::: spoiler
-
-## For MacOS
+##### For MacOS
 
 * Download R from the [CRAN website](https://cran.r-project.org/bin/macosx/).
 * Select the `.pkg` file for the latest R version
@@ -45,11 +41,7 @@ You have to install R before you install RStudio.
 * Double click the file to install RStudio
 * Once it's installed, open RStudio to make sure it works and you don't get any error messages.
 
-::::::::::::::::
-
-::::::: spoiler
-
-## For Linux 
+##### For Linux 
 
 * Download R from the [CRAN website](https://cran.r-project.org/bin/macosx/).
 * Select the `.pkg` file for the latest R version
@@ -59,8 +51,6 @@ You have to install R before you install RStudio.
 * Under *Installers* select **RStudio x.yy.zzz - Mac OS X 10.6+ (64-bit)** (where x, y, and z represent version numbers)
 * Double click the file to install RStudio
 * Once it's installed, open RStudio to make sure it works and you don't get any error messages.
-
-::::::::::::::::
 
 ### Update R and RStudio
 
