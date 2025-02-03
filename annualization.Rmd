@@ -2,6 +2,10 @@
 
 **This module will teach you how to use the `ecorest` and `EngrEcon` packages in `R` to efficiently and reproducibly calculated annualized benefits and costs for restoration project planning:**
 
+*Authors: Ed Stowe (Writing, code), Darixa Hernandez-Abrams (benefits code), Kyle McKay (benefits code), Liya Abera (costs code) Cost annualization write-up from Utoy Creek: Kyle McKay, Stephen Phillips, Liya Abera, and Garrett Menichino*  
+*Last update: `r as.Date(file.info('annualization.Rmd')$mtime)`*  
+*Acknowledgements: *
+
 ## Background on annualization
 
 Annualization is a technique for determining the costs and benefits of projects on an annual time scale, regardless of the overall time horizon of the project. Calculating annualized costs and benefits is an important component of restoration planning because it enables a fair comparison between alternatives project whose costs and/or benefits occur at different periods of time following implementtion. 
@@ -60,7 +64,7 @@ This indicates that the annualized ecological benefits of the project are 87.2 u
 
 Cost annualization is carried out so that fair comparisons can be made between projects with different temporal scales.
 
-EDIT THE FOLLOWING.
+EDIT THE FOLLOWING (from the Utoy Creek Socioecon. report).
 
 Cost estimates were compiled for each site-scale restoration action following standard cost engineering methods. At this phase, construction cost represents a parametric cost for comparative purposes only, which is confined to construction activities. No real estate, pre-construction engineering and design, construction management, or cultural resources costs were included at present.
 
