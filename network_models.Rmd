@@ -5,6 +5,10 @@ Placeholder for edited exploration of WUCT Tool, combined from some of the mater
 Can also consider a tutorial of Riverconn package
 https://cran.r-project.org/web/packages/riverconn/vignettes/Tutorial.html
 
+*Authors: Kyle McKay (writing, code), Ed Stowe (writing, editing); Background from WUCT materials (Readme & RMD) on GitHub*   
+*Last update: `r as.Date(file.info('network_models.Rmd')$mtime)`*  
+*Acknowledgements: *
+
 ## Overview
 
 This model document describes a procedure for quantifying benefits associated with removal of organism movement barriers within a watershed (e.g., dam removal, culvert repair, fish ladder installation) or impacts of barrier addition (e.g., dam construction, weir installation). The model focuses on upstream movement of migratory organisms such as fish and is intended for application at the watershed-scale.The algorithm is based on four primary components: habitat quantity upstream of a dam, habitat quality upstream of a dam, the passability of a structure for a given organism, and the shape/topology of the watershed. This algorithm combines these data to estimate quality-weighted, accessible habitat at the watershed scale. This model documentation is intented for the U.S. Army Corps of Engineers (USACE) model certification process and details the development, technical details, and application of this adaptable modeling framework.  
@@ -38,8 +42,6 @@ The WUCT requires three general types of inputs, and the HRE parameterization is
 * *Passability* - Local studies of fish passage rates (i.e., passability) are unavailable in the Bronx River. As such, passability was estimated based on studies elsewhere on the efficacy of technical fishways in general and for river herring specifically. Prior to restoration actions, all structures are assumed to have zero passage of river herring. Alewife studies in New England (Franklin et al. 2012) report high overall passage rates of 64-99% passage in the East River, Massachusetts with particularly high rates for technical steep passes of 94-97%.  These values are in line with a meta-analysis of 65 published fish passage studies (Noonan et al. 2011), which indicated that fish passage efforts typically result in 42% fish passage on average across a variety of taxa. Based on the Massachusetts data, we used 80% passability for all fish ladders as a conservative estimate of passage efficiency. The 182nd Street Dam and Ladder were included in all analyses as part of the future without prokect condition. At Stone Mill Dam, Alternative-A includes fish attractors to increase utilization of the ladder, which were assumed to increase passability by 10% (i.e., to 88% total).
 
 The following script imports data, isolates the necessary input data, computes all permutations of restoration actions, and computes connectivity for each watershed-scale restoration plan. Table 4 presents the output of the WUCT in this application. The connectivity values represent a connectivity- and quality-weighted assessment of total habitat at the watershed scale. 
-
-EVAL FALSE FOR NOW
 
 ```{r}
 #Dummy example - Import data
@@ -135,6 +137,18 @@ knitr::kable(WC.HRE, caption="Table 4. Alternatives analysis using the WUCT in t
 
 ```
 
+## **Summary**
+
+This model document describes a procedure for quantifying benefits associated with removal of organism movement barriers within a watershed (e.g., dam removal, culvert repair, fish ladder installation) or impacts of barrier addition (e.g., dam construction, weir installation). The model focuses on upstream movement of migratory organisms such as fish and operates at the watershed-scale. The algorithm is based on four primary components: habitat quantity upstream of a dam, habitat quality upstream of a dam, the passability of a structure for a given organism, and the shape/topology of the watershed. This algorithm combines these data to estimate quality-weighted, accessible habitat at the watershed scale. 
+
+This modeling framework has been applied to multiple USACE projects with varying input parameters and ecological contexts. A few notable **limitations and assumptions** include the following issues. Future improvements to the WUCT should consider addressing these limitations.  
+
+* Upstream only movement. The current model only incorporates movement upstream, which implicitly assumes downstream movement is not a limiting factor for the organism's life cycle. However, downstream movement can be an important driver of ecological function (e.g., fish trapping in agricultural diversion ditches or fish mortality due to hydropower turbines). Other connectivity algorithms can incorporate bidirectional movement, but are not currently incorporated into the WUCT.  
+* The WUCT is primarily applicable in the context of migratory fishes because of the focus on connectivity to the outlet of the system. Alternative connectivity algorithms exist for resident fishes (e.g., Cote et al. 2009).  
+* Numerical limits. The basic WUCT algorithm and the example application are extremely flexible for large-scale examination of watershed priorities and benefits. However, numerical problem size increases rapidly with the number of barriers are alternatives. For instance, a watershed with 30 barriers considering only the presence or absence of the barriers could result in more than a billion combinations of actions. As such, care should be taken to limit problem size to the extent practicable.  
+* User interface. The lack of a user interface limits the applicability of the toolkit to those familiar with the R programming language.
+
+As presented, the WUCT is a simple, flexible framework for quantifying the connectivity of watersheds and potential improvements through restoration actions. The adaptability of the framework is a primary strength of the tool, but this flexibility could also leads to significant variation in its application. Recommendations for review of each application have been provided to facilitate consistent and appropriate application in USACE planning.  
 
 
 
