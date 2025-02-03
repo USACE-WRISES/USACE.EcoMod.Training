@@ -1,6 +1,6 @@
 # Manipulating Tabular Data
 
-*Authors: Data Carpentry contributors - Copyright (c) Data Carpentry; Ed Stowe (adaptation for USACE, Getting R Help Section)*  
+*Authors: Data Carpentry contributors - Copyright (c) Data Carpentry; Ed Stowe (adaptation for USACE)*  
 *Last update: `r as.Date(file.info('data_wrangling.Rmd')$mtime)`*  
 *Acknowledgements: The bulk of this [section](https://datacarpentry.github.io/R-ecology-lesson/introduction-r-rstudio.html) is adapted from the [Data Carpentry](https://datacarpentry.org) course [Data Analysis and Visualization in R for Ecologists](https://datacarpentry.github.io/R-ecology-lesson/) which is licensed under [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/) by the authors*
 
@@ -502,7 +502,7 @@ In this case, it might be nice to create a data.frame where each species has its
 
 Any columns not used for `names_from` or `values_from` will not be pivoted.
 
-![](images/pivot_wider.png){alt='Diagram depicting the behavior of `pivot_wider()` on a small tabular dataset.'}
+![](images/pivot_wider.png){alt='Diagram depicting the behavior of `pivot_wider()` on a small tabular dataset.'; width = 100%}
 
 In our case, we want the new columns to be named from our `plot_id` column, with the values coming from the `mean_weight` column. We can pipe our data.frame right into `pivot_wider()` and add those two arguments:
 
@@ -529,7 +529,7 @@ We get back 0 rows. There is no `mean_weight` for the species `BA` in plot `1`. 
 
 There is another `pivot_` function that does the opposite, moving data from a wide to long format, called `pivot_longer()`. It takes 3 arguments: `cols` for the columns you want to pivot, `names_to` for the name of the new column which will contain the old column names, and `values_to` for the name of the new column which will contain the old values.
 
-![](images/pivot_longer.png){alt='Diagram depicting the behavior of `pivot_longer()` on a small tabular dataset.'}
+![](images/pivot_longer.png){alt='Diagram depicting the behavior of `pivot_longer()` on a small tabular dataset.'; width = 100%}
 
 We can pivot our new wide data.frame to a long format using `pivot_longer()`. We want to pivot all the columns except `species_id`, and we will use `PLOT` for the new column of plot IDs, and `MEAN_WT` for the new column of mean weight values.
 
@@ -578,7 +578,7 @@ write_csv(surveys_sp, "data/surveys_meanweight_species_plot.csv")
 
 If we go look into our `data/cleaned_data` folder, we will see this new CSV file.
 
-::::::::::::::::::::::::::::::::::::: keypoints 
+## Summary
 
 - use `filter()` to subset rows and `select()` to subset columns
 - build up pipelines one step at a time before assigning the result
@@ -586,4 +586,3 @@ If we go look into our `data/cleaned_data` folder, we will see this new CSV file
 - `group_by()` can be used with `summarize()` to collapse rows or `mutate()` to keep the same number of rows
 - `pivot_wider()` and `pivot_longer()` are powerful for reshaping data, but you should plan out how to use them thoughtfully
 
-::::::::::::::::::::::::::::::::::::::::::::::::
