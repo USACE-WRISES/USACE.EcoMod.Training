@@ -1,10 +1,15 @@
 # Ecorest Web App
 
+*Authors: Colton Shaw (writing), Darixa Hernandez-Abrams (writing), Kyle McKay (writing), Ed Stowe (Adapting, editing)*   
+*Last update: `r as.Date(file.info('ecorest_web.Rmd')$mtime)`*  
+*Acknowledgements: This material was adapted from the ecorest webapp *
+
+
 ## Background
 
 In the previous module, we learned how to build HSI models in R using the `ecorest` package. However, there is also a webapp for using the `ecorest` package, and in this tutorial, users can learn how to use this webapp.
 
-The ecosrest webapp combines HSI and CEICA capabilities, package in [ecorest](https://cran.r-project.org/web/packages/ecorest/index.html), under a single graphical user interface. Users can access ecosrest data and functions without the need to use the R programming language. Below are the instructions on how to conduct HSI and CEICA using the *ecorest* webapp.
+The ecorest webapp combines HSI and CEICA capabilities, package in [ecorest](https://cran.r-project.org/web/packages/ecorest/index.html), under a single graphical user interface. Users can access ecosrest data and functions without the need to use the R programming language. Below are the instructions on how to conduct HSI and CEICA using the *ecorest* webapp.
 
 ## **Model Selection**
 The first step to conduct a Habitat Suitability Index analysis is selecting the appropriate model(s) for your study. The **Model Selection** tab includes the subtabs *Choose model* and *Visualize model*.
