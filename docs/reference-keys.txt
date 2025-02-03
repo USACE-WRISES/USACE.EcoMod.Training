@@ -6,6 +6,7 @@ tab:unnamed-chunk-55
 tab:unnamed-chunk-76
 preparations
 install-r-and-rstudio
+operating-system
 for-windows
 for-macos
 for-linux
@@ -31,6 +32,14 @@ console-vs.-script
 console
 script
 example
+getting-help-with-r-coding
+help-from-within-rstudio
+r-task-views
+google-and-stackoverflow
+ai-chatbots
+package-vignettes
+other-resources
+summary
 data-visualization-with-ggplot2
 learning-objectives-2
 setup
@@ -126,7 +135,7 @@ import-and-explore-the-data
 fit-a-model-and-assess-output
 assess-model-validity
 ancova
-summary
+summary-1
 generalized-linear-models
 generalized-linear-model-background
 logistic-regression
@@ -144,6 +153,7 @@ network-models-and-connectivity
 overview-1
 background-1
 application-bronx-river
+summary-2
 agent-based-models
 decision-support
 cost-effectiveness-and-incremental-cost-analysis-ceica-with-ecorest
@@ -163,3 +173,4 @@ national-hydrography-dataset-with-nhdplustools
 nlcd
 precipitation-data-prism
 other-data-sources-commonly-used-in-usace
+manual-input

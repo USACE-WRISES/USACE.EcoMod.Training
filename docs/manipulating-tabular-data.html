@@ -18,9 +18,9 @@
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   </style>
-<meta name="description" content="4.1 Learning Objectives Import CSV data into R. Understand the difference between base R and tidyverse approaches. Subset rows and columns of data.frames. Use pipes to link steps together into...">
-<meta property="og:description" content="4.1 Learning Objectives Import CSV data into R. Understand the difference between base R and tidyverse approaches. Subset rows and columns of data.frames. Use pipes to link steps together into...">
-<meta name="twitter:description" content="4.1 Learning Objectives Import CSV data into R. Understand the difference between base R and tidyverse approaches. Subset rows and columns of data.frames. Use pipes to link steps together into...">
+<meta name="description" content="Authors: Data Carpentry contributors - Copyright (c) Data Carpentry; Ed Stowe (adaptation for USACE)Last update: 2025-02-03Acknowledgements: The bulk of this section is adapted from the Data...">
+<meta property="og:description" content="Authors: Data Carpentry contributors - Copyright (c) Data Carpentry; Ed Stowe (adaptation for USACE)Last update: 2025-02-03Acknowledgements: The bulk of this section is adapted from the Data...">
+<meta name="twitter:description" content="Authors: Data Carpentry contributors - Copyright (c) Data Carpentry; Ed Stowe (adaptation for USACE)Last update: 2025-02-03Acknowledgements: The bulk of this section is adapted from the Data...">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -84,6 +84,7 @@
 <h1>
 <span class="header-section-number">4</span> Manipulating Tabular Data<a class="anchor" aria-label="anchor" href="#manipulating-tabular-data"><i class="fas fa-link"></i></a>
 </h1>
+<p><em>Authors: Data Carpentry contributors - Copyright (c) Data Carpentry; Ed Stowe (adaptation for USACE)</em><br><em>Last update: 2025-02-03</em><br><em>Acknowledgements: The bulk of this <a href="https://datacarpentry.github.io/R-ecology-lesson/introduction-r-rstudio.html">section</a> is adapted from the <a href="https://datacarpentry.org">Data Carpentry</a> course <a href="https://datacarpentry.github.io/R-ecology-lesson/">Data Analysis and Visualization in R for Ecologists</a> which is licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> by the authors</em></p>
 <div id="learning-objectives-4" class="section level2" number="4.1">
 <h2>
 <span class="header-section-number">4.1</span> Learning Objectives<a class="anchor" aria-label="anchor" href="#learning-objectives-4"><i class="fas fa-link"></i></a>
@@ -118,7 +119,7 @@
 <div class="sourceCode" id="cb157"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">surveys</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/surveys_complete_77_89.csv"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Rows: 16878 Columns: 13
-## ── Column specification ──────────────────────────────────────────────────────────────
+## ── Column specification ──────────────────────────────────────────────
 ## Delimiter: ","
 ## chr (6): species_id, sex, genus, species, taxa, plot_type
 ## dbl (7): record_id, month, day, year, plot_id, hindfoot_length, weight
@@ -617,8 +618,8 @@
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span>, sep <span class="op">=</span> <span class="st">"-"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">date</span>, y <span class="op">=</span> <span class="va">weight</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## Warning: Removed 1692 rows containing missing values or values outside the scale range
-## (`geom_point()`).</code></pre>
+<pre><code>## Warning: Removed 1692 rows containing missing values or values outside the
+## scale range (`geom_point()`).</code></pre>
 <div class="inline-figure"><img src="usace_R_training_files/figure-html/date-plot-challenge-answer-1.png" width="600" height="600"></div>
 <p>This isn’t necessarily the most useful plot, but we will learn some techniques that will help produce nice time series plots</p>
 </div>
@@ -657,8 +658,8 @@
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">species_id</span>, <span class="va">sex</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>mean_weight <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">weight</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
 <span>            n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## `summarise()` has grouped output by 'species_id'. You can override using the
-## `.groups` argument.</code></pre>
+<pre><code>## `summarise()` has grouped output by 'species_id'. You can override
+## using the `.groups` argument.</code></pre>
 <pre><code>## # A tibble: 67 × 4
 ## # Groups:   species_id [36]
 ##    species_id sex   mean_weight     n
@@ -681,8 +682,8 @@
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">species_id</span>, <span class="va">sex</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>mean_weight <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">weight</span><span class="op">)</span>,</span>
 <span>            n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## `summarise()` has grouped output by 'species_id'. You can override using the
-## `.groups` argument.</code></pre>
+<pre><code>## `summarise()` has grouped output by 'species_id'. You can override
+## using the `.groups` argument.</code></pre>
 <pre><code>## # A tibble: 46 × 4
 ## # Groups:   species_id [18]
 ##    species_id sex   mean_weight     n
@@ -706,8 +707,8 @@
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>mean_weight <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">weight</span><span class="op">)</span>,</span>
 <span>            n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">mean_weight</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## `summarise()` has grouped output by 'species_id'. You can override using the
-## `.groups` argument.</code></pre>
+<pre><code>## `summarise()` has grouped output by 'species_id'. You can override
+## using the `.groups` argument.</code></pre>
 <pre><code>## # A tibble: 46 × 4
 ## # Groups:   species_id [18]
 ##    species_id sex   mean_weight     n
@@ -731,8 +732,8 @@
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>mean_weight <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">weight</span><span class="op">)</span>,</span>
 <span>            n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">mean_weight</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## `summarise()` has grouped output by 'species_id'. You can override using the
-## `.groups` argument.</code></pre>
+<pre><code>## `summarise()` has grouped output by 'species_id'. You can override
+## using the `.groups` argument.</code></pre>
 <pre><code>## # A tibble: 46 × 4
 ## # Groups:   species_id [18]
 ##    species_id sex   mean_weight     n
@@ -780,8 +781,8 @@
 <span>            n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">mean_weight</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## `summarise()` has grouped output by 'species_id'. You can override using the
-## `.groups` argument.</code></pre>
+<pre><code>## `summarise()` has grouped output by 'species_id'. You can override
+## using the `.groups` argument.</code></pre>
 <pre><code>## # A tibble: 46 × 4
 ##    species_id sex   mean_weight     n
 ##    &lt;chr&gt;      &lt;chr&gt;       &lt;dbl&gt; &lt;int&gt;
@@ -860,8 +861,8 @@
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span>, sep <span class="op">=</span> <span class="st">"-"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">sex</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## `summarise()` has grouped output by 'date'. You can override using the `.groups`
-## argument.</code></pre>
+<pre><code>## `summarise()` has grouped output by 'date'. You can override using
+## the `.groups` argument.</code></pre>
 <div class="sourceCode" id="cb233"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># shorter approach using count()</span></span>
 <span><span class="va">surveys_daily_counts</span> <span class="op">&lt;-</span> <span class="va">surveys</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -891,8 +892,8 @@
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">species_id</span>, <span class="va">plot_id</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>mean_weight <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">weight</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">species_id</span>, <span class="va">plot_id</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## `summarise()` has grouped output by 'species_id'. You can override using the
-## `.groups` argument.</code></pre>
+<pre><code>## `summarise()` has grouped output by 'species_id'. You can override
+## using the `.groups` argument.</code></pre>
 <div class="sourceCode" id="cb237"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sp_by_plot</span></span></code></pre></div>
 <pre><code>## # A tibble: 300 × 3
@@ -920,7 +921,7 @@
 <code>values_from</code>: which column should be used to fill in the values of the new columns?</li>
 </ol>
 <p>Any columns not used for <code>names_from</code> or <code>values_from</code> will not be pivoted.</p>
-<div class="inline-figure"><img src="fig/pivot_wider.png" alt="Diagram depicting the behavior of `pivot_wider()` on a small tabular dataset."></div>
+<div class="inline-figure"><img src="images/pivot_wider.png" alt="Diagram depicting the behavior of `pivot_wider()` on a small tabular dataset."></div>
 <p>In our case, we want the new columns to be named from our <code>plot_id</code> column, with the values coming from the <code>mean_weight</code> column. We can pipe our data.frame right into <code><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider()</a></code> and add those two arguments:</p>
 <div class="sourceCode" id="cb239"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sp_by_plot_wide</span> <span class="op">&lt;-</span> <span class="va">sp_by_plot</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -964,7 +965,7 @@
 ## # ℹ 3 variables: species_id &lt;chr&gt;, plot_id &lt;dbl&gt;, mean_weight &lt;dbl&gt;</code></pre>
 <p>We get back 0 rows. There is no <code>mean_weight</code> for the species <code>BA</code> in plot <code>1</code>. This either happened because no <code>BA</code> were ever caught in plot <code>1</code>, or because every <code>BA</code> caught in plot <code>1</code> had an <code>NA</code> weight value and all the rows got removed when we used <code>filter(!is.na(weight))</code> in the process of making <code>sp_by_plot</code>. Because there are no rows with that species + plot combination, in our pivoted data.frame, the value gets filled with <code>NA</code>.</p>
 <p>There is another <code>pivot_</code> function that does the opposite, moving data from a wide to long format, called <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code>. It takes 3 arguments: <code>cols</code> for the columns you want to pivot, <code>names_to</code> for the name of the new column which will contain the old column names, and <code>values_to</code> for the name of the new column which will contain the old values.</p>
-<div class="inline-figure"><img src="fig/pivot_longer.png" alt="Diagram depicting the behavior of `pivot_longer()` on a small tabular dataset."></div>
+<div class="inline-figure"><img src="images/pivot_longer.png" alt="Diagram depicting the behavior of `pivot_longer()` on a small tabular dataset."></div>
 <p>We can pivot our new wide data.frame to a long format using <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code>. We want to pivot all the columns except <code>species_id</code>, and we will use <code>PLOT</code> for the new column of plot IDs, and <code>MEAN_WT</code> for the new column of mean weight values.</p>
 <div class="sourceCode" id="cb243"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sp_by_plot_wide</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
