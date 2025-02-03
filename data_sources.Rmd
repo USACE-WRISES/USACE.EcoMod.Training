@@ -1,6 +1,8 @@
 # Important data sources 
 
-Adapted rom Brian Breaker:
+*Authors: Brian Breaker, USACE (dataRetrieval section); Ed Stowe (adaptation, edits)*  
+*Last update: `r as.Date(file.info('data_sources.Rmd')$mtime)`*  
+*Acknowledgements: *
 
 ## USGS gage data using the dataRetrieval package
 
