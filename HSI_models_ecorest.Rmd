@@ -8,6 +8,10 @@
   
 ***
   
+*Authors: Darixa Hernandez-Abrams (writing, code), Kyle McKay (writing, code), Ed Stowe (writing, code, editing), ; Background from the draft ecorest tech report, authors: Kyle McKay, Darixa Hernández-Abrams, Rachel Nifong, Todd Swannack*   
+*Last update: `r as.Date(file.info('hsi_models_ecorest.Rmd')$mtime)`*  
+*Acknowledgements: *
+  
 ## Background on HSI modeling with `ecorest`
 
 Before `ecorest`, there was no standard platform for computing outcomes from habitat or other index models. Then and now, users often develop ad hoc spreadsheet models, but these can be highly prone to numerical errors (McKay 2009). The common quantity-quality structure of index models, however, provided an opportunity to develop a consistent, error-checked index modeling calculator adaptable to a variety of applications across USACE. That tool was `ecorest`, which can greatly increase the efficiency of performing habitat modeling as well as decrease the likelihood of computational errors.
