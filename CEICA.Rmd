@@ -8,9 +8,13 @@
   
 ***
   
+*Authors: Ed Stowe (Writing, code), Darixa Hernandez-Abrams (code), Kyle McKay (writing, code); CEICA background from the draft ecorest tech report, authors: Kyle McKay, Darixa Hernández-Abrams, Rachel Nifong, Todd Swannack*   
+*Last update: `r as.Date(file.info('CEICA.Rmd')$mtime)`*  
+*Acknowledgements: *
+  
 ## Background on Cost Effectivness and Incremental Cost Analysis
 
-PARE THIS SECTION DOWN
+PARE THIS SECTION DOWN - from the EcoRest tech report draft
 
 The USACE ecosystem restoration mission was first authorized in the Water Resources Development Act of 1986 with the stated purpose “…to restore significant structure, function and dynamic processes that have been degraded” (USACE 1999, ER 1165-2-501). Given this goal, USACE programs emphasize ecological outcomes (as opposed to social or economic outcomes). Generally, ecological resources may be quantified in a variety of ways ranging from habitat suitability for a focal taxa (e.g., an endangered species) to changes in physical processes (e.g., sediment delivery from geomorphic change) to changes in biological processes (e.g., carbon uptake and storage). In other USACE business lines (e.g., navigation), costs and benefits of actions are compared in monetary terms, and the benefit-cost ratio serves as a crucial decision metric. However, outputs of restoration are typically not monetized, and a different set of methods are required to inform restoration decision-making and address the issue of “Is ecosystem restoration worth the Federal investment?” In particular, cost-effectiveness and incremental cost analyses provide techniques for comparing non-monetary ecological benefits relative to monetary costs of restoration actions (Robinson et al. 1995).
 
