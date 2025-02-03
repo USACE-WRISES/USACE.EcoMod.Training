@@ -921,7 +921,7 @@
 <code>values_from</code>: which column should be used to fill in the values of the new columns?</li>
 </ol>
 <p>Any columns not used for <code>names_from</code> or <code>values_from</code> will not be pivoted.</p>
-<div class="inline-figure"><img src="images/pivot_wider.png" alt="Diagram depicting the behavior of `pivot_wider()` on a small tabular dataset."></div>
+<p><img src="images/pivot_wider.png">{alt=‘Diagram depicting the behavior of <code><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider()</a></code> on a small tabular dataset.’; width = 100%}</p>
 <p>In our case, we want the new columns to be named from our <code>plot_id</code> column, with the values coming from the <code>mean_weight</code> column. We can pipe our data.frame right into <code><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider()</a></code> and add those two arguments:</p>
 <div class="sourceCode" id="cb239"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sp_by_plot_wide</span> <span class="op">&lt;-</span> <span class="va">sp_by_plot</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -965,7 +965,7 @@
 ## # ℹ 3 variables: species_id &lt;chr&gt;, plot_id &lt;dbl&gt;, mean_weight &lt;dbl&gt;</code></pre>
 <p>We get back 0 rows. There is no <code>mean_weight</code> for the species <code>BA</code> in plot <code>1</code>. This either happened because no <code>BA</code> were ever caught in plot <code>1</code>, or because every <code>BA</code> caught in plot <code>1</code> had an <code>NA</code> weight value and all the rows got removed when we used <code>filter(!is.na(weight))</code> in the process of making <code>sp_by_plot</code>. Because there are no rows with that species + plot combination, in our pivoted data.frame, the value gets filled with <code>NA</code>.</p>
 <p>There is another <code>pivot_</code> function that does the opposite, moving data from a wide to long format, called <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code>. It takes 3 arguments: <code>cols</code> for the columns you want to pivot, <code>names_to</code> for the name of the new column which will contain the old column names, and <code>values_to</code> for the name of the new column which will contain the old values.</p>
-<div class="inline-figure"><img src="images/pivot_longer.png" alt="Diagram depicting the behavior of `pivot_longer()` on a small tabular dataset."></div>
+<p><img src="images/pivot_longer.png">{alt=‘Diagram depicting the behavior of <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code> on a small tabular dataset.’; width = 100%}</p>
 <p>We can pivot our new wide data.frame to a long format using <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code>. We want to pivot all the columns except <code>species_id</code>, and we will use <code>PLOT</code> for the new column of plot IDs, and <code>MEAN_WT</code> for the new column of mean weight values.</p>
 <div class="sourceCode" id="cb243"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sp_by_plot_wide</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -1080,7 +1080,11 @@
 <div class="sourceCode" id="cb251"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv</a></span><span class="op">(</span><span class="va">surveys_sp</span>, <span class="st">"data/surveys_meanweight_species_plot.csv"</span><span class="op">)</span></span></code></pre></div>
 <p>If we go look into our <code>data/cleaned_data</code> folder, we will see this new CSV file.</p>
-<div class="keypoints">
+</div>
+<div id="summary-1" class="section level2" number="4.13">
+<h2>
+<span class="header-section-number">4.13</span> Summary<a class="anchor" aria-label="anchor" href="#summary-1"><i class="fas fa-link"></i></a>
+</h2>
 <ul>
 <li>use <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code> to subset rows and <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code> to subset columns</li>
 <li>build up pipelines one step at a time before assigning the result</li>
@@ -1090,8 +1094,6 @@
 <li>
 <code><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider()</a></code> and <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code> are powerful for reshaping data, but you should plan out how to use them thoughtfully</li>
 </ul>
-</div>
-
 </div>
 </div>
 
@@ -1116,6 +1118,7 @@
 <li><a class="nav-link" href="#challenge-4-making-a-time-series"><span class="header-section-number">4.10</span> Challenge 4: Making a time series</a></li>
 <li><a class="nav-link" href="#reshaping-data-with-tidyr"><span class="header-section-number">4.11</span> Reshaping data with tidyr</a></li>
 <li><a class="nav-link" href="#exporting-data"><span class="header-section-number">4.12</span> Exporting data</a></li>
+<li><a class="nav-link" href="#summary-1"><span class="header-section-number">4.13</span> Summary</a></li>
 </ul>
 
       <div class="book-extra">
