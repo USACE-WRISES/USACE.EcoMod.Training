@@ -68,7 +68,7 @@
 <li><a class="" href="agent-based-models.html"><span class="header-section-number">17</span> Agent-based Models</a></li>
 <li class="book-part">Models and decisionmaking</li>
 <li><a class="" href="decision-support.html"><span class="header-section-number">18</span> Decision Support</a></li>
-<li><a class="" href="cost-effectiveness-and-incremental-cost-analysis-ceica-with-ecorest.html"><span class="header-section-number">19</span> Cost-Effectiveness and Incremental Cost Analysis (CEICA) with ecorest</a></li>
+<li><a class="" href="ceica-chapter.html"><span class="header-section-number">19</span> Cost-Effectiveness and Incremental Cost Analysis (CEICA) with ecorest</a></li>
 <li><a class="" href="annualizing-benefits-and-costs.html"><span class="header-section-number">20</span> Annualizing benefits and costs</a></li>
 <li class="book-part">Other R applications</li>
 <li><a class="" href="spatial-data-manipulation.html"><span class="header-section-number">21</span> Spatial Data Manipulation</a></li>
@@ -93,25 +93,25 @@
 data availability and retrieve data. The USGS dataRetrieval package accesses the NWIS web portal.
 Documentation for the packages can be found at:
 <a href="https://github.com/USGS-R/dataRetrieval" class="uri">https://github.com/USGS-R/dataRetrieval</a></p>
-<div class="sourceCode" id="cb356"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb364"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://code.usgs.gov/water/dataRetrieval">dataRetrieval</a></span><span class="op">)</span></span></code></pre></div>
 <p>Let’s start by seeing what streamflow data is available for Arkansas (AR)? To do this we can use the <code>whatNWISsites</code> function.
 Here, Parameter code 00060 refers to daily flow in cubic feet per second (cfs).</p>
-<div class="sourceCode" id="cb357"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb365"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">whatSites</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dataRetrieval/man/whatNWISsites.html">whatNWISsites</a></span><span class="op">(</span>stateCd <span class="op">=</span> <span class="st">"AR"</span>, parameterCd <span class="op">=</span> <span class="st">"00060"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## GET: https://waterservices.usgs.gov/nwis/site/?stateCd=AR&amp;parameterCd=00060&amp;format=mapper</code></pre>
 <p>These can be subset to just active sites, or just ones with unit-value flow data (e.g., 15 min flow).</p>
-<div class="sourceCode" id="cb359"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb367"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">whatSites</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dataRetrieval/man/whatNWISsites.html">whatNWISsites</a></span><span class="op">(</span>stateCd <span class="op">=</span> <span class="st">"AR"</span>, parameterCd <span class="op">=</span> <span class="st">"00060"</span>, </span>
 <span>                           siteStatus <span class="op">=</span> <span class="st">"active"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## GET: https://waterservices.usgs.gov/nwis/site/?stateCd=AR&amp;parameterCd=00060&amp;siteStatus=active&amp;format=mapper</code></pre>
-<div class="sourceCode" id="cb361"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb369"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">whatSites</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dataRetrieval/man/whatNWISsites.html">whatNWISsites</a></span><span class="op">(</span>stateCd <span class="op">=</span> <span class="st">"AR"</span>, parameterCd <span class="op">=</span> <span class="st">"00060"</span>, </span>
 <span>                           siteStatus <span class="op">=</span> <span class="st">"active"</span>, hasDataTypeCd <span class="op">=</span> <span class="st">"dv"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## GET: https://waterservices.usgs.gov/nwis/site/?stateCd=AR&amp;parameterCd=00060&amp;siteStatus=active&amp;hasDataTypeCd=dv&amp;format=mapper</code></pre>
 <p>Now we have some sites to look at, but we can further reduce these. For example, what if we just want sites on the Buffalo River? This will require some filtering using character strings. Hint: look at ?str_detect</p>
-<div class="sourceCode" id="cb363"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb371"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># filter all of our sites by the "Buffalo" in station name</span></span>
 <span><span class="va">whatSites</span> <span class="op">&lt;-</span> <span class="va">whatSites</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">station_nm</span>, <span class="st">"Buffalo"</span><span class="op">)</span><span class="op">)</span></span>
@@ -123,34 +123,34 @@ Here, Parameter code 00060 refers to daily flow in cubic feet per second (cfs).<
 ## discrete water quality data newer than March 11, 2024
 ## or updates to existing data. For additional details, see:
 ## https://doi-usgs.github.io/dataRetrieval/articles/Status.html</code></pre>
-<div class="sourceCode" id="cb366"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb374"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># we don't want to look at water quality data... so let's filter it out</span></span>
 <span><span class="va">whatInfo</span> <span class="op">&lt;-</span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">whatInfo</span>, <span class="op">!</span><span class="va">data_type_cd</span> <span class="op">==</span> <span class="st">"qw"</span><span class="op">)</span></span></code></pre></div>
 <p>Now we can get some flow data for these 5 sites on the Buffalo River.</p>
 <p>The “uv” is going to retrieve the 15min data and Sys.Date is set equal to the date the script is run.</p>
-<div class="sourceCode" id="cb367"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb375"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">flowDat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dataRetrieval/man/readNWISuv.html">readNWISuv</a></span><span class="op">(</span><span class="va">whatSites</span><span class="op">$</span><span class="va">site_no</span>, startDate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, parameterCd <span class="op">=</span> <span class="st">"00060"</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## GET: https://waterservices.usgs.gov/nwis/iv/?site=07055646,07055660,07055680,07056000,07056700&amp;format=waterml,1.1&amp;ParameterCd=00060&amp;startDT=2025-02-03</code></pre>
-<div class="sourceCode" id="cb369"><pre class="downlit sourceCode r">
+<pre><code>## GET: https://waterservices.usgs.gov/nwis/iv/?site=07055646,07055660,07055680,07056000,07056700&amp;format=waterml,1.1&amp;ParameterCd=00060&amp;startDT=2025-02-05</code></pre>
+<div class="sourceCode" id="cb377"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Rename unwieldy names; dataRetrieval has a function to do that.</span></span>
 <span><span class="va">flowDat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dataRetrieval/man/renameNWISColumns.html">renameNWISColumns</a></span><span class="op">(</span><span class="va">flowDat</span><span class="op">)</span></span></code></pre></div>
 <p>We can also get data associated with each of these gages using the <code>siteInfo</code> function, including data on drainage area.</p>
-<div class="sourceCode" id="cb370"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb378"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">siteInfo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dataRetrieval/man/readNWISsite.html">readNWISsite</a></span><span class="op">(</span><span class="va">whatSites</span><span class="op">$</span><span class="va">site_no</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## GET: https://waterservices.usgs.gov/nwis/site/?siteOutput=Expanded&amp;format=rdb&amp;site=07055646,07055660,07055680,07056000,07056700</code></pre>
-<div class="sourceCode" id="cb372"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb380"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># What if we just want site number and drainage area for the sites</span></span>
 <span><span class="va">siteInfo</span> <span class="op">&lt;-</span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">siteInfo</span>, <span class="va">site_no</span>, <span class="va">drain_area_va</span><span class="op">)</span></span></code></pre></div>
 <p>Let’s have look at our data, the mean flow data for the last hour for each site create a simple time-series plot</p>
-<div class="sourceCode" id="cb373"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb381"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">flowDat</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dateTime</span>, y <span class="op">=</span> <span class="va">Flow_Inst</span>, color <span class="op">=</span> <span class="va">site_no</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p</span></span></code></pre></div>
-<div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-83-1.png" width="600" height="600"></div>
+<div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-86-1.png" width="600" height="600"></div>
 <p>Now if we wanted to convert the data to hourly data saved at the end of the hour.</p>
 <p>Create a new data frame so you can open both up and look back and forth to see what you are changing with each step</p>
-<div class="sourceCode" id="cb374"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb382"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">flowDat2</span> <span class="op">&lt;-</span> <span class="va">flowDat</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>dateTime <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html">as.POSIXct</a></span><span class="op">(</span><span class="va">dateTime</span>, format <span class="op">=</span> <span class="st">"%Y-%m-%d %H:%M:%S"</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date_hour <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/round_date.html">floor_date</a></span><span class="op">(</span><span class="va">dateTime</span>, unit <span class="op">=</span> <span class="st">"hour"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -163,34 +163,26 @@ Here, Parameter code 00060 refers to daily flow in cubic feet per second (cfs).<
 <span>     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
 <span>     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">flowDat2</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">date_hour</span>, y <span class="op">=</span> <span class="va">flow</span> , color <span class="op">=</span> <span class="va">site_no</span><span class="op">)</span>,</span>
 <span>               linetype<span class="op">=</span><span class="st">"dashed"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-84-1.png" width="600" height="600"></div>
+<div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-87-1.png" width="600" height="600"></div>
 <p>We can also download daily data starting many years ago, including data starting in water year 2020 from these 5 sites on the Buffalo River.</p>
-<div class="sourceCode" id="cb375"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb383"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">flowDatdaily</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dataRetrieval/man/readNWISdv.html">readNWISdv</a></span><span class="op">(</span><span class="va">whatSites</span><span class="op">$</span><span class="va">site_no</span>, startDate <span class="op">=</span> <span class="st">"2019-10-01"</span>, parameterCd <span class="op">=</span> <span class="st">"00060"</span><span class="op">)</span></span>
 <span><span class="va">flowDatdaily</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dataRetrieval/man/renameNWISColumns.html">renameNWISColumns</a></span><span class="op">(</span><span class="va">flowDatdaily</span><span class="op">)</span></span></code></pre></div>
 <p>We can plot the data using ggplot.</p>
-<div class="sourceCode" id="cb376"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://scales.r-lib.org">scales</a></span><span class="op">)</span></span></code></pre></div>
-<pre><code>## 
-## Attaching package: 'scales'</code></pre>
-<pre><code>## The following object is masked from 'package:purrr':
-## 
-##     discard</code></pre>
-<pre><code>## The following object is masked from 'package:readr':
-## 
-##     col_factor</code></pre>
-<div class="sourceCode" id="cb380"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">flowDatdaily</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Date</span>, y <span class="op">=</span> <span class="va">Flow</span>, color <span class="op">=</span> <span class="va">site_no</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<div class="sourceCode" id="cb384"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://scales.r-lib.org">scales</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">flowDatdaily</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Date</span>, y <span class="op">=</span> <span class="va">Flow</span>, color <span class="op">=</span> <span class="va">site_no</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
 <span>     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">500000</span>, <span class="fl">5000</span><span class="op">)</span> <span class="op">)</span><span class="op">+</span> </span>
 <span>     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_date.html">scale_x_date</a></span><span class="op">(</span>breaks<span class="op">=</span><span class="st">"6 month"</span>, labels<span class="op">=</span><span class="fu"><a href="https://scales.r-lib.org/reference/date_format.html">date_format</a></span><span class="op">(</span><span class="st">"%Y-%m"</span><span class="op">)</span>,expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span> <span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-86-1.png" width="600" height="600"></div>
+<div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-89-1.png" width="600" height="600"></div>
 <p>If you wanted to write out the gages instead of filtering the data,
 you can reference the site number directly in the function.</p>
-<div class="sourceCode" id="cb381"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb385"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">flowDatdailyone</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dataRetrieval/man/readNWISdv.html">readNWISdv</a></span><span class="op">(</span><span class="st">"07055646"</span>, startDate <span class="op">=</span> <span class="st">"2019-10-01"</span>, parameterCd <span class="op">=</span> <span class="st">"00060"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## GET: https://waterservices.usgs.gov/nwis/dv/?site=07055646&amp;format=waterml,1.1&amp;ParameterCd=00060&amp;StatCd=00003&amp;startDT=2019-10-01</code></pre>
-<div class="sourceCode" id="cb383"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb387"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">flowDatdailytwo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dataRetrieval/man/readNWISdv.html">readNWISdv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"07055646"</span>, <span class="st">"07055660"</span><span class="op">)</span>, startDate <span class="op">=</span> <span class="st">"2019-10-01"</span>, parameterCd <span class="op">=</span> <span class="st">"00060"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## GET: https://waterservices.usgs.gov/nwis/dv/?site=07055646,07055660&amp;format=waterml,1.1&amp;ParameterCd=00060&amp;StatCd=00003&amp;startDT=2019-10-01</code></pre>
 </div>

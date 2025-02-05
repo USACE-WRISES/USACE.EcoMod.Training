@@ -68,7 +68,7 @@
 <li><a class="" href="agent-based-models.html"><span class="header-section-number">17</span> Agent-based Models</a></li>
 <li class="book-part">Models and decisionmaking</li>
 <li><a class="" href="decision-support.html"><span class="header-section-number">18</span> Decision Support</a></li>
-<li><a class="" href="cost-effectiveness-and-incremental-cost-analysis-ceica-with-ecorest.html"><span class="header-section-number">19</span> Cost-Effectiveness and Incremental Cost Analysis (CEICA) with ecorest</a></li>
+<li><a class="" href="ceica-chapter.html"><span class="header-section-number">19</span> Cost-Effectiveness and Incremental Cost Analysis (CEICA) with ecorest</a></li>
 <li><a class="" href="annualizing-benefits-and-costs.html"><span class="header-section-number">20</span> Annualizing benefits and costs</a></li>
 <li class="book-part">Other R applications</li>
 <li><a class="" href="spatial-data-manipulation.html"><span class="header-section-number">21</span> Spatial Data Manipulation</a></li>
@@ -90,12 +90,12 @@
 <img src="images/hep_output_mod.png" style="width:100.0%" alt="Output from HSI modeling for the Delta Islands and Levees Feasibility Study (adapted). Users will learn to generate identical values using the ecorest package"><div class="figcaption"><em>Output from HSI modeling for the Delta Islands and Levees Feasibility Study (adapted). Users will learn to generate identical values using the ecorest package</em></div>
 </div>
 <hr>
-<p><em>Authors: Darixa Hernandez-Abrams (writing, code), Kyle McKay (writing, code), Ed Stowe (writing, code, editing), ; Background from the draft ecorest tech report, authors: Kyle McKay, Darixa Hernández-Abrams, Rachel Nifong, Todd Swannack</em><br><em>Last update: 2025-02-03</em><br><em>Acknowledgements: </em></p>
+<p><em>Authors: Darixa Hernandez-Abrams (writing, code), Kyle McKay (writing, code), Ed Stowe (writing, code, editing), ; Background from the draft ecorest tech report, authors: Kyle McKay, Darixa Hernández-Abrams, Rachel Nifong, Todd Swannack</em><br><em>Last update: 2025-02-05</em><br><em>Acknowledgements: </em></p>
 <div id="background-on-hsi-modeling-with-ecorest" class="section level2" number="7.1">
 <h2>
 <span class="header-section-number">7.1</span> Background on HSI modeling with <code>ecorest</code><a class="anchor" aria-label="anchor" href="#background-on-hsi-modeling-with-ecorest"><i class="fas fa-link"></i></a>
 </h2>
-<p>Before <code>ecorest</code>, there was no standard platform for computing outcomes from habitat or other index models. Then and now, users often develop ad hoc spreadsheet models, but these can be highly prone to numerical errors (McKay 2009). The common quantity-quality structure of index models, however, provided an opportunity to develop a consistent, error-checked index modeling calculator adaptable to a variety of applications across USACE. That tool was <code>ecorest</code>, which can greatly increase the efficiency of performing habitat modeling as well as decrease the likelihood of computational errors.</p>
+<p>Before <code>ecorest</code>, there was no standard platform for computing outcomes from habitat or other index models. Then and now, users often develop ad hoc spreadsheet models, but these can be highly prone to numerical errors (McKay 2009). The common quantity-quality structure of index models, however, provided an opportunity to develop a consistent, error-checked index modeling calculator adaptable to a variety of applications across USACE. That tool is <code>ecorest</code>, which can greatly increase the efficiency of performing habitat modeling as well as decrease the likelihood of computational errors.</p>
 <p>The <code>ecorest</code> package can be used to quickly apply over 350 of the HSI models developed by the U.S. Fish and Wildlife Service, often referred to as the “bluebook” models, but is flexible enough to carry out any user-defined HSI model, including ones that appear in the literature or custom models developed for specific projects.</p>
 <p>In this tutorial, we will demonstrate how the <code>ecorest</code> package can be used for two different HSI modeling scenarios, one that relies on a bluebook model, and another that uses a custom HSI model.</p>
 </div>
@@ -163,7 +163,7 @@
 ##  [97] "chinooksalmonLimitLtoe5CSilt"           "chinooksalmonLimitMt10CSand"           
 ##  [99] "chinooksalmonLimitMt10CSilt"            "chumsalmonAlevin"                      
 ##  [ reached getOption("max.print") -- omitted 251 entries ]</code></pre>
-<p>Another important object that is contained within the package is the <code>HSImetadata</code> dataframe. This contains important information on each HSI model, including how the different suitability variables within a model should be aggregated to calculate an overall HSI value for a project alternative. The following code generates a small subset of the variables and rows of this dataframe</p>
+<p>Another important object that is contained within the package is the <code>HSImetadata</code> dataframe. This contains important information on each HSI model, including how the different suitability variables within a model should be aggregated to calculate an overall HSI value for a project alternative. The following code generates a small subset of the variables and rows of this dataframe.</p>
 <div class="sourceCode" id="cb255"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">HSImetadata</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">submodel</span>, <span class="va">Eqtn</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="co"># Select which columns to display</span></span>
@@ -460,7 +460,7 @@ Resulting Outputs for the Marsh Wren Model With-Project.</caption>
 <span class="header-section-number">7.3.3</span> Calculate the Total HSI score<a class="anchor" aria-label="anchor" href="#calculate-the-total-hsi-score"><i class="fas fa-link"></i></a>
 </h3>
 <p>Here, the analysis team developed a custom formula to combine the different HSI scores:
-Cube root((Tidal connectivity* Marsh Age)*(Ecotone + Refugia)/2)</p>
+<code>Cube root((Tidal connectivity* Marsh Age)*(Ecotone + Refugia)/2)</code></p>
 <p>In R syntax, that code looks like this
 <code>((((SIV2*SIV1)(SIV4+SIV3)/2))^(1/3))</code></p>
 <p>To calculate the cummulative score, we’ll use the mutate function to create a new column in our dataframe of suitability index values, and calculate the total HSI values from the other columns.</p>
@@ -736,8 +736,20 @@ Cube root((Tidal connectivity* Marsh Age)*(Ecotone + Refugia)/2)</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="va">output_tab</span>, <span class="va">output_tab_2</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-
 </div>
+</div>
+<div id="summary-2" class="section level2" number="7.4">
+<h2>
+<span class="header-section-number">7.4</span> Summary<a class="anchor" aria-label="anchor" href="#summary-2"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li>
+<code>ecorest</code> represents a flexible, reproducible tool for carrying out habitat modeling in the R environment, with countless advantages over ad-hoc spreadsheet approaches</li>
+<li>The <code>ecorest</code> pacakge can instantly utilize &gt; 350 USFWS Blue Book models</li>
+<li>
+<code>ecorest</code> also enables users to quickly implement custom HSI models</li>
+<li>Using <code>ecorest</code> for HSI modeling can greatly increase the efficiency and decrease the likelihood of errors when doing habitat modeling</li>
+</ul>
 </div>
 </div>
   <div class="chapter-nav">
@@ -765,6 +777,7 @@ Cube root((Tidal connectivity* Marsh Age)*(Ecotone + Refugia)/2)</p>
 <li><a class="nav-link" href="#linking-steps-using-pipes"><span class="header-section-number">7.3.5</span> Linking steps using pipes</a></li>
 </ul>
 </li>
+<li><a class="nav-link" href="#summary-2"><span class="header-section-number">7.4</span> Summary</a></li>
 </ul>
 
       <div class="book-extra">
