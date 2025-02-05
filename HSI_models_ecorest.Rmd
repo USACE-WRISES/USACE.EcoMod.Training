@@ -14,7 +14,7 @@
   
 ## Background on HSI modeling with `ecorest`
 
-Before `ecorest`, there was no standard platform for computing outcomes from habitat or other index models. Then and now, users often develop ad hoc spreadsheet models, but these can be highly prone to numerical errors (McKay 2009). The common quantity-quality structure of index models, however, provided an opportunity to develop a consistent, error-checked index modeling calculator adaptable to a variety of applications across USACE. That tool was `ecorest`, which can greatly increase the efficiency of performing habitat modeling as well as decrease the likelihood of computational errors.
+Before `ecorest`, there was no standard platform for computing outcomes from habitat or other index models. Then and now, users often develop ad hoc spreadsheet models, but these can be highly prone to numerical errors (McKay 2009). The common quantity-quality structure of index models, however, provided an opportunity to develop a consistent, error-checked index modeling calculator adaptable to a variety of applications across USACE. That tool is `ecorest`, which can greatly increase the efficiency of performing habitat modeling as well as decrease the likelihood of computational errors.
 
 The `ecorest` package can be used to quickly apply over 350 of the HSI models developed by the U.S. Fish and Wildlife Service, often referred to as the "bluebook" models, but is flexible enough to carry out any user-defined HSI model, including ones that appear in the literature or custom models developed for specific projects.
 
@@ -55,8 +55,7 @@ names(HSImodels)
 
 ```
 
-Another important object that is contained within the package is the `HSImetadata` dataframe. This contains important information on each HSI model, including how the different suitability variables within a model should be aggregated to calculate an overall HSI value for a project alternative. The following code generates a small subset of the variables and rows of this dataframe
-
+Another important object that is contained within the package is the `HSImetadata` dataframe. This contains important information on each HSI model, including how the different suitability variables within a model should be aggregated to calculate an overall HSI value for a project alternative. The following code generates a small subset of the variables and rows of this dataframe.
 
 ```{r}
 HSImetadata %>%
@@ -208,7 +207,6 @@ print(marsh_alts)
 
 ```
 
-
 ### Calculate individual suitability indices 
 
 Again, we will create an empty matrix to store the results and calculate the SI values for each parameter using `SICalc()`.
@@ -233,7 +231,7 @@ si_marsh_df <- as_tibble(si_marsh) %>%
 ### Calculate the Total HSI score
 
 Here, the analysis team developed a custom formula to combine the different HSI scores:
-Cube root((Tidal connectivity* Marsh Age)*(Ecotone + Refugia)/2) 
+`Cube root((Tidal connectivity* Marsh Age)*(Ecotone + Refugia)/2)`
 
 In R syntax, that code looks like this
 `((((SIV2*SIV1)(SIV4+SIV3)/2))^(1/3)) `
@@ -287,4 +285,9 @@ output_tab_2 <- as_tibble(si_marsh) %>%
 all.equal(output_tab, output_tab_2)
 ```
 
+## Summary
+* `ecorest` represents a flexible, reproducible tool for carrying out habitat modeling in the R environment, with countless advantages over ad-hoc spreadsheet approaches
+* The `ecorest` pacakge can instantly utilize > 350 USFWS Blue Book models
+* `ecorest` also enables users to quickly implement custom HSI models
+* Using `ecorest` for HSI modeling can greatly increase the efficiency and decrease the likelihood of errors when doing habitat modeling
 
