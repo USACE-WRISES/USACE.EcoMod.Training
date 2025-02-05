@@ -1,6 +1,6 @@
 # Annualizing benefits and costs
 
-**This module will teach you how to use the `ecorest` and `EngrEcon` packages in `R` to efficiently and reproducibly calculated annualized benefits and costs for restoration project planning:**
+**This module will teach you how to use the `ecorest` and `EngrEcon` packages in `R` to efficiently and reproducibly calculate annualized benefits and costs for restoration project planning:**
 
 *Authors: Ed Stowe (Writing, code), Darixa Hernandez-Abrams (benefits code), Kyle McKay (benefits code), Liya Abera (costs code) Cost annualization write-up from Utoy Creek: Kyle McKay, Stephen Phillips, Liya Abera, and Garrett Menichino*  
 *Last update: `r as.Date(file.info('annualization.Rmd')$mtime)`*  
@@ -8,10 +8,10 @@
 
 ## Background on annualization
 
-Annualization is a technique for determining the costs and benefits of projects on an annual time scale, regardless of the overall time horizon of the project. Calculating annualized costs and benefits is an important component of restoration planning because it enables a fair comparison between alternatives project whose costs and/or benefits occur at different periods of time following implementtion. 
+Annualization is a technique for determining the costs and benefits of projects on an annual time scale, regardless of the overall time horizon of the project. Calculating annualized costs and benefits is an important component of restoration planning because it enables a fair comparison between alternative projects whose costs and/or benefits occur at different periods of time following implementation. 
 
 ## Annualizing benefits
-Annualization of benefits can be easily carried out in the `ecorest` package. ALong with `ecorest` we will also load the `tidyverse` package for plotting/wrangling and the `EngrEcon` package for cost annualization.
+Annualization of benefits can be easily carried out in the `ecorest` package. Along with `ecorest` we will also load the `tidyverse` package for plotting/wrangling and the `EngrEcon` package for cost annualization.
 
 ```{r, warning = FALSE, message = FALSE}
 library(tidyverse)
@@ -19,8 +19,7 @@ library(ecorest)
 library(EngrEcon)
 ```
 
-
-Imagine a simple scenario with ecosystem or restoration benefits calculated at four time periods. We can store these benefits in a dataframe and plot them with `ggplot` as follows:
+Let's imagine a simple scenario with ecosystem or restoration benefits calculated at four time periods from year 0 to year 50. We can store these benefits in a dataframe and plot them with `ggplot` as follows:
 
 ```{r}
 #User-specified time intervals
@@ -28,15 +27,25 @@ ben_df <- data.frame(year = c(0,2,20,50),
                      ben = c(0,100,90,80))
 
 p <- ggplot(ben_df)+
-    geom_point(aes(year, ben), size = 2)+
-    geom_line(aes(year, ben))+
+  geom_point(aes(year, ben), size = 2)+
+  geom_line(aes(year, ben))+
   labs(x = "Year", y = "Benefits")+
   theme_classic()
   
 p
   
 ```
-What annualization does is calculate the total area under this benefits curve, and then divide by the number of years. This essentially looks like carving the area into triangles and rectangles, calculating the areas of these shapes, and dividing to get an annual benefit.
+In essence, the total benefits of the project can be thought of as the area under this curve, which we can add to our plot using the `geom_area()` function.
+
+```{r}
+p <- p + 
+  geom_area(aes(x = year, y = ben), 
+            fill = "skyblue")
+
+p
+```
+
+What annualization does is take the total shaded area under the benefits curve, and it divide by the number of years. This essentially looks like carving the area into triangles and rectangles, calculating the areas of these shapes and adding them together, and finally dividing to get an annual benefit. The `df_rect` code below simply creates a dataframe with the coordinates for two rectangles to add to our plot for visualization purposes.
 
 ```{r}
 df_rect <- tibble(xmin = ben_df$year[2:3],
@@ -50,50 +59,43 @@ p + geom_rect(data = df_rect,
 
 ```
 
-The `ecorest` package provides an easy way to achieve this with the annualizer function, which computes "time-averaged quantities based on linear interpolation," which does exactly this.
+The `ecorest` package provides an easy way to achieve this with the `annualizer` function, which computes "time-averaged quantities based on linear interpolation." Linear interpolation here just means that we connect the different points in time with straight lines. 
 
-Inputs for the function are: 1) a vector of time intervals and 
-2) a vector of values to interpolate>
+Inputs for the `annualizer` function are 1) a vector of time intervals and 
+2) a vector of values to interpolate.
 
 ```{r}
 annualizer(ben_df$year, ben_df$ben)
 ```
-This indicates that the annualized ecological benefits of the project are 87.2 units (e.g., acres, habitat units, etc.)
+We can see, therefore, that the annualized ecological benefits of this toy project are 87.2 units (e.g., acres, etc.).
 
 ## Annualizing costs
+Cost annualization is carried out so that fair comparisons can be made between projects with different temporal scales. 
 
-Cost annualization is carried out so that fair comparisons can be made between projects with different temporal scales.
+To provide a real-world example of how to carry out cost annualization, we will use data from a feasibility study of potential restoration actions in Utoy Creek, a degraded watershed in Atlanta, GA. The USACE’s Mobile District is partnering with the city of Atlanta to carry out the work. Cost effectiveness and Incremental Cost analysis (CEICA) were used to guide development of a recommended analysis and CEICA requires the use of annualized cost (and benefit) data. See the \@ref(ceica-chapter) for a full implementation of CEICA.
 
-EDIT THE FOLLOWING (from the Utoy Creek Socioecon. report).
-
-Cost estimates were compiled for each site-scale restoration action following standard cost engineering methods. At this phase, construction cost represents a parametric cost for comparative purposes only, which is confined to construction activities. No real estate, pre-construction engineering and design, construction management, or cultural resources costs were included at present.
-
-Monitoring and adaptive management are typically conducted over a ten-year window for ecosystem restoration projects (WRDA 2007, Section 2036). Monitoring cost was estimated for four points in time, a sampling event during pre-construction engineering design as well as sampling in years 1, 3, and 5 following construction. Each sampling event assumed collection of data on fish communities, invertebrate communities, bathymetric mapping, and hydraulic outcomes. Adaptive management was estimated a proportion of construction cost ranging between 7.5% and 25% depending on site- and alternative-complexity (Appendix B).
-
-Operations, maintenance, repair, replacement, and rehabilitation (OMRRR) costs were estimated relative to four common practices. First, quarterly site visits were planned for general maintenance to any small-scale restoration features, trash removal, and minor maintenance of educational features (signage, benches, or classrooms) at a cost of \$10,000 per year. Second, bi-annual site visits were planned to include a simple inspection, which were estimated as \$4.00 per linear foot of stream every other year. Third, invasive species removal was estimated to cost \$15,000 per site and occur once every 10-years. Fourth, repair of structural restoration features (e.g., rock, wood, and earth work) was assumed to occur once every 25 years. These estimates resulted in OMRRR costs ranging from 1.2% to 16.7% or construction cost depending on the site and alternative (Appendix B, Table B1), which is approximately in line with other stream restoration projects (Abera and McKay 2023).
-
-Average annual economic costs were computed for all cost categories. Interest during construction was computed based on construction costs with site- and alternative-specific construction durations. The FY24 Federal discount rate (2.75%, USACE 2023) was used to annualize construction cost, interest during construction, and monitoring and adaptive management expenses over a 50-year planning horizon. Cost data were annualized using the [EngrEcon](https://cran.r-project.org/web/packages/EngrEcon/index.html) software package, although a [web application](https://wrises.shinyapps.io/engrecon-webapp/) also exists for conducting these calculations. Table 3 provides an example of cost estimates for Site-17F2M, and Appendix B provides a cost summary for all sites and actions.
-
-Cost data were annualized using the EngrEcon software package, although a web application also exists for conducting these calculations.
+We will annualize cost data using the [EngrEcon](https://cran.r-project.org/web/packages/EngrEcon/index.html) R package. Note: a [web application](https://wrises.shinyapps.io/engrecon-webapp/) also exists for conducting these calculations that leverages the same R package. 
 
 ### Steps for annualization:
 
-Read in initial costs: Project_first, Monitoring, AdaptiveMan
+In order to carry out cost annualization, we will start by storing the federal discount rate of 2.75% in an object called `discount`. Then, we load the cost data and inspect it with the `str` function.
 
 ```{r, message = F}
-#Populate these sections of code from code below
-
 # Set federal discont rate for water resources projects in FY24
 discount <- 0.0275
 
 # Read in initial costs
 costs <- read_csv("data/utoy_cost.csv")
 
+str(costs)
 ```
+
+This dataset has three columns with cost info: `Project_first`, `Monitoring`, and `AdaptiveMan`, which refer to the costs of construction, monitoring and adaptive management, respectively.
+
+operating, maintenance, repair and renewal costs
 
 Calculate present value of OMRR costs using `om_distribute` function. This function...
 ```{r}
-
 costs_omrrr <- costs %>%
   rowwise() %>%
   mutate(General = om_distribute(discount, 50, 1, 10000 * ifelse(RipAreaFt2>0, 1, 0)),
@@ -101,6 +103,7 @@ costs_omrrr <- costs %>%
          Invasives = om_distribute(discount, 50, 10, 15000 * ifelse(RipAreaFt2>0, 1, 0)),
          WoodRockEarth = om_distribute(discount, 50, 25, 0.1*ProjectFirst),
          TotalOMRR = InspectionTrash + General + Invasives + WoodRockEarth)
+
 
 ```
 
@@ -127,20 +130,25 @@ costs_ann <- costs_idc %>%
 
 ```
 
-Finally, we will create a table to display a subset of the results.
+Finally, we create a table to display the results. We use the `dollar()` function from the `scales` packages to format the cost columns in dollars.
 ```{r}
-Table1 <- cbind(costs_ann$ReachID, costs_ann$SiteAction, costs_ann$DurationMon,
-                 formatC(costs_ann$ProjectFirst, format="f", digits=0, big.mark = ","),
-                 formatC(costs_ann$Monitoring, format="f", digits=0, big.mark = ","),
-                 formatC(costs_ann$AdMan, format="f", digits=0, big.mark = ","),
-                 formatC(costs_ann$OMAnn, format="f", digits=0, big.mark = ","),
-                 formatC(costs_ann$TotalAnn, format="f", digits=0, big.mark = ","))
-Table1 <- Table1[1:4,]
+Table1 <- costs_ann %>%
+  select(ReachID, SiteAction, DurationMon, ProjectFirst, Monitoring, AdMan, OMAnn, TotalAnn) %>%
+  mutate(ProjectFirst = dollar(ProjectFirst), # Format as dollars with scales package
+         Monitoring = dollar(Monitoring),
+         AdMan = dollar(AdMan),
+         OMAnn = dollar(OMAnn),
+         TotalAnn = dollar(TotalAnn))
 
 colnames(Table1) <- c("Site", "Alternative", "Construction Duration (mo)", 
-                       "Construction Cost", "Monitoring Cost", "Adapative Management Cost",
+                       "Construction Cost", "Monitoring Cost", "Adapative Mgmt. Cost",
                        "OMRRR Annual Cost", "Total Annualized Cost")
 
 knitr::kable(Table1, caption="Table 1. Example of monetary cost data for Site-17F2M.", align='c') 
 
 ```
+
+## Summary
+* Annualizing costs and benefits is an important step so that apples-to-apples comparisons can be made among alternative projects that may oeprate on different time scales
+* Annualizing benefits is simple to calculate using the `annualizer` function from the `ecorest` package
+* Annualizing costs is more involved, but is also made considerably more manageable using the `EngrEcon` package
