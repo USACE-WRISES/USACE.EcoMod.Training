@@ -1,4 +1,4 @@
-# Cost-Effectiveness and Incremental Cost Analysis (CEICA) with `ecorest` 
+# Cost-Effectiveness and Incremental Cost Analysis (CEICA) with `ecorest` {#ceica-chapter}
 
 ***
 
