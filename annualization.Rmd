@@ -1,10 +1,17 @@
-# Annualizing benefits and costs
+# Annualizing benefits and costs with `ecorest` and `EngrEcon`
 
 **This module will teach you how to use the `ecorest` and `EngrEcon` packages in `R` to efficiently and reproducibly calculate annualized benefits and costs for restoration project planning:**
+
+![*Example annualized costs calculated using the `EngrEcon` R package.*](images/ann_cost_example.png){width=100%}
 
 *Authors: Ed Stowe (Writing, code), Darixa Hernandez-Abrams (benefits code), Kyle McKay (benefits code), Liya Abera (costs code) Cost annualization write-up from Utoy Creek: Kyle McKay, Stephen Phillips, Liya Abera, and Garrett Menichino*  
 *Last update: `r as.Date(file.info('annualization.Rmd')$mtime)`*  
 *Acknowledgements: *
+
+## Learning objectives
+* Understand why annualization is important for making comparisons of costs or benefits among projects
+* Learn how to calculate annualized ecological benefits with the `ecorest` package
+* Learn how to calculate annualized costs using the `EngrEcon` package
 
 ## Background on annualization
 
@@ -17,6 +24,7 @@ Annualization of benefits can be easily carried out in the `ecorest` package. Al
 library(tidyverse)
 library(ecorest)
 library(EngrEcon)
+library(scales) # Needed to convert costs to dollars for table outputs
 ```
 
 Let's imagine a simple scenario with ecosystem or restoration benefits calculated at four time periods from year 0 to year 50. We can store these benefits in a dataframe and plot them with `ggplot` as follows:
@@ -24,7 +32,7 @@ Let's imagine a simple scenario with ecosystem or restoration benefits calculate
 ```{r}
 #User-specified time intervals
 ben_df <- data.frame(year = c(0,2,20,50),
-                     ben = c(0,100,90,80))
+                     ben = c(0,40,35,30))
 
 p <- ggplot(ben_df)+
   geom_point(aes(year, ben), size = 2)+
@@ -59,7 +67,7 @@ p + geom_rect(data = df_rect,
 
 ```
 
-The `ecorest` package provides an easy way to achieve this with the `annualizer` function, which computes "time-averaged quantities based on linear interpolation." Linear interpolation here just means that we connect the different points in time with straight lines. 
+The `ecorest` package provides an easy way to achieve benefit annualization with the `annualizer` function, which computes "time-averaged quantities based on linear interpolation." Linear interpolation here just means that we connect the different points in time with straight lines in order to calculate the overall area. 
 
 Inputs for the `annualizer` function are 1) a vector of time intervals and 
 2) a vector of values to interpolate.
@@ -67,84 +75,116 @@ Inputs for the `annualizer` function are 1) a vector of time intervals and
 ```{r}
 annualizer(ben_df$year, ben_df$ben)
 ```
-We can see, therefore, that the annualized ecological benefits of this toy project are 87.2 units (e.g., acres, etc.).
+We can see, therefore, that the annualized ecological benefits of this toy project are 87.2 units (e.g., acres, habitat units, etc.).
 
 ## Annualizing costs
-Cost annualization is carried out so that fair comparisons can be made between projects with different temporal scales. 
+Cost annualization is carried out so that fair cost comparisons can be made among alternative project plans with costs incurred at different time points. 
+
+Cost annualization procedures will vary among projects, but typically involves first calculating the *present value* of all project costs, including operation and maintenance costs that will be incurred at future time periods, and interest during construction costs. Present value means the current value of a future sum of money, and are calculated by discounting the future value by how much the money could be earned if invested. Once present values for all costs have been calculated, then *annualized costs* can be calculated from these present values. Annualized costs will then serve as the basis for comparing the cost differences among project alternatives.
 
 To provide a real-world example of how to carry out cost annualization, we will use data from a feasibility study of potential restoration actions in Utoy Creek, a degraded watershed in Atlanta, GA. The USACE’s Mobile District is partnering with the city of Atlanta to carry out the work. Cost effectiveness and Incremental Cost analysis (CEICA) were used to guide development of a recommended analysis and CEICA requires the use of annualized cost (and benefit) data. See the \@ref(ceica-chapter) for a full implementation of CEICA.
 
 We will annualize cost data using the [EngrEcon](https://cran.r-project.org/web/packages/EngrEcon/index.html) R package. Note: a [web application](https://wrises.shinyapps.io/engrecon-webapp/) also exists for conducting these calculations that leverages the same R package. 
 
-### Steps for annualization:
+### Cost data
 
-In order to carry out cost annualization, we will start by storing the federal discount rate of 2.75% in an object called `discount`. Then, we load the cost data and inspect it with the `str` function.
+In order to carry out cost annualization, we will start by storing the federal discount rate of 3.0% in an object called `discount`. Then, we load the cost data and inspect it with the `glimpse` function from`dplyr`.
 
 ```{r, message = F}
 # Set federal discont rate for water resources projects in FY24
-discount <- 0.0275
+discount <- 0.03
 
 # Read in initial costs
 costs <- read_csv("data/utoy_cost.csv")
 
-str(costs)
+glimpse(costs)
 ```
 
-This dataset has three columns with cost info: `Project_first`, `Monitoring`, and `AdaptiveMan`, which refer to the costs of construction, monitoring and adaptive management, respectively.
+This dataset has several columns pertaining to the site and alternative plan characteristics (e.g., `ConstrDuration` or the duration of construction), as well as three cost columns: `ConstrCost`, `MonitoringCost`, and `AdManCost`, which refer to the costs of construction, monitoring and adaptive management, respectively.
 
-operating, maintenance, repair and renewal costs
+### Operations and maintenance costs
 
-Calculate present value of OMRR costs using `om_distribute` function. This function...
+Operations, maintenance, repair, replacement, and rehabilitation (OMRRR) costs occur periodically over a project's lifespan, so we first need to calculate the present value of these costs before we can calculate annualized costs. For the Utoy project, the present value of OMRRR costs were estimated assuming four common management practices:
+
+1) Quarterly site visits for trash removal and minor maintenance of small restoration and educational features. **Cost: \$10,000 per year.** 
+
+2) Bi-annual site visits to include a simple inspection of the restoration work. **Cost: \$4.00 per linear foot of stream every two years.** 
+
+3) Invasive species removal. **Cost: \$15,000 every 10 years.** 
+
+4) Repair of structural restoration features (e.g., rock, wood, and earth work). **Cost: 10% of the construction cost every 25 years.**  
+
+The `EngrEcon` package has a simple function called `om_distribute` to calculate *present values* of OMRRR costs. If we ran the code `?om_distribute`, we would see from the documentation on this function that it takes four inputs: 
+
+1) Discount rate in percent per year
+
+2) Project life span (years)
+
+3) Frequency that costs are incurred (years, e.g., a value of 1 indicates every year)
+
+4) Cost incurred at each interval (in present value)
+
+Therefore, starting with our dataframe of costs for each project (`costs`) and using the `om_distribute()` function, we can use the following code to create a new dataframe of OMRRR costs, including one column for each of the OMRRR categories listed above, along with a column that sums all of the OMRRR costs together (`TotalOMRR`). For each cost category, the interval costs (e.g., \$10,000 for general maintenance) are multiplied by a project specific value, and this ensures that OMRRR costs for the FWOP scenarios will be 0 in all cases, and also adjusts the interval costs by the reach length in the case of biannual monitoring, and by the original construction cost in the case of the repair of structural restoration features.
+
 ```{r}
 costs_omrrr <- costs %>%
   rowwise() %>%
-  mutate(General = om_distribute(discount, 50, 1, 10000 * ifelse(RipAreaFt2>0, 1, 0)),
-         InspectionTrash = om_distribute(discount, 50, 2, 4*ReachLengthFt),
-         Invasives = om_distribute(discount, 50, 10, 15000 * ifelse(RipAreaFt2>0, 1, 0)),
-         WoodRockEarth = om_distribute(discount, 50, 25, 0.1*ProjectFirst),
-         TotalOMRR = InspectionTrash + General + Invasives + WoodRockEarth)
-
+  mutate(General = om_distribute(discount, 50, 1, 10000 * if_else(RipAreaFt2>0, 1, 0)),
+         InspectionTrash = om_distribute(discount, 50, 2, 4 * ReachLengthFt),
+         Invasives = om_distribute(discount, 50, 10, 15000 * if_else(RipAreaFt2>0, 1, 0)),
+         WoodRockEarth = om_distribute(discount, 50, 25, 0.1 * ConstrCost),
+         TotalOMRR = General + InspectionTrash + Invasives + WoodRockEarth)
 
 ```
 
-Now we have the present value of all costs in one dataframe: Project_first, Monitoring, AdapMan the same; OMRR costs from previous step
+Our new dataframe `costs_omrr` now contains the *present value* of all costs in one dataframe.
 
-Calculate Interest during construction using  based on discount rate, duration of construction, and construction cost using the interest_during_construction function
+### Interest during construction
+
+We also need to calculate **interest during construction* (IDC). In the context of the USACE, IDC is thought of as the "opportunity cost of capital incurred druing the construction period." In other words, money is being spent to do this project, which represents other opportunities not being carried out, and additionally, during construction, the asset being built is not yet functional so it doesn't yet represent a benefit. Thus, IDC will create the appearance of an added cost for projects with longer construction durations and higher construction costs. 
+
+For Utoy Creek, interest during construction was computed based on construction costs the specific construction durations for each alternative plan. `EngrEcon` provides a function for calculating IDC `interest_during_construction`, which takes as inputs the discount rate, the duration of construction in months, and construction costs. The following code calculates a new column for this IDC. Note: as with the OMRR costs, we need to account for FWOP, which have construction durations of 0 months, which the function `interest_during_construction` does not like. So we use an `if_else` statement here to indicate that IDC should be calculated using the `interest_during_construction` function if construction duration is greater than 0 months, and otherwise it should be 0 (for all the FWOP projects). 
+
 ```{r}
 costs_idc <- costs_omrrr %>%
   rowwise() %>%
-  mutate(IDC = case_when(DurationMon==0~0, TRUE ~ interest_during_construction(discount, DurationMon, ProjectFirst)))
-
+  mutate(IDC = if_else(ConstrDuration > 0, 
+                       interest_during_construction(discount, ConstrDuration, ConstrCost),
+                       0))
 ```
 
-Last step: annualize all costs using present_to_annual function using discount rate and 50 year time horizon
+### Annualize all costs
+
+Finally, we need to convert the present value costs of all of these expenditures into annualized costs, so that we can make fair comparisons among projects. To do this, we will use the `EngrEcon` function `present_to_annual`. This function has similar inputs as the previous functions: the discount rate, the life span of the project (50 years) and finally the present value cost of each item.
+
+The following code uses the `mutate` finction again to calculate new annualized costs for each cost category, followed by a summation of all the annualized costs, `TotalAnn`, which is what will ultimately be used to compare among projects!
 ```{r}
 costs_ann <- costs_idc %>% 
   rowwise() %>%
-  mutate(ProjectFirstAnn = present_to_annual(discount, 50, ProjectFirst),
+  mutate(ConstrCostAnn = present_to_annual(discount, 50, ConstrCost),
          IDCAnn = present_to_annual(discount, 50, IDC),
-         MonitoringAnn = present_to_annual(discount, 50, Monitoring),
-         AdManAnn = present_to_annual(discount, 50, AdMan),
+         MonitoringCostAnn = present_to_annual(discount, 50, MonitoringCost),
+         AdManCostAnn = present_to_annual(discount, 50, AdManCost),
          OMAnn = present_to_annual(discount, 50, TotalOMRR),
-         TotalAnn = ProjectFirstAnn + MonitoringAnn + AdManAnn + IDCAnn + OMAnn)
+         TotalAnn = ConstrCostAnn + MonitoringCostAnn + AdManCostAnn + IDCAnn + OMAnn)
 
 ```
 
-Finally, we create a table to display the results. We use the `dollar()` function from the `scales` packages to format the cost columns in dollars.
+Let's create a table to display the results. We use the `dollar()` function from the `scales` packages to format the cost columns in dollars.
 ```{r}
-Table1 <- costs_ann %>%
-  select(ReachID, SiteAction, DurationMon, ProjectFirst, Monitoring, AdMan, OMAnn, TotalAnn) %>%
-  mutate(ProjectFirst = dollar(ProjectFirst), # Format as dollars with scales package
-         Monitoring = dollar(Monitoring),
-         AdMan = dollar(AdMan),
-         OMAnn = dollar(OMAnn),
-         TotalAnn = dollar(TotalAnn))
+cost_table <- costs_ann %>%
+  select(SiteID, SiteAction, ConstrDuration, ConstrCost, MonitoringCost, AdManCost, OMAnn, TotalAnn) %>%
+  mutate(ConstrCost = dollar(ConstrCost), # Format as dollars with scales package
+         MonitoringCost = dollar(MonitoringCost),
+         AdManCost = dollar(AdManCost),
+         OMAnn = dollar(round(OMAnn), 1),
+         TotalAnn = dollar(round(TotalAnn), 1))
 
-colnames(Table1) <- c("Site", "Alternative", "Construction Duration (mo)", 
+colnames(cost_table) <- c("Site", "Alternative", "Construction Duration (mo)", 
                        "Construction Cost", "Monitoring Cost", "Adapative Mgmt. Cost",
                        "OMRRR Annual Cost", "Total Annualized Cost")
 
-knitr::kable(Table1, caption="Table 1. Example of monetary cost data for Site-17F2M.", align='c') 
+knitr::kable(cost_table, caption="Table 1. Monetary cost data for Utoy sites.", align='c') 
 
 ```
 
