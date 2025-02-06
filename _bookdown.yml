@@ -23,7 +23,7 @@ rmd_files: [
 "network_models.Rmd", 
 "agent_based.Rmd", 
 "decision_support.Rmd", 
+"annualization.Rmd",
 "CEICA.Rmd", 
-"annualization.Rmd", 
 "r_spatial.Rmd", 
 "data_sources.Rmd"]
