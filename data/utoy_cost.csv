@@ -1,4 +1,4 @@
-ReachID,SiteAction,Description,DurationMon,RipAreaFt2,ReachLengthFt,ProjectFirst,Monitoring,AdMan
+SiteID,SiteAction,Description,ConstrDuration,RipAreaFt2,ReachLengthFt,ConstrCost,MonitoringCost,AdManCost
 17F2M,FWOP,No action,0,0,0,0,0,0
 17F2M,Alternative1,Concrete channel removal with extensive riparian restoration,10,94150.00003464,2639.11,776047,60000,77605
 17F2M,Alternative2,Remove concrete with small scale channel restoration,9,33894.00001944,2378.15424,691092,56000,69109
