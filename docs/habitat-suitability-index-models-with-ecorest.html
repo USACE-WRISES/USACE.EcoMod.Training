@@ -42,7 +42,7 @@
 
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
-<li><a class="" href="index.html">Overview</a></li>
+<li><a class="" href="index.html">Course overview</a></li>
 <li><a class="" href="required-set-up-for-the-course.html">Required set-up for the course</a></li>
 <li class="book-part">Basic Training on R and RStudio</li>
 <li><a class="" href="introduction-to-r-and-rstudio.html"><span class="header-section-number">1</span> Introduction to R and RStudio</a></li>
@@ -69,7 +69,7 @@
 <li class="book-part">Models and decisionmaking</li>
 <li><a class="" href="decision-support.html"><span class="header-section-number">18</span> Decision Support</a></li>
 <li><a class="" href="ceica-chapter.html"><span class="header-section-number">19</span> Cost-Effectiveness and Incremental Cost Analysis (CEICA) with ecorest</a></li>
-<li><a class="" href="annualizing-benefits-and-costs.html"><span class="header-section-number">20</span> Annualizing benefits and costs</a></li>
+<li><a class="" href="annualizing-benefits-and-costs-with-ecorest-and-engrecon.html"><span class="header-section-number">20</span> Annualizing benefits and costs with ecorest and EngrEcon</a></li>
 <li class="book-part">Other R applications</li>
 <li><a class="" href="spatial-data-manipulation.html"><span class="header-section-number">21</span> Spatial Data Manipulation</a></li>
 <li><a class="" href="important-data-sources.html"><span class="header-section-number">22</span> Important data sources</a></li>
@@ -90,18 +90,30 @@
 <img src="images/hep_output_mod.png" style="width:100.0%" alt="Output from HSI modeling for the Delta Islands and Levees Feasibility Study (adapted). Users will learn to generate identical values using the ecorest package"><div class="figcaption"><em>Output from HSI modeling for the Delta Islands and Levees Feasibility Study (adapted). Users will learn to generate identical values using the ecorest package</em></div>
 </div>
 <hr>
-<p><em>Authors: Darixa Hernandez-Abrams (writing, code), Kyle McKay (writing, code), Ed Stowe (writing, code, editing), ; Background from the draft ecorest tech report, authors: Kyle McKay, Darixa Hernández-Abrams, Rachel Nifong, Todd Swannack</em><br><em>Last update: 2025-02-05</em><br><em>Acknowledgements: </em></p>
-<div id="background-on-hsi-modeling-with-ecorest" class="section level2" number="7.1">
+<p><em>Authors: Darixa Hernandez-Abrams (writing, code), Kyle McKay (writing, code), Ed Stowe (writing, code, editing), ; Background from the draft ecorest tech report, authors: Kyle McKay, Darixa Hernández-Abrams, Rachel Nifong, Todd Swannack</em><br><em>Last update: 2025-02-06</em><br><em>Acknowledgements: </em></p>
+<div id="learning-objectives-5" class="section level2" number="7.1">
 <h2>
-<span class="header-section-number">7.1</span> Background on HSI modeling with <code>ecorest</code><a class="anchor" aria-label="anchor" href="#background-on-hsi-modeling-with-ecorest"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.1</span> Learning objectives<a class="anchor" aria-label="anchor" href="#learning-objectives-5"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li>Understand the benefits of doing HSI modeling programmatically with <code>ecorest</code>
+</li>
+<li>Learn how to use <code>ecorest</code> to conduct a <code>Blue book</code> HSI model</li>
+<li>Build a custom HSI model using <code>ecorest</code>
+</li>
+</ul>
+</div>
+<div id="background-on-hsi-modeling-with-ecorest" class="section level2" number="7.2">
+<h2>
+<span class="header-section-number">7.2</span> Background on HSI modeling with <code>ecorest</code><a class="anchor" aria-label="anchor" href="#background-on-hsi-modeling-with-ecorest"><i class="fas fa-link"></i></a>
 </h2>
 <p>Before <code>ecorest</code>, there was no standard platform for computing outcomes from habitat or other index models. Then and now, users often develop ad hoc spreadsheet models, but these can be highly prone to numerical errors (McKay 2009). The common quantity-quality structure of index models, however, provided an opportunity to develop a consistent, error-checked index modeling calculator adaptable to a variety of applications across USACE. That tool is <code>ecorest</code>, which can greatly increase the efficiency of performing habitat modeling as well as decrease the likelihood of computational errors.</p>
 <p>The <code>ecorest</code> package can be used to quickly apply over 350 of the HSI models developed by the U.S. Fish and Wildlife Service, often referred to as the “bluebook” models, but is flexible enough to carry out any user-defined HSI model, including ones that appear in the literature or custom models developed for specific projects.</p>
 <p>In this tutorial, we will demonstrate how the <code>ecorest</code> package can be used for two different HSI modeling scenarios, one that relies on a bluebook model, and another that uses a custom HSI model.</p>
 </div>
-<div id="run-an-hsi-analysis-with-ecorest-using-a-bluebook-model" class="section level2" number="7.2">
+<div id="run-an-hsi-analysis-with-ecorest-using-a-bluebook-model" class="section level2" number="7.3">
 <h2>
-<span class="header-section-number">7.2</span> Run an HSI analysis with <code>ecorest</code> using a bluebook model<a class="anchor" aria-label="anchor" href="#run-an-hsi-analysis-with-ecorest-using-a-bluebook-model"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.3</span> Run an HSI analysis with <code>ecorest</code> using a bluebook model<a class="anchor" aria-label="anchor" href="#run-an-hsi-analysis-with-ecorest-using-a-bluebook-model"><i class="fas fa-link"></i></a>
 </h2>
 <p>For this scenario, we will use <code>ecorest</code> to carry out a modeling analysis that was originally done by the Sacramento District as part of the Delta Islands and Levees Feasibility Study. In this study, the Marsh Wren HSI model was used to examine the ecosystem effects of intertidal marsh restoration. The overall Feasibility Study can be found <a href="https://www.spk.usace.army.mil/Portals/12/documents/civil_works/Delta/DeltaStudy/FinalEIS/Delta_FSEIS_%20Nov18_Updated_May19.pdf?ver=oOkiNfBdSLY34I8P2aK82Q%3d%3d">here</a>, and the appendix with details on the habitat evaluation procedure can be found <a href="https://www.spk.usace.army.mil/Portals/12/documents/civil_works/Delta/DeltaStudy/FinalEIS/Appendix-F_Delta-HEP-Report.pdf?ver=2018-09-14-162500-980">here</a>.</p>
 <p>To conduct the HSI modeling in this scenario, we first need to add the necessary packages to our <code>R</code> session.</p>
@@ -173,9 +185,9 @@
 ## 2             americanalligatorNontidal             Nontidal wetland (CCB*CCN)^(1/2)
 ## 3                americanalligatorTidal               Tidal wetlands (CCB*CCN)^(1/2)
 ## 4 americanblackduckWinteringEVegWetland Estuarine vegetated wetlands              CF</code></pre>
-<div id="explore-the-marsh-wren-hsi-model" class="section level3" number="7.2.1">
+<div id="explore-the-marsh-wren-hsi-model" class="section level3" number="7.3.1">
 <h3>
-<span class="header-section-number">7.2.1</span> Explore the Marsh Wren HSI model<a class="anchor" aria-label="anchor" href="#explore-the-marsh-wren-hsi-model"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.3.1</span> Explore the Marsh Wren HSI model<a class="anchor" aria-label="anchor" href="#explore-the-marsh-wren-hsi-model"><i class="fas fa-link"></i></a>
 </h3>
 <p>To use the Marsh Wren HSI model, we extract it from the <code>HSImodels</code> object.</p>
 <div class="sourceCode" id="cb257"><pre class="downlit sourceCode r">
@@ -201,9 +213,9 @@
 <img src="images/marshwren_hsi.jpg" style="width:100.0%">
 </div>
 </div>
-<div id="calculate-suitability-values-from-environmental-variables" class="section level3" number="7.2.2">
+<div id="calculate-suitability-values-from-environmental-variables" class="section level3" number="7.3.2">
 <h3>
-<span class="header-section-number">7.2.2</span> Calculate suitability values from environmental variables<a class="anchor" aria-label="anchor" href="#calculate-suitability-values-from-environmental-variables"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.3.2</span> Calculate suitability values from environmental variables<a class="anchor" aria-label="anchor" href="#calculate-suitability-values-from-environmental-variables"><i class="fas fa-link"></i></a>
 </h3>
 <p>To calculate the acres of habitat that a project would produce, we need estimates of the environmental variables that make up the chosen HSI model. For the Marsh Wren, these variables include:</p>
 <ul>
@@ -227,9 +239,9 @@
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">si_vars</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 1.000 0.008 1.000 1.000</code></pre>
 </div>
-<div id="aggregate-hsi-value-and-habitat-units" class="section level3" number="7.2.3">
+<div id="aggregate-hsi-value-and-habitat-units" class="section level3" number="7.3.3">
 <h3>
-<span class="header-section-number">7.2.3</span> Aggregate HSI value and Habitat Units<a class="anchor" aria-label="anchor" href="#aggregate-hsi-value-and-habitat-units"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.3.3</span> Aggregate HSI value and Habitat Units<a class="anchor" aria-label="anchor" href="#aggregate-hsi-value-and-habitat-units"><i class="fas fa-link"></i></a>
 </h3>
 <p>A crucial part of HSI modeling is determining how the SI values of our different variables will be combined to create the overarching HSI score. SI values can be combined in numerous ways (e.g., geometric mean, minimum value, etc.). Most bluebook models, however, identify a species/submodel-specific way to combine SI values, according to the specific attributes of the species. Therefore, when a bluebook model is being used, the <code>HSIeqtn</code> function should be used to calculate the cummulative HSI score using the appropriate equation. This function requires the name of the HSI model, the variables for each of the individual metrics that we’ve calculated, and the <code>HSImetadata</code> file, where the euqation is stored.</p>
 <div class="sourceCode" id="cb265"><pre class="downlit sourceCode r">
@@ -242,9 +254,9 @@
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">Total_hab</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 6.8</code></pre>
 </div>
-<div id="habitat-units-for-multiple-years-or-alternative-projects" class="section level3" number="7.2.4">
+<div id="habitat-units-for-multiple-years-or-alternative-projects" class="section level3" number="7.3.4">
 <h3>
-<span class="header-section-number">7.2.4</span> Habitat Units for multiple years or alternative projects<a class="anchor" aria-label="anchor" href="#habitat-units-for-multiple-years-or-alternative-projects"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.3.4</span> Habitat Units for multiple years or alternative projects<a class="anchor" aria-label="anchor" href="#habitat-units-for-multiple-years-or-alternative-projects"><i class="fas fa-link"></i></a>
 </h3>
 <p>If multiple project alternatives exist, or there are multiple years of environmental data, we can perform the same operations as above using the below code. Here, a for-loop allows us to iterate through each of the scenarios/years to calculate SI values and habitat units</p>
 <div class="sourceCode" id="cb269"><pre class="downlit sourceCode r">
@@ -376,15 +388,15 @@ Resulting Outputs for the Marsh Wren Model With-Project.</caption>
 <p>The beauty of carrying this out in <code>R</code> using a script is that we can change an input value and reproduce all the results in a matter of seconds by re-running the code, instead of having to go through all the steps manually. And using the <code>ecorest</code> package means instant access to hundreds of quality-controlled bluebook models.</p>
 </div>
 </div>
-<div id="hsi-modeling-with-custom-model" class="section level2" number="7.3">
+<div id="hsi-modeling-with-custom-model" class="section level2" number="7.4">
 <h2>
-<span class="header-section-number">7.3</span> HSI Modeling with custom model<a class="anchor" aria-label="anchor" href="#hsi-modeling-with-custom-model"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.4</span> HSI Modeling with custom model<a class="anchor" aria-label="anchor" href="#hsi-modeling-with-custom-model"><i class="fas fa-link"></i></a>
 </h2>
 <p>Sometimes, a project will use a custom index model instead of a bluebook model to calculate habitat units. For example, for its South San Francisco Bay Shoreline Study, USACE-SPN collaborated with ERDC’s Coastal Ecology and Integrated Ecological Modeling, to develop a quantitative model for tidal marsh restoration in subsided former baylands that is sensitive to multiple restoration measures, including the import of beneficially used material for bathymetry lifts, ecotones and other refugia.</p>
 <p>They used the <code>ecorest</code> package for their habitat model caclulations.</p>
-<div id="explore-model-and-data" class="section level3" number="7.3.1">
+<div id="explore-model-and-data" class="section level3" number="7.4.1">
 <h3>
-<span class="header-section-number">7.3.1</span> Explore model and data<a class="anchor" aria-label="anchor" href="#explore-model-and-data"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.4.1</span> Explore model and data<a class="anchor" aria-label="anchor" href="#explore-model-and-data"><i class="fas fa-link"></i></a>
 </h3>
 <p>Import a .csv of the marsh model, print the names of the variables, and plot the model. <em>Note: for the plotting function to work, the model must be read in using the base R function <code>read.csv</code> instead of the Tidyverse function <code>read_csv</code></em></p>
 <div class="sourceCode" id="cb270"><pre class="downlit sourceCode r">
@@ -433,9 +445,9 @@ Resulting Outputs for the Marsh Wren Model With-Project.</caption>
 ## 14 Alt3g 100   0 100 100
 ## 15 Alt3h 100   0   0   0</code></pre>
 </div>
-<div id="calculate-individual-suitability-indices" class="section level3" number="7.3.2">
+<div id="calculate-individual-suitability-indices" class="section level3" number="7.4.2">
 <h3>
-<span class="header-section-number">7.3.2</span> Calculate individual suitability indices<a class="anchor" aria-label="anchor" href="#calculate-individual-suitability-indices"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.4.2</span> Calculate individual suitability indices<a class="anchor" aria-label="anchor" href="#calculate-individual-suitability-indices"><i class="fas fa-link"></i></a>
 </h3>
 <p>Again, we will create an empty matrix to store the results and calculate the SI values for each parameter using <code>SICalc()</code>.</p>
 <div class="sourceCode" id="cb275"><pre class="downlit sourceCode r">
@@ -455,9 +467,9 @@ Resulting Outputs for the Marsh Wren Model With-Project.</caption>
 <span><span class="va">si_marsh_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="va">si_marsh</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rlang.r-lib.org/reference/set_names.html">set_names</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"SI_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">env_marsh</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="calculate-the-total-hsi-score" class="section level3" number="7.3.3">
+<div id="calculate-the-total-hsi-score" class="section level3" number="7.4.3">
 <h3>
-<span class="header-section-number">7.3.3</span> Calculate the Total HSI score<a class="anchor" aria-label="anchor" href="#calculate-the-total-hsi-score"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.4.3</span> Calculate the Total HSI score<a class="anchor" aria-label="anchor" href="#calculate-the-total-hsi-score"><i class="fas fa-link"></i></a>
 </h3>
 <p>Here, the analysis team developed a custom formula to combine the different HSI scores:
 <code>Cube root((Tidal connectivity* Marsh Age)*(Ecotone + Refugia)/2)</code></p>
@@ -469,9 +481,9 @@ Resulting Outputs for the Marsh Wren Model With-Project.</caption>
 <span><span class="va">si_total</span> <span class="op">&lt;-</span> <span class="va">si_marsh_df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>total_hsi <span class="op">=</span> <span class="op">(</span><span class="op">(</span><span class="op">(</span><span class="op">(</span><span class="va">SI_V4</span><span class="op">+</span><span class="va">SI_V3</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span><span class="op">*</span><span class="op">(</span><span class="va">SI_V2</span><span class="op">*</span><span class="va">SI_V1</span><span class="op">)</span><span class="op">)</span><span class="op">^</span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="cummulative-hsi-and-habitat-units" class="section level3" number="7.3.4">
+<div id="cummulative-hsi-and-habitat-units" class="section level3" number="7.4.4">
 <h3>
-<span class="header-section-number">7.3.4</span> Cummulative HSI and Habitat Units<a class="anchor" aria-label="anchor" href="#cummulative-hsi-and-habitat-units"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.4.4</span> Cummulative HSI and Habitat Units<a class="anchor" aria-label="anchor" href="#cummulative-hsi-and-habitat-units"><i class="fas fa-link"></i></a>
 </h3>
 <p>Next, we’ll calculate the habitat units associated with the project, assuming a total project area of 300 acres.</p>
 <div class="sourceCode" id="cb277"><pre class="downlit sourceCode r">
@@ -717,9 +729,9 @@ Resulting Outputs for the Marsh Wren Model With-Project.</caption>
 </tbody>
 </table></div>
 </div>
-<div id="linking-steps-using-pipes" class="section level3" number="7.3.5">
+<div id="linking-steps-using-pipes" class="section level3" number="7.4.5">
 <h3>
-<span class="header-section-number">7.3.5</span> Linking steps using pipes<a class="anchor" aria-label="anchor" href="#linking-steps-using-pipes"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.4.5</span> Linking steps using pipes<a class="anchor" aria-label="anchor" href="#linking-steps-using-pipes"><i class="fas fa-link"></i></a>
 </h3>
 <p>The last several operations that we conducted above can be done in a single “tidy” way by using the pipe operator <code>%&gt;%</code>.</p>
 <p>The final line of code checks demonstrates that the two output dataframes are identical.</p>
@@ -738,9 +750,9 @@ Resulting Outputs for the Marsh Wren Model With-Project.</caption>
 <pre><code>## [1] TRUE</code></pre>
 </div>
 </div>
-<div id="summary-2" class="section level2" number="7.4">
+<div id="summary-2" class="section level2" number="7.5">
 <h2>
-<span class="header-section-number">7.4</span> Summary<a class="anchor" aria-label="anchor" href="#summary-2"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.5</span> Summary<a class="anchor" aria-label="anchor" href="#summary-2"><i class="fas fa-link"></i></a>
 </h2>
 <ul>
 <li>
@@ -759,25 +771,26 @@ Resulting Outputs for the Marsh Wren Model With-Project.</caption>
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#habitat-suitability-index-models-with-ecorest"><span class="header-section-number">7</span> Habitat Suitability Index models with ecorest</a></li>
-<li><a class="nav-link" href="#background-on-hsi-modeling-with-ecorest"><span class="header-section-number">7.1</span> Background on HSI modeling with ecorest</a></li>
+<li><a class="nav-link" href="#learning-objectives-5"><span class="header-section-number">7.1</span> Learning objectives</a></li>
+<li><a class="nav-link" href="#background-on-hsi-modeling-with-ecorest"><span class="header-section-number">7.2</span> Background on HSI modeling with ecorest</a></li>
 <li>
-<a class="nav-link" href="#run-an-hsi-analysis-with-ecorest-using-a-bluebook-model"><span class="header-section-number">7.2</span> Run an HSI analysis with ecorest using a bluebook model</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#explore-the-marsh-wren-hsi-model"><span class="header-section-number">7.2.1</span> Explore the Marsh Wren HSI model</a></li>
-<li><a class="nav-link" href="#calculate-suitability-values-from-environmental-variables"><span class="header-section-number">7.2.2</span> Calculate suitability values from environmental variables</a></li>
-<li><a class="nav-link" href="#aggregate-hsi-value-and-habitat-units"><span class="header-section-number">7.2.3</span> Aggregate HSI value and Habitat Units</a></li>
-<li><a class="nav-link" href="#habitat-units-for-multiple-years-or-alternative-projects"><span class="header-section-number">7.2.4</span> Habitat Units for multiple years or alternative projects</a></li>
+<a class="nav-link" href="#run-an-hsi-analysis-with-ecorest-using-a-bluebook-model"><span class="header-section-number">7.3</span> Run an HSI analysis with ecorest using a bluebook model</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#explore-the-marsh-wren-hsi-model"><span class="header-section-number">7.3.1</span> Explore the Marsh Wren HSI model</a></li>
+<li><a class="nav-link" href="#calculate-suitability-values-from-environmental-variables"><span class="header-section-number">7.3.2</span> Calculate suitability values from environmental variables</a></li>
+<li><a class="nav-link" href="#aggregate-hsi-value-and-habitat-units"><span class="header-section-number">7.3.3</span> Aggregate HSI value and Habitat Units</a></li>
+<li><a class="nav-link" href="#habitat-units-for-multiple-years-or-alternative-projects"><span class="header-section-number">7.3.4</span> Habitat Units for multiple years or alternative projects</a></li>
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#hsi-modeling-with-custom-model"><span class="header-section-number">7.3</span> HSI Modeling with custom model</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#explore-model-and-data"><span class="header-section-number">7.3.1</span> Explore model and data</a></li>
-<li><a class="nav-link" href="#calculate-individual-suitability-indices"><span class="header-section-number">7.3.2</span> Calculate individual suitability indices</a></li>
-<li><a class="nav-link" href="#calculate-the-total-hsi-score"><span class="header-section-number">7.3.3</span> Calculate the Total HSI score</a></li>
-<li><a class="nav-link" href="#cummulative-hsi-and-habitat-units"><span class="header-section-number">7.3.4</span> Cummulative HSI and Habitat Units</a></li>
-<li><a class="nav-link" href="#linking-steps-using-pipes"><span class="header-section-number">7.3.5</span> Linking steps using pipes</a></li>
+<a class="nav-link" href="#hsi-modeling-with-custom-model"><span class="header-section-number">7.4</span> HSI Modeling with custom model</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#explore-model-and-data"><span class="header-section-number">7.4.1</span> Explore model and data</a></li>
+<li><a class="nav-link" href="#calculate-individual-suitability-indices"><span class="header-section-number">7.4.2</span> Calculate individual suitability indices</a></li>
+<li><a class="nav-link" href="#calculate-the-total-hsi-score"><span class="header-section-number">7.4.3</span> Calculate the Total HSI score</a></li>
+<li><a class="nav-link" href="#cummulative-hsi-and-habitat-units"><span class="header-section-number">7.4.4</span> Cummulative HSI and Habitat Units</a></li>
+<li><a class="nav-link" href="#linking-steps-using-pipes"><span class="header-section-number">7.4.5</span> Linking steps using pipes</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#summary-2"><span class="header-section-number">7.4</span> Summary</a></li>
+<li><a class="nav-link" href="#summary-2"><span class="header-section-number">7.5</span> Summary</a></li>
 </ul>
 
       <div class="book-extra">

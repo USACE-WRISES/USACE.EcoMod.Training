@@ -42,7 +42,7 @@
 
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
-<li><a class="" href="index.html">Overview</a></li>
+<li><a class="" href="index.html">Course overview</a></li>
 <li><a class="" href="required-set-up-for-the-course.html">Required set-up for the course</a></li>
 <li class="book-part">Basic Training on R and RStudio</li>
 <li><a class="" href="introduction-to-r-and-rstudio.html"><span class="header-section-number">1</span> Introduction to R and RStudio</a></li>
@@ -69,7 +69,7 @@
 <li class="book-part">Models and decisionmaking</li>
 <li><a class="" href="decision-support.html"><span class="header-section-number">18</span> Decision Support</a></li>
 <li><a class="" href="ceica-chapter.html"><span class="header-section-number">19</span> Cost-Effectiveness and Incremental Cost Analysis (CEICA) with ecorest</a></li>
-<li><a class="" href="annualizing-benefits-and-costs.html"><span class="header-section-number">20</span> Annualizing benefits and costs</a></li>
+<li><a class="" href="annualizing-benefits-and-costs-with-ecorest-and-engrecon.html"><span class="header-section-number">20</span> Annualizing benefits and costs with ecorest and EngrEcon</a></li>
 <li class="book-part">Other R applications</li>
 <li><a class="" href="spatial-data-manipulation.html"><span class="header-section-number">21</span> Spatial Data Manipulation</a></li>
 <li><a class="active" href="important-data-sources.html"><span class="header-section-number">22</span> Important data sources</a></li>
@@ -130,7 +130,7 @@ Here, Parameter code 00060 refers to daily flow in cubic feet per second (cfs).<
 <p>The “uv” is going to retrieve the 15min data and Sys.Date is set equal to the date the script is run.</p>
 <div class="sourceCode" id="cb375"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">flowDat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dataRetrieval/man/readNWISuv.html">readNWISuv</a></span><span class="op">(</span><span class="va">whatSites</span><span class="op">$</span><span class="va">site_no</span>, startDate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, parameterCd <span class="op">=</span> <span class="st">"00060"</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## GET: https://waterservices.usgs.gov/nwis/iv/?site=07055646,07055660,07055680,07056000,07056700&amp;format=waterml,1.1&amp;ParameterCd=00060&amp;startDT=2025-02-05</code></pre>
+<pre><code>## GET: https://waterservices.usgs.gov/nwis/iv/?site=07055646,07055660,07055680,07056000,07056700&amp;format=waterml,1.1&amp;ParameterCd=00060&amp;startDT=2025-02-06</code></pre>
 <div class="sourceCode" id="cb377"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Rename unwieldy names; dataRetrieval has a function to do that.</span></span>
 <span><span class="va">flowDat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dataRetrieval/man/renameNWISColumns.html">renameNWISColumns</a></span><span class="op">(</span><span class="va">flowDat</span><span class="op">)</span></span></code></pre></div>
