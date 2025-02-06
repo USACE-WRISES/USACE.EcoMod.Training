@@ -12,6 +12,11 @@
 *Last update: `r as.Date(file.info('CEICA.Rmd')$mtime)`*  
 *Acknowledgements: *
   
+## Learning objectives
+* Understand the purpose of Cost Effectiveness and Incremental Cost Analysis
+* Understand what cost effective and best buy alternatives represent
+* Learn how to use the `ecorest` package to determine cost effective and best buy options
+
 ## Background on Cost Effectivness and Incremental Cost Analysis
 
 Cost-effectiveness and incremental cost analyses (CEICA) are analytical tools for assessing the relative benefits and costs of ecosystem restoration actions and informing decisions. Benefits and costs are assessed prior to these analyses using ecological models and cost engineering methods, respectively. CEICA may then be conducted at the site scale to compare alternatives at a single location (e.g., no action vs. dam removal vs. fish ladder) or at the system scale to compare relative merits of multiple sites (e.g., no sites vs. Site-A only vs. Site-B only vs. Site-A and Site-B). 
