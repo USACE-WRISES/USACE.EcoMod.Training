@@ -1,4 +1,4 @@
-# (PART) Models and decisionmaking {-}
+# (PART) Models and decision-making {-}
 
 # Decision Support
 
