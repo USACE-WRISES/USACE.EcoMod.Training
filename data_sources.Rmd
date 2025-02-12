@@ -130,7 +130,11 @@ https://doi-usgs.github.io/nhdplusTools/
 
 ## NLCD
 
-## Precipitation data (PRISM)
+## Precipitation data (PRISM? NOAA data?)
+
+## Temperature data (NOAA)
 
 ## Other data sources commonly used in USACE?
+
+## Code for RAS output files (DSS, netCDF)
 
