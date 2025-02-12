@@ -1,6 +1,6 @@
 # (PART) Other R applications {-} 
 
-# Spatial Data Manipulation
+# R for GIS
 
 Use this info here:
 https://rspatial.org/index.html
