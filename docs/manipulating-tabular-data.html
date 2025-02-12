@@ -18,9 +18,9 @@
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   </style>
-<meta name="description" content="Authors: Data Carpentry contributors - Copyright (c) Data Carpentry; Ed Stowe (adaptation for USACE)Last update: 2025-02-03Acknowledgements: The bulk of this section is adapted from the Data...">
-<meta property="og:description" content="Authors: Data Carpentry contributors - Copyright (c) Data Carpentry; Ed Stowe (adaptation for USACE)Last update: 2025-02-03Acknowledgements: The bulk of this section is adapted from the Data...">
-<meta name="twitter:description" content="Authors: Data Carpentry contributors - Copyright (c) Data Carpentry; Ed Stowe (adaptation for USACE)Last update: 2025-02-03Acknowledgements: The bulk of this section is adapted from the Data...">
+<meta name="description" content="Authors: Data Carpentry contributors - Copyright (c) Data Carpentry; Ed Stowe (adaptation for USACE); Brian Breaker (for loop and function code)Last update: 2025-02-12Acknowledgements: The bulk of...">
+<meta property="og:description" content="Authors: Data Carpentry contributors - Copyright (c) Data Carpentry; Ed Stowe (adaptation for USACE); Brian Breaker (for loop and function code)Last update: 2025-02-12Acknowledgements: The bulk of...">
+<meta name="twitter:description" content="Authors: Data Carpentry contributors - Copyright (c) Data Carpentry; Ed Stowe (adaptation for USACE); Brian Breaker (for loop and function code)Last update: 2025-02-12Acknowledgements: The bulk of...">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -60,19 +60,21 @@
 <li><a class="" href="linear-models.html"><span class="header-section-number">10</span> Linear Models</a></li>
 <li><a class="" href="generalized-linear-models.html"><span class="header-section-number">11</span> Generalized Linear Models</a></li>
 <li><a class="" href="random-effects.html"><span class="header-section-number">12</span> Random Effects</a></li>
+<li><a class="" href="generalized-additive-models.html"><span class="header-section-number">13</span> Generalized Additive Models</a></li>
 <li class="book-part">Machine Learning</li>
-<li><a class="" href="random-forest.html"><span class="header-section-number">13</span> Random Forest</a></li>
-<li><a class="" href="boosted-regression-trees.html"><span class="header-section-number">14</span> Boosted Regression Trees</a></li>
-<li><a class="" href="population-modeling.html"><span class="header-section-number">15</span> Population Modeling</a></li>
-<li><a class="" href="network-models-and-connectivity.html"><span class="header-section-number">16</span> Network Models and Connectivity</a></li>
-<li><a class="" href="agent-based-models.html"><span class="header-section-number">17</span> Agent-based Models</a></li>
+<li><a class="" href="random-forest.html"><span class="header-section-number">14</span> Random Forest</a></li>
+<li><a class="" href="boosted-regression-trees.html"><span class="header-section-number">15</span> Boosted Regression Trees</a></li>
+<li class="book-part">Other Modeling Approaches</li>
+<li><a class="" href="population-modeling.html"><span class="header-section-number">16</span> Population Modeling</a></li>
+<li><a class="" href="network-models-and-connectivity.html"><span class="header-section-number">17</span> Network Models and Connectivity</a></li>
+<li><a class="" href="agent-based-models.html"><span class="header-section-number">18</span> Agent-based Models</a></li>
 <li class="book-part">Models and decision-making</li>
-<li><a class="" href="decision-support.html"><span class="header-section-number">18</span> Decision Support</a></li>
-<li><a class="" href="annualizing-benefits-and-costs-with-ecorest-and-engrecon.html"><span class="header-section-number">19</span> Annualizing benefits and costs with ecorest and EngrEcon</a></li>
-<li><a class="" href="ceica-chapter.html"><span class="header-section-number">20</span> Cost-Effectiveness and Incremental Cost Analysis (CEICA) with ecorest</a></li>
+<li><a class="" href="decision-support.html"><span class="header-section-number">19</span> Decision Support</a></li>
+<li><a class="" href="annualizing-benefits-and-costs-with-ecorest-and-engrecon.html"><span class="header-section-number">20</span> Annualizing benefits and costs with ecorest and EngrEcon</a></li>
+<li><a class="" href="ceica-chapter.html"><span class="header-section-number">21</span> Cost-Effectiveness and Incremental Cost Analysis (CEICA) with ecorest</a></li>
 <li class="book-part">Other R applications</li>
-<li><a class="" href="spatial-data-manipulation.html"><span class="header-section-number">21</span> Spatial Data Manipulation</a></li>
-<li><a class="" href="important-data-sources.html"><span class="header-section-number">22</span> Important data sources</a></li>
+<li><a class="" href="r-for-gis.html"><span class="header-section-number">22</span> R for GIS</a></li>
+<li><a class="" href="important-data-sources.html"><span class="header-section-number">23</span> Important data sources</a></li>
 </ul>
 
         <div class="book-extra">
@@ -84,7 +86,7 @@
 <h1>
 <span class="header-section-number">4</span> Manipulating Tabular Data<a class="anchor" aria-label="anchor" href="#manipulating-tabular-data"><i class="fas fa-link"></i></a>
 </h1>
-<p><em>Authors: Data Carpentry contributors - Copyright (c) Data Carpentry; Ed Stowe (adaptation for USACE)</em><br><em>Last update: 2025-02-03</em><br><em>Acknowledgements: The bulk of this <a href="https://datacarpentry.github.io/R-ecology-lesson/introduction-r-rstudio.html">section</a> is adapted from the <a href="https://datacarpentry.org">Data Carpentry</a> course <a href="https://datacarpentry.github.io/R-ecology-lesson/">Data Analysis and Visualization in R for Ecologists</a> which is licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> by the authors</em></p>
+<p><em>Authors: Data Carpentry contributors - Copyright (c) Data Carpentry; Ed Stowe (adaptation for USACE); Brian Breaker (for loop and function code)</em><br><em>Last update: 2025-02-12</em><br><em>Acknowledgements: The bulk of this <a href="https://datacarpentry.github.io/R-ecology-lesson/introduction-r-rstudio.html">section</a> is adapted from the <a href="https://datacarpentry.org">Data Carpentry</a> course <a href="https://datacarpentry.github.io/R-ecology-lesson/">Data Analysis and Visualization in R for Ecologists</a> which is licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> by the authors</em></p>
 <div id="learning-objectives-4" class="section level2" number="4.1">
 <h2>
 <span class="header-section-number">4.1</span> Learning Objectives<a class="anchor" aria-label="anchor" href="#learning-objectives-4"><i class="fas fa-link"></i></a>
@@ -119,7 +121,7 @@
 <div class="sourceCode" id="cb157"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">surveys</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/surveys_complete_77_89.csv"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Rows: 16878 Columns: 13
-## ── Column specification ───────────────────────────────────────────────
+## ── Column specification ───────────────────────────────────────────────────────────────────────────
 ## Delimiter: ","
 ## chr (6): species_id, sex, genus, species, taxa, plot_type
 ## dbl (7): record_id, month, day, year, plot_id, hindfoot_length, weight
@@ -658,8 +660,8 @@
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">species_id</span>, <span class="va">sex</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>mean_weight <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">weight</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
 <span>            n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## `summarise()` has grouped output by 'species_id'. You can override
-## using the `.groups` argument.</code></pre>
+<pre><code>## `summarise()` has grouped output by 'species_id'. You can override using the
+## `.groups` argument.</code></pre>
 <pre><code>## # A tibble: 67 × 4
 ## # Groups:   species_id [36]
 ##    species_id sex   mean_weight     n
@@ -682,8 +684,8 @@
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">species_id</span>, <span class="va">sex</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>mean_weight <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">weight</span><span class="op">)</span>,</span>
 <span>            n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## `summarise()` has grouped output by 'species_id'. You can override
-## using the `.groups` argument.</code></pre>
+<pre><code>## `summarise()` has grouped output by 'species_id'. You can override using the
+## `.groups` argument.</code></pre>
 <pre><code>## # A tibble: 46 × 4
 ## # Groups:   species_id [18]
 ##    species_id sex   mean_weight     n
@@ -707,8 +709,8 @@
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>mean_weight <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">weight</span><span class="op">)</span>,</span>
 <span>            n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">mean_weight</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## `summarise()` has grouped output by 'species_id'. You can override
-## using the `.groups` argument.</code></pre>
+<pre><code>## `summarise()` has grouped output by 'species_id'. You can override using the
+## `.groups` argument.</code></pre>
 <pre><code>## # A tibble: 46 × 4
 ## # Groups:   species_id [18]
 ##    species_id sex   mean_weight     n
@@ -732,8 +734,8 @@
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>mean_weight <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">weight</span><span class="op">)</span>,</span>
 <span>            n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">mean_weight</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## `summarise()` has grouped output by 'species_id'. You can override
-## using the `.groups` argument.</code></pre>
+<pre><code>## `summarise()` has grouped output by 'species_id'. You can override using the
+## `.groups` argument.</code></pre>
 <pre><code>## # A tibble: 46 × 4
 ## # Groups:   species_id [18]
 ##    species_id sex   mean_weight     n
@@ -781,8 +783,8 @@
 <span>            n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">mean_weight</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## `summarise()` has grouped output by 'species_id'. You can override
-## using the `.groups` argument.</code></pre>
+<pre><code>## `summarise()` has grouped output by 'species_id'. You can override using the
+## `.groups` argument.</code></pre>
 <pre><code>## # A tibble: 46 × 4
 ##    species_id sex   mean_weight     n
 ##    &lt;chr&gt;      &lt;chr&gt;       &lt;dbl&gt; &lt;int&gt;
@@ -892,8 +894,8 @@
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">species_id</span>, <span class="va">plot_id</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>mean_weight <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">weight</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">species_id</span>, <span class="va">plot_id</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## `summarise()` has grouped output by 'species_id'. You can override
-## using the `.groups` argument.</code></pre>
+<pre><code>## `summarise()` has grouped output by 'species_id'. You can override using the
+## `.groups` argument.</code></pre>
 <div class="sourceCode" id="cb237"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sp_by_plot</span></span></code></pre></div>
 <pre><code>## # A tibble: 300 × 3
@@ -1007,13 +1009,220 @@
 ## # ℹ 290 more rows</code></pre>
 <p>Data are often recorded in spreadsheets in a wider format, but lots of <code>tidyverse</code> tools, especially <code>ggplot2</code>, like data in a longer format, so <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code> is often very useful.</p>
 </div>
-<div id="exporting-data" class="section level2" number="4.12">
+<div id="other-key-data-tools" class="section level2" number="4.12">
 <h2>
-<span class="header-section-number">4.12</span> Exporting data<a class="anchor" aria-label="anchor" href="#exporting-data"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.12</span> Other key data tools<a class="anchor" aria-label="anchor" href="#other-key-data-tools"><i class="fas fa-link"></i></a>
+</h2>
+<div id="for-loops" class="section level3" number="4.12.1">
+<h3>
+<span class="header-section-number">4.12.1</span> For-loops<a class="anchor" aria-label="anchor" href="#for-loops"><i class="fas fa-link"></i></a>
+</h3>
+<p>Looping</p>
+<p>A for loop allows you to repeat code. You specify a variable and a range of values and the for loop runs the
+code for each value in your range. There are other ways to repeat code (e.g. apply suite of functions), but we
+are only going to discuss for loops (some in the R world think loops are be bad since R is optimized for working
+on vectors, but the concept is useful). The basic structure looks like:</p>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="manipulating-tabular-data.html#cb247-1" tabindex="-1"></a><span class="cf">for</span>(a_name <span class="cf">in</span> a_range) {</span>
+<span id="cb247-2"><a href="manipulating-tabular-data.html#cb247-2" tabindex="-1"></a>  code you want to run</span>
+<span id="cb247-3"><a href="manipulating-tabular-data.html#cb247-3" tabindex="-1"></a>  may or may not use a_name</span>
+<span id="cb247-4"><a href="manipulating-tabular-data.html#cb247-4" tabindex="-1"></a>}</span></code></pre></div>
+<p>Loops cycle through the “index” variable, which changes in each iteration. You must give this variable a name
+(often people use “i” for index), and then tell it what values to cycle through. Let’s look at a loop that
+only prints the value of the index variable each time.</p>
+<div class="sourceCode" id="cb248"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">i</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<pre><code>## [1] 1
+## [1] 2
+## [1] 3</code></pre>
+<p>You’ll see that the value of i is printed at each loop iteration, and changes based on the values given after
+in. Let’s try one more simple example, where we give nonconsecutive looping values.</p>
+<div class="sourceCode" id="cb250"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">loopVec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'a'</span>, <span class="st">'vector'</span>, <span class="st">'of'</span>, <span class="st">'character'</span>, <span class="st">'values'</span>, <span class="st">'works'</span>, <span class="st">'too!'</span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw">for</span><span class="op">(</span><span class="va">word</span> <span class="kw">in</span> <span class="va">loopVec</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">word</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<pre><code>## [1] "a"
+## [1] "vector"
+## [1] "of"
+## [1] "character"
+## [1] "values"
+## [1] "works"
+## [1] "too!"</code></pre>
+<p>This just illustrates that you can use manye different vector types as the looping vector. The for loop will
+always use looping_vector[1] as the first value of the index, then looping_vector[2], and so on until it
+gets to the last value of the looping vector. Now, let’s do something a little more useful inside our loop.</p>
+<div class="sourceCode" id="cb252"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># sequentially increase the value of some number</span></span>
+<span><span class="va">vec</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span></span>
+<span><span class="va">j</span> <span class="op">&lt;-</span> <span class="fl">0</span> <span class="co"># variables used in loops must exist already - so we initialize them</span></span>
+<span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="va">vec</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">j</span> <span class="op">&lt;-</span> <span class="va">i</span> <span class="op">+</span> <span class="va">j</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">j</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<pre><code>## [1] 1
+## [1] 3
+## [1] 6
+## [1] 10
+## [1] 15
+## [1] 21
+## [1] 28
+## [1] 36
+## [1] 45
+## [1] 55</code></pre>
+<p>Again a bit of a silly example since all it is doing is looping through a list of values and summing it.
+In reality you would just use sum() or cumsum(). This also highlights the fact that loops in R can be slow
+compared to vector operations and/or primitive operations (see Hadley Wickham’s section on Primitive functions).</p>
+<div class="sourceCode" id="cb254"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># A simple vectorized operation</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">100</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">100</span><span class="op">:</span><span class="fl">1</span></span>
+<span><span class="va">z</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">+</span> <span class="va">y</span></span>
+<span><span class="va">z</span></span></code></pre></div>
+<pre><code>##   [1] 101 101 101 101 101 101 101 101 101 101 101 101 101 101 101 101 101 101
+##  [19] 101 101 101 101 101 101 101 101 101 101 101 101 101 101 101 101 101 101
+##  [37] 101 101 101 101 101 101 101 101 101 101 101 101 101 101 101 101 101 101
+##  [55] 101 101 101 101 101 101 101 101 101 101 101 101 101 101 101 101 101 101
+##  [73] 101 101 101 101 101 101 101 101 101 101 101 101 101 101 101 101 101 101
+##  [91] 101 101 101 101 101 101 101 101 101 101</code></pre>
+<p>This kind of thing doesn’t come easily with many languages. You would need to program it yourself using
+a loop. For the sake of argument (and practice), let’s try the loop version with R. You’ll notice that
+we have set out &lt;- NULL at the beginning. We are adding values to out using the loop, but the object must
+exist first. Thus, we make it NULL or you can use out &lt;- c() if you know it will be a vector.</p>
+<div class="sourceCode" id="cb256"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># We will assume vectors of the same length...</span></span>
+<span><span class="va">out</span> <span class="op">&lt;-</span> <span class="cn">NULL</span> </span>
+<span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">out</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">+</span> <span class="va">y</span><span class="op">[</span><span class="va">i</span><span class="op">]</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>So, these do the same thing, big deal. It is big though when you look at the timing of the two. Let’s
+create two large vectors and see what happens.</p>
+<div class="sourceCode" id="cb257"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># This happens almost instantaneously. This creates a new columns where there is a NA value </span></span>
+<span><span class="co"># if the Flow_cd is "A e", otherwise it uses the value stored in the Flow column</span></span>
+<span><span class="va">introDFRev</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">introDF</span>, Flow_rev <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">Flow_cd</span> <span class="op">==</span> <span class="st">"A e"</span>, <span class="cn">NA</span>, <span class="va">Flow</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># Now if we looped through to check that we have to wait for this loop (~20 seconds) - Don't try the whole dataframe. It will take forever. </span></span>
+<span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">1000</span><span class="op">)</span> <span class="op">{</span> </span>
+<span>  <span class="kw">if</span><span class="op">(</span><span class="va">introDFRev</span><span class="op">$</span><span class="va">Flow_cd</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">==</span> <span class="st">"A e"</span><span class="op">)</span> <span class="op">{</span> </span>
+<span>       <span class="va">introDFRev</span><span class="op">$</span><span class="va">Flow_rev2</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span>  <span class="cn">NA</span> </span>
+<span>    <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span> </span>
+<span>      <span class="va">introDFRev</span><span class="op">$</span><span class="va">Flow_rev2</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">introDFRev</span><span class="op">$</span><span class="va">Flow</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> </span>
+<span>      <span class="op">}</span></span>
+<span><span class="op">}</span> <span class="co">#end loop</span></span></code></pre></div>
+<p>Quite a difference in time! It is examples like this that lead to all the talk around why
+R is slow at looping. In general I agree that if there is an obvious vectorized/base
+solution (in this case simply using ifelse) use that. That being said, it isn’t always
+obvious what the faster solution would be. ChatGPT or other AI programs could be helpful
+in suggesting solutions.</p>
+<p>In short, if an obvious vector or primitive solution exists, use that. If those aren’t
+clear and you need to use a loop, don’t be afraid to use one. There are plenty of
+examples where a vectorized solution exists for a loop, but it may be difficult to code
+and understand. Personally, I think it is possible to go too far down the vectorized
+path. Do it when it makes sense, otherwise take advantage of the for loop! You can
+always try and speed things up after you have got your code working the first time.</p>
+</div>
+<div id="functions" class="section level3" number="4.12.2">
+<h3>
+<span class="header-section-number">4.12.2</span> Functions<a class="anchor" aria-label="anchor" href="#functions"><i class="fas fa-link"></i></a>
+</h3>
+<p>At this point we should be pretty well versed at using functions. They have a name and some arguments, and they
+do something. Some return a value, some don’t. In short they form the basic structure of R. One of the cool
+things about R (and programming in general), is that we are not stuck with the functions provided to us. We can
+and should develop our own, as we often want to do things repeatedly, and in slightly different contexts.
+Creating a function to deal with this fact helps us a great deal because we do not have to repeat ourselves, we
+can just use what we have already written. Creating a function is really easy. We use the function() function.
+It has the basic structure of:</p>
+<div class="sourceCode" id="cb258"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">function_name</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">arguments</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">codeGoesHere</span></span>
+<span>  <span class="va">useArgumentsAsNeeded</span></span>
+<span><span class="op">}</span> <span class="co">#ends function</span></span>
+<span></span>
+<span><span class="co">## So a real example with no arguments might look like:</span></span>
+<span></span>
+<span><span class="va">say_hi</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">"Hello, World!"</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu">say_hi</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "Hello, World!"</code></pre>
+<p>Well that’s nice. Not really useful, but shows the main components, function(), and the {} which are
+really the only new things.</p>
+<p>It would be a bit better if it were more flexible. We can do that because we can specify our own arguments<br>
+to use within the body of the function. For example,</p>
+<div class="sourceCode" id="cb260"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">print_twice</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">my_text</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">my_text</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">my_text</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu">print_twice</span><span class="op">(</span><span class="st">"Hello, World!"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "Hello, World!"
+## [1] "Hello, World!"</code></pre>
+<div class="sourceCode" id="cb262"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">print_twice</span><span class="op">(</span><span class="st">"Hola, mundo"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "Hola, mundo"
+## [1] "Hola, mundo"</code></pre>
+<div class="sourceCode" id="cb264"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">print_twice</span><span class="op">(</span><span class="st">"Howdy, Texas"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "Howdy, Texas"
+## [1] "Howdy, Texas"</code></pre>
+<p>Functions are most useful when we want to repeat a general procedure with different specifics each time. Since
+we have been working most recently with creating plots, I could imagine us wanting to create a plot with a similar
+layout, but with different source data and then save that plot to a file, all with a single function call. That
+might look like:</p>
+<div class="sourceCode" id="cb266"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">getPlot</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">file</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">myDat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>X <span class="op">=</span> <span class="va">x</span>, Y <span class="op">=</span> <span class="va">y</span><span class="op">)</span> <span class="co">#creating at dataframe</span></span>
+<span>  <span class="va">myP</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">myDat</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">X</span>, y <span class="op">=</span> <span class="va">Y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">stat_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave</a></span><span class="op">(</span><span class="va">file</span>, plot <span class="op">=</span> <span class="va">myP</span><span class="op">)</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">myP</span><span class="op">)</span> <span class="co"># to get the plot out of the function</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># call the function using siteDF</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="fu">getPlot</span><span class="op">(</span><span class="va">siteDF</span><span class="op">$</span><span class="va">flowX</span>, <span class="va">siteDF</span><span class="op">$</span><span class="va">flowY</span>, <span class="st">"flowPlot.png"</span><span class="op">)</span></span></code></pre></div>
+<p>Nice… a function that does something useful</p>
+<p>return()</p>
+<p>The last control structure we are going to talk about is return(). All return() does is provide a result
+from a function and terminates the function. You may be asking yourself, didn’t we terminate and get a value
+from the functions we just created? We did, and return() is not mandatory for R functions as they will return
+the last calculation. Some people argue that using return() is good practice because it allows us to be more
+explicit. Others argue that concise is beautiful and that it’s not hard to see what is being implicitly returned.
+Think about it for yourself as you learn more R. To see how return() can be used, let’s take a look at the
+odd_even() and sum_vec() functions from before and make simple changes to take advantage of return().</p>
+<p>First, oddEven().</p>
+<div class="sourceCode" id="cb267"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">oddEven</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">num</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="kw">if</span><span class="op">(</span><span class="va">num</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span><span class="op">{</span></span>
+<span>    <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="st">"EVEN"</span><span class="op">)</span></span>
+<span>  <span class="op">}</span> </span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="st">"ODD"</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>now, sumVec()</p>
+<div class="sourceCode" id="cb268"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sumVec</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">vec</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">j</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
+<span>  <span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="va">vec</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">j</span> <span class="op">&lt;-</span> <span class="va">i</span> <span class="op">+</span> <span class="va">j</span></span>
+<span>  <span class="op">}</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">j</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+</div>
+</div>
+<div id="exporting-data" class="section level2" number="4.13">
+<h2>
+<span class="header-section-number">4.13</span> Exporting data<a class="anchor" aria-label="anchor" href="#exporting-data"><i class="fas fa-link"></i></a>
 </h2>
 <p>Let’s say we want to send the wide version of our <code>sb_by_plot</code> data.frame to a colleague who doesn’t use R. In this case, we might want to save it as a CSV file.</p>
 <p>First, we might want to modify the names of the columns, since right now they are bare numbers, which aren’t very informative. Luckily, <code><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider()</a></code> has an argument <code>names_prefix</code> which will allow us to add “plot_” to the start of each column.</p>
-<div class="sourceCode" id="cb247"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb269"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sp_by_plot</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">plot_id</span>, values_from <span class="op">=</span> <span class="va">mean_weight</span>,</span>
 <span>              names_prefix <span class="op">=</span> <span class="st">"plot_"</span><span class="op">)</span></span></code></pre></div>
@@ -1044,7 +1253,7 @@
 ## #   plot_17 &lt;dbl&gt;, plot_18 &lt;dbl&gt;, plot_19 &lt;dbl&gt;, plot_20 &lt;dbl&gt;, plot_22 &lt;dbl&gt;,
 ## #   plot_23 &lt;dbl&gt;, plot_24 &lt;dbl&gt;</code></pre>
 <p>That looks better! Let’s save this data.frame as a new object.</p>
-<div class="sourceCode" id="cb249"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb271"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">surveys_sp</span> <span class="op">&lt;-</span> <span class="va">sp_by_plot</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">plot_id</span>, values_from <span class="op">=</span> <span class="va">mean_weight</span>,</span>
 <span>              names_prefix <span class="op">=</span> <span class="st">"plot_"</span><span class="op">)</span></span>
@@ -1077,13 +1286,13 @@
 ## #   plot_17 &lt;dbl&gt;, plot_18 &lt;dbl&gt;, plot_19 &lt;dbl&gt;, plot_20 &lt;dbl&gt;, plot_22 &lt;dbl&gt;,
 ## #   plot_23 &lt;dbl&gt;, plot_24 &lt;dbl&gt;</code></pre>
 <p>Now we can save this data.frame to a CSV using the <code><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv()</a></code> function from the <code>readr</code> package. The first argument is the name of the data.frame, and the second is the path to the new file we want to create, including the file extension <code>.csv</code>.</p>
-<div class="sourceCode" id="cb251"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb273"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv</a></span><span class="op">(</span><span class="va">surveys_sp</span>, <span class="st">"data/surveys_meanweight_species_plot.csv"</span><span class="op">)</span></span></code></pre></div>
 <p>If we go look into our <code>data/cleaned_data</code> folder, we will see this new CSV file.</p>
 </div>
-<div id="summary-1" class="section level2" number="4.13">
+<div id="summary-1" class="section level2" number="4.14">
 <h2>
-<span class="header-section-number">4.13</span> Summary<a class="anchor" aria-label="anchor" href="#summary-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.14</span> Summary<a class="anchor" aria-label="anchor" href="#summary-1"><i class="fas fa-link"></i></a>
 </h2>
 <ul>
 <li>use <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code> to subset rows and <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code> to subset columns</li>
@@ -1117,8 +1326,14 @@
 <li><a class="nav-link" href="#the-split-apply-combine-approach"><span class="header-section-number">4.9</span> The split-apply-combine approach</a></li>
 <li><a class="nav-link" href="#challenge-4-making-a-time-series"><span class="header-section-number">4.10</span> Challenge 4: Making a time series</a></li>
 <li><a class="nav-link" href="#reshaping-data-with-tidyr"><span class="header-section-number">4.11</span> Reshaping data with tidyr</a></li>
-<li><a class="nav-link" href="#exporting-data"><span class="header-section-number">4.12</span> Exporting data</a></li>
-<li><a class="nav-link" href="#summary-1"><span class="header-section-number">4.13</span> Summary</a></li>
+<li>
+<a class="nav-link" href="#other-key-data-tools"><span class="header-section-number">4.12</span> Other key data tools</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#for-loops"><span class="header-section-number">4.12.1</span> For-loops</a></li>
+<li><a class="nav-link" href="#functions"><span class="header-section-number">4.12.2</span> Functions</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#exporting-data"><span class="header-section-number">4.13</span> Exporting data</a></li>
+<li><a class="nav-link" href="#summary-1"><span class="header-section-number">4.14</span> Summary</a></li>
 </ul>
 
       <div class="book-extra">

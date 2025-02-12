@@ -1,9 +1,9 @@
-tab:unnamed-chunk-19
-tab:unnamed-chunk-25
+tab:unnamed-chunk-31
+tab:unnamed-chunk-37
 eq:logis-reg
-tab:unnamed-chunk-53
-tab:unnamed-chunk-55
 tab:unnamed-chunk-65
+tab:unnamed-chunk-67
+tab:unnamed-chunk-77
 preparations
 install-r-and-rstudio
 operating-system
@@ -85,6 +85,9 @@ challenge-3-plotting-date
 the-split-apply-combine-approach
 challenge-4-making-a-time-series
 reshaping-data-with-tidyr
+other-key-data-tools
+for-loops
+functions
 exporting-data
 summary-1
 conceptual-ecological-models
@@ -147,6 +150,7 @@ import-and-explore-data
 fit-model-with-glm-function
 glm-with-the-tidymodels-package
 random-effects
+generalized-additive-models
 random-forest
 boosted-regression-trees
 population-modeling
@@ -177,10 +181,12 @@ ceica-full
 identifying-cost-effective-alternatives
 identifying-best-buys
 summary-6
-spatial-data-manipulation
+r-for-gis
 important-data-sources
 usgs-gage-data-using-the-dataretrieval-package
 national-hydrography-dataset-with-nhdplustools
 nlcd
-precipitation-data-prism
+precipitation-data-prism-noaa-data
+temperature-data-noaa
 other-data-sources-commonly-used-in-usace
+code-for-ras-output-files-dss-netcdf
