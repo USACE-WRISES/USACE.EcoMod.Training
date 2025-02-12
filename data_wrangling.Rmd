@@ -548,6 +548,12 @@ sp_by_plot_wide %>%
 
 Data are often recorded in spreadsheets in a wider format, but lots of `tidyverse` tools, especially `ggplot2`, like data in a longer format, so `pivot_longer()` is often very useful.
 
+## Other key data tools
+
+### For-loops
+
+### Functions
+
 ## Exporting data
 
 Let's say we want to send the wide version of our `sb_by_plot` data.frame to a colleague who doesn't use R. In this case, we might want to save it as a CSV file.
