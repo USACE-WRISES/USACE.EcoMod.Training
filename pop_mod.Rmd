@@ -1,6 +1,6 @@
+# (PART) Other Modeling Approaches {-} 
+
 # Population Modeling
-
-
 
 ### Occupancy models in R with unmarked: James Paterson
 
