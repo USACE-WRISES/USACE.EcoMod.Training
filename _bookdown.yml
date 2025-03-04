@@ -26,5 +26,6 @@ rmd_files: [
 "decision_support.Rmd", 
 "annualization.Rmd",
 "CEICA.Rmd", 
+"model_integration.Rmd",
 "r_spatial.Rmd", 
 "data_sources.Rmd"]
