@@ -181,6 +181,7 @@ ceica-full
 identifying-cost-effective-alternatives
 identifying-best-buys
 summary-6
+model-integration
 r-for-gis
 important-data-sources
 usgs-gage-data-using-the-dataretrieval-package
