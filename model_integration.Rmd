@@ -1,0 +1,15 @@
+# (PART) Models Integration {-}
+
+# Model Integration
+
+Integrating physical and biological models
+
+This section designed to synthesize many components of the training
+
+Eflows case studies
+NY Bight Ecological model example
+
+Floodplain inundation -> Flow metrics -> biological model
+- Take eco-value curve
+- Generate flow metrics about duration of inundation
+- Plug into ecological model
