@@ -7,3 +7,269 @@ https://carpentries-incubator.github.io/r-ml-tabular-data/
 
 Random forest portion here:
 https://carpentries-incubator.github.io/r-ml-tabular-data/04-Decision-Forests/index.html
+
+
+Use tidymodels version
+
+# Objectives
+
+
+## Learning objectives
+
+- Understand the value of MLs like random forest
+- Understand an overview of random forest
+- Understand the basic workflow of an ML
+- Learn to implement a simple random forest model
+
+## Can I do machine learning?
+
+Yes. And it's getting easier.
+
+## What is it actually?
+
+
+## When would it be good?
+Prediction
+
+## What are the basic steps
+- Split
+- Tune and train
+- Assess
+- Predict
+
+## What can I use for ML?
+Tons of packages in R and Python.
+
+Tidymodels in R offers an integrated for framework for using a bunch of different MLs.
+
+## How does random forest work
+Decision trees start with a basic question, such as, “Should I surf?” 
+From there, you can ask a series of questions to determine an answer, such as, “Is it a long period swell?” or “Is the wind blowing offshore?”. 
+
+These questions make up the decision nodes in the tree, acting as a means to split the data. 
+
+Each question helps an individual to arrive at a final decision, which would be denoted by the leaf node. 
+
+Observations that fit the criteria will follow the “Yes” branch and those that don’t will follow the alternate path. 
+
+Decision trees seek to find the best split to subset the data, but tend to have problems: they are often biased and poor at making predictions. Random forest and other algorithms solve some of these problems.
+
+Instead of a single tree, random forest creates many unique decision trees. It does this by:
+
+
+
+Create Many Decision Trees: The algorithm makes many decision trees each using a random part of the data. So every tree is a bit different.
+
+Pick Random predictors: When building each tree it doesn’t look at all the features (columns) at once. It picks a few at random to decide how to split the data, so each tree is unique.
+
+Each Tree Makes a Prediction: Every tree gives its own answer or prediction based on what it learned from its part of the data.
+
+Combine the Predictions:
+
+For classification we choose a category as the final answer is the one that most trees agree on i.e majority voting.
+For regression we predict a number as the final answer is the average of all the trees predictions.
+
+Why It Works Well: Using random data and features for each tree helps avoid overfitting and makes the overall prediction more accurate and trustworthy.
+
+
+
+
+
+
+## Now let's go
+
+### Quick data exploration
+
+
+#### Data partitioning
+
+
+##### Set up train/test split
+```{r}
+library(tidymodels)
+
+set.seed(123)
+trees_split <- initial_split(trees_df, strata = legal_status)
+trees_train <- training(trees_split)
+trees_test <- testing(trees_split)
+```
+
+
+##### Pre-processing with recipes
+Build a recipe for data preprocessing.
+
+First, we must tell the recipe() what our model is going to be (using a formula here) and what our training data is.
+Next, we update the role for tree_id, since this is a variable we might like to keep around for convenience as an identifier for rows but is not a predictor or outcome.
+Next, we use step_other() to collapse categorical levels for species, caretaker, and the site info. Before this step, there were 300+ species!
+The date column with when each tree was planted may be useful for fitting this model, but probably not the exact date, given how slowly trees grow. Let’s create a year feature from the date, and then remove the original date variable.
+There are many more DPW maintained trees than not, so let’s downsample the data for training.
+The object tree_rec is a recipe that has not been trained on data yet (for example, which categorical levels should be collapsed has not been calculated) and tree_prep is an object that has been trained on data.
+
+```{r}
+tree_rec <- recipe(legal_status ~ ., data = trees_train) %>%
+  update_role(tree_id, new_role = "ID") %>%
+  step_other(species, caretaker, threshold = 0.01) %>%
+  step_other(site_info, threshold = 0.005) %>%
+  step_dummy(all_nominal(), -all_outcomes()) %>%
+  step_date(date, features = c("year")) %>%
+  step_rm(date) %>%
+  step_downsample(legal_status)
+
+tree_prep <- prep(tree_rec)
+juiced <- juice(tree_prep)  
+```  
+  
+  
+##### Model specifications with parsnip
+
+Tune some of the parameters.
+```{r}
+rf_spec <- 
+    rand_forest(mtry = tune(), min_n = tune(), trees = 1000) %>% 
+    set_engine("ranger") %>% 
+    set_mode("classification")
+
+```
+
+# Workflow
+```{r}
+tune_wf <- workflow() %>%
+  add_recipe(tree_rec) %>%
+  add_model(tune_spec)
+```
+
+# Tune hyperparameters - Notes from Julia Slige https://juliasilge.com/blog/sf-trees-random-tuning/
+Now it’s time to tune the hyperparameters for a random forest model. First, let’s create a set of cross-validation resamples to use for tuning.
+
+```{r}
+set.seed(234)
+trees_folds <- vfold_cv(trees_train)
+```
+
+We can’t learn the right values when training a single model, but we can train a whole bunch of models and see which ones turn out best. We can use parallel processing to make this go faster, since the different parts of the grid are independent. Let’s use grid = 20 to choose 20 grid points automatically.
+
+```{r}
+doParallel::registerDoParallel()
+
+set.seed(345)
+tune_res <- tune_grid(
+  tune_wf,
+  resamples = trees_folds,
+  grid = 20
+)
+
+tune_res
+```
+
+How did this turn out? Let’s look at AUC.
+
+```{r}
+tune_res %>%
+  collect_metrics() %>%
+  filter(.metric == "roc_auc") %>%
+  select(mean, min_n, mtry) %>%
+  pivot_longer(min_n:mtry,
+    values_to = "value",
+    names_to = "parameter"
+  ) %>%
+  ggplot(aes(value, mean, color = parameter)) +
+  geom_point(show.legend = FALSE) +
+  facet_wrap(~parameter, scales = "free_x") +
+  labs(x = NULL, y = "AUC")
+```
+
+This grid did not involve every combination of min_n and mtry but we can get an idea of what is going on. It looks like higher values of mtry are good (above about 10) and lower values of min_n are good (below about 10). We can get a better handle on the hyperparameters by tuning one more time, this time using regular_grid(). Let’s set ranges of hyperparameters we want to try, based on the results from our initial tune.
+
+```{r}
+rf_grid <- grid_regular(
+  mtry(range = c(10, 30)),
+  min_n(range = c(2, 8)),
+  levels = 5
+)
+
+rf_grid  
+
+```
+  
+# Choosing the best model 
+It’s much more clear what the best model is now. We can identify it using the function select_best(), and then update our original model specification tune_spec to create our final model specification.
+
+We can tune one more time, but this time in a more targeted way with this rf_grid.
+
+```{r}
+set.seed(456)
+regular_res <- tune_grid(
+  tune_wf,
+  resamples = trees_folds,
+  grid = rf_grid
+)
+
+regular_res
+```
+
+What the results look like now?
+```{r}
+regular_res %>%
+  collect_metrics() %>%
+  filter(.metric == "roc_auc") %>%
+  mutate(min_n = factor(min_n)) %>%
+  ggplot(aes(mtry, mean, color = min_n)) +
+  geom_line(alpha = 0.5, size = 1.5) +
+  geom_point() +
+  labs(y = "AUC")
+
+best_auc <- select_best(regular_res, "roc_auc")
+
+final_rf <- finalize_model(
+  tune_spec,
+  best_auc
+)
+
+final_rf
+```
+
+Let’s explore our final model a bit. What can we learn about variable importance, using the vip package?
+```{r}
+library(vip)
+
+final_rf %>%
+  set_engine("ranger", importance = "permutation") %>%
+  fit(legal_status ~ .,
+    data = juice(tree_prep) %>% select(-tree_id)
+  ) %>%
+  vip(geom = "point")
+```
+
+The private caretaker characteristic important in categorization, as is latitude and longitude. Interesting that year (i.e. age of the tree) is so important!
+
+Let’s make a final workflow, and then fit one last time, using the convenience function last_fit(). This function fits a final model on the entire training set and evaluates on the testing set. We just need to give this funtion our original train/test split.
+
+```{r}
+final_wf <- workflow() %>%
+  add_recipe(tree_rec) %>%
+  add_model(final_rf)
+
+final_res <- final_wf %>%
+  last_fit(trees_split)
+
+final_res %>%
+  collect_metrics()
+```
+
+The metrics for the test set look good and indicate we did not overfit during tuning.
+
+Let’s bind our testing results back to the original test set, and make one more map. Where in San Francisco are there more or less incorrectly predicted trees?
+
+```{r}
+final_res %>%
+  collect_predictions() %>%
+  mutate(correct = case_when(
+    legal_status == .pred_class ~ "Correct",
+    TRUE ~ "Incorrect"
+  )) %>%
+  bind_cols(trees_test) %>%
+  ggplot(aes(longitude, latitude, color = correct)) +
+  geom_point(size = 0.5, alpha = 0.5) +
+  labs(color = NULL) +
+  scale_color_manual(values = c("gray80", "darkred"))
+```
