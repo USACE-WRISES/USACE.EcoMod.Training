@@ -5,3 +5,9 @@
 Use this info here:
 https://rspatial.org/index.html
 
+Objectives
+
+# Intersect 
+
+
+
