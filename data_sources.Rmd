@@ -22,6 +22,10 @@ Here, Parameter code 00060 refers to daily flow in cubic feet per second (cfs).
 
 ```{r}
 whatSites <- whatNWISsites(stateCd = "AR", parameterCd = "00060")
+
+whatSites <- read_waterdata_monitoring_location(state_name = "Arkansas")
+
+
 ```
 
 
@@ -127,6 +131,20 @@ flowDatdailytwo <- readNWISdv(c("07055646", "07055660"), startDate = "2019-10-01
 
 ## National Hydrography Dataset with nhdplusTools
 https://doi-usgs.github.io/nhdplusTools/
+
+in NHDplus "catchment" = polygon feature that captures the drainage divide areound the hydrologic unit that contributes surface flow to a given NHD flowline
+
+COMID id's catchment polygon, flowline that connects catchment inlet and outlet, & value added attributres
+
+Scope of data used
+* Flowlines and waterboeies: 1-d streams and 1-d "artificial waterbodies"
+* Catchment polygons
+* Network attributes from NHDplus
+
+Web and local (mix of services)
+
+
+
 
 ## NLCD
 
