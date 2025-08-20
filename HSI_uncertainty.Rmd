@@ -21,7 +21,7 @@
 
 ## Benefits of uncertainty and sensitivity analysis for HSI modeling
 
-Habitat suitability index (HSI) modeling is a widely applied method of habitat evaluation, but its success relies on good data and model frameworks.Various sources of uncertainty can limit the utility of HSI models, which usually represent habitat quality with a single index value and no indication of the confidence in that value (Bender et al. 1996; Burgman et al. 2001). Uncertainty analysis (UA) and sensitivity analysis (SA) can help modelers and practitioners explore and quantify the sources of uncertainty in HSI models (Razavi et al. 2021), providing more confidence in the results and ensuring that models successfully capture ecological relationships observed in the field. UA assesses the confidence we have in a model's results, while SA identifies which model parameters contribute the most uncertainty (Pianosi et al. 2016). 
+Habitat suitability index (HSI) modeling is a widely applied method of habitat evaluation, but its success relies on good data and model frameworks. Various sources of uncertainty can limit the utility of HSI models, which usually represent habitat quality with a single index value and no indication of the confidence in that value (Bender et al. 1996; Burgman et al. 2001). Uncertainty analysis (UA) and sensitivity analysis (SA) can help modelers and practitioners explore and quantify the sources of uncertainty in HSI models (Razavi et al. 2021), providing more confidence in the results and ensuring that models successfully capture ecological relationships observed in the field. UA assesses the confidence we have in a model's results, while SA identifies which model parameters contribute the most uncertainty (Pianosi et al. 2016). 
 
 In this module, we will conduct variance-based global sensitivity and uncertainty analysis for HSI models using the oyster habitat suitability index model (OHSIM) developed by Swannack et al. (2014).
 
@@ -181,7 +181,7 @@ for (row in 1:nrow(sample_matrix)) {
 
 ```
 
-Finally, using the OSI scores calculated with our **`sample_matrix`** in the last step, we can apply the **`HSIgeomean`** function to each set of sampling points in order to generate an empirical distribution of RSI scores. We will use the variance present in this empirical distribution to understand the uncertainty in RSI values and interpret how sensitive our RSI model is to changes input parameters.
+Finally, using the OSI scores calculated with our **`sample_matrix`** in the last step, we can apply the **`HSIgeomean`** function to each set of sampling points in order to generate an empirical distribution of RSI scores. We will use the variance present in this empirical distribution to understand the uncertainty in RSI values and interpret how sensitive our RSI model is to changes in input parameters.
 
 ```{r calculate-overall-HSI, message=FALSE}
 
@@ -285,7 +285,7 @@ dummy_indices %>%
 
 ```
 
-Interpretation of dummies is similar to that of our Sobol' indices, but values represent noise occurring in the model rather than contributions of actual parameters. Here, between `r round(dummy_indices$low.ci[1], 5) * 100` and `r round(dummy_indices$high.ci[1], 5) * 100`% of the uncertainty in RSI scores for *S~i~* and `r round(dummy_indices$low.ci[2], 5) * 100` and `r round(dummy_indices$high.ci[2], 5) * 100`% for *T~i~* can be attributed to noise in the model. If any of our Sobol' sensitivity indices fall within these ranges, we can say that the RSI model is relatively insensitive to those parameters. Dummy parameters for *S~i~* and *T~i~* are calculated separately, so a parameter could fail to contribute to RSI scores on its own (*S~i~*) but still have important influence through interactions with other variables (*T~i~*), or vice versa.
+Interpretation of dummies is similar to that of our Sobol' indices, but values represent noise occurring in the model rather than contributions of actual parameters. Here, between `r round(dummy_indices$low.ci[1], 5) * 100` and `r round(dummy_indices$high.ci[1], 5) * 100`% of the uncertainty in RSI scores for *S~i~* and `r round(dummy_indices$low.ci[2], 5) * 100` and `r round(dummy_indices$high.ci[2], 5) * 100`% for *T~i~* can be attributed to noise in the model. If any of our Sobol' sensitivity indices fall within these ranges, we can say that the RSI model is relatively insensitive to those parameters. Dummy parameters and Sobol’ indices for *S~i~* and *T~i~* are calculated separately, so a parameter could fail to contribute to RSI scores on its own (*S~i~*) but still have important influence through interactions with other variables (*T~i~*), or vice versa.
 
 For an intuitive summary of the results of our sensitivity analysis, we can use the **`plot`** function to create a bar chart of our results:
 
@@ -300,12 +300,12 @@ In this plot, bars represent our two Sobol' indices. Horizontal dashed lines rep
 
 Based on our dummy parameter confidence intervals and the plot, RSI scores are sensitive to all four of the parameters in our model, but annual mean salinity (AS) does not have any important total order influence (i.e., AS does not interact with other variables in the model).
 
-Again, this type of analysis can be very beneficial in a USACE context. Planners and biologists creating a new HSI model can use sensitivity analysis to gage the importance and functioning of different potential parameters. And if a model is being applied across a spatially variable region, sensitivity of the model can be examined in different locations to see if parameter contributions to uncertainty vary among different project locations.
+Again, this type of analysis can be very beneficial in a USACE context. Planners and biologists creating a new HSI model can use sensitivity analysis to gauge the importance and functioning of different potential parameters. And if a model is being applied across a spatially variable region, sensitivity of the model can be examined in different locations to see if parameter contributions to uncertainty vary among different project locations.
 
 ## Summary
 
 - Uncertainty analysis and sensitivity analysis (UA/SA) can greatly improve the utility of HSI models
-- UA/SA enable users to explore the magnitude of uncertainty in models, assess the role each parameter is playing in model outcome uncertainy, and determine if models are functioning as expected
+- UA/SA enable users to explore the magnitude of uncertainty in models, assess the role each parameter is playing in model outcome uncertainty, and determine if models are functioning as expected
 - The **`sensobol`** package in **`R`** offers a straightforward UA/SA method using global, all-at-a-time, variance-based analyses
 
 ## References
