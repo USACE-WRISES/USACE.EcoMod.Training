@@ -80,10 +80,10 @@ Why It Works Well: Using random data and features for each tree helps avoid over
 ### Quick data exploration
 
 
-#### Data partitioning
+### Data partitioning
 
 
-##### Set up train/test split
+### Set up train/test split
 ```{r, eval=FALSE}
 library(tidymodels)
 
@@ -94,7 +94,7 @@ trees_test <- testing(trees_split)
 ```
 
 
-##### Pre-processing with recipes
+### Pre-processing with recipes
 Build a recipe for data preprocessing.
 
 First, we must tell the recipe() what our model is going to be (using a formula here) and what our training data is.
@@ -119,7 +119,7 @@ juiced <- juice(tree_prep)
 ```  
   
   
-##### Model specifications with parsnip
+### Model specifications with parsnip
 
 Tune some of the parameters.
 ```{r, eval=FALSE}
@@ -130,14 +130,14 @@ rf_spec <-
 
 ```
 
-# Workflow
+### Workflow
 ```{r, eval=FALSE}
 tune_wf <- workflow() %>%
   add_recipe(tree_rec) %>%
   add_model(tune_spec)
 ```
 
-# Tune hyperparameters - Notes from Julia Slige https://juliasilge.com/blog/sf-trees-random-tuning/
+### Tune hyperparameters - Notes from Julia Slige https://juliasilge.com/blog/sf-trees-random-tuning/
 Now it’s time to tune the hyperparameters for a random forest model. First, let’s create a set of cross-validation resamples to use for tuning.
 
 ```{r, eval=FALSE}
@@ -190,7 +190,7 @@ rf_grid
 
 ```
   
-# Choosing the best model 
+### Choosing the best model 
 It’s much more clear what the best model is now. We can identify it using the function select_best(), and then update our original model specification tune_spec to create our final model specification.
 
 We can tune one more time, but this time in a more targeted way with this rf_grid.
