@@ -2,24 +2,20 @@
 
 # Conceptual Ecological Models
 
-
-
-
-
-# What they are not
+## What they are not
 The truth
 Comprehensive
 Final
 
-# Misconceptions
+## Misconceptions
 Incomplete understanding
 
-# Storytelling
+## Storytelling
 What audience
 Who are the characters
 What is the plot?
 What is the setting?
 
-# Art of conceptual modeling is iterating
+## Art of conceptual modeling is iterating
 Iterate between simple to "too complex" to right level of complexity
 
