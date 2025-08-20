@@ -18,9 +18,9 @@
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   </style>
-<meta name="description" content="Authors: Brian Breaker, USACE (dataRetrieval section); Ed Stowe (adaptation, edits)Last update: 2025-07-24Acknowledgements:  30.1 USGS gage data using the dataRetrieval package This exercise uses...">
-<meta property="og:description" content="Authors: Brian Breaker, USACE (dataRetrieval section); Ed Stowe (adaptation, edits)Last update: 2025-07-24Acknowledgements:  30.1 USGS gage data using the dataRetrieval package This exercise uses...">
-<meta name="twitter:description" content="Authors: Brian Breaker, USACE (dataRetrieval section); Ed Stowe (adaptation, edits)Last update: 2025-07-24Acknowledgements:  30.1 USGS gage data using the dataRetrieval package This exercise uses...">
+<meta name="description" content="Authors: Brian Breaker, USACE (dataRetrieval section); Ed Stowe (adaptation, edits)Last update: 2025-08-20Acknowledgements:  30.1 USGS gage data using the dataRetrieval package This exercise uses...">
+<meta property="og:description" content="Authors: Brian Breaker, USACE (dataRetrieval section); Ed Stowe (adaptation, edits)Last update: 2025-08-20Acknowledgements:  30.1 USGS gage data using the dataRetrieval package This exercise uses...">
+<meta name="twitter:description" content="Authors: Brian Breaker, USACE (dataRetrieval section); Ed Stowe (adaptation, edits)Last update: 2025-08-20Acknowledgements:  30.1 USGS gage data using the dataRetrieval package This exercise uses...">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -94,7 +94,7 @@
 <h1>
 <span class="header-section-number">30</span> Important data sources<a class="anchor" aria-label="anchor" href="#important-data-sources"><i class="fas fa-link"></i></a>
 </h1>
-<p><em>Authors: Brian Breaker, USACE (dataRetrieval section); Ed Stowe (adaptation, edits)</em><br><em>Last update: 2025-07-24</em><br><em>Acknowledgements: </em></p>
+<p><em>Authors: Brian Breaker, USACE (dataRetrieval section); Ed Stowe (adaptation, edits)</em><br><em>Last update: 2025-08-20</em><br><em>Acknowledgements: </em></p>
 <div id="usgs-gage-data-using-the-dataretrieval-package" class="section level2" number="30.1">
 <h2>
 <span class="header-section-number">30.1</span> USGS gage data using the dataRetrieval package<a class="anchor" aria-label="anchor" href="#usgs-gage-data-using-the-dataretrieval-package"><i class="fas fa-link"></i></a>
@@ -118,9 +118,9 @@ Here, Parameter code 00060 refers to daily flow in cubic feet per second (cfs).<
 <code class="sourceCode R"><span><span class="va">whatSites</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dataRetrieval/man/read_waterdata_monitoring_location.html">read_waterdata_monitoring_location</a></span><span class="op">(</span>state_name <span class="op">=</span> <span class="st">"Arkansas"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Requesting:
 ## https://api.waterdata.usgs.gov/ogcapi/v0/collections/monitoring-locations/items?f=json&amp;lang=en-US&amp;limit=10000&amp;state_name=Arkansas</code></pre>
-<pre><code>## ⠙ Iterating 2 done (0.49/s) | 4.1s⠹ Iterating 3 done (0.46/s) | 6.6s⠸ Iterating 4 done (0.46/s) |
-## 8.8s⠼ Iterating 5 done (0.46/s) | 10.8s⠴ Iterating 6 done (0.43/s) | 14.1s⠦ Iterating 7 done
-## (0.38/s) | 18.2s⠧ Iterating 8 done (0.42/s) | 18.9s</code></pre>
+<pre><code>## ⠙ Iterating 2 done (0.48/s) | 4.2s⠹ Iterating 3 done (0.45/s) | 6.6s⠸ Iterating 4 done (0.45/s) |
+## 8.8s⠼ Iterating 5 done (0.46/s) | 10.8s⠴ Iterating 6 done (0.43/s) | 13.9s⠦ Iterating 7 done
+## (0.39/s) | 18.1s⠧ Iterating 8 done (0.42/s) | 18.9s</code></pre>
 <p>These can be subset to just active sites, or just ones with unit-value flow data (e.g., 15 min flow).</p>
 <div class="sourceCode" id="cb428"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">whatSites</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dataRetrieval/man/whatNWISsites.html">whatNWISsites</a></span><span class="op">(</span>stateCd <span class="op">=</span> <span class="st">"AR"</span>, parameterCd <span class="op">=</span> <span class="st">"00060"</span>, </span>
