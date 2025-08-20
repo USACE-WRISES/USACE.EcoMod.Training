@@ -9,7 +9,7 @@
 ***
 
 *Authors: Kiara Cushway, Ed Stowe, Todd Swannack, Kyle McKay*  
-*Last update: `r as.Date(file.info('HSI_evaluation.Rmd')$mtime)`*  
+*Last update: `r as.Date(file.info('HSI_uncertainty.Rmd')$mtime)`*  
 *Acknowledgements: Much of the background information on oyster reefs and the habitat suitability index model used in this module come from Swannack et al. (2014). Information about how to conduct sensitivity and uncertainty analyses using `sensobol` comes from Puy et al. (2022).* 
 
 ## Learning objectives
