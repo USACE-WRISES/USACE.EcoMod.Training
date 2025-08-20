@@ -4,13 +4,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>26 Cost-Effectiveness and Incremental Cost Analysis (CEICA) with ecorest | Using R for ecological modeling in USACE</title>
+<title>22 Cost-Effectiveness and Incremental Cost Analysis (CEICA) with ecorest | Using R for ecological modeling in USACE</title>
 <meta name="author" content="Ed Stowe">
 <meta name="generator" content="bookdown 0.42 with bs4_book()">
-<meta property="og:title" content="26 Cost-Effectiveness and Incremental Cost Analysis (CEICA) with ecorest | Using R for ecological modeling in USACE">
+<meta property="og:title" content="22 Cost-Effectiveness and Incremental Cost Analysis (CEICA) with ecorest | Using R for ecological modeling in USACE">
 <meta property="og:type" content="book">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="26 Cost-Effectiveness and Incremental Cost Analysis (CEICA) with ecorest | Using R for ecological modeling in USACE">
+<meta name="twitter:title" content="22 Cost-Effectiveness and Incremental Cost Analysis (CEICA) with ecorest | Using R for ecological modeling in USACE">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.8.0/transition.js"></script><script src="libs/bs3compat-0.8.0/tabs.js"></script><script src="libs/bs3compat-0.8.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -51,38 +51,37 @@
 <li><a class="" href="manipulating-tabular-data.html"><span class="header-section-number">4</span> Manipulating Tabular Data</a></li>
 <li class="book-part">Ecological Modeling in R</li>
 <li><a class="" href="conceptual-ecological-models.html"><span class="header-section-number">5</span> Conceptual Ecological Models</a></li>
-<li><a class="" href="what-they-are-not.html"><span class="header-section-number">6</span> What they are not</a></li>
-<li><a class="" href="misconceptions.html"><span class="header-section-number">7</span> Misconceptions</a></li>
-<li><a class="" href="storytelling.html"><span class="header-section-number">8</span> Storytelling</a></li>
-<li><a class="" href="art-of-conceptual-modeling-is-iterating.html"><span class="header-section-number">9</span> Art of conceptual modeling is iterating</a></li>
 <li class="book-part">Habitat Models</li>
-<li><a class="" href="background-on-habitat-models-in-usace.html"><span class="header-section-number">10</span> Background on habitat models in USACE</a></li>
-<li><a class="" href="habitat-suitability-index-models-with-ecorest.html"><span class="header-section-number">11</span> Habitat Suitability Index models with ecorest</a></li>
-<li><a class="" href="ecorest-web-app.html"><span class="header-section-number">12</span> Ecorest Web App</a></li>
-<li><a class="" href="sensitivity-and-uncertainty-analysis-for-habitat-suitability-index-hsi-models.html"><span class="header-section-number">13</span> Sensitivity and uncertainty analysis for habitat suitability index (HSI) models</a></li>
-<li><a class="" href="spatial-habitat-models.html"><span class="header-section-number">14</span> Spatial Habitat Models</a></li>
+<li><a class="" href="background-on-habitat-models-in-usace.html"><span class="header-section-number">6</span> Background on habitat models in USACE</a></li>
+<li><a class="" href="habitat-suitability-index-models-with-ecorest.html"><span class="header-section-number">7</span> Habitat Suitability Index models with ecorest</a></li>
+<li><a class="" href="ecorest-web-app.html"><span class="header-section-number">8</span> Ecorest Web App</a></li>
+<li><a class="" href="sensitivity-and-uncertainty-analysis-for-habitat-suitability-index-hsi-models.html"><span class="header-section-number">9</span> Sensitivity and uncertainty analysis for habitat suitability index (HSI) models</a></li>
+<li><a class="" href="spatial-habitat-models.html"><span class="header-section-number">10</span> Spatial Habitat Models</a></li>
 <li class="book-part">Linear Models</li>
-<li><a class="" href="linear-models.html"><span class="header-section-number">15</span> Linear Models</a></li>
-<li><a class="" href="generalized-linear-models.html"><span class="header-section-number">16</span> Generalized Linear Models</a></li>
-<li><a class="" href="random-effects.html"><span class="header-section-number">17</span> Random Effects</a></li>
-<li><a class="" href="generalized-additive-models.html"><span class="header-section-number">18</span> Generalized Additive Models</a></li>
+<li><a class="" href="linear-models.html"><span class="header-section-number">11</span> Linear Models</a></li>
+<li><a class="" href="generalized-linear-models.html"><span class="header-section-number">12</span> Generalized Linear Models</a></li>
+<li><a class="" href="random-effects.html"><span class="header-section-number">13</span> Random Effects</a></li>
+<li><a class="" href="generalized-additive-models.html"><span class="header-section-number">14</span> Generalized Additive Models</a></li>
 <li class="book-part">Machine Learning</li>
-<li><a class="" href="random-forest.html"><span class="header-section-number">19</span> Random Forest</a></li>
-<li><a class="" href="boosted-regression-trees.html"><span class="header-section-number">20</span> Boosted Regression Trees</a></li>
+<li><a class="" href="random-forest.html"><span class="header-section-number">15</span> Random Forest</a></li>
+<li><a class="" href="boosted-regression-trees.html"><span class="header-section-number">16</span> Boosted Regression Trees</a></li>
 <li class="book-part">Other Modeling Approaches</li>
-<li><a class="" href="population-modeling.html"><span class="header-section-number">21</span> Population Modeling</a></li>
-<li><a class="" href="network-models-and-connectivity.html"><span class="header-section-number">22</span> Network Models and Connectivity</a></li>
-<li><a class="" href="agent-based-models.html"><span class="header-section-number">23</span> Agent-based Models</a></li>
+<li><a class="" href="population-modeling.html"><span class="header-section-number">17</span> Population Modeling</a></li>
+<li><a class="" href="network-models-and-connectivity.html"><span class="header-section-number">18</span> Network Models and Connectivity</a></li>
+<li><a class="" href="agent-based-models.html"><span class="header-section-number">19</span> Agent-based Models</a></li>
 <li class="book-part">Models and decision-making</li>
-<li><a class="" href="decision-support.html"><span class="header-section-number">24</span> Decision Support</a></li>
-<li><a class="" href="annualizing-benefits-and-costs-with-ecorest-and-engrecon.html"><span class="header-section-number">25</span> Annualizing benefits and costs with ecorest and EngrEcon</a></li>
-<li><a class="active" href="ceica-chapter.html"><span class="header-section-number">26</span> Cost-Effectiveness and Incremental Cost Analysis (CEICA) with ecorest</a></li>
+<li><a class="" href="decision-support.html"><span class="header-section-number">20</span> Decision Support</a></li>
+<li><a class="" href="annualizing-benefits-and-costs-with-ecorest-and-engrecon.html"><span class="header-section-number">21</span> Annualizing benefits and costs with ecorest and EngrEcon</a></li>
+<li><a class="active" href="ceica-chapter.html"><span class="header-section-number">22</span> Cost-Effectiveness and Incremental Cost Analysis (CEICA) with ecorest</a></li>
 <li class="book-part">Models Integration</li>
-<li><a class="" href="model-integration.html"><span class="header-section-number">27</span> Model Integration</a></li>
+<li><a class="" href="model-integration.html"><span class="header-section-number">23</span> Model Integration</a></li>
 <li class="book-part">Other R applications</li>
-<li><a class="" href="r-for-gis.html"><span class="header-section-number">28</span> R for GIS</a></li>
-<li><a class="" href="intersect.html"><span class="header-section-number">29</span> Intersect</a></li>
-<li><a class="" href="important-data-sources.html"><span class="header-section-number">30</span> Important data sources</a></li>
+<li><a class="" href="r-for-gis.html"><span class="header-section-number">24</span> R for GIS</a></li>
+<li><a class="" href="intersect.html"><span class="header-section-number">25</span> Intersect</a></li>
+<li class="book-part">Environmental data sources</li>
+<li><a class="" href="using-r-for-data-access.html"><span class="header-section-number">26</span> Using R for data access</a></li>
+<li><a class="" href="usgs-gage-data-using-the-dataretrieval-package.html"><span class="header-section-number">27</span> USGS gage data using the dataRetrieval package</a></li>
+<li><a class="" href="national-hydrography-dataset.html"><span class="header-section-number">28</span> National Hydrography Dataset</a></li>
 </ul>
 
         <div class="book-extra">
@@ -90,9 +89,9 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="ceica-chapter" class="section level1" number="26">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="ceica-chapter" class="section level1" number="22">
 <h1>
-<span class="header-section-number">26</span> Cost-Effectiveness and Incremental Cost Analysis (CEICA) with <code>ecorest</code><a class="anchor" aria-label="anchor" href="#ceica-chapter"><i class="fas fa-link"></i></a>
+<span class="header-section-number">22</span> Cost-Effectiveness and Incremental Cost Analysis (CEICA) with <code>ecorest</code><a class="anchor" aria-label="anchor" href="#ceica-chapter"><i class="fas fa-link"></i></a>
 </h1>
 <hr>
 <p><strong>This module will teach you how to use the <code>ecorest</code> package in <code>R</code> to efficiently and reproducibly carry out Cost Effectivness and Incremental Cost Analysis (CEICA) and generate useful output like this in just a few lines of code:</strong></p>
@@ -101,9 +100,9 @@
 </div>
 <hr>
 <p><em>Authors: Ed Stowe (Writing, code), Darixa Hernandez-Abrams (writing, code), Kyle McKay (writing, code). CEICA background information was adapted from a draft tech report on the ecorest R package, authored by Kyle McKay, Darixa Hernández-Abrams, Rachel Nifong, and Todd Swannack</em><br><em>Last update: 2025-02-06</em><br><em>Acknowledgements: </em></p>
-<div id="learning-objectives-10" class="section level2" number="26.1">
+<div id="learning-objectives-10" class="section level2" number="22.1">
 <h2>
-<span class="header-section-number">26.1</span> Learning objectives<a class="anchor" aria-label="anchor" href="#learning-objectives-10"><i class="fas fa-link"></i></a>
+<span class="header-section-number">22.1</span> Learning objectives<a class="anchor" aria-label="anchor" href="#learning-objectives-10"><i class="fas fa-link"></i></a>
 </h2>
 <ul>
 <li>Understand the purpose of Cost Effectiveness and Incremental Cost Analysis</li>
@@ -111,20 +110,20 @@
 <li>Learn how to use the <code>ecorest</code> package to determine cost effective and best buy options</li>
 </ul>
 </div>
-<div id="background-on-cost-effectivness-and-incremental-cost-analysis" class="section level2" number="26.2">
+<div id="background-on-cost-effectivness-and-incremental-cost-analysis" class="section level2" number="22.2">
 <h2>
-<span class="header-section-number">26.2</span> Background on Cost Effectivness and Incremental Cost Analysis<a class="anchor" aria-label="anchor" href="#background-on-cost-effectivness-and-incremental-cost-analysis"><i class="fas fa-link"></i></a>
+<span class="header-section-number">22.2</span> Background on Cost Effectivness and Incremental Cost Analysis<a class="anchor" aria-label="anchor" href="#background-on-cost-effectivness-and-incremental-cost-analysis"><i class="fas fa-link"></i></a>
 </h2>
 <p>Cost-effectiveness and incremental cost analyses (CEICA) are analytical tools for assessing the relative benefits and costs of ecosystem restoration actions and informing decisions. Benefits and costs are assessed prior to these analyses using ecological models and cost engineering methods, respectively. CEICA may then be conducted at the site scale to compare alternatives at a single location (e.g., no action vs. dam removal vs. fish ladder) or at the system scale to compare relative merits of multiple sites (e.g., no sites vs. Site-A only vs. Site-B only vs. Site-A and Site-B).</p>
 <p><strong>Cost-effectiveness analysis</strong> provides a mechanism for examining the efficiency of alternative actions. For any given level of investment (i.e., cost), the agency wants to identify the plan with the most return-on-investment (i.e., the most environmental benefits), and for any given level of environmental benefits, the agency wants a plan with the least cost. An “efficiency frontier” identifies all plans that efficiently provide benefits on a per cost basis (i.e., cost-effective plans).</p>
 <p><strong>Incremental cost analysis</strong> is conducted on the set of cost-effective plans. This technique sequentially compares each plan to all higher cost plans to reveal changes in unit cost as output levels increase and eliminates plans that do not efficiently provide benefits on a per unit cost basis. Specifically, this analysis examines the slope of the cost-effectiveness frontier to isolate how the incremental unit cost ($/unit) increases as the magnitude of environmental benefit increases. Incremental cost analysis is ultimately intended to inform decision-makers about the consequences of increasing unit cost when increasing benefits (i.e., each unit becomes more expensive). Plans emerging from incremental cost analysis efficiently accomplish the objective relative to unit costs and are typically referred to as “best buys”. Importantly, all “best buys” are cost-effective, but all cost-effective plans are not best buys.</p>
 </div>
-<div id="ceica-with-ecorest-in-4-easy-steps" class="section level2" number="26.3">
+<div id="ceica-with-ecorest-in-4-easy-steps" class="section level2" number="22.3">
 <h2>
-<span class="header-section-number">26.3</span> CEICA with <code>ecorest</code> in 4 easy steps!<a class="anchor" aria-label="anchor" href="#ceica-with-ecorest-in-4-easy-steps"><i class="fas fa-link"></i></a>
+<span class="header-section-number">22.3</span> CEICA with <code>ecorest</code> in 4 easy steps!<a class="anchor" aria-label="anchor" href="#ceica-with-ecorest-in-4-easy-steps"><i class="fas fa-link"></i></a>
 </h2>
 <p>Within the USACE, the Institute of Water Resources has provided a toolkit for conducting CEICA, the IWR Planning Suite (<a href="http://www.iwr.usace.army.mil/Missions/Economics/IWR-Planning-Suite/" class="uri">http://www.iwr.usace.army.mil/Missions/Economics/IWR-Planning-Suite/</a>). However, CEICA can also be accomplished swiftly and easily using the <code>ecorest</code> package in R, with all the associated benefits that occur when conducting analyses programmatically in R (e.g., reproduciblilty, re-usable scripts, etc.).</p>
-<p>Section <a href="ceica-chapter.html#ceica-full">26.4</a> below walks through how CEICA works step-by-step so users can develop a deeper understanding of how CEICA works. But first in this section, we will demonstrate how easy the process is using functions from the <code>ecorest</code> package. The following code does everything one needs to determine which alternatives are cost effective and which are ‘best buys’, and to plot the results. For this demonstration, we will use data from the <a href="https://www.mvr.usace.army.mil/about/offices/programs-and-project-management/district-projects/projects/article/1172116/umrr-program-beaver-island-hrep-pool-14/">Beaver Island Habitat Rehabilitation and Enhancement Project</a>, part of the <a href="https://www.mvr.usace.army.mil/missions/environmental-stewardship/upper-mississippi-river-restoration/">Upper Mississippi River Restoration program</a>.</p>
+<p>Section <a href="ceica-chapter.html#ceica-full">22.4</a> below walks through how CEICA works step-by-step so users can develop a deeper understanding of how CEICA works. But first in this section, we will demonstrate how easy the process is using functions from the <code>ecorest</code> package. The following code does everything one needs to determine which alternatives are cost effective and which are ‘best buys’, and to plot the results. For this demonstration, we will use data from the <a href="https://www.mvr.usace.army.mil/about/offices/programs-and-project-management/district-projects/projects/article/1172116/umrr-program-beaver-island-hrep-pool-14/">Beaver Island Habitat Rehabilitation and Enhancement Project</a>, part of the <a href="https://www.mvr.usace.army.mil/missions/environmental-stewardship/upper-mississippi-river-restoration/">Upper Mississippi River Restoration program</a>.</p>
 <p>First, we load the required packages and the Beaver Island cost-benefit data.</p>
 <div class="sourceCode" id="cb387"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
@@ -541,14 +540,14 @@
 </div>
 <p>And that’s it! If a user has cost and benefit data, three functions are all it takes to find cost effective (<code>CEfinder</code>) and best buy options (<code>BBfinder</code>), and to create a plot of the overall CEICA results (<code>CEICAplotter</code>). <strong>And if the underlying cost or benefit data were to change, the R script can instantly update the output with the new data.</strong></p>
 </div>
-<div id="ceica-full" class="section level2" number="26.4">
+<div id="ceica-full" class="section level2" number="22.4">
 <h2>
-<span class="header-section-number">26.4</span> CEICA in depth<a class="anchor" aria-label="anchor" href="#ceica-full"><i class="fas fa-link"></i></a>
+<span class="header-section-number">22.4</span> CEICA in depth<a class="anchor" aria-label="anchor" href="#ceica-full"><i class="fas fa-link"></i></a>
 </h2>
 <p>We’ve seen that CEICA can be accomplished very quickly with the above code. However, if a user wishes to understanding how projects are determined to be cost effective or best buys, we go into greater depth here.</p>
-<div id="identifying-cost-effective-alternatives" class="section level3" number="26.4.1">
+<div id="identifying-cost-effective-alternatives" class="section level3" number="22.4.1">
 <h3>
-<span class="header-section-number">26.4.1</span> Identifying cost effective alternatives<a class="anchor" aria-label="anchor" href="#identifying-cost-effective-alternatives"><i class="fas fa-link"></i></a>
+<span class="header-section-number">22.4.1</span> Identifying cost effective alternatives<a class="anchor" aria-label="anchor" href="#identifying-cost-effective-alternatives"><i class="fas fa-link"></i></a>
 </h3>
 <p>The first component of CEICA is the cost effectiveness analysis.</p>
 <p>Here, for each alternative, we ask: <em>are there any alternatives that produce higher ecological outcomes for equal or lower costs?</em>
@@ -726,9 +725,9 @@ If the answer is yes, that alternative is considered non-cost effective.</p>
 <p>For each iteration of the for-loop (i.e., for all values of i from 1 to 19), we run essentially the same code as above. The if-else statement indicates that if the length of the second vector produced above is 1 (as it was with the first alternative above), the project is cost effective and we will assign a value of 1 to the <code>CE</code> vector. However, if the length of second vector is not 1 (as it was for alternative E2L1), the project is not cost-effective and we will assign it a 0.</p>
 <p>Using the for-loop thus lets us quickly determine which alternatives are cost-effective and which are not.</p>
 </div>
-<div id="identifying-best-buys" class="section level3" number="26.4.2">
+<div id="identifying-best-buys" class="section level3" number="22.4.2">
 <h3>
-<span class="header-section-number">26.4.2</span> Identifying ‘best buys’<a class="anchor" aria-label="anchor" href="#identifying-best-buys"><i class="fas fa-link"></i></a>
+<span class="header-section-number">22.4.2</span> Identifying ‘best buys’<a class="anchor" aria-label="anchor" href="#identifying-best-buys"><i class="fas fa-link"></i></a>
 </h3>
 <p>Identifying best buys is a matter of finding which of the cost effective alternatives can increase environmental benefits at the lowest incremental cost (i.e., lowest cost per additional habitat unit).</p>
 <p>The first best buy is always the one with the lowest average cost after 0.</p>
@@ -978,9 +977,9 @@ If the answer is yes, that alternative is considered non-cost effective.</p>
 </table></div>
 </div>
 </div>
-<div id="summary-7" class="section level2" number="26.5">
+<div id="summary-7" class="section level2" number="22.5">
 <h2>
-<span class="header-section-number">26.5</span> Summary<a class="anchor" aria-label="anchor" href="#summary-7"><i class="fas fa-link"></i></a>
+<span class="header-section-number">22.5</span> Summary<a class="anchor" aria-label="anchor" href="#summary-7"><i class="fas fa-link"></i></a>
 </h2>
 <ul>
 <li>Cost-effectiveness analysis provides a mechanism for examining the efficiency of alternatives.<br>
@@ -995,22 +994,22 @@ If the answer is yes, that alternative is considered non-cost effective.</p>
 
 
   <div class="chapter-nav">
-<div class="prev"><a href="annualizing-benefits-and-costs-with-ecorest-and-engrecon.html"><span class="header-section-number">25</span> Annualizing benefits and costs with ecorest and EngrEcon</a></div>
-<div class="next"><a href="model-integration.html"><span class="header-section-number">27</span> Model Integration</a></div>
+<div class="prev"><a href="annualizing-benefits-and-costs-with-ecorest-and-engrecon.html"><span class="header-section-number">21</span> Annualizing benefits and costs with ecorest and EngrEcon</a></div>
+<div class="next"><a href="model-integration.html"><span class="header-section-number">23</span> Model Integration</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#ceica-chapter"><span class="header-section-number">26</span> Cost-Effectiveness and Incremental Cost Analysis (CEICA) with ecorest</a></li>
-<li><a class="nav-link" href="#learning-objectives-10"><span class="header-section-number">26.1</span> Learning objectives</a></li>
-<li><a class="nav-link" href="#background-on-cost-effectivness-and-incremental-cost-analysis"><span class="header-section-number">26.2</span> Background on Cost Effectivness and Incremental Cost Analysis</a></li>
-<li><a class="nav-link" href="#ceica-with-ecorest-in-4-easy-steps"><span class="header-section-number">26.3</span> CEICA with ecorest in 4 easy steps!</a></li>
+<li><a class="nav-link" href="#ceica-chapter"><span class="header-section-number">22</span> Cost-Effectiveness and Incremental Cost Analysis (CEICA) with ecorest</a></li>
+<li><a class="nav-link" href="#learning-objectives-10"><span class="header-section-number">22.1</span> Learning objectives</a></li>
+<li><a class="nav-link" href="#background-on-cost-effectivness-and-incremental-cost-analysis"><span class="header-section-number">22.2</span> Background on Cost Effectivness and Incremental Cost Analysis</a></li>
+<li><a class="nav-link" href="#ceica-with-ecorest-in-4-easy-steps"><span class="header-section-number">22.3</span> CEICA with ecorest in 4 easy steps!</a></li>
 <li>
-<a class="nav-link" href="#ceica-full"><span class="header-section-number">26.4</span> CEICA in depth</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#identifying-cost-effective-alternatives"><span class="header-section-number">26.4.1</span> Identifying cost effective alternatives</a></li>
-<li><a class="nav-link" href="#identifying-best-buys"><span class="header-section-number">26.4.2</span> Identifying ‘best buys’</a></li>
+<a class="nav-link" href="#ceica-full"><span class="header-section-number">22.4</span> CEICA in depth</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#identifying-cost-effective-alternatives"><span class="header-section-number">22.4.1</span> Identifying cost effective alternatives</a></li>
+<li><a class="nav-link" href="#identifying-best-buys"><span class="header-section-number">22.4.2</span> Identifying ‘best buys’</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#summary-7"><span class="header-section-number">26.5</span> Summary</a></li>
+<li><a class="nav-link" href="#summary-7"><span class="header-section-number">22.5</span> Summary</a></li>
 </ul>
 
       <div class="book-extra">

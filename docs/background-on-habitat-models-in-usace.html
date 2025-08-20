@@ -4,13 +4,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>10 Background on habitat models in USACE | Using R for ecological modeling in USACE</title>
+<title>6 Background on habitat models in USACE | Using R for ecological modeling in USACE</title>
 <meta name="author" content="Ed Stowe">
 <meta name="generator" content="bookdown 0.42 with bs4_book()">
-<meta property="og:title" content="10 Background on habitat models in USACE | Using R for ecological modeling in USACE">
+<meta property="og:title" content="6 Background on habitat models in USACE | Using R for ecological modeling in USACE">
 <meta property="og:type" content="book">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="10 Background on habitat models in USACE | Using R for ecological modeling in USACE">
+<meta name="twitter:title" content="6 Background on habitat models in USACE | Using R for ecological modeling in USACE">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.8.0/transition.js"></script><script src="libs/bs3compat-0.8.0/tabs.js"></script><script src="libs/bs3compat-0.8.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -51,38 +51,37 @@
 <li><a class="" href="manipulating-tabular-data.html"><span class="header-section-number">4</span> Manipulating Tabular Data</a></li>
 <li class="book-part">Ecological Modeling in R</li>
 <li><a class="" href="conceptual-ecological-models.html"><span class="header-section-number">5</span> Conceptual Ecological Models</a></li>
-<li><a class="" href="what-they-are-not.html"><span class="header-section-number">6</span> What they are not</a></li>
-<li><a class="" href="misconceptions.html"><span class="header-section-number">7</span> Misconceptions</a></li>
-<li><a class="" href="storytelling.html"><span class="header-section-number">8</span> Storytelling</a></li>
-<li><a class="" href="art-of-conceptual-modeling-is-iterating.html"><span class="header-section-number">9</span> Art of conceptual modeling is iterating</a></li>
 <li class="book-part">Habitat Models</li>
-<li><a class="active" href="background-on-habitat-models-in-usace.html"><span class="header-section-number">10</span> Background on habitat models in USACE</a></li>
-<li><a class="" href="habitat-suitability-index-models-with-ecorest.html"><span class="header-section-number">11</span> Habitat Suitability Index models with ecorest</a></li>
-<li><a class="" href="ecorest-web-app.html"><span class="header-section-number">12</span> Ecorest Web App</a></li>
-<li><a class="" href="sensitivity-and-uncertainty-analysis-for-habitat-suitability-index-hsi-models.html"><span class="header-section-number">13</span> Sensitivity and uncertainty analysis for habitat suitability index (HSI) models</a></li>
-<li><a class="" href="spatial-habitat-models.html"><span class="header-section-number">14</span> Spatial Habitat Models</a></li>
+<li><a class="active" href="background-on-habitat-models-in-usace.html"><span class="header-section-number">6</span> Background on habitat models in USACE</a></li>
+<li><a class="" href="habitat-suitability-index-models-with-ecorest.html"><span class="header-section-number">7</span> Habitat Suitability Index models with ecorest</a></li>
+<li><a class="" href="ecorest-web-app.html"><span class="header-section-number">8</span> Ecorest Web App</a></li>
+<li><a class="" href="sensitivity-and-uncertainty-analysis-for-habitat-suitability-index-hsi-models.html"><span class="header-section-number">9</span> Sensitivity and uncertainty analysis for habitat suitability index (HSI) models</a></li>
+<li><a class="" href="spatial-habitat-models.html"><span class="header-section-number">10</span> Spatial Habitat Models</a></li>
 <li class="book-part">Linear Models</li>
-<li><a class="" href="linear-models.html"><span class="header-section-number">15</span> Linear Models</a></li>
-<li><a class="" href="generalized-linear-models.html"><span class="header-section-number">16</span> Generalized Linear Models</a></li>
-<li><a class="" href="random-effects.html"><span class="header-section-number">17</span> Random Effects</a></li>
-<li><a class="" href="generalized-additive-models.html"><span class="header-section-number">18</span> Generalized Additive Models</a></li>
+<li><a class="" href="linear-models.html"><span class="header-section-number">11</span> Linear Models</a></li>
+<li><a class="" href="generalized-linear-models.html"><span class="header-section-number">12</span> Generalized Linear Models</a></li>
+<li><a class="" href="random-effects.html"><span class="header-section-number">13</span> Random Effects</a></li>
+<li><a class="" href="generalized-additive-models.html"><span class="header-section-number">14</span> Generalized Additive Models</a></li>
 <li class="book-part">Machine Learning</li>
-<li><a class="" href="random-forest.html"><span class="header-section-number">19</span> Random Forest</a></li>
-<li><a class="" href="boosted-regression-trees.html"><span class="header-section-number">20</span> Boosted Regression Trees</a></li>
+<li><a class="" href="random-forest.html"><span class="header-section-number">15</span> Random Forest</a></li>
+<li><a class="" href="boosted-regression-trees.html"><span class="header-section-number">16</span> Boosted Regression Trees</a></li>
 <li class="book-part">Other Modeling Approaches</li>
-<li><a class="" href="population-modeling.html"><span class="header-section-number">21</span> Population Modeling</a></li>
-<li><a class="" href="network-models-and-connectivity.html"><span class="header-section-number">22</span> Network Models and Connectivity</a></li>
-<li><a class="" href="agent-based-models.html"><span class="header-section-number">23</span> Agent-based Models</a></li>
+<li><a class="" href="population-modeling.html"><span class="header-section-number">17</span> Population Modeling</a></li>
+<li><a class="" href="network-models-and-connectivity.html"><span class="header-section-number">18</span> Network Models and Connectivity</a></li>
+<li><a class="" href="agent-based-models.html"><span class="header-section-number">19</span> Agent-based Models</a></li>
 <li class="book-part">Models and decision-making</li>
-<li><a class="" href="decision-support.html"><span class="header-section-number">24</span> Decision Support</a></li>
-<li><a class="" href="annualizing-benefits-and-costs-with-ecorest-and-engrecon.html"><span class="header-section-number">25</span> Annualizing benefits and costs with ecorest and EngrEcon</a></li>
-<li><a class="" href="ceica-chapter.html"><span class="header-section-number">26</span> Cost-Effectiveness and Incremental Cost Analysis (CEICA) with ecorest</a></li>
+<li><a class="" href="decision-support.html"><span class="header-section-number">20</span> Decision Support</a></li>
+<li><a class="" href="annualizing-benefits-and-costs-with-ecorest-and-engrecon.html"><span class="header-section-number">21</span> Annualizing benefits and costs with ecorest and EngrEcon</a></li>
+<li><a class="" href="ceica-chapter.html"><span class="header-section-number">22</span> Cost-Effectiveness and Incremental Cost Analysis (CEICA) with ecorest</a></li>
 <li class="book-part">Models Integration</li>
-<li><a class="" href="model-integration.html"><span class="header-section-number">27</span> Model Integration</a></li>
+<li><a class="" href="model-integration.html"><span class="header-section-number">23</span> Model Integration</a></li>
 <li class="book-part">Other R applications</li>
-<li><a class="" href="r-for-gis.html"><span class="header-section-number">28</span> R for GIS</a></li>
-<li><a class="" href="intersect.html"><span class="header-section-number">29</span> Intersect</a></li>
-<li><a class="" href="important-data-sources.html"><span class="header-section-number">30</span> Important data sources</a></li>
+<li><a class="" href="r-for-gis.html"><span class="header-section-number">24</span> R for GIS</a></li>
+<li><a class="" href="intersect.html"><span class="header-section-number">25</span> Intersect</a></li>
+<li class="book-part">Environmental data sources</li>
+<li><a class="" href="using-r-for-data-access.html"><span class="header-section-number">26</span> Using R for data access</a></li>
+<li><a class="" href="usgs-gage-data-using-the-dataretrieval-package.html"><span class="header-section-number">27</span> USGS gage data using the dataRetrieval package</a></li>
+<li><a class="" href="national-hydrography-dataset.html"><span class="header-section-number">28</span> National Hydrography Dataset</a></li>
 </ul>
 
         <div class="book-extra">
@@ -90,17 +89,17 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="background-on-habitat-models-in-usace" class="section level1" number="10">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="background-on-habitat-models-in-usace" class="section level1" number="6">
 <h1>
-<span class="header-section-number">10</span> Background on habitat models in USACE<a class="anchor" aria-label="anchor" href="#background-on-habitat-models-in-usace"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6</span> Background on habitat models in USACE<a class="anchor" aria-label="anchor" href="#background-on-habitat-models-in-usace"><i class="fas fa-link"></i></a>
 </h1>
 <p>THIS IS AN INTRO TO HABITAT MODELS IN GENERAL; CONSIDER WHETHER TO PARE DOWN OR REMOVE</p>
 <p>Across all business lines, the U.S. Army Corps of Engineers (USACE) engages in a large variety of decisions that affect a multitude ecological outcomes (e.g., ecosystem restoration of oyster reefs, environmental flows for imperiled fishes, and bird breeding grounds impacted by dredge material management). While numerous aquatic, riparian, and terrestrial analytical tools exist, ecological models typically have not been easily accessible or in the most usable form for field practitioners and often require significant data and modeling expertise to effectively employ. However, ecological models must be used to quantify environmental impacts and benefits throughout the project life-cycle of planning, engineering, construction, operations, and maintenance.</p>
 <p>A common approach to ecological modeling of environmental impacts and benefits is based on quantity and quality of habitat. These “index” models (Swannack et al. 2012) were originally developed for species-specific applications (e.g., slider turtles), but the general approach has also been adapted to guilds (e.g., salmonids), communities (e.g., floodplain vegetation), and ecosystem processes (e.g., the Hydrogeomorphic Method). No standard platform for exists for computing outcomes from index models, and users often develop ad hoc spreadsheet models, which are highly prone to numerical errors (McKay 2009). The common quantity-quality structure of index models provides an opportunity to develop a consistent, error-checked index modeling calculator adaptable to a variety of applications across the Corps.</p>
 <p>Furthermore, ecological modeling often seeks to inform trade-offs between a monetary assessment of social benefits or costs (e.g., restoration investment cost or economic damages avoided) and a non-monetary assessment of environmental benefits and costs (e.g., habitat gains of restoration or impact to an imperiled taxa’s habitat). Cost-effectiveness and incremental cost analyses (CEICA) provide a useful set of techniques for comparing non-monetary and monetary costs and benefits of management actions (Robinson et al. 1995). CEICA is commonly applied in planning and designing ecosystem restoration projects and is often coupled with index models to inform management decisions.</p>
-<div id="index-based-ecological-models" class="section level4" number="10.0.0.1">
+<div id="index-based-ecological-models" class="section level4" number="6.0.0.1">
 <h4>
-<span class="header-section-number">10.0.0.1</span> <em>2.1. Index-Based Ecological Models</em><a class="anchor" aria-label="anchor" href="#index-based-ecological-models"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.0.0.1</span> <em>2.1. Index-Based Ecological Models</em><a class="anchor" aria-label="anchor" href="#index-based-ecological-models"><i class="fas fa-link"></i></a>
 </h4>
 <p>Ecological models have become common tools for informing decisions related to the management of complex ecological processes. Models span the breadth of their potential ecological management applications such as seafood harvest limits, transport of nutrients into freshwaters, bioaccumulation of contaminants, management of imperiled taxa, and wetland impact assessment. In addition to diverse outcomes, ecological models often take on a variety of theoretical constructs ranging from theoretical, analytical models to statistical correlations of variables to agent-based simulations of animal movement (See Swannack et al. 2012 for a review of ecological model types). The diversity of ecological endpoints and model constructs has led to a wide array of tools applicable to ecosystem management and restoration.</p>
 <p>Index models are a family of techniques commonly applied in planning ecosystem restoration projects. Briefly, index models quantitatively translate multiple features or processes into a relative assessment of habitat suitability for a given organism or a relative assessment of ecosystem condition (Tirpak et al. 2009, Swannack et al. 2012). More specifically, index models combine assessments of habitat or ecosystem quality and quantity into an overarching metric for assessing the relative condition of a site (e.g., a “habitat unit” or “functional capacity unit”). Quantity is commonly expressed as a metric of area such as acres or hectares; however, other metrics may be appropriate to specific applications such as river length or lake volume. Quality is then assessed by identifying key variables correlated with habitat or ecosystem condition. Each variable is then translated into a suitability index curve, which transforms dimensional quantities such as flow velocity into dimensionless values of quality (0 to 1 where 0 is unsuitable/low condition and 1 is suitable/ideal condition). Multiple suitability curves are then combined through various equational forms into an overarching assessment of habitat quality (e.g., a “habitat suitability index” or “functional capacity index”).</p>
@@ -118,29 +117,29 @@
 <em>Project- or Objective-Centric Index Models:</em> Specific restoration projects may build models unique to a set of project objectives (McKay et al. 2019), which can evolve as a project proceeds from preliminary screening to detailed alternatives analysis (e.g., McKay et al. 2018ab). More recently, Carrillo et al. (2020) proposed a Toolkit for interActive Modeling (TAM), which facilitates development of index models in real-time for mediated modeling workshop settings (Herman et al. 2019).</li>
 </ul>
 </div>
-<div id="cost-effectiveness-and-incremental-cost-analysis-ceica" class="section level4" number="10.0.0.2">
+<div id="cost-effectiveness-and-incremental-cost-analysis-ceica" class="section level4" number="6.0.0.2">
 <h4>
-<span class="header-section-number">10.0.0.2</span> <em>2.2. Cost-Effectiveness and Incremental Cost Analysis (CEICA)</em><a class="anchor" aria-label="anchor" href="#cost-effectiveness-and-incremental-cost-analysis-ceica"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.0.0.2</span> <em>2.2. Cost-Effectiveness and Incremental Cost Analysis (CEICA)</em><a class="anchor" aria-label="anchor" href="#cost-effectiveness-and-incremental-cost-analysis-ceica"><i class="fas fa-link"></i></a>
 </h4>
 <p>The USACE ecosystem restoration mission was first authorized in the Water Resources Development Act of 1986 with the stated purpose “…to restore significant structure, function and dynamic processes that have been degraded” (USACE 1999, ER 1165-2-501). Given this goal, USACE programs emphasize ecological outcomes (as opposed to social or economic outcomes). Generally, ecological resources may be quantified in a variety of ways ranging from habitat suitability for a focal taxa (e.g., an endangered species) to changes in physical processes (e.g., sediment delivery from geomorphic change) to changes in biological processes (e.g., carbon uptake and storage). In other USACE business lines (e.g., navigation), costs and benefits of actions are compared in monetary terms, and the benefit-cost ratio serves as a crucial decision metric. However, outputs of restoration are typically not monetized, and a different set of methods are required to inform restoration decision-making and address the issue of “Is ecosystem restoration worth the Federal investment?” In particular, cost-effectiveness and incremental cost analyses provide techniques for comparing non-monetary ecological benefits relative to monetary costs of restoration actions (Robinson et al. 1995).</p>
 <p>Cost-effectiveness and incremental cost analyses (CEICA) are analytical tools for assessing the relative benefits and costs of ecosystem restoration actions and informing decisions. Benefits and costs are assessed prior to these analyses using ecological models (e.g., index models) and cost engineering methods, respectively. CEICA may then be conducted at the site scale to compare alternatives at a single location (e.g., no action vs. dam removal vs. fish ladder) or at the system scale to compare relative merits of multiple sites (e.g., no sites vs. Site-A only vs. Site-B only vs. Site-A and Site-B). Within the USACE, the Institute of Water Resources has provided a toolkit for conducting CEICA, the IWR Planning Suite (<a href="http://www.iwr.usace.army.mil/Missions/Economics/IWR-Planning-Suite/" class="uri">http://www.iwr.usace.army.mil/Missions/Economics/IWR-Planning-Suite/</a>).</p>
 <p>Cost-effectiveness analysis provides a mechanism for examining the efficiency of alternative actions. For any given level of investment, the agency wants to identify the plan with the most return-on-investment (i.e., the most environmental benefits), and for any given level of environmental benefits, the agency wants a plan with the least cost. An “efficiency frontier” identifies all plans that efficiently provide benefits on a per cost basis (i.e., cost-effective plans). These “non-dominated” alternatives compose the Pareto-optimal frontier.</p>
 <p>Incremental cost analysis is conducted on the set of cost-effective plans. This technique sequentially compares each plan to all higher cost plans to reveal changes in unit cost as output levels increase and eliminates plans that do not efficiently provide benefits on a per unit cost basis. Specifically, this analysis examines the slope of the cost-effectiveness frontier to isolate how the incremental unit cost ($/unit) increases as the magnitude of environmental benefit increases. Incremental cost analysis is ultimately intended to inform decision-makers about the consequences of increasing unit cost when increasing benefits (i.e., each unit becomes more expensive). Plans emerging from incremental cost analysis efficiently accomplish the objective relative to unit costs and are typically referred to as “best buys”. Importantly, all “best buys” are cost-effective, but all cost-effective plans are not best buys.</p>
 </div>
-<div id="include-tam-model-here" class="section level3" number="10.0.1">
+<div id="include-tam-model-here" class="section level3" number="6.0.1">
 <h3>
-<span class="header-section-number">10.0.1</span> Include TAM model here?<a class="anchor" aria-label="anchor" href="#include-tam-model-here"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.0.1</span> Include TAM model here?<a class="anchor" aria-label="anchor" href="#include-tam-model-here"><i class="fas fa-link"></i></a>
 </h3>
 
 </div>
 </div>
   <div class="chapter-nav">
-<div class="prev"><a href="art-of-conceptual-modeling-is-iterating.html"><span class="header-section-number">9</span> Art of conceptual modeling is iterating</a></div>
-<div class="next"><a href="habitat-suitability-index-models-with-ecorest.html"><span class="header-section-number">11</span> Habitat Suitability Index models with ecorest</a></div>
+<div class="prev"><a href="conceptual-ecological-models.html"><span class="header-section-number">5</span> Conceptual Ecological Models</a></div>
+<div class="next"><a href="habitat-suitability-index-models-with-ecorest.html"><span class="header-section-number">7</span> Habitat Suitability Index models with ecorest</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav"><li>
-<a class="nav-link" href="#background-on-habitat-models-in-usace"><span class="header-section-number">10</span> Background on habitat models in USACE</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#include-tam-model-here"><span class="header-section-number">10.0.1</span> Include TAM model here?</a></li></ul>
+<a class="nav-link" href="#background-on-habitat-models-in-usace"><span class="header-section-number">6</span> Background on habitat models in USACE</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#include-tam-model-here"><span class="header-section-number">6.0.1</span> Include TAM model here?</a></li></ul>
 </li></ul>
 
       <div class="book-extra">

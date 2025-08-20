@@ -218,11 +218,12 @@ summary-7
 model-integration
 r-for-gis
 intersect
-important-data-sources
-usgs-gage-data-using-the-dataretrieval-package
-national-hydrography-dataset-with-nhdplustools
+using-r-for-data-access
+other-datasources-to-consider
 nlcd
 precipitation-data-prism-noaa-data
 temperature-data-noaa
 other-data-sources-commonly-used-in-usace
 code-for-ras-output-files-dss-netcdf
+usgs-gage-data-using-the-dataretrieval-package
+national-hydrography-dataset

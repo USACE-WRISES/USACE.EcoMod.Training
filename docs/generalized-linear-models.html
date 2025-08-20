@@ -4,13 +4,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>16 Generalized Linear Models | Using R for ecological modeling in USACE</title>
+<title>12 Generalized Linear Models | Using R for ecological modeling in USACE</title>
 <meta name="author" content="Ed Stowe">
 <meta name="generator" content="bookdown 0.42 with bs4_book()">
-<meta property="og:title" content="16 Generalized Linear Models | Using R for ecological modeling in USACE">
+<meta property="og:title" content="12 Generalized Linear Models | Using R for ecological modeling in USACE">
 <meta property="og:type" content="book">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="16 Generalized Linear Models | Using R for ecological modeling in USACE">
+<meta name="twitter:title" content="12 Generalized Linear Models | Using R for ecological modeling in USACE">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.8.0/transition.js"></script><script src="libs/bs3compat-0.8.0/tabs.js"></script><script src="libs/bs3compat-0.8.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -51,38 +51,37 @@
 <li><a class="" href="manipulating-tabular-data.html"><span class="header-section-number">4</span> Manipulating Tabular Data</a></li>
 <li class="book-part">Ecological Modeling in R</li>
 <li><a class="" href="conceptual-ecological-models.html"><span class="header-section-number">5</span> Conceptual Ecological Models</a></li>
-<li><a class="" href="what-they-are-not.html"><span class="header-section-number">6</span> What they are not</a></li>
-<li><a class="" href="misconceptions.html"><span class="header-section-number">7</span> Misconceptions</a></li>
-<li><a class="" href="storytelling.html"><span class="header-section-number">8</span> Storytelling</a></li>
-<li><a class="" href="art-of-conceptual-modeling-is-iterating.html"><span class="header-section-number">9</span> Art of conceptual modeling is iterating</a></li>
 <li class="book-part">Habitat Models</li>
-<li><a class="" href="background-on-habitat-models-in-usace.html"><span class="header-section-number">10</span> Background on habitat models in USACE</a></li>
-<li><a class="" href="habitat-suitability-index-models-with-ecorest.html"><span class="header-section-number">11</span> Habitat Suitability Index models with ecorest</a></li>
-<li><a class="" href="ecorest-web-app.html"><span class="header-section-number">12</span> Ecorest Web App</a></li>
-<li><a class="" href="sensitivity-and-uncertainty-analysis-for-habitat-suitability-index-hsi-models.html"><span class="header-section-number">13</span> Sensitivity and uncertainty analysis for habitat suitability index (HSI) models</a></li>
-<li><a class="" href="spatial-habitat-models.html"><span class="header-section-number">14</span> Spatial Habitat Models</a></li>
+<li><a class="" href="background-on-habitat-models-in-usace.html"><span class="header-section-number">6</span> Background on habitat models in USACE</a></li>
+<li><a class="" href="habitat-suitability-index-models-with-ecorest.html"><span class="header-section-number">7</span> Habitat Suitability Index models with ecorest</a></li>
+<li><a class="" href="ecorest-web-app.html"><span class="header-section-number">8</span> Ecorest Web App</a></li>
+<li><a class="" href="sensitivity-and-uncertainty-analysis-for-habitat-suitability-index-hsi-models.html"><span class="header-section-number">9</span> Sensitivity and uncertainty analysis for habitat suitability index (HSI) models</a></li>
+<li><a class="" href="spatial-habitat-models.html"><span class="header-section-number">10</span> Spatial Habitat Models</a></li>
 <li class="book-part">Linear Models</li>
-<li><a class="" href="linear-models.html"><span class="header-section-number">15</span> Linear Models</a></li>
-<li><a class="active" href="generalized-linear-models.html"><span class="header-section-number">16</span> Generalized Linear Models</a></li>
-<li><a class="" href="random-effects.html"><span class="header-section-number">17</span> Random Effects</a></li>
-<li><a class="" href="generalized-additive-models.html"><span class="header-section-number">18</span> Generalized Additive Models</a></li>
+<li><a class="" href="linear-models.html"><span class="header-section-number">11</span> Linear Models</a></li>
+<li><a class="active" href="generalized-linear-models.html"><span class="header-section-number">12</span> Generalized Linear Models</a></li>
+<li><a class="" href="random-effects.html"><span class="header-section-number">13</span> Random Effects</a></li>
+<li><a class="" href="generalized-additive-models.html"><span class="header-section-number">14</span> Generalized Additive Models</a></li>
 <li class="book-part">Machine Learning</li>
-<li><a class="" href="random-forest.html"><span class="header-section-number">19</span> Random Forest</a></li>
-<li><a class="" href="boosted-regression-trees.html"><span class="header-section-number">20</span> Boosted Regression Trees</a></li>
+<li><a class="" href="random-forest.html"><span class="header-section-number">15</span> Random Forest</a></li>
+<li><a class="" href="boosted-regression-trees.html"><span class="header-section-number">16</span> Boosted Regression Trees</a></li>
 <li class="book-part">Other Modeling Approaches</li>
-<li><a class="" href="population-modeling.html"><span class="header-section-number">21</span> Population Modeling</a></li>
-<li><a class="" href="network-models-and-connectivity.html"><span class="header-section-number">22</span> Network Models and Connectivity</a></li>
-<li><a class="" href="agent-based-models.html"><span class="header-section-number">23</span> Agent-based Models</a></li>
+<li><a class="" href="population-modeling.html"><span class="header-section-number">17</span> Population Modeling</a></li>
+<li><a class="" href="network-models-and-connectivity.html"><span class="header-section-number">18</span> Network Models and Connectivity</a></li>
+<li><a class="" href="agent-based-models.html"><span class="header-section-number">19</span> Agent-based Models</a></li>
 <li class="book-part">Models and decision-making</li>
-<li><a class="" href="decision-support.html"><span class="header-section-number">24</span> Decision Support</a></li>
-<li><a class="" href="annualizing-benefits-and-costs-with-ecorest-and-engrecon.html"><span class="header-section-number">25</span> Annualizing benefits and costs with ecorest and EngrEcon</a></li>
-<li><a class="" href="ceica-chapter.html"><span class="header-section-number">26</span> Cost-Effectiveness and Incremental Cost Analysis (CEICA) with ecorest</a></li>
+<li><a class="" href="decision-support.html"><span class="header-section-number">20</span> Decision Support</a></li>
+<li><a class="" href="annualizing-benefits-and-costs-with-ecorest-and-engrecon.html"><span class="header-section-number">21</span> Annualizing benefits and costs with ecorest and EngrEcon</a></li>
+<li><a class="" href="ceica-chapter.html"><span class="header-section-number">22</span> Cost-Effectiveness and Incremental Cost Analysis (CEICA) with ecorest</a></li>
 <li class="book-part">Models Integration</li>
-<li><a class="" href="model-integration.html"><span class="header-section-number">27</span> Model Integration</a></li>
+<li><a class="" href="model-integration.html"><span class="header-section-number">23</span> Model Integration</a></li>
 <li class="book-part">Other R applications</li>
-<li><a class="" href="r-for-gis.html"><span class="header-section-number">28</span> R for GIS</a></li>
-<li><a class="" href="intersect.html"><span class="header-section-number">29</span> Intersect</a></li>
-<li><a class="" href="important-data-sources.html"><span class="header-section-number">30</span> Important data sources</a></li>
+<li><a class="" href="r-for-gis.html"><span class="header-section-number">24</span> R for GIS</a></li>
+<li><a class="" href="intersect.html"><span class="header-section-number">25</span> Intersect</a></li>
+<li class="book-part">Environmental data sources</li>
+<li><a class="" href="using-r-for-data-access.html"><span class="header-section-number">26</span> Using R for data access</a></li>
+<li><a class="" href="usgs-gage-data-using-the-dataretrieval-package.html"><span class="header-section-number">27</span> USGS gage data using the dataRetrieval package</a></li>
+<li><a class="" href="national-hydrography-dataset.html"><span class="header-section-number">28</span> National Hydrography Dataset</a></li>
 </ul>
 
         <div class="book-extra">
@@ -90,15 +89,15 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="generalized-linear-models" class="section level1" number="16">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="generalized-linear-models" class="section level1" number="12">
 <h1>
-<span class="header-section-number">16</span> Generalized Linear Models<a class="anchor" aria-label="anchor" href="#generalized-linear-models"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12</span> Generalized Linear Models<a class="anchor" aria-label="anchor" href="#generalized-linear-models"><i class="fas fa-link"></i></a>
 </h1>
 <p><strong>This module will teach you how to use Generalized Linear Models to assess the importance of management-relevant environmental factors for fish species</strong></p>
 <p><em>Authors: Ed Stowe</em><br><em>Last update: 2025-02-03</em><br><em>Acknowledgements: Some inspiration/language/code have been used or adapted with permission from: Ben Staton’s <a href="https://bstaton1.github.io/au-r-workshop/ch3.html#glms">Intro to R for Natural Resources course</a>; and Quebec Center for biodiversity Science’s <a href="https://r.qcbs.ca/workshop06/book-en/">Generalized linear model workshop</a></em></p>
-<div id="generalized-linear-model-background" class="section level2" number="16.1">
+<div id="generalized-linear-model-background" class="section level2" number="12.1">
 <h2>
-<span class="header-section-number">16.1</span> Generalized Linear Model Background<a class="anchor" aria-label="anchor" href="#generalized-linear-model-background"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.1</span> Generalized Linear Model Background<a class="anchor" aria-label="anchor" href="#generalized-linear-model-background"><i class="fas fa-link"></i></a>
 </h2>
 <p>The models we examined in the previous section are linear models. They assume that the residuals are normally-distributed and that the response variable and the predictor variables are linearly-related. However several ubiquitous types of data used in ecological modeling–such as presence/absence data or counts of organisms–do not follow these assumptions. For these types of data, <strong>Generalized linear models (GLMs)</strong> can overcome these problems.</p>
 <p>Here we will not go into all of the statistical details of GLMs, but for a more in-depth description of the statistical underpinnings, see [here] (<a href="https://r.qcbs.ca/workshop06/book-en/" class="uri">https://r.qcbs.ca/workshop06/book-en/</a>) and elsewhere. It is important to, however, to understand the three key elements of GLMs:</p>
@@ -114,26 +113,26 @@
 </ol>
 <p>The most common examples of GLMs in ecology are logistic regression for binary data or poisson and negative binomial regression for count data.</p>
 </div>
-<div id="logistic-regression" class="section level2" number="16.2">
+<div id="logistic-regression" class="section level2" number="12.2">
 <h2>
-<span class="header-section-number">16.2</span> Logistic regression<a class="anchor" aria-label="anchor" href="#logistic-regression"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.2</span> Logistic regression<a class="anchor" aria-label="anchor" href="#logistic-regression"><i class="fas fa-link"></i></a>
 </h2>
 <p><strong>Binary</strong> data, which have two opposite outcomes, is common in ecology, for example, present/absent, success/failure, lived/died, male/female, etc. If you want to predict how the probability of one outcome over its opposite changes depending on some other variable(s), then you need to use the <strong>logistic regression model</strong>, which is written as:</p>
 <p><span class="math display" id="eq:logis-reg">\[\begin{equation}
   logit(p_i)=\beta_0 + \beta_1 x_{i1} + ... + \beta_j x_{ij}+ ... + \beta_n x_{in}, y_i \sim Bernoulli(p_i)
-\tag{16.1}
+\tag{12.1}
 \end{equation}\]</span></p>
 <p>Here, <span class="math inline">\(p_i\)</span> is the probability of success for trial <span class="math inline">\(i\)</span> at the values of the predictor variables <span class="math inline">\(x_{ij}\)</span>. The <span class="math inline">\(logit(p_i)\)</span> is the <strong>link function</strong> that links the linear parameter scale to the data scale. The logit link function constrains the value of <span class="math inline">\(p_i\)</span> to be between 0 and 1 regardless of the values of the <span class="math inline">\(\beta\)</span> coefficients.</p>
 <p>The logit link is equivalent to the log odds ratio, in other words, the natural log of how likely an event is compared to it not happening.</p>
 <p>Therefore, with logistic regression, the model will calculate the log odds of an outcome, so if we want to know the odds ratio (i.e., ), we just take the inverse log. The example analysis that we conduct will make this more obvious.</p>
-<div id="example-logistic-regression-anaysis" class="section level3" number="16.2.1">
+<div id="example-logistic-regression-anaysis" class="section level3" number="12.2.1">
 <h3>
-<span class="header-section-number">16.2.1</span> Example logistic regression anaysis<a class="anchor" aria-label="anchor" href="#example-logistic-regression-anaysis"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.2.1</span> Example logistic regression anaysis<a class="anchor" aria-label="anchor" href="#example-logistic-regression-anaysis"><i class="fas fa-link"></i></a>
 </h3>
 <p>In our example logistic regression analysis, we’ll use the same fisheries dataset from three of the navigation pools in the Upper Mississippi River that we used in our chapter on linear models. These fish data are collected to understand long-term trends of the river, but we’ll use the data to see what relationships may exist between habitat predictors and fish responses.</p>
-<div id="import-and-explore-data" class="section level4" number="16.2.1.1">
+<div id="import-and-explore-data" class="section level4" number="12.2.1.1">
 <h4>
-<span class="header-section-number">16.2.1.1</span> Import and explore data<a class="anchor" aria-label="anchor" href="#import-and-explore-data"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.2.1.1</span> Import and explore data<a class="anchor" aria-label="anchor" href="#import-and-explore-data"><i class="fas fa-link"></i></a>
 </h4>
 <p>First we read in the data filter it so that it only includes data from daylight electrofishing (<code>gear == "D"</code>), backwater habitat, and depths &lt; 5 m, as this is where this gear is most accurate.</p>
 <div class="sourceCode" id="cb337"><pre class="downlit sourceCode r">
@@ -178,16 +177,15 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Value of predictor"</span>, y <span class="op">=</span> <span class="st">"Carp occurrence"</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## Warning: Removed 170 rows containing non-finite outside the scale range
-## (`stat_boxplot()`).</code></pre>
+<pre><code>## Warning: Removed 170 rows containing non-finite outside the scale range (`stat_boxplot()`).</code></pre>
 <pre><code>## Warning: Removed 170 rows containing missing values or values outside the scale range
 ## (`geom_point()`).</code></pre>
 <div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-54-1.png" width="600" height="600"></div>
 <p>From these plots, a few variables pop out as being potentially important. For example locations with carp occurrences appear to have lower secchi disk readings (i.e., less clear water) and higher temperatures, but the strength of these relationships are unclear, which is where modeling comes in to play.</p>
 </div>
-<div id="fit-model-with-glm-function" class="section level4" number="16.2.1.2">
+<div id="fit-model-with-glm-function" class="section level4" number="12.2.1.2">
 <h4>
-<span class="header-section-number">16.2.1.2</span> Fit model with <code>glm</code> function<a class="anchor" aria-label="anchor" href="#fit-model-with-glm-function"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.2.1.2</span> Fit model with <code>glm</code> function<a class="anchor" aria-label="anchor" href="#fit-model-with-glm-function"><i class="fas fa-link"></i></a>
 </h4>
 <p>We’ll use the <code>glm</code> function in base R to do this, and the same kind of formula notation as with linear models, here indicating that we want to model carp occurrences as a function of four of our predictor variables. We’ll use the <code>fish_binary</code> dataset to do this. Finally we need to select a ‘family’ for the error distribution of our response variable. For presence/absence data, the binomial distribution is typically chosen because it’s a distribution with only two states, typically 1 for “success” and 0 for “failure.”</p>
 <div class="sourceCode" id="cb345"><pre class="downlit sourceCode r">
@@ -250,9 +248,9 @@
 <pre><code>## `geom_smooth()` using formula = 'y ~ x'</code></pre>
 <div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-59-1.png" width="600" height="600"></div>
 </div>
-<div id="glm-with-the-tidymodels-package" class="section level4" number="16.2.1.3">
+<div id="glm-with-the-tidymodels-package" class="section level4" number="12.2.1.3">
 <h4>
-<span class="header-section-number">16.2.1.3</span> GLM with the tidymodels package<a class="anchor" aria-label="anchor" href="#glm-with-the-tidymodels-package"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.2.1.3</span> GLM with the tidymodels package<a class="anchor" aria-label="anchor" href="#glm-with-the-tidymodels-package"><i class="fas fa-link"></i></a>
 </h4>
 <p>In R, for certain kinds of analysis, there may be different packages that can perform the same statistical procedures, but have different strengths. For our simple glm of CARP, the <code>glm</code> function in base R works well, but as model complexity increases there may be instances where additional capacities make sense. One package that enables this is the <code>tidymodels</code> package, so we’ll first introduce it here, so that we can come back to it later. The following code implements the same type of analysis, but now using tidymodels code.</p>
 <div class="sourceCode" id="cb354"><pre class="downlit sourceCode r">
@@ -453,15 +451,15 @@ exp(5.246739516)≈189.85. A one-unit increase in current is a lot on this scale
 </div>
 </div>
   <div class="chapter-nav">
-<div class="prev"><a href="linear-models.html"><span class="header-section-number">15</span> Linear Models</a></div>
-<div class="next"><a href="random-effects.html"><span class="header-section-number">17</span> Random Effects</a></div>
+<div class="prev"><a href="linear-models.html"><span class="header-section-number">11</span> Linear Models</a></div>
+<div class="next"><a href="random-effects.html"><span class="header-section-number">13</span> Random Effects</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#generalized-linear-models"><span class="header-section-number">16</span> Generalized Linear Models</a></li>
-<li><a class="nav-link" href="#generalized-linear-model-background"><span class="header-section-number">16.1</span> Generalized Linear Model Background</a></li>
+<li><a class="nav-link" href="#generalized-linear-models"><span class="header-section-number">12</span> Generalized Linear Models</a></li>
+<li><a class="nav-link" href="#generalized-linear-model-background"><span class="header-section-number">12.1</span> Generalized Linear Model Background</a></li>
 <li>
-<a class="nav-link" href="#logistic-regression"><span class="header-section-number">16.2</span> Logistic regression</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#example-logistic-regression-anaysis"><span class="header-section-number">16.2.1</span> Example logistic regression anaysis</a></li></ul>
+<a class="nav-link" href="#logistic-regression"><span class="header-section-number">12.2</span> Logistic regression</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#example-logistic-regression-anaysis"><span class="header-section-number">12.2.1</span> Example logistic regression anaysis</a></li></ul>
 </li>
 </ul>
 
