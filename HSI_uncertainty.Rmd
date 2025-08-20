@@ -4,7 +4,7 @@
 
 **This module will teach you how to assess the sensitivity and uncertainty of HSI models using the `sensobol` package in `R` .**
 
-![*Graphical output of a sensitivity analysis using **`sensobol`**.*](E:/ecorest/R Code/OHSIM_sensitivity.jpeg){width=100%}
+![*Graphical output of a sensitivity analysis using **`sensobol`**.*](images/OHSIM_sensitivity.jpeg){width=100%}
   
 ***
 
