@@ -19,6 +19,7 @@ rmd_files: [
 "glm.Rmd", 
 "random_effs.Rmd", 
 "gam.Rmd",
+"random_forest.Rmd",
 "brt.Rmd", 
 "pop_mod.Rmd", 
 "network_models.Rmd", 
