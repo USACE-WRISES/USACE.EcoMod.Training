@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>13 Sensitivity and uncertainty analysis for habitat suitability index (HSI) models | Using R for ecological modeling in USACE</title>
+<meta name="author" content="Ed Stowe">
+<meta name="generator" content="bookdown 0.42 with bs4_book()">
+<meta property="og:title" content="13 Sensitivity and uncertainty analysis for habitat suitability index (HSI) models | Using R for ecological modeling in USACE">
+<meta property="og:type" content="book">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="13 Sensitivity and uncertainty analysis for habitat suitability index (HSI) models | Using R for ecological modeling in USACE">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.8.0/transition.js"></script><script src="libs/bs3compat-0.8.0/tabs.js"></script><script src="libs/bs3compat-0.8.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<meta name="description" content="This module will teach you how to assess the sensitivity and uncertainty of HSI models using the sensobol package in R . Graphical output of a sensitivity analysis using sensobol. Authors: Kiara...">
+<meta property="og:description" content="This module will teach you how to assess the sensitivity and uncertainty of HSI models using the sensobol package in R . Graphical output of a sensitivity analysis using sensobol. Authors: Kiara...">
+<meta name="twitter:description" content="This module will teach you how to assess the sensitivity and uncertainty of HSI models using the sensobol package in R . Graphical output of a sensitivity analysis using sensobol. Authors: Kiara...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Using R for ecological modeling in USACE</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Course overview</a></li>
+<li><a class="" href="required-set-up-for-the-course.html">Required set-up for the course</a></li>
+<li class="book-part">Basic Training on R and RStudio</li>
+<li><a class="" href="introduction-to-r-and-rstudio.html"><span class="header-section-number">1</span> Introduction to R and RStudio</a></li>
+<li><a class="" href="data-visualization-with-ggplot2.html"><span class="header-section-number">2</span> Data Visualization with ggplot2</a></li>
+<li><a class="" href="exploring-and-understanding-data.html"><span class="header-section-number">3</span> Exploring and understanding data</a></li>
+<li><a class="" href="manipulating-tabular-data.html"><span class="header-section-number">4</span> Manipulating Tabular Data</a></li>
+<li class="book-part">Ecological Modeling in R</li>
+<li><a class="" href="conceptual-ecological-models.html"><span class="header-section-number">5</span> Conceptual Ecological Models</a></li>
+<li><a class="" href="what-they-are-not.html"><span class="header-section-number">6</span> What they are not</a></li>
+<li><a class="" href="misconceptions.html"><span class="header-section-number">7</span> Misconceptions</a></li>
+<li><a class="" href="storytelling.html"><span class="header-section-number">8</span> Storytelling</a></li>
+<li><a class="" href="art-of-conceptual-modeling-is-iterating.html"><span class="header-section-number">9</span> Art of conceptual modeling is iterating</a></li>
+<li class="book-part">Habitat Models</li>
+<li><a class="" href="background-on-habitat-models-in-usace.html"><span class="header-section-number">10</span> Background on habitat models in USACE</a></li>
+<li><a class="" href="habitat-suitability-index-models-with-ecorest.html"><span class="header-section-number">11</span> Habitat Suitability Index models with ecorest</a></li>
+<li><a class="" href="ecorest-web-app.html"><span class="header-section-number">12</span> Ecorest Web App</a></li>
+<li><a class="active" href="sensitivity-and-uncertainty-analysis-for-habitat-suitability-index-hsi-models.html"><span class="header-section-number">13</span> Sensitivity and uncertainty analysis for habitat suitability index (HSI) models</a></li>
+<li><a class="" href="spatial-habitat-models.html"><span class="header-section-number">14</span> Spatial Habitat Models</a></li>
+<li class="book-part">Linear Models</li>
+<li><a class="" href="linear-models.html"><span class="header-section-number">15</span> Linear Models</a></li>
+<li><a class="" href="generalized-linear-models.html"><span class="header-section-number">16</span> Generalized Linear Models</a></li>
+<li><a class="" href="random-effects.html"><span class="header-section-number">17</span> Random Effects</a></li>
+<li><a class="" href="generalized-additive-models.html"><span class="header-section-number">18</span> Generalized Additive Models</a></li>
+<li class="book-part">Machine Learning</li>
+<li><a class="" href="random-forest.html"><span class="header-section-number">19</span> Random Forest</a></li>
+<li><a class="" href="boosted-regression-trees.html"><span class="header-section-number">20</span> Boosted Regression Trees</a></li>
+<li class="book-part">Other Modeling Approaches</li>
+<li><a class="" href="population-modeling.html"><span class="header-section-number">21</span> Population Modeling</a></li>
+<li><a class="" href="network-models-and-connectivity.html"><span class="header-section-number">22</span> Network Models and Connectivity</a></li>
+<li><a class="" href="agent-based-models.html"><span class="header-section-number">23</span> Agent-based Models</a></li>
+<li class="book-part">Models and decision-making</li>
+<li><a class="" href="decision-support.html"><span class="header-section-number">24</span> Decision Support</a></li>
+<li><a class="" href="annualizing-benefits-and-costs-with-ecorest-and-engrecon.html"><span class="header-section-number">25</span> Annualizing benefits and costs with ecorest and EngrEcon</a></li>
+<li><a class="" href="ceica-chapter.html"><span class="header-section-number">26</span> Cost-Effectiveness and Incremental Cost Analysis (CEICA) with ecorest</a></li>
+<li class="book-part">Models Integration</li>
+<li><a class="" href="model-integration.html"><span class="header-section-number">27</span> Model Integration</a></li>
+<li class="book-part">Other R applications</li>
+<li><a class="" href="r-for-gis.html"><span class="header-section-number">28</span> R for GIS</a></li>
+<li><a class="" href="intersect.html"><span class="header-section-number">29</span> Intersect</a></li>
+<li><a class="" href="important-data-sources.html"><span class="header-section-number">30</span> Important data sources</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="sensitivity-and-uncertainty-analysis-for-habitat-suitability-index-hsi-models" class="section level1" number="13">
+<h1>
+<span class="header-section-number">13</span> Sensitivity and uncertainty analysis for habitat suitability index (HSI) models<a class="anchor" aria-label="anchor" href="#sensitivity-and-uncertainty-analysis-for-habitat-suitability-index-hsi-models"><i class="fas fa-link"></i></a>
+</h1>
+<hr>
+<p><strong>This module will teach you how to assess the sensitivity and uncertainty of HSI models using the <code>sensobol</code> package in <code>R</code> .</strong></p>
+<div class="float">
+<img src="E:/ecorest/R%20Code/OHSIM_sensitivity.jpeg" style="width:100.0%" alt="Graphical output of a sensitivity analysis using sensobol."><div class="figcaption"><em>Graphical output of a sensitivity analysis using <strong><code>sensobol</code></strong>.</em></div>
+</div>
+<hr>
+<p><em>Authors: Kiara Cushway, Ed Stowe, Todd Swannack, Kyle McKay</em><br><em>Last update: NA</em><br><em>Acknowledgements: Much of the background information on oyster reefs and the habitat suitability index model used in this module come from Swannack et al. (2014). Information about how to conduct sensitivity and uncertainty analyses using <code>sensobol</code> comes from Puy et al. (2022).</em></p>
+<div id="learning-objectives-6" class="section level2" number="13.1">
+<h2>
+<span class="header-section-number">13.1</span> Learning objectives<a class="anchor" aria-label="anchor" href="#learning-objectives-6"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li>Understand the benefits of sensitivity and uncertainty analysis for HSI models.</li>
+<li>Learn how to conduct variance-based sensitivity analysis using the <code>sensobol</code> package in <code>R</code>.</li>
+</ul>
+<p>::::::::::::::::::::::::::::::::::::::::::::::::</p>
+</div>
+<div id="benefits-of-uncertainty-and-sensitivity-analysis-for-hsi-modeling" class="section level2" number="13.2">
+<h2>
+<span class="header-section-number">13.2</span> Benefits of uncertainty and sensitivity analysis for HSI modeling<a class="anchor" aria-label="anchor" href="#benefits-of-uncertainty-and-sensitivity-analysis-for-hsi-modeling"><i class="fas fa-link"></i></a>
+</h2>
+<p>Habitat suitability index (HSI) modeling is a widely applied method of habitat evaluation, but its success relies on good data and model frameworks. Various sources of uncertainty can limit the utility of HSI models, which usually represent habitat quality with a single index value and no indication of the confidence in that value (Bender et al. 1996; Burgman et al. 2001). Uncertainty analysis (UA) and sensitivity analysis (SA) can help modelers and practitioners explore and quantify the sources of uncertainty in HSI models (Razavi et al. 2021), providing more confidence in the results and ensuring that models successfully capture ecological relationships observed in the field. UA assesses the confidence we have in a model’s results, while SA identifies which model parameters contribute the most uncertainty (Pianosi et al. 2016).</p>
+<p>In this module, we will conduct variance-based global sensitivity and uncertainty analysis for HSI models using the oyster habitat suitability index model (OHSIM) developed by Swannack et al. (2014).</p>
+</div>
+<div id="variance-based-global-sensitivity-and-uncertainty-analysis-with-sensobol" class="section level2" number="13.3">
+<h2>
+<span class="header-section-number">13.3</span> Variance-based global sensitivity and uncertainty analysis with <strong><code>sensobol</code></strong><a class="anchor" aria-label="anchor" href="#variance-based-global-sensitivity-and-uncertainty-analysis-with-sensobol"><i class="fas fa-link"></i></a>
+</h2>
+<p>Variance is a measure of how variable data are. Variance-based UA/SA assess how deviations in the values of model input parameters contribute to variation/uncertainty in HSI scores. To test how much a given parameter influences variance in the output, we can estimate the average variance of a model’s output when all but one input parameter in the model is allowed to vary, and that specific parameter is fixed to every possible value across its entire range of uncertainty (Puy et al. 2022).</p>
+<p>There are a variety of approaches for conducting sensitivity analyses (see Pianosi et al. 2016 for options). We will use global, all-at-a-time (AAT) methods in this module using the <strong><code>sensobol</code></strong> package in <strong><code>R</code></strong>. Global methods test parameter inputs across their entire range of possible values rather than a subset of values. All-at-a-time methods vary all input parameters simultaneously, which enables measurement of interactive effects of parameters on output uncertainty (Pianosi et al. 2016).</p>
+<p>The <strong><code>sensobol</code></strong> package allows users to calculate Sobol’ indices, and we will focus on two main ones:</p>
+<ul>
+<li>
+<em>S<sub>i</sub></em>: a first-order index that describes how much the variance in the output would decrease if the parameter in question was fixed.</li>
+<li>
+<em>T<sub>i</sub></em>: a total order index that describes the first-order effect of a parameter, plus the effect of that parameter interacting with all other parameters in the model (Puy et al. 2022).</li>
+</ul>
+<p>In the remainder of this module, we conduct UA/SA for the OHSIM model using <strong><code>sensobol</code></strong>.</p>
+<p>You will need the <strong><code>sensobol</code></strong>, <strong><code>ecorest</code></strong>, and <strong><code>tidyverse</code></strong> packages for this analysis.</p>
+<div class="sourceCode" id="cb303"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/arnaldpuy/sensobol">sensobol</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">ecorest</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="habitat-suitability-modeling-for-oyster-reef-restoration" class="section level2" number="13.4">
+<h2>
+<span class="header-section-number">13.4</span> Habitat suitability modeling for oyster reef restoration<a class="anchor" aria-label="anchor" href="#habitat-suitability-modeling-for-oyster-reef-restoration"><i class="fas fa-link"></i></a>
+</h2>
+<p>The Eastern Oyster (<em>Crassostrea virginica</em>) is a benthic mollusk found in estuarine ecosystems, where it’s an important ecosystem engineer and provider of ecosystem services (Grabowski and Peterson 2007; Swannack et al. 2014). Oyster populations are in decline, so several efforts have been implemented to restore oyster reefs in the U.S.</p>
+<p>HSI models are used to quantify available oyster habitat and identify areas with high potential for successful restoration (Swannack et al. 2014). To facilitate reef restoration activities, Swannack et al. (2014) developed a spatially explicit oyster habitat suitability index model (OHSIM) that incorporates salinity and substrate variables to assess oyster habitat. These variables include:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Percent cultch</strong>: percentage of a waterbody’s bottom composed of hard substrates, which are essential for larval development.</p></li>
+<li><p><strong>Mean salinity during the spawning season (MSSS)</strong>: average daily salinity from May 1 to Sept. 30, reflecting the need for higher salinity during spawning and larval development.</p></li>
+<li><p><strong>Minimum annual salinity (MAS)</strong>: minimum annual salinity, which quantifies the effects of freshwater pulses on oyster habitat.</p></li>
+<li><p><strong>Annual mean salinity (AS)</strong>: average annual salinity, which captures suitable conditions for adult oysters.</p></li>
+</ol>
+<p>The relationship between each of these variables and habitat suitability are described using oyster suitability indices (OSIs). We import oyster suitability curves, and after a little data wrangling, plot them with <code>ggplot</code>.</p>
+<div class="sourceCode" id="cb304"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Bring in data</span></span>
+<span><span class="co">#load("ohsim.RData")</span></span>
+<span><span class="va">ohsim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/ohsim_orig.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Create data frame of variable names for plotting</span></span>
+<span><span class="va">ohsim_names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"AS"</span>, <span class="st">"MAS"</span>, <span class="st">"MSSS"</span>, <span class="st">"PercentCultch"</span><span class="op">)</span>,</span>
+<span>                          name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Annual mean salinity (AS)"</span>,</span>
+<span>                          <span class="st">"Mean salinity during spawning season (MSSS)"</span>,</span>
+<span>                          <span class="st">"Minimum annual salinity (MAS)"</span>,</span>
+<span>                          <span class="st">"Percent cultch"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Pivot oyster dataframe to long format for plotting</span></span>
+<span><span class="va">ohsim_long</span> <span class="op">&lt;-</span> <span class="va">ohsim</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html">everything</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>                 names_to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"variable"</span>, <span class="st">".value"</span><span class="op">)</span>,</span>
+<span>                 names_sep <span class="op">=</span> <span class="st">"_"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">ohsim_names</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>      <span class="co"># Join name data frame</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">variable</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>           <span class="co"># Sort by variable</span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html">drop_na</a></span><span class="op">(</span><span class="op">)</span>                       <span class="co"># Remove NA values</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">ohsim_long</span>,</span>
+<span>       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">val</span>, <span class="va">OSI</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">name</span>, scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Parameter value"</span>, y <span class="op">=</span> <span class="st">"Habitat suitability"</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p><img src="usace_R_training_files/figure-html/ohsim-1.png" width="600" height="600" style="display: block; margin: auto;"><em>Oyster habitat suitability indices (OSIs) based on important habitat parameters for the Eastern Oyster (</em>Crassostrea virginica<em>).</em></p>
+<p>Uncertainty in each of these OSIs contributes to uncertainty in habitat suitability. How much each OSI contributes can be investigated with sensitivity analysis.</p>
+<div id="restoration-suitability-index" class="section level3" number="13.4.1">
+<h3>
+<span class="header-section-number">13.4.1</span> Restoration suitability index<a class="anchor" aria-label="anchor" href="#restoration-suitability-index"><i class="fas fa-link"></i></a>
+</h3>
+<p>Swannack et al. (2014) combined their OSIs into a restoration suitability index (RSI) using a geometric mean equation, which is calculated by multiplying n numbers together and then taking the nth root (e.g., with three numbers, you multiply the three together and then take the cube root). A typical reason to use a geometric mean is when the modeler believes that if any of the input parameters have a value of zero, the total suitability should also be zero.</p>
+<p>We can use the <strong><code>HSIgeomean</code></strong> function in <strong><code>ecorest</code></strong> to code a geometric mean. The input of <strong><code>HSIgeomean</code></strong> will be a vector of OSIs.</p>
+</div>
+<div id="creating-a-sobol-matrix-to-generate-sample-data-for-analysis" class="section level3" number="13.4.2">
+<h3>
+<span class="header-section-number">13.4.2</span> Creating a Sobol’ matrix to generate sample data for analysis<a class="anchor" aria-label="anchor" href="#creating-a-sobol-matrix-to-generate-sample-data-for-analysis"><i class="fas fa-link"></i></a>
+</h3>
+<p>The first step in our analysis is to create a sample matrix using the <strong><code>sobol_matrices</code></strong> function in the <strong><code>sensobol</code></strong> package. This matrix serves as the basis of our sampling scheme, and should provide sufficient coverage of the entire sampling space, i.e., all the possible combinations of all of the parameters included in our model (Puy et al. 2022). With a larger number of parameters, the number of dimensions making up our sampling space also grows, so more samples are needed to explore possible combinations. A rule of thumb for determining how many samples are required is to use the equation:</p>
+<center>
+<p><span class="math inline">\(N = n * (k + 2)\)</span></p>
+</center>
+<p>where, <em>N</em> is the total number of model evaluations, <em>n</em> is a base sample size greater than 500 (Saltelli et al. 2010), and <em>k</em> is the number of input parameters in the model (Pianosi and Wagener 2015). In the <strong><code>sobol_matrices</code></strong> function, <em>N</em> is automatically calculated when the user enters a base sample size (referred to as <strong><code>N</code></strong> in the function) and a vector containing the names of our parameters (<strong><code>params</code></strong> argument). We will use a base sample size of 10,000 in our evaluation today, but adjust this if the results of your sensitivity analysis indicate that the sample size is not sufficient (i.e., if your results contain a lot of noise). These input settings result in a total of 60,000 model evaluations during our analysis.</p>
+<p>When creating our sample matrix, we will follow recommendations and generate <em>A</em>, <em>B</em>, and <em>A<sub>B</sub></em> matrices (Puy et al. 2022). These are the default matrices generated by <strong><code>sobol_matrices</code></strong> (Puy et al. 2022). Setting <strong><code>matrices = c("A", "B", "AB")</code></strong> tells the <strong><code>sobol_matrices</code></strong> function that we want to generate a matrix with <em>N</em> rows (in our case, <em>N</em> = 60,000), where each row represents a set of OSI values that can be input into our RSI. A total of <em>n</em> (in our case, <em>n</em> = 10,000) of the rows in this matrix will make up our <em>A</em> matrix, and another <em>n</em> rows will make up the <em>B</em> matrix. The remaining <em>n</em> x <em>k</em> rows (in our case, 40,000) will make up our <em>A<sub>B</sub></em> matrix, where each individual row of OSI samples will match a row in the <em>A</em> matrix, expect for one OSI value (from the <em>i</em>-th column) that is drawn from the <em>B</em> matrix. We will calculate an RSI value for every row in this sample matrix.</p>
+<p>Next, we select the <strong>order</strong> of the effects we are interested in investigating; we will evaluate only first order and total order effects of parameters, although <strong><code>sensobol</code></strong> is capable of evaluating up to fourth order effects (Puy et al. 2022).</p>
+<p>Finally, to construct our sample matrix, we need to select a sampling scheme. This determines how the total input space is sampled (i.e., how the sample values are selected from all the possible combinations of input parameters). We will use Quasi-random sampling (“QRN”), the default in <strong><code>sobol_matrices</code></strong> (see Puy et al. 2022 for other options).</p>
+<p>The sample matrix we generate here will be used to assess model uncertainty and sensitivity, and to obtain <em>S<sub>i</sub></em> and <em>T<sub>i</sub></em>. To calculate <em>S<sub>i</sub></em>, we will compare RSI values calculated with sets of sampling points that vary with respect to all parameters except one (parameter <em>x<sub>i</sub></em>) (Puy et al. 2022). To calculate <em>T<sub>i</sub></em>, we will compare RSI values for sets of sampling points where all parameters have the same value except parameter <em>x<sub>i</sub></em>, which will vary (Puy et al. 2022).</p>
+<p>We set up and preview our sample matrix below:</p>
+<div class="sourceCode" id="cb305"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Set seed for repeatability</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">73</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Define parameter names</span></span>
+<span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"PercentCultch_val"</span>, <span class="st">"MSSS_val"</span>, <span class="st">"MAS_val"</span>, <span class="st">"AS_val"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Create a sample matrix of probabilities to compute Sobol' indices</span></span>
+<span><span class="va">sample_matrix</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/sensobol/man/sobol_matrices.html">sobol_matrices</a></span><span class="op">(</span>matrices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"AB"</span><span class="op">)</span>, N <span class="op">=</span> <span class="fl">10000</span>, params <span class="op">=</span> <span class="va">params</span>, order <span class="op">=</span> <span class="st">"first"</span>, type <span class="op">=</span> <span class="st">"QRN"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Preview sample matrix</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">sample_matrix</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##      PercentCultch_val MSSS_val MAS_val AS_val
+## [1,]             0.500    0.500   0.500  0.500
+## [2,]             0.750    0.250   0.750  0.250
+## [3,]             0.250    0.750   0.250  0.750
+## [4,]             0.375    0.375   0.625  0.125
+## [5,]             0.875    0.875   0.125  0.625
+## [6,]             0.625    0.125   0.375  0.375</code></pre>
+<p>The <strong><code>sample_matrix</code></strong> now contains a series of model inputs for each OSI that need to be converted into their specific probability distributions. A probability distribution describes how the likelihood of a given outcome changes across the distribution of possible outcomes. For example, in a uniform probability distribution, all parameter values have an equal chance of occurring, whereas in a normal distribution, parameter values are more likely to occur the closer they are to the mean. The probability distribution should depend on knowledge of the parameter. In general, if there is not sufficient information about how an input parameter’s uncertainty is distributed, best practice is to use a uniform distribution (Puy et al. 2022). However, the use of a particular probability distribution requires careful consideration, as this choice can affect the outcome of your sensitivity analysis (Puy et al. 2022).</p>
+<p>For this analysis, we don’t have much information about percent cultch, so we will use a uniform distribution. Estuarine salinity, however, is influenced by semi-predictable or seasonal factors like evaporation and river discharge, so certain values tend to be more common than others. To check this assumption, we’ll look at sample data for estuary systems in Florida located near Choctawhatchee Bay, using data from the National Water Quality Monitoring Council’s Water Quality Portal (<a href="https://www.waterqualitydata.us/" class="uri">https://www.waterqualitydata.us/</a>) .</p>
+<p><img src="images/Choctawhatchee_Bay.jpg" style="width:100.0%" alt="Sample distributions of mean salinity during spawning, minimum annual salinity, and annual mean salinity for Choctawhatchee Bay in Florida."><br><br></p>
+<p>Based on these distributions, minimum annual salinity and annual mean salinity follow a somewhat normal distribution, with averages around 13 and 20 ppt, respectively. Mean salinity during spawning season has a flatter distribution, so we’ll use a uniform distribution for MSSS, and a normal distribution for MAS and AS. To implement the normal probability distributions, we will use the sample mean and standard deviation with the <strong><code>qnorm</code></strong> function to inform our sampling scheme.</p>
+<p>Although we want our sensitivity analysis to explore the entire input variability space, we may be less interested in the portion of the input space where an OSI is equal to zero. Furthermore, including these zero ranges in our analysis will result in many of our RSI scores being zero, which presents challenges. Since our sensitivity indices are calculated based on output variance, if most of our outputs are zero (resulting in low variance), it will be hard to detect how our OSI parameters are inducing variance in the model. Given this, for parameters with a uniform distribution, we will define the entire input variability range as the input space where OSI is greater than zero. In other words, for MSSS, we will sample the space where salinity falls between 5 and 40 ppt, rather than sampling across the range presented in the OSI (0-40 ppt).</p>
+<div class="sourceCode" id="cb307"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># For each parameter in the model, use the probability in sample_matrix to obtain a sample value from a probability distribution function</span></span>
+<span><span class="va">sample_matrix</span><span class="op">[</span>, <span class="st">"PercentCultch_val"</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">qunif</a></span><span class="op">(</span><span class="va">sample_matrix</span><span class="op">[</span>, <span class="st">"PercentCultch_val"</span><span class="op">]</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+<span><span class="va">sample_matrix</span><span class="op">[</span>, <span class="st">"MSSS_val"</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">qunif</a></span><span class="op">(</span><span class="va">sample_matrix</span><span class="op">[</span>, <span class="st">"MSSS_val"</span><span class="op">]</span>, min <span class="op">=</span> <span class="fl">5</span>, max <span class="op">=</span> <span class="fl">40</span><span class="op">)</span></span>
+<span><span class="va">sample_matrix</span><span class="op">[</span>, <span class="st">"MAS_val"</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">qnorm</a></span><span class="op">(</span><span class="va">sample_matrix</span><span class="op">[</span>, <span class="st">"MAS_val"</span><span class="op">]</span>, mean <span class="op">=</span> <span class="fl">13.2</span>, sd <span class="op">=</span> <span class="fl">4.85</span><span class="op">)</span></span>
+<span><span class="va">sample_matrix</span><span class="op">[</span>, <span class="st">"AS_val"</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">qnorm</a></span><span class="op">(</span><span class="va">sample_matrix</span><span class="op">[</span>, <span class="st">"AS_val"</span><span class="op">]</span>, mean <span class="op">=</span> <span class="fl">19.85</span>, sd <span class="op">=</span> <span class="fl">2.88</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="calculating-osi-and-rsi-scores-with-sample-data" class="section level3" number="13.4.3">
+<h3>
+<span class="header-section-number">13.4.3</span> Calculating OSI and RSI scores with sample data<a class="anchor" aria-label="anchor" href="#calculating-osi-and-rsi-scores-with-sample-data"><i class="fas fa-link"></i></a>
+</h3>
+<p>Now that our sample data is prepared, we can calculate the OSI score for each parameter in every row of our <strong><code>sample_matrix</code></strong>. We do this using the <strong><code>SIcalc</code></strong> function in <strong><code>ecorest</code></strong>. The <strong><code>SIcalc</code></strong> function takes a matrix of suitability curves (in our case, <strong><code>OSI_curves</code></strong>) and uses them to calculate OSI scores for a series of inputs. By applying the <strong><code>SIcalc</code></strong> function row-wise to our <strong><code>sample_matrix</code></strong> using a “for-loop,” we can obtain OSI scores for all 60,000 sets of our sample data.</p>
+<div class="sourceCode" id="cb308"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Create empty data frame with the same dimensions as sample_matrix</span></span>
+<span><span class="va">OSI_scores</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="cn">NA</span>, nrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">sample_matrix</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">sample_matrix</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Convert sample data to OSI scores for each row of the sample_matrix</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">row</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">sample_matrix</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">OSI_scores</span><span class="op">[</span><span class="va">row</span>,<span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/ecorest/man/SIcalc.html">SIcalc</a></span><span class="op">(</span>SI <span class="op">=</span> <span class="va">ohsim</span>, input.proj <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">sample_matrix</span><span class="op">[</span><span class="va">row</span>,<span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>Finally, using the OSI scores calculated with our <strong><code>sample_matrix</code></strong> in the last step, we can apply the <strong><code>HSIgeomean</code></strong> function to each set of sampling points in order to generate an empirical distribution of RSI scores. We will use the variance present in this empirical distribution to understand the uncertainty in RSI values and interpret how sensitive our RSI model is to changes in input parameters.</p>
+<div class="sourceCode" id="cb309"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Create empty vector to store RSI scores</span></span>
+<span><span class="va">RSI</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">vector</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Calculate geometric mean based on OSI_scores</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">row</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">sample_matrix</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">RSI</span><span class="op">[</span><span class="va">row</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/ecorest/man/HSIgeomean.html">HSIgeomean</a></span><span class="op">(</span><span class="va">OSI_scores</span><span class="op">[</span><span class="va">row</span>,<span class="op">]</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+</div>
+<div id="examining-uncertainty-in-restoration-suitability" class="section level3" number="13.4.4">
+<h3>
+<span class="header-section-number">13.4.4</span> Examining uncertainty in restoration suitability<a class="anchor" aria-label="anchor" href="#examining-uncertainty-in-restoration-suitability"><i class="fas fa-link"></i></a>
+</h3>
+<p>The vector <strong><code>RSI</code></strong> now contains the results of all our model evaluations generated with our <strong><code>sample_matrix</code></strong>. We can examine the distribution of RSI values across the parameter uncertainty using the <strong><code>plot_uncertainty</code></strong> function in <strong><code>sensobol</code></strong>, which generates an empirical distribution of RSI scores.</p>
+<div class="sourceCode" id="cb310"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Plot uncertainty</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/sensobol/man/plot_uncertainty.html">plot_uncertainty</a></span><span class="op">(</span>Y <span class="op">=</span> <span class="va">RSI</span>, N <span class="op">=</span> <span class="fl">10000</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"RSI score"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="usace_R_training_files/figure-html/plot-uncertainty-1.png" width="600" height="600"></div>
+<p>Based on this distribution, RSI scores are spread across the entire possible output range (0-1).</p>
+<p>We can quantify the variability in RSI values in a few ways. For example, we can use the <strong><code>quantile</code></strong> function to assess the 95% confidence intervals.</p>
+<div class="sourceCode" id="cb311"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Generate quantiles from RSI values</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">RSI</span>, probs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.025</span>, <span class="fl">0.975</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##      2.5%     97.5% 
+## 0.1401421 0.8690388</code></pre>
+<p>This suggests the RSI score falls between 0.14 and 0.87 ninety-five percent of the time.</p>
+<p><br></p>
+<p>We can calculate other typical summary statistics and standard deviation of the empirical distribution of RSI scores as well:</p>
+<div class="sourceCode" id="cb313"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Calculate summary statistics for RSI</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">RSI</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##  0.0000  0.3736  0.5163  0.5140  0.6589  0.9984</code></pre>
+<div class="sourceCode" id="cb315"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">RSI</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] 0.1948817</code></pre>
+<p>Based on these results, across the probability distributions of the OSI values, RSI scores will most commonly fall around 0.5, with 50% of OSI conditions resulting in scores between 0.37 and 0.66.</p>
+<p>So what does this mean in a USACE modeling or planning context? Well, we want to make sure that our HSI model functions as expected, whether we’re designing a new HSI or testing a model in a new location. Here, we allowed the OSI values to vary widely, and included values expected to be poor for oysters. Consequently, we would expect our overall RSI to also exist across a wide range of suitability values. If it hadn’t done this, that might have indicated potential problems with model structure, individual OSIs, or input parameter distributions. And so if an unexpected outcome in the overall HSI occurs at this stage, with either a new model or a model in a new context, that suggests that the model may need to be tweaked.</p>
+</div>
+<div id="using-sensitivity-analysis-to-assess-the-relative-importance-of-input-parameters" class="section level3" number="13.4.5">
+<h3>
+<span class="header-section-number">13.4.5</span> Using sensitivity analysis to assess the relative importance of input parameters<a class="anchor" aria-label="anchor" href="#using-sensitivity-analysis-to-assess-the-relative-importance-of-input-parameters"><i class="fas fa-link"></i></a>
+</h3>
+<p>We now use sensitivity analysis to understand which model parameters contribute the most to the uncertainty in RSI values. To calculate sensitivity indices with <strong><code>sensobol</code></strong>, we will use the <strong><code>sobol_indices</code></strong> function:</p>
+<p>We’ll use the default settings for most arguments in <strong><code>sobol_indices</code></strong> (see Puy et al. 2022 for more detailed explanations of settings). In the code below <strong><code>Y</code></strong> is our vector of RSI scores, <strong><code>N</code></strong> is the base sample size we specified for our sample matrix, and <strong><code>params</code></strong> is our list of parameter names. We use <strong><code>boot = "TRUE"</code></strong> and <strong><code>type = "percent"</code></strong> to calculate confidence intervals using percents.</p>
+<div class="sourceCode" id="cb317"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Compute Sobol' sensitivity indices</span></span>
+<span><span class="va">sensitivity_indices</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/sensobol/man/sobol_indices.html">sobol_indices</a></span><span class="op">(</span>matrices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"AB"</span><span class="op">)</span>, Y <span class="op">=</span> <span class="va">RSI</span>, N <span class="op">=</span> <span class="fl">10000</span>, params <span class="op">=</span> <span class="va">params</span>, first <span class="op">=</span> <span class="st">"saltelli"</span>, total <span class="op">=</span> <span class="st">"jansen"</span>, order <span class="op">=</span> <span class="st">"first"</span>, boot <span class="op">=</span> <span class="cn">TRUE</span>, R <span class="op">=</span> <span class="fl">1000</span>, parallel <span class="op">=</span> <span class="st">"no"</span>, conf <span class="op">=</span> <span class="fl">0.95</span>, type <span class="op">=</span> <span class="st">"percent"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># View results</span></span>
+<span><span class="va">sensitivity_indices</span><span class="op">$</span><span class="va">si.sum</span></span></code></pre></div>
+<pre><code>## [1] 0.9587992</code></pre>
+<div class="sourceCode" id="cb319"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sensitivity_indices</span><span class="op">$</span><span class="va">results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/where.html">where</a></span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span>, <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">.x</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##   original   bias std.error low.ci high.ci sensitivity        parameters
+## 1    0.292 -0.001     0.020  0.252   0.329          Si PercentCultch_val
+## 2    0.464  0.000     0.026  0.411   0.516          Si          MSSS_val
+## 3    0.148  0.000     0.012  0.124   0.174          Si           MAS_val
+## 4    0.055  0.001     0.010  0.037   0.076          Si            AS_val
+## 5    0.318  0.000     0.006  0.306   0.329          Ti PercentCultch_val
+## 6    0.496  0.000     0.008  0.480   0.510          Ti          MSSS_val
+## 7    0.165  0.000     0.007  0.151   0.180          Ti           MAS_val
+## 8    0.063  0.000     0.001  0.060   0.066          Ti            AS_val</code></pre>
+<p>Walking through our results, the sum of all of the first-order point estimates is 0.959, meaning that ~96% of the uncertainty in RSI variables can be attributed to the influence of individual parameters. Hence, the OSIs in the model mostly act independently in explaining variance in RSI scores, and interactive effects are small.</p>
+<p>The table summarizes the Sobol’ <em>S<sub>i</sub></em> and <em>T<sub>i</sub></em> indices, the standard errors, and confidence intervals for each parameter in the model. These results suggest that the RSI model is most sensitive to mean salinity during spawning season, which accounts for somewhere between 41 and 52% of the uncertainty in RSI values on its own (<em>S<sub>i</sub></em>) and 48 and 51% of the uncertainty in RSI in combination with all other parameters (<em>T<sub>i</sub></em>). Percent cultch contributes the second most to model uncertainty, followed by minimum annual salinity (MAS) and annual mean salinity (AS).</p>
+<p>Knowing how different parameters contribute to uncertainty in RSI scores is beneficial for several reasons. It can help you:</p>
+<ul>
+<li>Prioritize data collection on the parameters that are most influential for habitat suitability.</li>
+<li>Remove unnecessary parameters from a model.</li>
+<li>Ensure that the structure and function of a model reflects the habitat requirements of a species.</li>
+</ul>
+<p>For example, if a parameter is known to be important for habitat suitability but an HSI model is insensitive to that parameter, it suggests that the model structure does not sufficiently reflect overall suitability.</p>
+</div>
+<div id="calculating-dummy-parameters-for-comparison" class="section level3" number="13.4.6">
+<h3>
+<span class="header-section-number">13.4.6</span> Calculating dummy parameters for comparison<a class="anchor" aria-label="anchor" href="#calculating-dummy-parameters-for-comparison"><i class="fas fa-link"></i></a>
+</h3>
+<p>How do we know if a given <em>S<sub>i</sub></em> or <em>T<sub>i</sub></em> value actually signifies that a parameter is influencing the model?</p>
+<p>To determine this we need a threshold for comparison. We can then consider Sobol’ indices below this threshold as not influential on variance in RSI. To do this, we’ll calculate a dummy parameter (Korashadi Zadeh et al. 2017; Puy et al. 2022). The dummy parameter is calculated along with our model inputs but is not actually included in the model (Korashadi Zadeh et al. 2017). In the OHSIM sensitivity analysis, we generate 60,000 RSI values using various combinations of our OSI variables. For each combination, we could also randomly pull and store a value between 0 and 1 from a uniform distribution. This value is completely unrelated to the RSI score, meaning that any relationship it has with RSI is pure coincidence (i.e., spurious). What it represents is numerical approximation error in our model (Puy et al. 2022). If a parameter in the model and the dummy have comparable influence on our RSI values, then that model parameter is essentially unimportant within our model as it’s formulated.</p>
+<p>This code generates values for our dummy parameters (one for <em>S<sub>i</sub></em> and one for <em>T<sub>i</sub></em>):</p>
+<div class="sourceCode" id="cb321"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Calculate dummy parameter</span></span>
+<span><span class="va">dummy_indices</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/sensobol/man/sobol_dummy.html">sobol_dummy</a></span><span class="op">(</span>Y <span class="op">=</span> <span class="va">RSI</span>, N <span class="op">=</span> <span class="fl">10000</span>, params <span class="op">=</span> <span class="va">params</span>, boot <span class="op">=</span> <span class="cn">TRUE</span>, R <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># View dummy parameters</span></span>
+<span><span class="va">dummy_indices</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/where.html">where</a></span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span>, <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">.x</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##   original   bias std.error low.ci high.ci sensitivity parameters
+## 1    0.001  0.000     0.000  0.001   0.001          Si      dummy
+## 2    0.000 -0.003     0.037  0.000   0.070          Ti      dummy</code></pre>
+<p>Interpretation of dummies is similar to that of our Sobol’ indices, but values represent noise occurring in the model rather than contributions of actual parameters. Here, between 0.067 and 0.071% of the uncertainty in RSI scores for <em>S<sub>i</sub></em> and 0 and 6.958% for <em>T<sub>i</sub></em> can be attributed to noise in the model. If any of our Sobol’ sensitivity indices fall within these ranges, we can say that the RSI model is relatively insensitive to those parameters. Dummy parameters and Sobol’ indices for <em>S<sub>i</sub></em> and <em>T<sub>i</sub></em> are calculated separately, so a parameter could fail to contribute to RSI scores on its own (<em>S<sub>i</sub></em>) but still have important influence through interactions with other variables (<em>T<sub>i</sub></em>), or vice versa.</p>
+<p>For an intuitive summary of the results of our sensitivity analysis, we can use the <strong><code>plot</code></strong> function to create a bar chart of our results:</p>
+<div class="sourceCode" id="cb323"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Plot results of sensitivity index</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">sensitivity_indices</span>, dummy <span class="op">=</span> <span class="va">dummy_indices</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="usace_R_training_files/figure-html/graph-sensitivity-1.png" width="600" height="600"></div>
+<p>In this plot, bars represent our two Sobol’ indices. Horizontal dashed lines represent the upper confidence interval of the dummy parameters for the <em>S<sub>i</sub></em> and <em>T<sub>i</sub></em> indices. If the RSI model were insensitive to any of our OSI variables, the error bars, which represent the 95% confidence intervals of each sensitivity index, would overlap or fall below the dashed lines for both <em>S<sub>i</sub></em> and <em>T<sub>i</sub></em>.</p>
+<p>Based on our dummy parameter confidence intervals and the plot, RSI scores are sensitive to all four of the parameters in our model, but annual mean salinity (AS) does not have any important total order influence (i.e., AS does not interact with other variables in the model).</p>
+<p>Again, this type of analysis can be very beneficial in a USACE context. Planners and biologists creating a new HSI model can use sensitivity analysis to gauge the importance and functioning of different potential parameters. And if a model is being applied across a spatially variable region, sensitivity of the model can be examined in different locations to see if parameter contributions to uncertainty vary among different project locations.</p>
+</div>
+</div>
+<div id="summary-3" class="section level2" number="13.5">
+<h2>
+<span class="header-section-number">13.5</span> Summary<a class="anchor" aria-label="anchor" href="#summary-3"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li>Uncertainty analysis and sensitivity analysis (UA/SA) can greatly improve the utility of HSI models</li>
+<li>UA/SA enable users to explore the magnitude of uncertainty in models, assess the role each parameter is playing in model outcome uncertainty, and determine if models are functioning as expected</li>
+<li>The <strong><code>sensobol</code></strong> package in <strong><code>R</code></strong> offers a straightforward UA/SA method using global, all-at-a-time, variance-based analyses</li>
+</ul>
+</div>
+<div id="references-1" class="section level2" number="13.6">
+<h2>
+<span class="header-section-number">13.6</span> References<a class="anchor" aria-label="anchor" href="#references-1"><i class="fas fa-link"></i></a>
+</h2>
+<ol style="list-style-type: decimal">
+<li>Bender, L. C., Roloff, G. J., &amp; Haufler, J. B. (1996). Evaluating confidence intervals for habitat suitability models. Wildlife Society Bulletin (1973-2006), 24(2), 347–352.</li>
+<li>Brooks, R. P. (1997). Improving habitat suitability index models. Wildlife Society Bulletin (1973-2006), 25(1), 163–167.</li>
+<li>Burgman, M. A., Breininger, D. R., Duncan, B. W., &amp; Ferson, S. (2001). Setting reliability bounds on habitat suitability indices. Ecological Applications, 11(1), 70–78. <a href="https://doi.org/10.1890/1051-0761(2001)011%5B0070:SRBOHS%5D2.0.CO;2" class="uri">https://doi.org/10.1890/1051-0761(2001)011[0070:SRBOHS]2.0.CO;2</a>
+</li>
+<li>Grabowski, J. H., &amp; Peterson, C. H. (2007). Restoring oyster reefs to recover ecosystem services. In Theoretical Ecology Series (Vol. 4, pp. 281–298). Elsevier. <a href="https://doi.org/10.1016/S1875-306X(07)80017-7" class="uri">https://doi.org/10.1016/S1875-306X(07)80017-7</a>
+</li>
+<li>Jansen, M. J. W. (1999). Analysis of variance designs for model output. Computer Physics Communications, 117(1–2), 35–43. <a href="https://doi.org/10.1016/S0010-4655(98)00154-4" class="uri">https://doi.org/10.1016/S0010-4655(98)00154-4</a>
+Pianosi, F., Beven, K., Freer, J., Hall, J. W., Rougier, J., Stephenson, D. B., &amp; Wagener, T. (2016). Sensitivity analysis of environmental models: A systematic review with practical workflow. Environmental Modelling &amp; Software, 79, 214–232. <a href="https://doi.org/10.1016/j.envsoft.2016.02.008" class="uri">https://doi.org/10.1016/j.envsoft.2016.02.008</a>
+</li>
+<li>Pianosi, F., &amp; Wagener, T. (2015). A simple and efficient method for global sensitivity analysis based on cumulative distribution functions. Environmental Modelling &amp; Software, 67, 1–11. <a href="https://doi.org/10.1016/j.envsoft.2015.01.004" class="uri">https://doi.org/10.1016/j.envsoft.2015.01.004</a>
+</li>
+<li>Puy, A., Piano, S. L., Saltelli, A., &amp; Levin, S. A. (2022). sensobol : An R Package to Compute Variance-Based Sensitivity Indices. Journal of Statistical Software, 102(5). <a href="https://doi.org/10.18637/jss.v102.i05" class="uri">https://doi.org/10.18637/jss.v102.i05</a>
+</li>
+<li>Razavi, S., Jakeman, A., Saltelli, A., Prieur, C., Iooss, B., Borgonovo, E., Plischke, E., Lo Piano, S., Iwanaga, T., Becker, W., Tarantola, S., Guillaume, J. H. A., Jakeman, J., Gupta, H., Melillo, N., Rabitti, G., Chabridon, V., Duan, Q., Sun, X., … Maier, H. R. (2021). The Future of Sensitivity Analysis: An essential discipline for systems modeling and policy support. Environmental Modelling &amp; Software, 137, 104954. <a href="https://doi.org/10.1016/j.envsoft.2020.104954" class="uri">https://doi.org/10.1016/j.envsoft.2020.104954</a>
+</li>
+<li>Saltelli, A., Aleksankina, K., Becker, W., Fennell, P., Ferretti, F., Holst, N., Li, S., &amp; Wu, Q. (2019). Why so many published sensitivity analyses are false: A systematic review of sensitivity analysis practices. Environmental Modelling &amp; Software, 114, 29–39. <a href="https://doi.org/10.1016/j.envsoft.2019.01.012" class="uri">https://doi.org/10.1016/j.envsoft.2019.01.012</a>
+</li>
+<li>Saltelli, A., Annoni, P., Azzini, I., Campolongo, F., Ratto, M., &amp; Tarantola, S. (2010). Variance based sensitivity analysis of model output. Design and estimator for the total sensitivity index. Computer Physics Communications, 181(2), 259–270. <a href="https://doi.org/10.1016/j.cpc.2009.09.018" class="uri">https://doi.org/10.1016/j.cpc.2009.09.018</a>
+</li>
+<li>Sobol’, I. M. (1967). On the distribution of points in a cube and the approximate evaluation of integrals. USSR Computational Mathematics and Mathematical Physics, 7(4), 86–112. <a href="https://doi.org/10.1016/0041-5553(67)90144-9" class="uri">https://doi.org/10.1016/0041-5553(67)90144-9</a>
+</li>
+<li>Sobol’, I. M. (1976). Uniformly distributed sequences with an additional uniform property. USSR Computational Mathematics and Mathematical Physics, 16(5), 236–242. 10. 1016/0041-5553(76)90154-3.</li>
+<li>Swannack, T. M., Reif, M., &amp; Soniat, T. M. (2014). A Robust, Spatially Explicit Model for Identifying Oyster Restoration Sites: Case Studies on the Atlantic and Gulf Coasts. Journal of Shellfish Research, 33(2), 395–408. <a href="https://doi.org/10.2983/035.033.0208" class="uri">https://doi.org/10.2983/035.033.0208</a>
+</li>
+<li>Zajac, Z., Stith, B., Bowling, A. C., Langtimm, C. A., &amp; Swain, E. D. (2015). Evaluation of habitat suitability index models by global sensitivity and uncertainty analyses: a case study for submerged aquatic vegetation. Ecology and Evolution, 5(13), 2503–2517. <a href="https://doi.org/10.1002/ece3.1520" class="uri">https://doi.org/10.1002/ece3.1520</a>
+</li>
+</ol>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="ecorest-web-app.html"><span class="header-section-number">12</span> Ecorest Web App</a></div>
+<div class="next"><a href="spatial-habitat-models.html"><span class="header-section-number">14</span> Spatial Habitat Models</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#sensitivity-and-uncertainty-analysis-for-habitat-suitability-index-hsi-models"><span class="header-section-number">13</span> Sensitivity and uncertainty analysis for habitat suitability index (HSI) models</a></li>
+<li><a class="nav-link" href="#learning-objectives-6"><span class="header-section-number">13.1</span> Learning objectives</a></li>
+<li><a class="nav-link" href="#benefits-of-uncertainty-and-sensitivity-analysis-for-hsi-modeling"><span class="header-section-number">13.2</span> Benefits of uncertainty and sensitivity analysis for HSI modeling</a></li>
+<li><a class="nav-link" href="#variance-based-global-sensitivity-and-uncertainty-analysis-with-sensobol"><span class="header-section-number">13.3</span> Variance-based global sensitivity and uncertainty analysis with sensobol</a></li>
+<li>
+<a class="nav-link" href="#habitat-suitability-modeling-for-oyster-reef-restoration"><span class="header-section-number">13.4</span> Habitat suitability modeling for oyster reef restoration</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#restoration-suitability-index"><span class="header-section-number">13.4.1</span> Restoration suitability index</a></li>
+<li><a class="nav-link" href="#creating-a-sobol-matrix-to-generate-sample-data-for-analysis"><span class="header-section-number">13.4.2</span> Creating a Sobol’ matrix to generate sample data for analysis</a></li>
+<li><a class="nav-link" href="#calculating-osi-and-rsi-scores-with-sample-data"><span class="header-section-number">13.4.3</span> Calculating OSI and RSI scores with sample data</a></li>
+<li><a class="nav-link" href="#examining-uncertainty-in-restoration-suitability"><span class="header-section-number">13.4.4</span> Examining uncertainty in restoration suitability</a></li>
+<li><a class="nav-link" href="#using-sensitivity-analysis-to-assess-the-relative-importance-of-input-parameters"><span class="header-section-number">13.4.5</span> Using sensitivity analysis to assess the relative importance of input parameters</a></li>
+<li><a class="nav-link" href="#calculating-dummy-parameters-for-comparison"><span class="header-section-number">13.4.6</span> Calculating dummy parameters for comparison</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#summary-3"><span class="header-section-number">13.5</span> Summary</a></li>
+<li><a class="nav-link" href="#references-1"><span class="header-section-number">13.6</span> References</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Using R for ecological modeling in USACE</strong>" was written by Ed Stowe. </p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
