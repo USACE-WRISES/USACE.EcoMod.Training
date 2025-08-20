@@ -29,4 +29,6 @@ rmd_files: [
 "CEICA.Rmd", 
 "model_integration.Rmd",
 "r_spatial.Rmd", 
-"data_sources.Rmd"]
+"data_sources.Rmd",
+"gage_data.Rmd",
+"nhd_data.Rmd"]
