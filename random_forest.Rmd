@@ -11,9 +11,6 @@ https://carpentries-incubator.github.io/r-ml-tabular-data/04-Decision-Forests/in
 
 Use tidymodels version
 
-# Objectives
-
-
 ## Learning objectives
 
 - Understand the value of MLs like random forest
@@ -21,28 +18,30 @@ Use tidymodels version
 - Understand the basic workflow of an ML
 - Learn to implement a simple random forest model
 
-## Can I do machine learning?
+## Background
+
+### Can I do machine learning?
 
 Yes. And it's getting easier.
 
-## What is it actually?
+### What is it actually?
 
 
-## When would it be good?
+### When would it be good?
 Prediction
 
-## What are the basic steps
+### What are the basic steps
 - Split
 - Tune and train
 - Assess
 - Predict
 
-## What can I use for ML?
+### What can I use for ML?
 Tons of packages in R and Python.
 
 Tidymodels in R offers an integrated for framework for using a bunch of different MLs.
 
-## How does random forest work
+### How does random forest work
 Decision trees start with a basic question, such as, “Should I surf?” 
 From there, you can ask a series of questions to determine an answer, such as, “Is it a long period swell?” or “Is the wind blowing offshore?”. 
 
@@ -76,7 +75,7 @@ Why It Works Well: Using random data and features for each tree helps avoid over
 
 
 
-## Now let's go
+## Case study
 
 ### Quick data exploration
 
