@@ -85,7 +85,7 @@ Why It Works Well: Using random data and features for each tree helps avoid over
 
 
 ##### Set up train/test split
-```{r}
+```{r, eval=FALSE}
 library(tidymodels)
 
 set.seed(123)
@@ -105,7 +105,7 @@ The date column with when each tree was planted may be useful for fitting this m
 There are many more DPW maintained trees than not, so let’s downsample the data for training.
 The object tree_rec is a recipe that has not been trained on data yet (for example, which categorical levels should be collapsed has not been calculated) and tree_prep is an object that has been trained on data.
 
-```{r}
+```{r, eval=FALSE}
 tree_rec <- recipe(legal_status ~ ., data = trees_train) %>%
   update_role(tree_id, new_role = "ID") %>%
   step_other(species, caretaker, threshold = 0.01) %>%
@@ -123,7 +123,7 @@ juiced <- juice(tree_prep)
 ##### Model specifications with parsnip
 
 Tune some of the parameters.
-```{r}
+```{r, eval=FALSE}
 rf_spec <- 
     rand_forest(mtry = tune(), min_n = tune(), trees = 1000) %>% 
     set_engine("ranger") %>% 
@@ -132,7 +132,7 @@ rf_spec <-
 ```
 
 # Workflow
-```{r}
+```{r, eval=FALSE}
 tune_wf <- workflow() %>%
   add_recipe(tree_rec) %>%
   add_model(tune_spec)
@@ -141,14 +141,14 @@ tune_wf <- workflow() %>%
 # Tune hyperparameters - Notes from Julia Slige https://juliasilge.com/blog/sf-trees-random-tuning/
 Now it’s time to tune the hyperparameters for a random forest model. First, let’s create a set of cross-validation resamples to use for tuning.
 
-```{r}
+```{r, eval=FALSE}
 set.seed(234)
 trees_folds <- vfold_cv(trees_train)
 ```
 
 We can’t learn the right values when training a single model, but we can train a whole bunch of models and see which ones turn out best. We can use parallel processing to make this go faster, since the different parts of the grid are independent. Let’s use grid = 20 to choose 20 grid points automatically.
 
-```{r}
+```{r, eval=FALSE}
 doParallel::registerDoParallel()
 
 set.seed(345)
@@ -163,7 +163,7 @@ tune_res
 
 How did this turn out? Let’s look at AUC.
 
-```{r}
+```{r, eval=FALSE}
 tune_res %>%
   collect_metrics() %>%
   filter(.metric == "roc_auc") %>%
@@ -180,7 +180,7 @@ tune_res %>%
 
 This grid did not involve every combination of min_n and mtry but we can get an idea of what is going on. It looks like higher values of mtry are good (above about 10) and lower values of min_n are good (below about 10). We can get a better handle on the hyperparameters by tuning one more time, this time using regular_grid(). Let’s set ranges of hyperparameters we want to try, based on the results from our initial tune.
 
-```{r}
+```{r, eval=FALSE}
 rf_grid <- grid_regular(
   mtry(range = c(10, 30)),
   min_n(range = c(2, 8)),
@@ -196,7 +196,7 @@ It’s much more clear what the best model is now. We can identify it using the 
 
 We can tune one more time, but this time in a more targeted way with this rf_grid.
 
-```{r}
+```{r, eval=FALSE}
 set.seed(456)
 regular_res <- tune_grid(
   tune_wf,
@@ -208,7 +208,7 @@ regular_res
 ```
 
 What the results look like now?
-```{r}
+```{r, eval=FALSE}
 regular_res %>%
   collect_metrics() %>%
   filter(.metric == "roc_auc") %>%
@@ -229,7 +229,7 @@ final_rf
 ```
 
 Let’s explore our final model a bit. What can we learn about variable importance, using the vip package?
-```{r}
+```{r, eval=FALSE}
 library(vip)
 
 final_rf %>%
@@ -244,7 +244,7 @@ The private caretaker characteristic important in categorization, as is latitude
 
 Let’s make a final workflow, and then fit one last time, using the convenience function last_fit(). This function fits a final model on the entire training set and evaluates on the testing set. We just need to give this funtion our original train/test split.
 
-```{r}
+```{r, eval=FALSE}
 final_wf <- workflow() %>%
   add_recipe(tree_rec) %>%
   add_model(final_rf)
@@ -260,7 +260,7 @@ The metrics for the test set look good and indicate we did not overfit during tu
 
 Let’s bind our testing results back to the original test set, and make one more map. Where in San Francisco are there more or less incorrectly predicted trees?
 
-```{r}
+```{r, eval=FALSE}
 final_res %>%
   collect_predictions() %>%
   mutate(correct = case_when(
