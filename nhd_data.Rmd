@@ -1,0 +1,15 @@
+# National Hydrography Dataset 
+
+nhdplusTools package
+https://doi-usgs.github.io/nhdplusTools/
+
+in NHDplus "catchment" = polygon feature that captures the drainage divide areound the hydrologic unit that contributes surface flow to a given NHD flowline
+
+COMID id's catchment polygon, flowline that connects catchment inlet and outlet, & value added attributres
+
+Scope of data used
+* Flowlines and waterbodies: 1-d streams and 1-d "artificial waterbodies"
+* Catchment polygons
+* Network attributes from NHDplus
+
+Web and local (mix of services)
