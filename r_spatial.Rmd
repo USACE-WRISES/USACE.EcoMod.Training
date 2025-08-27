@@ -5,9 +5,15 @@
 Use this info here:
 https://rspatial.org/index.html
 
-Objectives
+## Objectives
 
-# Intersect 
+
+## Common operations
+
+### Intersections
+### Re-projecting
+### Buffers
+
 
 
 
