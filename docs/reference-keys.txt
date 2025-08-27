@@ -191,10 +191,12 @@ population-modeling
 occupancy-models-in-r-with-unmarked-james-paterson
 course-outline
 network-models-and-connectivity
-overview
+background-on-network-analysis
+overview-on-wuct-tool
 background-2
-application-bronx-river
+case-study-bronx-river
 summary-5
+summary-6
 agent-based-models
 decision-support
 annualizing-benefits-and-costs-with-ecorest-and-engrecon
@@ -206,7 +208,7 @@ cost-data
 operations-and-maintenance-costs
 interest-during-construction
 annualize-all-costs
-summary-6
+summary-7
 ceica-chapter
 learning-objectives-10
 background-on-cost-effectivness-and-incremental-cost-analysis
@@ -214,7 +216,7 @@ ceica-with-ecorest-in-4-easy-steps
 ceica-full
 identifying-cost-effective-alternatives
 identifying-best-buys
-summary-7
+summary-8
 model-integration
 r-for-gis
 intersect
@@ -227,3 +229,10 @@ other-data-sources-commonly-used-in-usace
 code-for-ras-output-files-dss-netcdf
 usgs-gage-data-using-the-dataretrieval-package
 national-hydrography-dataset
+learning-objectives-11
+background-3
+juliette-dam-case-study
+downloading-nhd-network-data
+use-epa-streamcat-data-for-land-use
+use-nid-for-dams
+finding-streamgages

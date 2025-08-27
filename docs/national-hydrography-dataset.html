@@ -18,9 +18,9 @@
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   </style>
-<meta name="description" content="nhdplusTools package https://doi-usgs.github.io/nhdplusTools/ in NHDplus “catchment” = polygon feature that captures the drainage divide areound the hydrologic unit that contributes surface flow...">
-<meta property="og:description" content="nhdplusTools package https://doi-usgs.github.io/nhdplusTools/ in NHDplus “catchment” = polygon feature that captures the drainage divide areound the hydrologic unit that contributes surface flow...">
-<meta name="twitter:description" content="nhdplusTools package https://doi-usgs.github.io/nhdplusTools/ in NHDplus “catchment” = polygon feature that captures the drainage divide areound the hydrologic unit that contributes surface flow...">
+<meta name="description" content="This module will teach you how to interact with the National Hydrography Dataset and river network data using the nhdplusTools package in R. Graphical output of a river network along with...">
+<meta property="og:description" content="This module will teach you how to interact with the National Hydrography Dataset and river network data using the nhdplusTools package in R. Graphical output of a river network along with...">
+<meta name="twitter:description" content="This module will teach you how to interact with the National Hydrography Dataset and river network data using the nhdplusTools package in R. Graphical output of a river network along with...">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -93,16 +93,385 @@
 <h1>
 <span class="header-section-number">28</span> National Hydrography Dataset<a class="anchor" aria-label="anchor" href="#national-hydrography-dataset"><i class="fas fa-link"></i></a>
 </h1>
-<p>nhdplusTools package
-<a href="https://doi-usgs.github.io/nhdplusTools/" class="uri">https://doi-usgs.github.io/nhdplusTools/</a></p>
-<p>in NHDplus “catchment” = polygon feature that captures the drainage divide areound the hydrologic unit that contributes surface flow to a given NHD flowline</p>
-<p>COMID id’s catchment polygon, flowline that connects catchment inlet and outlet, &amp; value added attributres</p>
-<p>Scope of data used
-* Flowlines and waterbodies: 1-d streams and 1-d “artificial waterbodies”
-* Catchment polygons
-* Network attributes from NHDplus</p>
-<p>Web and local (mix of services)</p>
-
+<hr>
+<p><strong>This module will teach you how to interact with the National Hydrography Dataset and river network data using the <code>nhdplusTools</code> package in <code>R</code>.</strong></p>
+<div class="float">
+<img src="images/nhd_dams.png" style="width:100.0%" alt="Graphical output of a river network along with associated dams created using nhdplusTools along with data from the National Inventory of Dams."><div class="figcaption"><em>Graphical output of a river network along with associated dams created using <strong><code>nhdplusTools</code></strong> along with data from the National Inventory of Dams.</em></div>
+</div>
+<hr>
+<p><em>Author: Ed Stowe</em><br><em>Last update: 2025-08-20</em><br><em>Acknowledgements: Material was inspired by the <a href="https://doi-usgs.github.io/nhdplusTools/articles/get_data_overview.html">nhdplusTools vignette</a> developed by David Blodgett and Mike Johnson, the creators of the <code>nhdplusTools</code> package </em></p>
+<div id="learning-objectives-11" class="section level2" number="28.1">
+<h2>
+<span class="header-section-number">28.1</span> Learning objectives<a class="anchor" aria-label="anchor" href="#learning-objectives-11"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li>Learn what the National Hydrography Dataset contains.</li>
+<li>Learn how to build and interact with watershed networks using the <code>nhdplusTools</code> package in <code>R</code>.</li>
+<li>Learn how R can facilitate analyses that bring together NHD data along with diverse datasets related to dams, stream gages, and land cover.</li>
+</ul>
+</div>
+<div id="background-3" class="section level2" number="28.2">
+<h2>
+<span class="header-section-number">28.2</span> Background<a class="anchor" aria-label="anchor" href="#background-3"><i class="fas fa-link"></i></a>
+</h2>
+<p>The National Hydrography Dataset (NHD) is a database that represents the water drainage network of the U.S. It’s features include rivers, streams, lakes, canals and other waterbodies, as well as other features relevant to water management, such as stream gages and dams.</p>
+<p>The NHD database is packed with information. Each stream segment, for example, is associated with over a hundred variables, including its length and Strahler stream order. Several attributes also relate a given segment to its neighboring segment, so that information about the entire watershed can be characterized.</p>
+<p>NHD data can be downloaded from the web and accessed in GIS software but can be unwieldy. However, a useful package in R, the <code>nhdplusTools</code> package, makes it easy to perform a lot of common watershed related tasks, while harnessing other advantages of performing tasks in R, such as automating repetitive tasks.</p>
+<p>In this module, we will investigate the watershed upstream of Juliette Dam, a former hydropower dam on the Ocmulgee River in Georgia. Discussions about removing the dam have been ongoing, and when this occurs, it can be helpful to consider habitat upstream that might be re-connected for migratory fishes.</p>
+<p>For more information on the nhdplusTools package, visit the extensive <a href="https://doi-usgs.github.io/nhdplusTools/">package website</a>.</p>
+</div>
+<div id="juliette-dam-case-study" class="section level2" number="28.3">
+<h2>
+<span class="header-section-number">28.3</span> Juliette Dam case study<a class="anchor" aria-label="anchor" href="#juliette-dam-case-study"><i class="fas fa-link"></i></a>
+</h2>
+<p>To perform the main case study you need to load the <code>nhdplusTools</code>, as well as <code>sf</code> package for spatial operations and the <code>tidyverse</code> package for plotting and data wrangling. If you don’t have these packages installed, first uncomment the lines below and run the code to install them, before loading them.</p>
+<p>Later in the module, we will also look at two applications that assess additional dams and land use upstream of Juliette Dam, and these applications will require two additional <code>R</code> packages as well.</p>
+<div id="downloading-nhd-network-data" class="section level3" number="28.3.1">
+<h3>
+<span class="header-section-number">28.3.1</span> Downloading NHD network data<a class="anchor" aria-label="anchor" href="#downloading-nhd-network-data"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb457"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># install.packages("nhdplusTools")</span></span>
+<span><span class="co"># install.packages("sf")</span></span>
+<span><span class="co"># install.packages("tidyverse")</span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://doi-usgs.github.io/nhdplusTools/">nhdplusTools</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span></code></pre></div>
+<p>To build our stream network upstream of Juliette Dam, we will first need its coordinates to find the nearest stream segment. With the coordinates, the below code creates a spatial point using the <code>st_sfc</code> function in the <code>sf</code> package. For this function, we need to tell it what the coordinates are (always listing longitude–the x coordinate–first). We also need to set the coordinate system (or <code>crs</code>). Here we give it 4269, which a code (called the EPSG) that is unique for each coordinate reference system. This one is a coordinate system for using latitude-longitude coordinates in North America.</p>
+<div class="sourceCode" id="cb458"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">lat</span> <span class="op">&lt;-</span> <span class="fl">33.106056</span></span>
+<span><span class="va">lon</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">83.794806</span></span>
+<span></span>
+<span><span class="va">start_point</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/sfc.html">st_sfc</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st.html">st_point</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">lon</span>, <span class="va">lat</span><span class="op">)</span><span class="op">)</span>, crs <span class="op">=</span> <span class="fl">4269</span><span class="op">)</span></span></code></pre></div>
+<p>Now we want to find an associated stream segment and catchment. Each stream segment is identified by an ID called a COMID. This ID also identifies a local catchment for that segment, which is the area that contributes surface flow to a given NHD segment. The COMID is also associated with numerous attributes that describe the stream segment and catchment.</p>
+<p>We use the <code>discover_nhdplus_id</code> function to find the COMID and stream segment closest to our point.</p>
+<p>Adding <code>raindrop = true</code> creates a downslope trace from our point location to nearest flowline, although that’s not very important in our case because our point is on the dam, in the middle of the river.</p>
+<div class="sourceCode" id="cb459"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">start_segment</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://doi-usgs.github.io/nhdplusTools/reference/discover_nhdplus_id.html">discover_nhdplus_id</a></span><span class="op">(</span><span class="va">start_point</span>, raindrop <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">start_segment</span></span></code></pre></div>
+<pre><code>## Simple feature collection with 2 features and 7 fields
+## Geometry type: LINESTRING
+## Dimension:     XY
+## Bounding box:  xmin: -83.79481 ymin: 33.09087 xmax: -83.78007 ymax: 33.10659
+## Geodetic CRS:  WGS 84
+## # A tibble: 2 × 8
+##   id           gnis_name        comid reachcode      raindrop_pathDist measure intersection_point
+##   &lt;chr&gt;        &lt;chr&gt;            &lt;int&gt; &lt;chr&gt;                      &lt;dbl&gt;   &lt;dbl&gt; &lt;list&gt;            
+## 1 nhdFlowline  Ocmulgee River 6336752 03070103000084              26.1    97.7 &lt;dbl [2]&gt;         
+## 2 raindropPath &lt;NA&gt;                NA &lt;NA&gt;                        NA      NA   &lt;dbl [0]&gt;         
+## # ℹ 1 more variable: geometry &lt;LINESTRING [°]&gt;</code></pre>
+<div class="sourceCode" id="cb461"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">start_comid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="va">start_segment</span><span class="op">$</span><span class="va">comid</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
+<span></span>
+<span><span class="va">start_comid</span></span></code></pre></div>
+<pre><code>## [1] 6336752</code></pre>
+<p>This returns a spatial dataframe with two rows, one for our stream segment of interest containing the important COMID, and one that is the path of our raindrop.</p>
+<p>Now we visualize the starting point and stream segment in ggplot. The <code>geom_sf</code> function in ggplot conveniently plots spatial objects created with the <code>sf</code> package. We adjust the x-axis labels to make them more legible.</p>
+<div class="sourceCode" id="cb463"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">start_segment</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">start_point</span>, color <span class="op">=</span> <span class="st">"red"</span>, size <span class="op">=</span> <span class="fl">4</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">83.794</span>, <span class="op">-</span><span class="fl">83.782</span>, <span class="fl">.004</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="usace_R_training_files/figure-html/plot-point-seg-1.png" width="600" height="600"></div>
+<p>We now build the river network upstream of our point using the <a href="https://waterdata.usgs.gov/blog/nldi-intro/">Network Linked Data Index</a> which spatially links several different hydrological data sources, including USGS stream gages. To do that, we first create a list object, in which we indicate that we are using COMID data (<code>featureSource = "comid"</code>), and then the value of the COMID which we stored earlier in the <code>start_comid</code> object. Then, we use the <code>navigate_nldi</code> function, and set it to look for upstream tributaries by setting <code>mode = "UT</code>. Other options include upstream mainstem (<code>UM</code>) and downstream mainstem and diversions (<code>DM</code> and <code>DD</code>, respectively). We indicate to stop navigating after 1,000 km.</p>
+<div class="sourceCode" id="cb464"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">nldi_feature</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>featureSource <span class="op">=</span> <span class="st">"comid"</span>, </span>
+<span>                     featureID <span class="op">=</span> <span class="va">start_comid</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">flowline_nldi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://doi-usgs.github.io/nhdplusTools/reference/navigate_nldi.html">navigate_nldi</a></span><span class="op">(</span><span class="va">nldi_feature</span>, mode <span class="op">=</span> <span class="st">"UT"</span>, </span>
+<span>                               distance_km <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span></span></code></pre></div>
+<p>The data returned with <code>navigate_nldi</code> is a list object with two spatial dataframes, one for our origin segment, and one of the upstream stream network.</p>
+<p>We can plot our network in <code>ggplot</code>. We plot the original segment and the new steam network by referring to the different list elements using the <code>$</code> symbol.</p>
+<div class="sourceCode" id="cb465"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">flowline_nldi</span><span class="op">$</span><span class="va">UT</span>, linewidth <span class="op">=</span> <span class="fl">0.5</span>, color <span class="op">=</span> <span class="st">"lightblue"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">flowline_nldi</span><span class="op">$</span><span class="va">origin</span>, linewidth <span class="op">=</span> <span class="fl">1</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">start_point</span>, size <span class="op">=</span> <span class="fl">1</span>, linewidth <span class="op">=</span> <span class="fl">2</span>, color <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">84.4</span>, <span class="op">-</span><span class="fl">83.8</span>, <span class="fl">.2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-118-1.png" width="600" height="600"></div>
+<p>It’s great to get an upstream river network so easily, but downloading the flowline with the NLDI function only provides the geometry and COMID for flowlines. What if you want more of the data from the very extensive NHD dataset?</p>
+<p>To do that we can download a subset of the NHD layer with the <code>subset_nhdplus</code> function, which will get us all of the attributes associated with our stream segments, as well as other NHD layers.</p>
+<p>The <code>subset_nhdplus</code> function has several options. See comments in the code for a brief explanation, or the function description <a href="https://doi-usgs.github.io/nhdplusTools/reference/subset_nhdplus.html">here</a> for more info.</p>
+<div class="sourceCode" id="cb466"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">nhd_sub</span> <span class="op">&lt;-</span><span class="fu"><a href="https://doi-usgs.github.io/nhdplusTools/reference/subset_nhdplus.html">subset_nhdplus</a></span><span class="op">(</span>comids <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="va">flowline_nldi</span><span class="op">$</span><span class="va">UT</span><span class="op">$</span><span class="va">nhdplus_comid</span><span class="op">)</span>,</span>
+<span>                         nhdplus_data <span class="op">=</span> <span class="st">"download"</span>, <span class="co"># Or use nhdplus_path()</span></span>
+<span>                         flowline_only <span class="op">=</span> <span class="cn">FALSE</span>,     <span class="co"># FALSE downloads flowlines, catchments, waterbodies, etc.</span></span>
+<span>                         return_data <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>        <span class="co"># FALSE downloads to file; TRUE downloads into list in R session</span></span>
+<span>                         </span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">nhd_sub</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "NHDFlowline_Network"    "CatchmentSP"            "NHDArea"               
+## [4] "NHDWaterbody"           "NHDFlowline_NonNetwork"</code></pre>
+<p>The data returned with <code>subset_nhdplus</code> is again a list object with spatial dataframes, in this case the five different ones listed above, including flowlines, but also with other useful data such as the catchment layer.</p>
+<p>Here we create standalone layers from the <code>nhd_sub</code> object.</p>
+<div class="sourceCode" id="cb468"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">flowline</span> <span class="op">&lt;-</span> <span class="va">nhd_sub</span><span class="op">$</span><span class="va">NHDFlowline_Network</span></span>
+<span><span class="va">catchment</span> <span class="op">&lt;-</span> <span class="va">nhd_sub</span><span class="op">$</span><span class="va">CatchmentSP</span></span>
+<span><span class="va">waterbody</span> <span class="op">&lt;-</span> <span class="va">nhd_sub</span><span class="op">$</span><span class="va">NHDWaterbody</span></span></code></pre></div>
+<p>Now that we have more info for each segment, we can do a lot more. For example, we can plot just bigger streams within the network (i.e., streams with a Strahler stream order of 3 or above).</p>
+<div class="sourceCode" id="cb469"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">bigger_streams</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">flowline</span>, <span class="va">streamorde</span> <span class="op">&gt;</span> <span class="fl">2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">flowline</span>, linewidth <span class="op">=</span> <span class="fl">1</span>, color <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">bigger_streams</span>, linewidth <span class="op">=</span> <span class="fl">1.5</span>, color <span class="op">=</span> <span class="st">"grey30"</span><span class="op">)</span>  <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">84.4</span>, <span class="op">-</span><span class="fl">83.8</span>, <span class="fl">.2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-120-1.png" width="600" height="600"></div>
+<p>We can also calculate the length of flows upstream of the dam in kilometers:</p>
+<div class="sourceCode" id="cb470"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">total_upstream_km</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">flowline</span><span class="op">$</span><span class="va">lengthkm</span><span class="op">)</span></span></code></pre></div>
+<p>With the full flowline data, each segment has a ton of attributes that are useful. We print all of those attributes below. More information on these attributes can be found online, including <a href="https://www.usgs.gov/ngp-standards-and-specifications/national-hydrography-dataset-nhd-data-dictionary-flowline-value">here</a>.</p>
+<div class="sourceCode" id="cb471"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">flowline</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##   [1] "comid"        "fdate"        "resolution"   "gnis_id"      "gnis_name"    "lengthkm"    
+##   [7] "reachcode"    "flowdir"      "wbareacomi"   "ftype"        "fcode"        "shape_length"
+##  [13] "streamleve"   "streamorde"   "streamcalc"   "fromnode"     "tonode"       "hydroseq"    
+##  [19] "levelpathi"   "pathlength"   "terminalpa"   "arbolatesu"   "divergence"   "startflag"   
+##  [25] "terminalfl"   "dnlevel"      "uplevelpat"   "uphydroseq"   "dnlevelpat"   "dnminorhyd"  
+##  [31] "dndraincou"   "dnhydroseq"   "frommeas"     "tomeas"       "rtndiv"       "vpuin"       
+##  [37] "vpuout"       "areasqkm"     "totdasqkm"    "divdasqkm"    "tidal"        "totma"       
+##  [43] "wbareatype"   "pathtimema"   "hwnodesqkm"   "maxelevraw"   "minelevraw"   "maxelevsmo"  
+##  [49] "minelevsmo"   "slope"        "elevfixed"    "hwtype"       "slopelenkm"   "qa_ma"       
+##  [55] "va_ma"        "qc_ma"        "vc_ma"        "qe_ma"        "ve_ma"        "qa_01"       
+##  [61] "va_01"        "qc_01"        "vc_01"        "qe_01"        "ve_01"        "qa_02"       
+##  [67] "va_02"        "qc_02"        "vc_02"        "qe_02"        "ve_02"        "qa_03"       
+##  [73] "va_03"        "qc_03"        "vc_03"        "qe_03"        "ve_03"        "qa_04"       
+##  [79] "va_04"        "qc_04"        "vc_04"        "qe_04"        "ve_04"        "qa_05"       
+##  [85] "va_05"        "qc_05"        "vc_05"        "qe_05"        "ve_05"        "qa_06"       
+##  [91] "va_06"        "qc_06"        "vc_06"        "qe_06"        "ve_06"        "qa_07"       
+##  [97] "va_07"        "qc_07"        "vc_07"        "qe_07"       
+##  [ reached getOption("max.print") -- omitted 38 entries ]</code></pre>
+<p>If we wanted to understand upstream affects of removing a dam and increasing connectivity for fish, there are several things we might want to figure out, including whether the upstream land use is likely to support fish, and how much riverine habitat will actually be connected by removing a dam. The following code will use data from other packages along with our river network to provide a window into those questions.</p>
+</div>
+<div id="use-epa-streamcat-data-for-land-use" class="section level3" number="28.3.2">
+<h3>
+<span class="header-section-number">28.3.2</span> Use EPA StreamCat data for land use<a class="anchor" aria-label="anchor" href="#use-epa-streamcat-data-for-land-use"><i class="fas fa-link"></i></a>
+</h3>
+<p>The EPA has created a StreamCat dataset which contains substantial information about each catchment found in the NHD layer. We’re going to use that dataset to look a little bit at land use in our upstream watershed.</p>
+<p>This dataset can be downloaded <a href="https://www.epa.gov/national-aquatic-resource-surveys/streamcat-dataset#access-streamcat-data">online</a>, but we’ll use the StreamCatTools package to pull landuse data directly into <code>R</code>. This package is not hosted on CRAN because it’s still being developed. So, users will need to “uncomment” the following code and run it to download <code>StreamCatTools</code> the first time they do this analysis.</p>
+<div class="sourceCode" id="cb473"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#install.packages("remotes")</span></span>
+<span><span class="co">#library(remotes)</span></span>
+<span><span class="co">#install_github("USEPA/StreamCatTools", build_vignettes=FALSE)</span></span></code></pre></div>
+<p>Once it’s downloaded, we can load the StreamCatTools package. There are several ways to download NLCD data with this package (see more <a href="https://usepa.github.io/StreamCatTools/index.html">here</a>), but an easy way to do this is to use the <code>sc_nlcd</code> function. Here, we indicate that we are interested in catchment data (<code>cat</code>), as opposed to watershed data (<code>ws</code>) which is at a bigger scale, and then we are interested in data from Georgia, in the latest year for which NLCD data is available, which is 2019.</p>
+<div class="sourceCode" id="cb474"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://usepa.github.io/StreamCatTools/">StreamCatTools</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ga_nlcd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://usepa.github.io/StreamCatTools/reference/sc_nlcd.html">sc_nlcd</a></span><span class="op">(</span>aoi <span class="op">=</span> <span class="st">'cat'</span>, state<span class="op">=</span><span class="st">'GA'</span>, year <span class="op">=</span> <span class="st">'2019'</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">ga_nlcd</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##  [1] "comid"           "pctbl2019cat"    "pctconif2019cat" "pctcrop2019cat"  "pctdecid2019cat"
+##  [6] "pctgrs2019cat"   "pcthay2019cat"   "pcthbwet2019cat" "pctice2019cat"   "pctmxfst2019cat"
+## [11] "pctow2019cat"    "pctshrb2019cat"  "pcturbhi2019cat" "pcturblo2019cat" "pcturbmd2019cat"
+## [16] "pcturbop2019cat" "pctwdwet2019cat"</code></pre>
+<p>We can see that in addition to a column for the catchment COMID, we have the percentage of various land cover types, such as percentage mixed forest (<code>pctmxfst2019cat</code>) and columns for urban land cover (high, medium, low, and open).</p>
+<p>We’re only interested in land cover data for our watershed, not all of GA. So, we use <code>left_join</code> to merge the land cover data with the catchment layer. This join is done by matching COMIDs, although the column with COMIDs is called <code>featureid</code> in the catchment dataset.</p>
+<p>If we are interested in, say, urban land cover, we can sum across the different categories of urban land cover data, which is accomplished by summing across all columns with names that match the string “urb”.</p>
+<div class="sourceCode" id="cb476"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">catchment_lc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">catchment</span>, <span class="va">ga_nlcd</span>,</span>
+<span>                    by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"featureid"</span> <span class="op">=</span> <span class="st">"comid"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>pct_urb <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html">rowSums</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">matches</a></span><span class="op">(</span><span class="st">"urb"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Let’s plot our catchments now to see how urban the different catchments are above the dam.</p>
+<div class="sourceCode" id="cb477"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">catchment_lc</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">pct_urb</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">flowline</span>, <span class="va">streamorde</span> <span class="op">&gt;</span> <span class="fl">2</span><span class="op">)</span>, </span>
+<span>     linewidth <span class="op">=</span> <span class="fl">1.5</span>, color <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_colour_continuous.html">scale_fill_continuous</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"viridis"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">84.4</span>, <span class="op">-</span><span class="fl">83.8</span>, <span class="fl">.2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="usace_R_training_files/figure-html/plot-urb-lc-1.png" width="600" height="600"></div>
+<p>Based on this, the headwaters of this basin have a lot of urban land cover, approaching 100% in some cases, with clear ramifications for the kinds of organisms that might persist there.</p>
+</div>
+<div id="use-nid-for-dams" class="section level3" number="28.3.3">
+<h3>
+<span class="header-section-number">28.3.3</span> Use NID for dams<a class="anchor" aria-label="anchor" href="#use-nid-for-dams"><i class="fas fa-link"></i></a>
+</h3>
+<p>Another consideration for thinking about connectivity in the watershed upstream of Juliette concerns how the stream network is impacted by dams.</p>
+<p>To take a look at this, we’ll use data from the <a href="https://nid.sec.usace.army.mil/#/">National Inventory of Dams</a> (NID), which is a database managed by USACE that documents all known dams in the U.S.</p>
+<p>The NID can be queried and downloaded <a href="https://nid.sec.usace.army.mil/#/dams/search/&amp;viewType=map&amp;resultsType=dams&amp;advanced=false&amp;hideList=false&amp;eventSystem=false">online</a>, but we can also use the <code>dams</code> package in <code>R</code> to download a subset of the dams.</p>
+<p>Here we load the <code>dams</code> package. (Install the package the first time you use it.) We can quickly filter our NID to just Georgia so that it’s more wieldy.</p>
+<div class="sourceCode" id="cb478"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#install.packages("dams")</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jsta/dams">dams</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Download subset of dam data</span></span>
+<span><span class="va">nid</span> <span class="op">&lt;-</span> <span class="fu">dams</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/dams/man/nid_subset.html">nid_subset</a></span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">state</span> <span class="op">==</span> <span class="st">"GA"</span><span class="op">)</span></span></code></pre></div>
+<p>Next, we can make the NID a spatial object with the <code>st_as_sf</code> function in the <code>sf</code> package. Again, we need to tell the function which columns contain the x- and y-coordinates of each dam, as well as the coordinate system.</p>
+<div class="sourceCode" id="cb479"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Make NID data a spatial object; set coordinate reference system (crs) to Lat Long EPSG</span></span>
+<span><span class="va">nid_sf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html">st_as_sf</a></span><span class="op">(</span><span class="va">nid</span>, coords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"longitude"</span>, <span class="st">"latitude"</span><span class="op">)</span>, crs <span class="op">=</span> <span class="fl">4269</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">nid_sf</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##  [1] "recordid"              "dam_name"              "nidid"                 "county"               
+##  [5] "owner_type"            "dam_type"              "purposes"              "year_completed"       
+##  [9] "nid_height"            "max_storage"           "normal_storage"        "nid_storage"          
+## [13] "hazard"                "eap"                   "inspection_frequency"  "state_reg_dam"        
+## [17] "spillway_width"        "volume"                "number_of_locks"       "length_of_locks"      
+## [21] "width_of_locks"        "source_agency"         "state"                 "submit_date"          
+## [25] "party"                 "numseparatestructures" "permittingauthority"   "inspectionauthority"  
+## [29] "enforcementauthority"  "jurisdictionaldam"     "geometry"</code></pre>
+<p>We need to find which stream segments are associated with each dam so we can see where the river network has obstructions. But, our <code>flowline</code> object is a line feature, which can’t be intersected/overlaid directly by a point object (our dam object), because even if the point and line were extremely close in space, they would not overlap. Therefore, to see where our flowlines and dam points meet, we’ll turn the line object into a polygon which can then be intersected with our dam points. We’ll do this using the <code>st_buffer</code> function.</p>
+<p>First, we’ll imagine that we’re interested in habitat for a fish that only likes larger streams, so we’ll filter the<code>flowline</code> dataframe to just stream orders greater than 2. We may want to buffer our line by about 100 meters or so. However, to do this, we first need to re-project the coordinate system to one that uses the metric system instead of latitude and longitude (here, NAD83, Zone 17 N, which has an EPSG of 26917). At the end of each line, we also want the buffer to be completely flat so that each segment will be flush with the next one, as opposed to having rounded ends that overlap (hence the code <code>endCapStyle = "Flat"</code>).</p>
+<div class="sourceCode" id="cb481"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Create buffered streams of third order and bigger streams</span></span>
+<span><span class="co"># Transform to NAD83 zone 17n so can use meters for buffer</span></span>
+<span><span class="va">stream100</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">flowline</span>, <span class="va">streamorde</span> <span class="op">&gt;</span> <span class="fl">2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span>crs <span class="op">=</span> <span class="fl">26917</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_unary.html">st_buffer</a></span><span class="op">(</span>dist <span class="op">=</span> <span class="fl">100</span>, endCapStyle<span class="op">=</span><span class="st">"FLAT"</span><span class="op">)</span></span></code></pre></div>
+<p>Now we can use the <code>st_intersection</code> function to see which dams intersect with the larger streams in our network. Note: to do this, we also need to convert the coordinate system of our dams to be the same as our buffered stream segments.</p>
+<p>The second code below simply shows that each dam is now associated with a COMID, and thus a specific stream segment.</p>
+<div class="sourceCode" id="cb482"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#Dams that intersect with mainstem buffer</span></span>
+<span><span class="va">nid100</span> <span class="op">&lt;-</span> <span class="va">nid_sf</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span>crs <span class="op">=</span> <span class="fl">26917</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_binary_ops.html">st_intersection</a></span><span class="op">(</span><span class="va">stream100</span><span class="op">)</span> </span></code></pre></div>
+<pre><code>## Warning: attribute variables are assumed to be spatially constant throughout all geometries</code></pre>
+<div class="sourceCode" id="cb484"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">nid100</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">dam_name</span>, <span class="va">comid</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Simple feature collection with 6 features and 2 fields
+## Geometry type: POINT
+## Dimension:     XY
+## Bounding box:  xmin: 222446 ymin: 3715728 xmax: 240149.9 ymax: 3764001
+## Projected CRS: NAD83 / UTM zone 17N
+## # A tibble: 6 × 3
+##   dam_name                                               comid           geometry
+##   &lt;chr&gt;                                                  &lt;int&gt;        &lt;POINT [m]&gt;
+## 1 ATLANTA AUTOMOTIVE DISTRIBUTION CENTER DETENTION DAM 6330502 (227982.4 3764001)
+## 2 JACK TURNER RESERVOIR DAM                            6330976 (227895.6 3736098)
+## 3 MILSTEAD                                             6331062   (222446 3731921)
+## 4 CORNISH CREEK RESERVOIR DAM                          6331166 (240149.9 3726872)
+## 5 TWIN HILLS LAKE                                      6331166 (239756.8 3727592)
+## 6 CAPES SAUSAGE COMPANY LAKE DAM                       6331416 (222935.6 3715728)</code></pre>
+<p>Now we can see how bifurcated our larger stream network is. To do this, we simply filter our original <code>flowline</code> so to remove all small streams and all streams with COMIDs that are found associated with dams (i.e., COMID values that are now found in the <code>nid100</code> object and thus segments with a dam).</p>
+<div class="sourceCode" id="cb486"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Filter flowline to just </span></span>
+<span><span class="va">flow_no_dam</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">flowline</span>, </span>
+<span>                      <span class="va">streamorde</span> <span class="op">&gt;</span> <span class="fl">2</span>,</span>
+<span>                      <span class="op">!</span><span class="va">comid</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">nid100</span><span class="op">$</span><span class="va">comid</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">flow_no_dam</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-126-1.png" width="600" height="600"></div>
+<p>Based on this plot, we can now see that the upstream network is definitely bisected by dams.</p>
+<p>What if we want to find out how much mainstem river would be opened up by removing this dam?</p>
+<p>We can use some of the network attributes in our streamlayer to answer this question, in particular the <code>fromnode</code> and <code>tonode</code> attributes. The <code>fromnode</code> is a unique code representing the upstream end of a stream segment, and it has the identical value as the <code>tonode</code> of the downstream end of the segment immediately upstream of it. So, we can use the values of these two nodes to map the upstream watershed of our disjointed network, and the navigation will stop when we get to dams or small streams.</p>
+<p>First, we can use the COMID of our downstream-most segment to find the value of the <code>fromnode</code> that we want to start with.</p>
+<p>What is that COMID? It’s stored in this object that we created at the outset:</p>
+<div class="sourceCode" id="cb487"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">start_comid</span></span></code></pre></div>
+<pre><code>## [1] 6336752</code></pre>
+<p>We can use the <code>fromnode</code> in this segment to find adjacent stream segments</p>
+<div class="sourceCode" id="cb489"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">from_node</span> <span class="op">&lt;-</span> <span class="va">flowline</span><span class="op">$</span><span class="va">fromnode</span><span class="op">[</span><span class="va">flowline</span><span class="op">$</span><span class="va">comid</span> <span class="op">==</span> <span class="va">start_comid</span><span class="op">]</span></span>
+<span></span>
+<span><span class="va">from_node</span></span></code></pre></div>
+<pre><code>## [1] 270015756</code></pre>
+<p>To show how this works, here we show that if we filter our flowline to just flowline where the <code>tonode</code> equals the initial <code>fromnode</code>, we get a new steam segment:</p>
+<div class="sourceCode" id="cb491"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">flow_no_dam</span>, <span class="va">tonode</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">from_node</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Simple feature collection with 1 feature and 137 fields
+## Geometry type: LINESTRING
+## Dimension:     XY
+## Bounding box:  xmin: -83.79718 ymin: 33.10659 xmax: -83.79452 ymax: 33.11509
+## Geodetic CRS:  NAD83
+## # A tibble: 1 × 138
+##     comid fdate               resolution gnis_id gnis_name     lengthkm reachcode flowdir wbareacomi
+## *   &lt;int&gt; &lt;dttm&gt;              &lt;chr&gt;      &lt;chr&gt;   &lt;chr&gt;            &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;        &lt;int&gt;
+## 1 6336742 2008-12-10 00:00:00 Medium     356443  Ocmulgee Riv…    0.995 03070103… With D…  120049944
+## # ℹ 129 more variables: ftype &lt;chr&gt;, fcode &lt;int&gt;, shape_length &lt;dbl&gt;, streamleve &lt;int&gt;,
+## #   streamorde &lt;int&gt;, streamcalc &lt;int&gt;, fromnode &lt;dbl&gt;, tonode &lt;dbl&gt;, hydroseq &lt;dbl&gt;,
+## #   levelpathi &lt;dbl&gt;, pathlength &lt;dbl&gt;, terminalpa &lt;dbl&gt;, arbolatesu &lt;dbl&gt;, divergence &lt;int&gt;,
+## #   startflag &lt;int&gt;, terminalfl &lt;int&gt;, dnlevel &lt;int&gt;, uplevelpat &lt;dbl&gt;, uphydroseq &lt;dbl&gt;,
+## #   dnlevelpat &lt;dbl&gt;, dnminorhyd &lt;dbl&gt;, dndraincou &lt;int&gt;, dnhydroseq &lt;dbl&gt;, frommeas &lt;dbl&gt;,
+## #   tomeas &lt;dbl&gt;, rtndiv &lt;int&gt;, vpuin &lt;int&gt;, vpuout &lt;int&gt;, areasqkm &lt;dbl&gt;, totdasqkm &lt;dbl&gt;,
+## #   divdasqkm &lt;dbl&gt;, tidal &lt;int&gt;, totma &lt;dbl&gt;, wbareatype &lt;chr&gt;, pathtimema &lt;dbl&gt;, …</code></pre>
+<p>Given that proof of concept, we just need to package this in a for-loop, seen below, so that we can iterate through all the pairs of to and from nodes. In this example, we simply create an empty vector to store all of the COMIDs that are encountered. And in each iteration of the loop, we use the <code>fromnode</code> values of the new segments to look for the <code>tonode</code> values of the next set of segments.</p>
+<div class="sourceCode" id="cb493"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Empty vector to store new comids</span></span>
+<span><span class="va">segs_all</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">vector</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">flow_no_dam</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<span></span>
+<span>  <span class="va">to_segs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">flow_no_dam</span>, <span class="va">tonode</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">from_node</span><span class="op">)</span></span>
+<span>  <span class="va">from_node</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">to_segs</span><span class="op">$</span><span class="va">fromnode</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="va">segs_all</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">segs_all</span>, <span class="va">to_segs</span><span class="op">$</span><span class="va">comid</span><span class="op">)</span></span>
+<span>  </span>
+<span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">to_segs</span><span class="op">)</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span><span class="kw">break</span><span class="op">}</span></span>
+<span>  <span class="op">}</span></span></code></pre></div>
+<p>Once we have the COMIDs of our newly navigated area, we can filter the original flowline just to the newly-opened mainstem sterams.</p>
+<div class="sourceCode" id="cb494"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">new_flow</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">flowline</span>, <span class="va">comid</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">segs_all</span><span class="op">)</span></span></code></pre></div>
+<p>Finally, let’s plot the new network of larger streams that would be connected if the dam in question were removed, along with dams found on the river network in general, and the total upstream watershed.</p>
+<div class="sourceCode" id="cb495"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">flowline</span>, color <span class="op">=</span> <span class="st">"lightblue"</span>, linewidth <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">new_flow</span>, color <span class="op">=</span> <span class="st">"blue"</span>, linewidth <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">nid100</span>, color <span class="op">=</span> <span class="st">"red"</span>, size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">84.5</span>, <span class="op">-</span><span class="fl">83.5</span>, <span class="fl">.2</span> <span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="usace_R_training_files/figure-html/plot-new-network-dams-1.png" width="600" height="600"></div>
+<p>There’s a lot we could do with this new network, but let’s just compare the its length to the length of the overall network.</p>
+<div class="sourceCode" id="cb496"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">total_upstream_km</span></span></code></pre></div>
+<pre><code>## [1] 3926.602</code></pre>
+<div class="sourceCode" id="cb498"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">new_flow</span><span class="op">$</span><span class="va">lengthkm</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] 159.549</code></pre>
+<div class="sourceCode" id="cb500"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">new_flow</span><span class="op">$</span><span class="va">lengthkm</span><span class="op">)</span><span class="op">/</span><span class="va">total_upstream_km</span></span></code></pre></div>
+<pre><code>## [1] 0.04063284</code></pre>
+<p>This suggests that removing Juliette Dam would open up approximately 159 kms of upstream mainstem habitat. Of course, it’s likely a bit more, as this does not conisder partial portion of the stream segments that contain dams, but this amounts should be fairly trivial, as stream segments in our network are on average 1.37.</p>
+</div>
+<div id="finding-streamgages" class="section level3" number="28.3.4">
+<h3>
+<span class="header-section-number">28.3.4</span> Finding streamgages<a class="anchor" aria-label="anchor" href="#finding-streamgages"><i class="fas fa-link"></i></a>
+</h3>
+<p>The applications for the <code>nhdplusTools</code> package are extensive. One final application we highlight is to find gages upstream of a point that might be used for a hydrologic analysis. The code below, highly analogous to the code that we have already used, finds gages and flow networks upstream of a gage of interest, in this case a gage in Madison, WI.</p>
+<div class="sourceCode" id="cb502"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Create starting nldi feature</span></span>
+<span><span class="va">nldi_feature</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>featureSource <span class="op">=</span> <span class="st">"nwissite"</span>, </span>
+<span>                     featureID <span class="op">=</span> <span class="st">"USGS-05428500"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Create a flowline from this feature to extract COMIDs</span></span>
+<span><span class="va">flowline_nldi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://doi-usgs.github.io/nhdplusTools/reference/navigate_nldi.html">navigate_nldi</a></span><span class="op">(</span><span class="va">nldi_feature</span>, </span>
+<span>                               mode <span class="op">=</span> <span class="st">"upstreamTributaries"</span>, </span>
+<span>                               distance_km <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Download full NHD flow data from these COMIDs</span></span>
+<span><span class="va">gage_download</span> <span class="op">&lt;-</span><span class="fu"><a href="https://doi-usgs.github.io/nhdplusTools/reference/subset_nhdplus.html">subset_nhdplus</a></span><span class="op">(</span>comids <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="va">flowline_nldi</span><span class="op">$</span><span class="va">UT</span><span class="op">$</span><span class="va">nhdplus_comid</span><span class="op">)</span>,</span>
+<span>                                  nhdplus_data <span class="op">=</span> <span class="st">"download"</span>,</span>
+<span>                                  return_data <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## All intersections performed in latitude/longitude.</code></pre>
+<pre><code>## Reading NHDFlowline_Network</code></pre>
+<pre><code>## Writing NHDFlowline_Network</code></pre>
+<div class="sourceCode" id="cb506"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Extract flow network from the download</span></span>
+<span><span class="va">flowline_nwis</span> <span class="op">&lt;-</span> <span class="va">gage_download</span><span class="op">$</span><span class="va">NHDFlowline_Network</span></span>
+<span></span>
+<span><span class="co"># Find all of the upstream gages</span></span>
+<span><span class="va">upstream_nwis</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://doi-usgs.github.io/nhdplusTools/reference/navigate_nldi.html">navigate_nldi</a></span><span class="op">(</span><span class="va">nldi_feature</span>,</span>
+<span>                               mode <span class="op">=</span> <span class="st">"upstreamTributaries"</span>,</span>
+<span>                               data_source <span class="op">=</span> <span class="st">"nwissite"</span>, </span>
+<span>                               distance_km <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Plot gages and stream network</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">flowline_nwis</span>, linewidth <span class="op">=</span> <span class="fl">1</span>, color <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">upstream_nwis</span><span class="op">$</span><span class="va">UT_nwissite</span>, </span>
+<span>     size <span class="op">=</span> <span class="fl">1.5</span>, linewidth <span class="op">=</span> <span class="fl">2</span>, color <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure">
+<img src="usace_R_training_files/figure-html/unnamed-chunk-133-1.png" width="600" height="600">
+## Summary</div>
+<ul>
+<li>The National Hydrography Data has a huge amount of information that is fundamental to water resource management, but can be unwieldy to use</li>
+<li>The <code>nhdplusTools</code> package makes using NHD data simple and powerful</li>
+<li>Performing this analysis in <code>R</code> makes it simple to access data from other packages as well as use powerful <code>R</code> programming tool while interacting with NHD data</li>
+</ul>
+</div>
+</div>
 </div>
 
 
@@ -116,7 +485,19 @@
 <div class="empty"></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav"><li><a class="nav-link" href="#national-hydrography-dataset"><span class="header-section-number">28</span> National Hydrography Dataset</a></li></ul>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#national-hydrography-dataset"><span class="header-section-number">28</span> National Hydrography Dataset</a></li>
+<li><a class="nav-link" href="#learning-objectives-11"><span class="header-section-number">28.1</span> Learning objectives</a></li>
+<li><a class="nav-link" href="#background-3"><span class="header-section-number">28.2</span> Background</a></li>
+<li>
+<a class="nav-link" href="#juliette-dam-case-study"><span class="header-section-number">28.3</span> Juliette Dam case study</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#downloading-nhd-network-data"><span class="header-section-number">28.3.1</span> Downloading NHD network data</a></li>
+<li><a class="nav-link" href="#use-epa-streamcat-data-for-land-use"><span class="header-section-number">28.3.2</span> Use EPA StreamCat data for land use</a></li>
+<li><a class="nav-link" href="#use-nid-for-dams"><span class="header-section-number">28.3.3</span> Use NID for dams</a></li>
+<li><a class="nav-link" href="#finding-streamgages"><span class="header-section-number">28.3.4</span> Finding streamgages</a></li>
+</ul>
+</li>
+</ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
