@@ -4,7 +4,7 @@
 
 **This module will teach you how to interact with the National Hydrography Dataset and river network data using the `nhdplusTools` package in `R`.**
 
-![*Graphical output of a river network along with associated dams created using **`nhdplusTools`** along with data from the National Inventory of Dams.*](nhd_dams.png){width=100%}
+![*Graphical output of a river network along with associated dams created using **`nhdplusTools`** along with data from the National Inventory of Dams.*](images/nhd_dams.png){width=100%}
   
 ***
 
@@ -35,11 +35,12 @@ To perform the main case study you need to load the `nhdplusTools`, as well as `
 
 Later in the module, we will also look at two applications that assess additional dams and land use upstream of Juliette Dam, and these applications will require two additional `R` packages as well.
 
-```{r, load-nhd-packages}
+### Downloading NHD network data
+
+```{r, load-nhd-packages, message = FALSE}
 # install.packages("nhdplusTools")
 # install.packages("sf")
 # install.packages("tidyverse")
-
 
 library(tidyverse)
 library(nhdplusTools)
@@ -79,6 +80,7 @@ ggplot()+
   geom_sf(data = start_point, color = "red", size = 4)+
   scale_x_continuous(breaks = seq(-83.794, -83.782, .004))
 ```
+
 We now build the river network upstream of our point using the [Network Linked Data Index](https://waterdata.usgs.gov/blog/nldi-intro/) which spatially links several different hydrological data sources, including USGS stream gages. To do that, we first create a list object, in which we indicate that we are using COMID data (`featureSource = "comid"`), and then the value of the COMID which we stored earlier in the `start_comid` object. Then, we use the `navigate_nldi` function, and set it to look for upstream tributaries by setting `mode = "UT`. Other options include upstream mainstem (`UM`) and downstream mainstem and diversions (`DM` and `DD`, respectively). We indicate to stop navigating after 1,000 km. 
 
 ```{r}
@@ -100,12 +102,13 @@ ggplot()+
   geom_sf(data = start_point, size = 1, linewidth = 2, color = "red") +
   scale_x_continuous(breaks = seq(-84.4, -83.8, .2))
 ```
+
 It's great to get an upstream river network so easily, but downloading the flowline with the NLDI function only provides the geometry and COMID for flowlines. What if you want more of the data from the very extensive NHD dataset?
 
 To do that we can download a subset of the NHD layer with the `subset_nhdplus` function, which will get us all of the attributes associated with our stream segments, as well as other NHD layers. 
 
 The `subset_nhdplus` function has several options. See comments in the code for a brief explanation, or the function description [here](https://doi-usgs.github.io/nhdplusTools/reference/subset_nhdplus.html) for more info.
-```{r}
+```{r, download-nhd-sub, message=FALSE}
 nhd_sub <-subset_nhdplus(comids = as.integer(flowline_nldi$UT$nhdplus_comid),
                          nhdplus_data = "download", # Or use nhdplus_path()
                          flowline_only = FALSE,     # FALSE downloads flowlines, catchments, waterbodies, etc.
@@ -134,6 +137,7 @@ ggplot()+
   scale_x_continuous(breaks = seq(-84.4, -83.8, .2))
 
 ```
+
 We can also calculate the length of flows upstream of the dam in kilometers:
 ```{r}
 total_upstream_km <- sum(flowline$lengthkm)
@@ -191,6 +195,7 @@ ggplot()+
   scale_x_continuous(breaks = seq(-84.4, -83.8, .2))
 
 ```
+
 Based on this, the headwaters of this basin have a lot of urban land cover, approaching 100% in some cases, with clear ramifications for the kinds of organisms that might persist there.
 
 ### Use NID for dams
@@ -242,7 +247,6 @@ nid100 <- nid_sf %>%
 
 nid100 %>% select(dam_name, comid) %>%
   head()
-
 ```
 
 Now we can see how bifurcated our larger stream network is. To do this, we simply filter our original `flowline` so to remove all small streams and all streams with COMIDs that are found associated with dams (i.e., COMID values that are now found in the `nid100` object and thus segments with a dam).
@@ -254,6 +258,7 @@ flow_no_dam <- filter(flowline,
 
 plot(flow_no_dam$geometry)
 ```
+
 Based on this plot, we can now see that the upstream network is definitely bisected by dams.
 
 What if we want to find out how much mainstem river would be opened up by removing this dam?
@@ -316,11 +321,10 @@ total_upstream_km
 sum(new_flow$lengthkm)
 
 sum(new_flow$lengthkm)/total_upstream_km
-
 ```
-This suggests that removing Juliette Dam would open up approximately 159 kms of upstream mainstem habitat. Of course, it's likely a bit more, as this does not conisder partial portion of the stream segments that contain dams, but this amounts should be fairly trivial, as stream segments in our network are on average `r round(flowline$lengthkm, 2)`.
+This suggests that removing Juliette Dam would open up approximately 159 kms of upstream mainstem habitat. Of course, it's likely a bit more, as this does not conisder partial portion of the stream segments that contain dams, but this amounts should be fairly trivial, as stream segments in our network are on average `r round(mean(flowline$lengthkm), 2)`.
 
-## Other applications
+### Finding streamgages
 
 The applications for the `nhdplusTools` package are extensive. One final application we highlight is to find gages upstream of a point that might be used for a hydrologic analysis. The code below, highly analogous to the code that we have already used, finds gages and flow networks upstream of a gage of interest, in this case a gage in Madison, WI.
 ```{r}
