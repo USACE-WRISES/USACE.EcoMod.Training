@@ -1,15 +1,360 @@
 # National Hydrography Dataset 
 
-nhdplusTools package
-https://doi-usgs.github.io/nhdplusTools/
+***
 
-in NHDplus "catchment" = polygon feature that captures the drainage divide areound the hydrologic unit that contributes surface flow to a given NHD flowline
+**This module will teach you how to interact with the National Hydrography Dataset and river network data using the `nhdplusTools` package in `R`.**
 
-COMID id's catchment polygon, flowline that connects catchment inlet and outlet, & value added attributres
+![*Graphical output of a river network along with associated dams created using **`nhdplusTools`** along with data from the National Inventory of Dams.*](nhd_dams.png){width=100%}
+  
+***
 
-Scope of data used
-* Flowlines and waterbodies: 1-d streams and 1-d "artificial waterbodies"
-* Catchment polygons
-* Network attributes from NHDplus
+*Author: Ed Stowe*  
+*Last update: `r as.Date(file.info('HSI_uncertainty.Rmd')$mtime)`*  
+*Acknowledgements: Material was inspired by the [nhdplusTools vignette](https://doi-usgs.github.io/nhdplusTools/articles/get_data_overview.html) developed by David Blodgett and Mike Johnson, the creators of the `nhdplusTools` package * 
 
-Web and local (mix of services)
+## Learning objectives
+
+- Learn what the National Hydrography Dataset contains.
+- Learn how to build and interact with watershed networks using the `nhdplusTools` package in `R`.
+- Learn how R can facilitate analyses that bring together NHD data along with diverse datasets related to dams, stream gages, and land cover.
+
+## Background
+
+The National Hydrography Dataset (NHD) is a database that represents the water drainage network of the U.S. It's features include rivers, streams, lakes, canals and other waterbodies, as well as other features relevant to water management, such as stream gages and dams.
+
+The NHD database is packed with information. Each stream segment, for example, is associated with over a hundred variables, including its length and Strahler stream order. Several attributes also relate a given segment to its neighboring segment, so that information about the entire watershed can be characterized. 
+
+NHD data can be downloaded from the web and accessed in GIS software but can be unwieldy. However, a useful package in R, the `nhdplusTools` package, makes it easy to perform a lot of common watershed related tasks, while harnessing other advantages of performing tasks in R, such as automating repetitive tasks.
+
+In this module, we will investigate the watershed upstream of Juliette Dam, a former hydropower dam on the Ocmulgee River in Georgia. Discussions about removing the dam have been ongoing, and when this occurs, it can be helpful to consider habitat upstream that might be re-connected for migratory fishes.
+
+For more information on the nhdplusTools package, visit the extensive [package website](https://doi-usgs.github.io/nhdplusTools/).
+
+## Juliette Dam case study
+To perform the main case study you need to load the `nhdplusTools`, as well as `sf` package for spatial operations and the `tidyverse` package for plotting and data wrangling. If you don't have these packages installed, first uncomment the lines below and run the code to install them, before loading them.
+
+Later in the module, we will also look at two applications that assess additional dams and land use upstream of Juliette Dam, and these applications will require two additional `R` packages as well.
+
+```{r, load-nhd-packages}
+# install.packages("nhdplusTools")
+# install.packages("sf")
+# install.packages("tidyverse")
+
+
+library(tidyverse)
+library(nhdplusTools)
+library(sf)
+```
+
+To build our stream network upstream of Juliette Dam, we will first need its coordinates to find the nearest stream segment. With the coordinates, the below code creates a spatial point using the `st_sfc` function in the `sf` package. For this function, we need to tell it what the coordinates are (always listing longitude--the x coordinate--first). We also need to set the coordinate system (or `crs`). Here we give it 4269, which a code (called the EPSG) that is unique for each coordinate reference system. This one is a coordinate system for using latitude-longitude coordinates in North America.
+
+```{r, create-starting-point}
+lat <- 33.106056
+lon <- -83.794806
+
+start_point <- st_sfc(st_point(c(lon, lat)), crs = 4269)
+```
+
+Now we want to find an associated stream segment and catchment. Each stream segment is identified by an ID called a COMID. This ID also identifies a local catchment for that segment, which is the area that contributes surface flow to a given NHD segment. The COMID is also associated with numerous attributes that describe the stream segment and catchment. 
+
+We use the `discover_nhdplus_id` function to find the COMID and stream segment closest to our point.
+
+Adding `raindrop = true` creates a downslope trace from our point location to nearest flowline, although that's not very important in our case because our point is on the dam, in the middle of the river.
+
+```{r}
+start_segment <- discover_nhdplus_id(start_point, raindrop = TRUE)
+
+start_segment
+
+start_comid <- as.integer(start_segment$comid)[1]
+
+start_comid
+```
+This returns a spatial dataframe with two rows, one for our stream segment of interest containing the important COMID, and one that is the path of our raindrop.
+
+Now we visualize the starting point and stream segment in ggplot. The `geom_sf` function in ggplot conveniently plots spatial objects created with the `sf` package. We adjust the x-axis labels to make them more legible.
+```{r, plot-point-seg}
+ggplot()+
+  geom_sf(data = start_segment)+
+  geom_sf(data = start_point, color = "red", size = 4)+
+  scale_x_continuous(breaks = seq(-83.794, -83.782, .004))
+```
+We now build the river network upstream of our point using the [Network Linked Data Index](https://waterdata.usgs.gov/blog/nldi-intro/) which spatially links several different hydrological data sources, including USGS stream gages. To do that, we first create a list object, in which we indicate that we are using COMID data (`featureSource = "comid"`), and then the value of the COMID which we stored earlier in the `start_comid` object. Then, we use the `navigate_nldi` function, and set it to look for upstream tributaries by setting `mode = "UT`. Other options include upstream mainstem (`UM`) and downstream mainstem and diversions (`DM` and `DD`, respectively). We indicate to stop navigating after 1,000 km. 
+
+```{r}
+nldi_feature <- list(featureSource = "comid", 
+                     featureID = start_comid)
+
+flowline_nldi <- navigate_nldi(nldi_feature, mode = "UT", 
+                               distance_km = 1000)
+```
+
+The data returned with `navigate_nldi` is a list object with two spatial dataframes, one for our origin segment, and one of the upstream stream network.
+
+We can plot our network in `ggplot`. We plot the original segment and the new steam network by referring to the different list elements using the `$` symbol.
+
+```{r}
+ggplot()+
+  geom_sf(data = flowline_nldi$UT, linewidth = 0.5, color = "lightblue")+
+  geom_sf(data = flowline_nldi$origin, linewidth = 1, color = "black")+
+  geom_sf(data = start_point, size = 1, linewidth = 2, color = "red") +
+  scale_x_continuous(breaks = seq(-84.4, -83.8, .2))
+```
+It's great to get an upstream river network so easily, but downloading the flowline with the NLDI function only provides the geometry and COMID for flowlines. What if you want more of the data from the very extensive NHD dataset?
+
+To do that we can download a subset of the NHD layer with the `subset_nhdplus` function, which will get us all of the attributes associated with our stream segments, as well as other NHD layers. 
+
+The `subset_nhdplus` function has several options. See comments in the code for a brief explanation, or the function description [here](https://doi-usgs.github.io/nhdplusTools/reference/subset_nhdplus.html) for more info.
+```{r}
+nhd_sub <-subset_nhdplus(comids = as.integer(flowline_nldi$UT$nhdplus_comid),
+                         nhdplus_data = "download", # Or use nhdplus_path()
+                         flowline_only = FALSE,     # FALSE downloads flowlines, catchments, waterbodies, etc.
+                         return_data = TRUE)        # FALSE downloads to file; TRUE downloads into list in R session
+                         
+
+names(nhd_sub)
+```
+The data returned with `subset_nhdplus` is again a list object with spatial dataframes, in this case the five different ones listed above, including flowlines, but also with other useful data such as the catchment layer.
+
+Here we create standalone layers from the `nhd_sub` object.
+```{r}
+flowline <- nhd_sub$NHDFlowline_Network
+catchment <- nhd_sub$CatchmentSP
+waterbody <- nhd_sub$NHDWaterbody
+
+```
+
+Now that we have more info for each segment, we can do a lot more. For example, we can plot just bigger streams within the network (i.e., streams with a Strahler stream order of 3 or above).
+```{r}
+bigger_streams <- filter(flowline, streamorde > 2)
+
+ggplot()+
+  geom_sf(data = flowline, linewidth = 1, color = "blue")+
+  geom_sf(data = bigger_streams, linewidth = 1.5, color = "grey30")  + 
+  scale_x_continuous(breaks = seq(-84.4, -83.8, .2))
+
+```
+We can also calculate the length of flows upstream of the dam in kilometers:
+```{r}
+total_upstream_km <- sum(flowline$lengthkm)
+
+```
+
+With the full flowline data, each segment has a ton of attributes that are useful. We print all of those attributes below. More information on these attributes can be found online, including [here](https://www.usgs.gov/ngp-standards-and-specifications/national-hydrography-dataset-nhd-data-dictionary-flowline-value).
+```{r}
+names(flowline)
+```
+If we wanted to understand upstream affects of removing a dam and increasing connectivity for fish, there are several things we might want to figure out, including whether the upstream land use is likely to support fish, and how much riverine habitat will actually be connected by removing a dam. The following code will use data from other packages along with our river network to provide a window into those questions.
+
+
+### Use EPA StreamCat data for land use
+
+The EPA has created a StreamCat dataset which contains substantial information about each catchment found in the NHD layer. We're going to use that dataset to look a little bit at land use in our upstream watershed.
+
+This dataset can be downloaded [online](https://www.epa.gov/national-aquatic-resource-surveys/streamcat-dataset#access-streamcat-data), but we'll use the StreamCatTools package to pull landuse data directly into `R`. This package is not hosted on CRAN because it's still being developed. So, users will need to "uncomment" the following code and run it to download `StreamCatTools` the first time they do this analysis.
+```{r}
+#install.packages("remotes")
+#library(remotes)
+#install_github("USEPA/StreamCatTools", build_vignettes=FALSE)
+```
+
+Once it's downloaded, we can load the StreamCatTools package. There are several ways to download NLCD data with this package (see more [here](https://usepa.github.io/StreamCatTools/index.html)), but an easy way to do this is to use the `sc_nlcd` function. Here, we indicate that we are interested in catchment data (`cat`), as opposed to watershed data (`ws`) which is at a bigger scale, and then we are interested in data from Georgia, in the latest year for which NLCD data is available, which is 2019.  
+```{r, ga-nlcd-data}
+library(StreamCatTools)
+
+ga_nlcd <- sc_nlcd(aoi = 'cat', state='GA', year = '2019')
+
+names(ga_nlcd)
+
+```
+
+We can see that in addition to a column for the catchment COMID, we have the percentage of various land cover types, such as percentage mixed forest (`pctmxfst2019cat`) and columns for urban land cover (high, medium, low, and open).
+
+We're only interested in land cover data for our watershed, not all of GA. So, we use `left_join` to merge the land cover data with the catchment layer. This join is done by matching COMIDs, although the column with COMIDs is called `featureid` in the catchment dataset.
+
+If we are interested in, say, urban land cover, we can sum across the different categories of urban land cover data, which is accomplished by summing across all columns with names that match the string "urb".
+
+```{r}
+catchment_lc <- left_join(catchment, ga_nlcd,
+                    by = c("featureid" = "comid")) %>%
+  mutate(pct_urb = rowSums(across(matches("urb"))))
+```
+
+Let's plot our catchments now to see how urban the different catchments are above the dam.
+
+```{r, plot-urb-lc}
+ggplot()+
+  geom_sf(data = catchment_lc, aes(fill = pct_urb))+
+  geom_sf(data = filter(flowline, streamorde > 2), 
+     linewidth = 1.5, color = "blue")+
+  scale_fill_continuous(type = "viridis")+
+  scale_x_continuous(breaks = seq(-84.4, -83.8, .2))
+
+```
+Based on this, the headwaters of this basin have a lot of urban land cover, approaching 100% in some cases, with clear ramifications for the kinds of organisms that might persist there.
+
+### Use NID for dams
+
+Another consideration for thinking about connectivity in the watershed upstream of Juliette concerns how the stream network is impacted by dams.
+
+To take a look at this, we'll use data from the [National Inventory of Dams](https://nid.sec.usace.army.mil/#/) (NID), which is a database managed by USACE that documents all known dams in the U.S.
+
+The NID can be queried and downloaded [online](https://nid.sec.usace.army.mil/#/dams/search/&viewType=map&resultsType=dams&advanced=false&hideList=false&eventSystem=false), but we can also use the `dams` package in `R` to download a subset of the dams.
+
+Here we load the `dams` package. (Install the package the first time you use it.) We can quickly filter our NID to just Georgia so that it's more wieldy. 
+
+```{r, download-nid-sub}
+#install.packages("dams")
+library(dams)
+
+# Download subset of dam data
+nid <- dams::nid_subset %>%
+  filter(state == "GA")
+```
+
+Next, we can make the NID a spatial object with the `st_as_sf` function in the `sf` package. Again, we need to tell the function which columns contain the x- and y-coordinates of each dam, as well as the coordinate system.
+```{r, make-nid-spatial}
+# Make NID data a spatial object; set coordinate reference system (crs) to Lat Long EPSG
+nid_sf <- st_as_sf(nid, coords = c("longitude", "latitude"), crs = 4269) 
+
+names(nid_sf)
+```
+
+We need to find which stream segments are associated with each dam so we can see where the river network has obstructions. But, our `flowline` object is a line feature, which can't be intersected/overlaid directly by a point object (our dam object), because even if the point and line were extremely close in space, they would not overlap. Therefore, to see where our flowlines and dam points meet, we'll turn the line object into a polygon which can then be intersected with our dam points. We'll do this using the `st_buffer` function.
+
+First, we'll imagine that we're interested in habitat for a fish that only likes larger streams, so we'll filter the`flowline` dataframe to just stream orders greater than 2. We may want to buffer our line by about 100 meters or so. However, to do this, we first need to re-project the coordinate system to one that uses the metric system instead of latitude and longitude (here, NAD83, Zone 17 N, which has an EPSG of 26917). At the end of each line, we also want the buffer to be completely flat so that each segment will be flush with the next one, as opposed to having rounded ends that overlap (hence the code `endCapStyle = "Flat"`).
+```{r}
+# Create buffered streams of third order and bigger streams
+# Transform to NAD83 zone 17n so can use meters for buffer
+stream100 <- filter(flowline, streamorde > 2) %>%
+  st_transform(crs = 26917) %>%
+  st_buffer(dist = 100, endCapStyle="FLAT")
+```
+
+Now we can use the `st_intersection` function to see which dams intersect with the larger streams in our network. Note: to do this, we also need to convert the coordinate system of our dams to be the same as our buffered stream segments.
+
+The second code below simply shows that each dam is now associated with a COMID, and thus a specific stream segment.
+```{r, dam-stream-intersect}
+#Dams that intersect with mainstem buffer
+nid100 <- nid_sf %>%
+  st_transform(crs = 26917) %>%
+  st_intersection(stream100) 
+
+nid100 %>% select(dam_name, comid) %>%
+  head()
+
+```
+
+Now we can see how bifurcated our larger stream network is. To do this, we simply filter our original `flowline` so to remove all small streams and all streams with COMIDs that are found associated with dams (i.e., COMID values that are now found in the `nid100` object and thus segments with a dam).
+```{r, fig.height=5}
+# Filter flowline to just 
+flow_no_dam <- filter(flowline, 
+                      streamorde > 2,
+                      !comid %in% nid100$comid)
+
+plot(flow_no_dam$geometry)
+```
+Based on this plot, we can now see that the upstream network is definitely bisected by dams.
+
+What if we want to find out how much mainstem river would be opened up by removing this dam?
+
+We can use some of the network attributes in our streamlayer to answer this question, in particular the `fromnode` and `tonode` attributes. The `fromnode` is a unique code representing the upstream end of a stream segment, and it has the identical value as the `tonode` of the downstream end of the segment immediately upstream of it. So, we can use the values of these two nodes to map the upstream watershed of our disjointed network, and the navigation will stop when we get to dams or small streams.
+
+First, we can use the COMID of our downstream-most segment to find the value of the `fromnode` that we want to start with.
+
+What is that COMID? It's stored in this object that we created at the outset:
+```{r}
+start_comid
+```
+
+We can use the `fromnode` in this segment to find adjacent stream segments
+
+```{r}
+from_node <- flowline$fromnode[flowline$comid == start_comid]
+
+from_node
+```
+To show how this works, here we show that if we filter our flowline to just flowline where the `tonode` equals the initial `fromnode`, we get a new steam segment:
+```{r}
+filter(flow_no_dam, tonode %in% from_node)
+```
+
+Given that proof of concept, we just need to package this in a for-loop, seen below, so that we can iterate through all the pairs of to and from nodes. In this example, we simply create an empty vector to store all of the COMIDs that are encountered. And in each iteration of the loop, we use the `fromnode` values of the new segments to look for the `tonode` values of the next set of segments.
+```{r}
+# Empty vector to store new comids
+segs_all <- vector()
+
+for (i in 1:length(flow_no_dam)){
+
+  to_segs <- filter(flow_no_dam, tonode %in% from_node)
+  from_node <- unique(to_segs$fromnode)
+
+  segs_all <- c(segs_all, to_segs$comid)
+  
+if(nrow(to_segs) == 0) {break}
+  }
+```
+
+Once we have the COMIDs of our newly navigated area, we can filter the original flowline just to the newly-opened mainstem sterams.
+```{r}
+new_flow <- filter(flowline, comid %in% segs_all)
+```
+
+Finally, let's plot the new network of larger streams that would be connected if the dam in question were removed, along with dams found on the river network in general, and the total upstream watershed.
+```{r, plot-new-network-dams}
+ggplot()+
+  geom_sf(data = flowline, color = "lightblue", linewidth = .5)+
+  geom_sf(data = new_flow, color = "blue", linewidth = 1)+
+  geom_sf(data = nid100, color = "red", size = 2)+
+  scale_x_continuous(breaks = seq(-84.5, -83.5, .2 ))
+```
+
+There's a lot we could do with this new network, but let's just compare the its length to the length of the overall network.
+```{r}
+total_upstream_km
+
+sum(new_flow$lengthkm)
+
+sum(new_flow$lengthkm)/total_upstream_km
+
+```
+This suggests that removing Juliette Dam would open up approximately 159 kms of upstream mainstem habitat. Of course, it's likely a bit more, as this does not conisder partial portion of the stream segments that contain dams, but this amounts should be fairly trivial, as stream segments in our network are on average `r round(flowline$lengthkm, 2)`.
+
+## Other applications
+
+The applications for the `nhdplusTools` package are extensive. One final application we highlight is to find gages upstream of a point that might be used for a hydrologic analysis. The code below, highly analogous to the code that we have already used, finds gages and flow networks upstream of a gage of interest, in this case a gage in Madison, WI.
+```{r}
+# Create starting nldi feature
+nldi_feature <- list(featureSource = "nwissite", 
+                     featureID = "USGS-05428500")
+
+# Create a flowline from this feature to extract COMIDs
+flowline_nldi <- navigate_nldi(nldi_feature, 
+                               mode = "upstreamTributaries", 
+                               distance_km = 1000)
+
+# Download full NHD flow data from these COMIDs
+gage_download <-subset_nhdplus(comids = as.integer(flowline_nldi$UT$nhdplus_comid),
+                                  nhdplus_data = "download",
+                                  return_data = TRUE)
+
+# Extract flow network from the download
+flowline_nwis <- gage_download$NHDFlowline_Network
+
+# Find all of the upstream gages
+upstream_nwis <- navigate_nldi(nldi_feature,
+                               mode = "upstreamTributaries",
+                               data_source = "nwissite", 
+                               distance_km = 1000)
+
+# Plot gages and stream network
+ggplot()+
+  geom_sf(data = flowline_nwis, linewidth = 1, color = "blue")+
+  geom_sf(data = upstream_nwis$UT_nwissite, 
+     size = 1.5, linewidth = 2, color = "red")
+```
+## Summary
+
+- The National Hydrography Data has a huge amount of information that is fundamental to water resource management, but can be unwieldy to use
+- The `nhdplusTools` package makes using NHD data simple and powerful
+- Performing this analysis in `R` makes it simple to access data from other packages as well as use powerful `R` programming tool while interacting with NHD data
