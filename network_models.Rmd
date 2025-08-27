@@ -2,16 +2,16 @@
 
 Placeholder for edited exploration of WUCT Tool, combined from some of the materials on the WUCT Github repo  
 
-Can also consider a tutorial of Riverconn package
-https://cran.r-project.org/web/packages/riverconn/vignettes/Tutorial.html
-
 *Authors: Kyle McKay (writing, code), Ed Stowe (writing, editing); Background from WUCT materials (Readme & RMD) on GitHub*   
 *Last update: `r as.Date(file.info('network_models.Rmd')$mtime)`*  
 *Acknowledgements: *
 
-## Overview
+## Background on network analysis
 
-This model document describes a procedure for quantifying benefits associated with removal of organism movement barriers within a watershed (e.g., dam removal, culvert repair, fish ladder installation) or impacts of barrier addition (e.g., dam construction, weir installation). The model focuses on upstream movement of migratory organisms such as fish and is intended for application at the watershed-scale.The algorithm is based on four primary components: habitat quantity upstream of a dam, habitat quality upstream of a dam, the passability of a structure for a given organism, and the shape/topology of the watershed. This algorithm combines these data to estimate quality-weighted, accessible habitat at the watershed scale. This model documentation is intented for the U.S. Army Corps of Engineers (USACE) model certification process and details the development, technical details, and application of this adaptable modeling framework.  
+
+## Overview on WUCT tool
+
+This model document describes a procedure for quantifying benefits associated with removal of organism movement barriers within a watershed (e.g., dam removal, culvert repair, fish ladder installation) or impacts of barrier addition (e.g., dam construction, weir installation). The model focuses on upstream movement of migratory organisms such as fish and is intended for application at the watershed-scale.The algorithm is based on four primary components: habitat quantity upstream of a dam, habitat quality upstream of a dam, the passability of a structure for a given organism, and the shape/topology of the watershed. This algorithm combines these data to estimate quality-weighted, accessible habitat at the watershed scale. 
 
 ## Background
 
@@ -19,19 +19,17 @@ Water resources and transportation infrastructure such as dams and culverts prov
 
 Restoration practitioners require tools for informing barrier removal, repair, and retrofit decisions. An important application is the rapid selection of efficient sites for removal, given the large number of watershed barriers (i.e., Is barrier-A or barrier-B the priority for restoration?). Another application is the computation of restoration benefits at a particular site to compare the relative effects of alternative management actions (e.g., Is a fish ladder or dam removal preferrable?). Dozens of studies globally have examined these questions with different methods and techniques (O'Hanley and Tomberlin 2005, Neeson et al. 2015, McKay et al. 2016). 
 
-This document reviews the development of a framework for prioritizing barriers or quantifying benefits of restoration actions at a watershed-scale. The purpose of this model is to assess watershed scale habitat connectivity and quality for migratory organisms to inform restoration planning. The framework is adaptable to varying project timelines, scopes, and applications. The following issues are crucial to the **scoping and application** of this framework:  
+This module showcases a framework for prioritizing barriers or quantifying benefits of restoration actions at a watershed-scale. The purpose of this tool is to assess watershed scale habitat connectivity and quality for migratory organisms to inform restoration planning. The framework is adaptable to varying project timelines, scopes, and applications. The following issues are crucial to the **scoping and application** of this framework:  
 
 * The focus is on migratory organisms moving upstream through a watershed (e.g., salmon seeking access to breeding habitat). Downstream movement is not considered to be limiting in this model framework and is neglected, although it can be an important limiting factor for some species.  
 * The framework focuses on quantifying the accessibility of habitat to a focal taxa, and habitat quantity and quality can be incorporated through multiple methods.  
-* Overall, this modeling approach may be used to rapidly screen barriers for site selection or quantify benefits of alternative restoration actions at a site scale. For simplicity, this document will refer to these methods as "barrier prioritization techniques".  
+* Overall, this modeling approach may be used to rapidly screen barriers for site selection or quantify benefits of alternative restoration actions at a site scale, often referred to as "barrier prioritization techniques".  
 * The framework can be used in the context of benefits of barrier removal for desired taxa or impacts of barrier removal relative to invasive species. In either case, watershed connectivity may be assessed following this procedure, but the interpretation of results may be different. For instance, a user may chose to maximize connectivity for desirable species while minimizing connectivity for invasive species.  
 * Many barrier prioritization studies address multiple taxa in development of watershed priorities. The framework could be applied to multiple taxa separately (i.e., developing connectivity estimates for each taxa), and then an overall assessment of could be obtained using a combined metric (e.g., sum or average of connected habitat for all species).
 
-Given these scoping factors, the model will be referred to as the Watershed-Scale Upstream Connectivity Toolkit (WUCT).  This document intends to record the WUCT framework's technical details, use, and relevant information for the purpose of the USACE planning model certification requirement (EC 1105-2-412, PB 2013-02). Regional certification is requested, and a procedure is recommended for tailoring the framework for local applications.
+## Case Study: Bronx River
 
-## Application: Bronx River
-
-This model application examines fish passage prioritization for the Hudson-Raritan Estuary (HRE) project led by the USACE New York District (NAN). Specifically, this application quantifies fish passage benefits associated with two sites in the Bronx River watershed, which were proposed in the 2017 Draft Feasibility Report (USACE 2017) and supported by the Comprehensive Restoration Plan (USACE 2016). Fish passage outputs are quantified in terms of "accessible habitat" using the Watershed-Scale Upstream Connectivity Toolkit (WUCT) with river herring as the focal taxa. 
+This case study examines fish passage prioritization for the Hudson-Raritan Estuary (HRE) project led by the USACE New York District (NAN). Specifically, this application quantifies fish passage benefits associated with two sites in the Bronx River watershed, which were proposed in the 2017 Draft Feasibility Report (USACE 2017) and supported by the Comprehensive Restoration Plan (USACE 2016). Fish passage outputs are quantified in terms of "accessible habitat" using the Watershed-Scale Upstream Connectivity Toolkit (WUCT) with river herring as the focal taxa. 
 
 Three dams are of interest in the Bronx River system moving from downstream to upstream. First, the East 182nd Street Dam is the first barrier encountered, where a fish ladder (Alaskan Steep pass) has been constructed by partners including NYC Parks, the Bronx Borough, the Wildlife Conservation Society, the National Oceanic and Atmospheric Administration, the US Fish and Wildlife Service, New York State, and the National Fish and Wildlife Foundation (Lumbian and Larson 2015). Second, the Bronx Zoo Dam is the next structure, where USACE has proposed three restoration alternatives as part of this feasibility study (all including a fish ladder). Third, the Stone Mill Dam (aka. Snuff Mill Dam) is the next structure, where USACE has proposed three restoration alternatives as part of this feasibility study (one with a fish ladder + attractors, one with a fish ladder, and one without a fish ladder). A significant amount of habitat is accessible above the Stone Mill Dam, when considering both main steam and tributary habitats. The Bronx River has been shown to support river herring populations, where accessibility is not limiting (Larson and Sugar 2004), and the 182nd St Dam fish ladder has subsequently demonstrated that river herring will utilize technical fishways in this region.
 
@@ -53,7 +51,7 @@ A <- data.matrix(read.csv("data/WUCT_HREData_2018-07-18_Adjacency.csv", header=F
 knitr::kable(barrieralts, caption="Table 3. Input data for the WUCT to the Bronx River as described in the text. Each node specifies the existing condition (shown as Alt=0), and multiple restoration alternatives are also be specified for each node (shown as Alt>0).")
 ```
 
-Create `connectivity` function. Perhaps this can be loaded.
+Next we create `connectivity` function.
 
 ```{r, echo = FALSE}
 connectivity <- function(n,A,pass,hab){
@@ -148,7 +146,10 @@ This modeling framework has been applied to multiple USACE projects with varying
 * Numerical limits. The basic WUCT algorithm and the example application are extremely flexible for large-scale examination of watershed priorities and benefits. However, numerical problem size increases rapidly with the number of barriers are alternatives. For instance, a watershed with 30 barriers considering only the presence or absence of the barriers could result in more than a billion combinations of actions. As such, care should be taken to limit problem size to the extent practicable.  
 * User interface. The lack of a user interface limits the applicability of the toolkit to those familiar with the R programming language.
 
-As presented, the WUCT is a simple, flexible framework for quantifying the connectivity of watersheds and potential improvements through restoration actions. The adaptability of the framework is a primary strength of the tool, but this flexibility could also leads to significant variation in its application. Recommendations for review of each application have been provided to facilitate consistent and appropriate application in USACE planning.  
+## Summary
+
+- The WUCT is a simple, flexible framework for quantifying the connectivity of watersheds and potential improvements through restoration actions
+- The adaptability of the framework is a primary strength of the tool, but this flexibility could also leads to significant variation in its application.
 
 
 
