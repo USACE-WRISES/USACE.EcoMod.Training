@@ -104,7 +104,7 @@ Clearly these data are complex, and modeling should help us make sense of it.
 
 ### Data partitioning
 Splitting the data is very important so that we have some independent data on which to judge our models performance. Here we split 75% of the data into the dataset that will be used to train the model, and the remainder into the dataset for testing/assessing our model. 75% is the tidymodels default splitting proportion. 
-```{r, eval=FALSE}
+```{r}
 set.seed(123)
 blgl_split <- initial_split(blgl, strata = occ, prop = .75)
 blgl_train <- training(blgl_split)
@@ -116,7 +116,7 @@ Build a recipe for data preprocessing.
 
 First, we must tell the recipe() what our model is going to be (using a formula here) and what our training data is. The recipe is where we can do lots of helpful data manipulations, such as normalizing the data (step_normalize()), replacing categorical variables with dummy variables (step_dummy), adding interactions (step_interact()), and numerous other options. Random forest models needed fewer data transformations than many algorithms, so we'll just to one powerful transformation: step_impute_bag(). This uses a machine learning algorithm to impute missing variables, since we can't have any missing predictor data to run this or many other machine learning algorithm. Another option would be to remove any rows with missing data (using step_naomit()), but that would remove a lot of data.
 
-```{r, eval=FALSE}
+```{r}
 blgl_rec <- recipe(occ ~ ., data = blgl_train) %>%
   step_impute_bag(all_predictors())
 ```
@@ -131,7 +131,7 @@ juiced <- juice(blgl_prep)
 
 We will specify our random forest model. This is where we tell the model whether to try any different combinations of the hyperparameters (i.e., whether to tune the model). In this case, we're going to set the number of trees in our model to be 1,000, but we will tune 2 other hyperparameters. The `mtry` parameter controls how many variables we'll include in each model, and the `min_n` hyperparameter controls tree complexity: it indicates the minimum number of data points needed in a node for that node to be split, so higher values of `min_n` will force trees to be less complex. Tuning both of these parameters will help us find a more predictive model. For the model specification, we also indicate that we want to run our random forest using the version of the algorithm as implemented by the `ranger` package, and we want to do classification as opposed to regression.
 
-```{r, eval=FALSE}
+```{r}
 tune_spec <- 
     rand_forest(mtry = tune(), min_n = tune(), trees = 1000) %>% 
     set_engine("ranger") %>% 
@@ -140,7 +140,7 @@ tune_spec <-
 
 ### Workflow
 Next we set up our workflow. This is simply where we indicate what recipe and model we will use.
-```{r, eval=FALSE}
+```{r}
 tune_wf <- workflow() %>%
   add_recipe(blgl_rec) %>%
   add_model(tune_spec)
@@ -149,7 +149,7 @@ tune_wf <- workflow() %>%
 ### Tune hyperparameters - Notes from Julia Slige https://juliasilge.com/blog/sf-trees-random-tuning/
 Now we're ready to tune the hyperparameters. We need to create a set of cross-validation resamples to use for tuning. This means we'll divide our training data into 10 slices, and sequentially fit models with different hyperparameters using 9 of the slices, and testing it on the 10th slice. This is how we'll figure out the best hyperparameters.
 
-```{r, eval=FALSE}
+```{r}
 set.seed(234)
 blgl_folds <- vfold_cv(blgl_train, v = 10)
 ```
@@ -157,7 +157,7 @@ blgl_folds <- vfold_cv(blgl_train, v = 10)
 We will use the `tune_grid` function to tune our model across a grid of hyperparameters (using `grid = 20` will automatically pick 20 grid points automatically, but these can also be chosen by the user). 
 
 We will use parallel processing to make this go faster, but note that this could take about 1-2 minutes, depending on your computer.
-```{r, eval=FALSE}
+```{r}
 doParallel::registerDoParallel()
 
 set.seed(345)
@@ -174,7 +174,7 @@ We can plot the accuracy of our models (using area under the curve, or "AUC") to
 
 It appears that min_n values below 30 and mtry values between 4 and 6 are best.
 
-```{r, eval=FALSE}
+```{r}
 tune_res %>%
   collect_metrics() %>%
   filter(.metric == "roc_auc") %>%
@@ -210,7 +210,7 @@ To ultimately see how our good our model is, we want to evaluate predictions fro
 
 To do this, we make a final workflow with our original recipe and our best model `final_rf`. We can fit it one last time with the function last_fit(), which fits our best model on the entire training set and evaluates on the testing set, when provided with our initial data split.
 
-```{r, eval=FALSE}
+```{r}
 final_wf <- workflow() %>%
   add_recipe(blgl_rec) %>%
   add_model(final_rf)
@@ -227,7 +227,7 @@ This suggests that we have a very predictive model for presence of bluegill and 
 
 Let’s bind our testing results back to the original test set, and make one more map. Where in our pool are there more or less incorrectly predicted trees?
 
-```{r, eval=FALSE}
+```{r}
 final_res %>%
   collect_predictions() %>%
   mutate(correct = case_when(
@@ -244,7 +244,7 @@ final_res %>%
 ```
 
 First, we can see what variables are most important, using variable importance factors using the vip package.
-```{r, eval=FALSE}
+```{r}
 
 final_rf %>%
   set_engine("ranger", importance = "permutation") %>%
