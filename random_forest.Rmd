@@ -90,7 +90,7 @@ blgl <- blgl %>%
 ```
 
 We may also want to explore the data a bit. Here we look to see if there are any patterns of bluegill occupancy across space, and based on depth.
-```{r, out.height="60%"}
+```{r, out.height="70%"}
 filter(blgl,
        depth < 4) %>%
 ggplot()+
@@ -179,7 +179,7 @@ We can plot the accuracy of our models (using area under the curve, or "AUC") to
 
 It appears that min_n values below 30 and mtry values between 4 and 6 are best.
 
-```{r, fig.height=2}
+```{r, out.height="70%"}
 tune_res %>%
   collect_metrics() %>%
   filter(.metric == "roc_auc") %>%
@@ -232,7 +232,7 @@ This suggests that we have a very predictive model for presence of bluegill and 
 
 Let’s bind our testing results back to the original test set, and make one more map. Where in our pool are there more or less incorrectly predicted trees?
 
-```{r, message=FALSE, fig.height=4}
+```{r, message=FALSE, out.height="70%"}
 final_res %>%
   collect_predictions() %>%
   mutate(correct = case_when(
@@ -290,7 +290,7 @@ pdp_depth <- model_profile(
 Now we can plot the partial dependence. We could simply run `plot(pdp_depth)` but we can also plot it manually to have more control over the plot. To do this we can extract the relevant portion of the pdp_depth object, and then plot with ggplot. Note that we filter this dataset to depths < 5m, as there are only a couple of points in the dataset greater than this depth.
 
 
-```{r, fig.height=4}
+```{r, out.height="70%"}
 pdp_df <- as_tibble(pdp_depth$agr_profiles) %>%
   filter(`_x_` < 5) %>%
   mutate(`_label_` = str_remove(`_label_`, "workflow_"))
