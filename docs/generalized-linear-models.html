@@ -77,11 +77,10 @@
 <li><a class="" href="model-integration.html"><span class="header-section-number">23</span> Model Integration</a></li>
 <li class="book-part">Other R applications</li>
 <li><a class="" href="r-for-gis.html"><span class="header-section-number">24</span> R for GIS</a></li>
-<li><a class="" href="intersect.html"><span class="header-section-number">25</span> Intersect</a></li>
 <li class="book-part">Environmental data sources</li>
-<li><a class="" href="using-r-for-data-access.html"><span class="header-section-number">26</span> Using R for data access</a></li>
-<li><a class="" href="usgs-gage-data-using-the-dataretrieval-package.html"><span class="header-section-number">27</span> USGS gage data using the dataRetrieval package</a></li>
-<li><a class="" href="national-hydrography-dataset.html"><span class="header-section-number">28</span> National Hydrography Dataset</a></li>
+<li><a class="" href="using-r-for-data-access.html"><span class="header-section-number">25</span> Using R for data access</a></li>
+<li><a class="" href="usgs-gage-data-using-the-dataretrieval-package.html"><span class="header-section-number">26</span> USGS gage data using the dataRetrieval package</a></li>
+<li><a class="" href="national-hydrography-dataset.html"><span class="header-section-number">27</span> National Hydrography Dataset</a></li>
 </ul>
 
         <div class="book-extra">
@@ -177,9 +176,10 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Value of predictor"</span>, y <span class="op">=</span> <span class="st">"Carp occurrence"</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## Warning: Removed 170 rows containing non-finite outside the scale range (`stat_boxplot()`).</code></pre>
-<pre><code>## Warning: Removed 170 rows containing missing values or values outside the scale range
-## (`geom_point()`).</code></pre>
+<pre><code>## Warning: Removed 170 rows containing non-finite outside the scale
+## range (`stat_boxplot()`).</code></pre>
+<pre><code>## Warning: Removed 170 rows containing missing values or values outside
+## the scale range (`geom_point()`).</code></pre>
 <div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-54-1.png" width="600" height="600"></div>
 <p>From these plots, a few variables pop out as being potentially important. For example locations with carp occurrences appear to have lower secchi disk readings (i.e., less clear water) and higher temperatures, but the strength of these relationships are unclear, which is where modeling comes in to play.</p>
 </div>

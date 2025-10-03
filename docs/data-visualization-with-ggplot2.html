@@ -77,11 +77,10 @@
 <li><a class="" href="model-integration.html"><span class="header-section-number">23</span> Model Integration</a></li>
 <li class="book-part">Other R applications</li>
 <li><a class="" href="r-for-gis.html"><span class="header-section-number">24</span> R for GIS</a></li>
-<li><a class="" href="intersect.html"><span class="header-section-number">25</span> Intersect</a></li>
 <li class="book-part">Environmental data sources</li>
-<li><a class="" href="using-r-for-data-access.html"><span class="header-section-number">26</span> Using R for data access</a></li>
-<li><a class="" href="usgs-gage-data-using-the-dataretrieval-package.html"><span class="header-section-number">27</span> USGS gage data using the dataRetrieval package</a></li>
-<li><a class="" href="national-hydrography-dataset.html"><span class="header-section-number">28</span> National Hydrography Dataset</a></li>
+<li><a class="" href="using-r-for-data-access.html"><span class="header-section-number">25</span> Using R for data access</a></li>
+<li><a class="" href="usgs-gage-data-using-the-dataretrieval-package.html"><span class="header-section-number">26</span> USGS gage data using the dataRetrieval package</a></li>
+<li><a class="" href="national-hydrography-dataset.html"><span class="header-section-number">27</span> National Hydrography Dataset</a></li>
 </ul>
 
         <div class="book-extra">
@@ -184,8 +183,8 @@
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">complete_old</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">weight</span>, y <span class="op">=</span> <span class="va">hindfoot_length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## Warning: Removed 3081 rows containing missing values or values outside the
-## scale range (`geom_point()`).</code></pre>
+<pre><code>## Warning: Removed 3081 rows containing missing values or values outside
+## the scale range (`geom_point()`).</code></pre>
 <div class="inline-figure"><img src="usace_R_training_files/figure-html/scatter-plot-1.png" width="600" height="600"></div>
 <p>You may notice a warning that missing values were removed. If a variable necessary to make the plot is missing from a given row of data (in this case, <code>hindfoot_length</code> or <code>weight</code>), it can’t be plotted. <code>ggplot2</code> just uses a warning message to let us know that some rows couldn’t be plotted.</p>
 <div class="callout">
@@ -299,8 +298,8 @@
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">complete_old</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">plot_type</span>, y <span class="op">=</span> <span class="va">hindfoot_length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## Warning: Removed 2733 rows containing non-finite outside the scale range
-## (`stat_boxplot()`).</code></pre>
+<pre><code>## Warning: Removed 2733 rows containing non-finite outside the scale
+## range (`stat_boxplot()`).</code></pre>
 <div class="inline-figure"><img src="usace_R_training_files/figure-html/boxplot-1.png" width="600" height="600"></div>
 <p>Just as we colored the points before, we can color our boxplot by <code>plot_type</code> as well:</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
@@ -415,10 +414,10 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span>outlier.shape <span class="op">=</span> <span class="cn">NA</span>, fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">myplot</span></span></code></pre></div>
-<pre><code>## Warning: Removed 2733 rows containing non-finite outside the scale range
-## (`stat_boxplot()`).</code></pre>
-<pre><code>## Warning: Removed 2733 rows containing missing values or values outside the
-## scale range (`geom_point()`).</code></pre>
+<pre><code>## Warning: Removed 2733 rows containing non-finite outside the scale
+## range (`stat_boxplot()`).</code></pre>
+<pre><code>## Warning: Removed 2733 rows containing missing values or values outside
+## the scale range (`geom_point()`).</code></pre>
 <div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-1-1.png" width="600" height="600"></div>
 <p>This process of assigning something to an <strong>object</strong> is not specific to <code>ggplot2</code>, but rather a general feature of R. We will be using it a lot in the rest of this lesson. We can now work with the <code>myplot</code> object as if it was a block of <code>ggplot2</code> code, which means we can use <code>+</code> to add new components to it.</p>
 <p>We can change the overall appearance using <code>theme_</code> functions. Let’s try a black-and-white theme by adding <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw()</a></code> to our plot:</p>
@@ -588,10 +587,10 @@
 <span>       y <span class="op">=</span> <span class="st">"Hindfoot length (mm)"</span>,</span>
 <span>       color <span class="op">=</span> <span class="st">"Plot type"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/vars.html">vars</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## Warning: Removed 1460 rows containing non-finite outside the scale range
-## (`stat_boxplot()`).</code></pre>
-<pre><code>## Warning: Removed 1460 rows containing missing values or values outside the
-## scale range (`geom_point()`).</code></pre>
+<pre><code>## Warning: Removed 1460 rows containing non-finite outside the scale
+## range (`stat_boxplot()`).</code></pre>
+<pre><code>## Warning: Removed 1460 rows containing missing values or values outside
+## the scale range (`geom_point()`).</code></pre>
 <div class="inline-figure"><img src="usace_R_training_files/figure-html/assign-finalplot-1.png" width="600" height="600"></div>
 <p>After this, we can run <code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave()</a></code> to save our plot. The first argument we give is the path to the file we want to save, including the correct file extension. This code will make an image called <code>rodent_size_plots.jpg</code> in the <code>images/</code> folder of our current project. We are making a <code>.jpg</code>, but you can save <code>.pdf</code>, <code>.tiff</code>, and other file formats. Next, we tell it the name of the plot object we want to save. We can also specify things like the width and height of the plot in inches.</p>
 <div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
