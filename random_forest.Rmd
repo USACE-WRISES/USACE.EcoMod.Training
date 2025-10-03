@@ -2,165 +2,177 @@
 
 # Random Forest
 
-Adapted from this Carpentries workshop
-https://carpentries-incubator.github.io/r-ml-tabular-data/
-
-Random forest portion here:
-https://carpentries-incubator.github.io/r-ml-tabular-data/04-Decision-Forests/index.html
-
-
-Use tidymodels version
+*Authors: Ed Stowe (writing, editing)*   
+*Last update: `r as.Date(file.info('random_forest.Rmd')$mtime)`*  
+*Acknowledgements: Case study includes code that was adapted from demonstration analyses by Julia Silge on [random forest](https://juliasilge.com/blog/sf-trees-random-tuning/) and [partial dependence plots](https://juliasilge.com/blog/mario-kart/), used under [Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/)*
 
 ## Learning objectives
 
-- Understand the value of MLs like random forest
-- Understand an overview of random forest
-- Understand the basic workflow of an ML
-- Learn to implement a simple random forest model
+- Understand how random forest models works and when they are useful 
+- Carry out a full machine learning workflow 
+- Learn how to tune and assess a random forest model and determine which variables are important 
 
 ## Background
 
-### Can I do machine learning?
+### What is machine learning?
+Machine learning constitutes using algorithms that can learn to recognize patterns in data and then make predictions in new scenarios.
 
-Yes. And it's getting easier.
+### When is it most useful?
+In general, ML is most useful when prediction are more important than explanation; and when there is an adequate amount of data. ML models work better with more data, typically when there are at least a few hundred observations.
 
-### What is it actually?
+### Can I do machine learning
+Yes. Machine learning (ML) has a reputation for complexity and technical difficulty. But many machine learning algorithms are relatively simple, have been in use for decades, and are now fairly accessible via R packages like the tidymodels
 
+### What programs can I use for ML?
+There are lots of tools/programs for running ML algorithms, but one very accessible way is to use the tidymodels packages in R, which provides an integrated framework for using dozens of different ML algorithms. Different algorithms might make sense for different applications. Here we use random forest, an algorithm that's been popular for decades because of its flexibility, performance, relative ease, and suitability for tabular data (i.e., spreadsheets).
 
-### When would it be good?
-Prediction
+### How does random forest Work
+Random forest is an extension of a technique called decision trees. Decision trees, like other supervised machine learning algorithms, are designed to predict outcomes based on input data. There are two main types of outcomes that decision trees might predict:
+- Classification: predicting categorical outcomes (e.g., present/absent; male/female, etc.)
+- Regression: predicting numeric outcomes (e.g., abundance of fish; number of species, etc.)
 
-### What are the basic steps
-- Split
-- Tune and train
-- Assess
-- Predict
+Input data is used to identify break points, called decision nodes, in the data that help predict what the outcome might be. For example, if we were to predict whether a given passenger survived the sinking of the Titanic, the first decision node (i.e., the most informative) would be whether the person was male or female. Other input variables, like the age of the passenger, would likely make up other important nodes in the tree, and the final prediction (i.e., did the person survive or note?) is denoted by the leaf node.
 
-### What can I use for ML?
-Tons of packages in R and Python.
+Decision trees are versatile and interpretable, but they often learn the data that they are trained on too well, which is called being "overfit." Overfitted models tend to do poorly when used in prediction, because they are not general enough.
 
-Tidymodels in R offers an integrated for framework for using a bunch of different MLs.
+Random forest (and some similar algorithms) help overcome the problem of overfitting by leveraging the predictions of many distinct trees. It does this by:
 
-### How does random forest work
-Decision trees start with a basic question, such as, “Should I surf?” 
-From there, you can ask a series of questions to determine an answer, such as, “Is it a long period swell?” or “Is the wind blowing offshore?”. 
+1. Creating many different decision trees, each using a random subset of the data (called bagging). 
+2. Building each tree using only a few randomly chosen predictor variables.
+3. Generating independent predictions from each tree. 
+4. Combining the predictions of the different trees by selecting the prediction that the most trees agree on. 
 
-These questions make up the decision nodes in the tree, acting as a means to split the data. 
-
-Each question helps an individual to arrive at a final decision, which would be denoted by the leaf node. 
-
-Observations that fit the criteria will follow the “Yes” branch and those that don’t will follow the alternate path. 
-
-Decision trees seek to find the best split to subset the data, but tend to have problems: they are often biased and poor at making predictions. Random forest and other algorithms solve some of these problems.
-
-Instead of a single tree, random forest creates many unique decision trees. It does this by:
-
-
-
-Create Many Decision Trees: The algorithm makes many decision trees each using a random part of the data. So every tree is a bit different.
-
-Pick Random predictors: When building each tree it doesn’t look at all the features (columns) at once. It picks a few at random to decide how to split the data, so each tree is unique.
-
-Each Tree Makes a Prediction: Every tree gives its own answer or prediction based on what it learned from its part of the data.
-
-Combine the Predictions:
-
-For classification we choose a category as the final answer is the one that most trees agree on i.e majority voting.
-For regression we predict a number as the final answer is the average of all the trees predictions.
-
-Why It Works Well: Using random data and features for each tree helps avoid overfitting and makes the overall prediction more accurate and trustworthy.
-
-
-
-
-
+Using random data and input variables for each tree has been shown to increase the overall accuracy and generalizability of these models compared to single decision trees. 
 
 ## Case study
+Here we present a case study using machine learning to predict whether or not bluegill will be present at different sites in the Upper Mississippi River based on habitat covariates. Bluegill are often the focus of restoration efforts there, so better understanding what controls bluegill presence can help determine what features restoration should focus on. This analysis includes steps that are fundamental to all machine learning workflows and also relevant in many other models forms as well, which include:
 
-### Quick data exploration
+- *Splitting the data*: partitioning data so that models can be trained and then tested on independent data
+- *Tuning and training models*: using the training processing to examine model fit and determine which model specifications (i.e., hyperparameters) yield the best predictions
+- *Assessing model performance*
+- *Predicting independent data*: compare model predictions to test dataset to see if it performs well
 
+### Add packages
 
-### Data partitioning
+This case study will use the `tidymodels` package. We will also load the following packages:
+- `tidyverse` for plotting and data-handling
+- `doParallel` for tuning models in parallel
+- `vip` for calculating variable importance
+- `DALEXtra` for making partial dependence plots
 
+These packages should be installed if you have not used them before (e.g., `install.packages("vip")`)
 
-### Set up train/test split
-```{r, eval=FALSE}
+```{r}
+library(tidyverse)
 library(tidymodels)
-
-set.seed(123)
-trees_split <- initial_split(trees_df, strata = legal_status)
-trees_train <- training(trees_split)
-trees_test <- testing(trees_split)
+library(doParallel)
+library(vip)
+library(DALEXtra)
 ```
 
+First, we can import the bluegill occupancy dataset, and look at the data structure
+### Import dataset
+```{r}
+blgl <- read_csv("data/bluegill.csv")
+
+str(blgl)
+```
+
+We see that all but one of these variables are numeric. However, for our classification algorithm, we need to convert the presence/absence column (`occ` for occupancy) to a factor. We also have two other categorical variables that should be factors: pool for the number of the navigation pool, and period, for the season (with 2, 3, 4 being approximately spring, summer, and fall, respectively).
+
+```{r}
+blgl <- blgl %>%
+  mutate(across(.cols = c(occ, pool, period), as.factor))
+```
+
+We may also want to explore the data a bit. Here we look to see if there are any patterns of bluegill occupancy across space, and based on depth.
+```{r}
+filter(blgl,
+       depth < 4) %>%
+ggplot()+
+geom_point(aes(utm_e/1000, utm_n/1000, color = depth, shape = occ))+
+  facet_wrap(~pool, scales = "free")+
+  scale_color_viridis_c()+
+  theme_minimal() +
+  labs(x = "UTM E (thousands of m)",
+       y = "UTM N (thousands of m)",
+       shape = "Presence",
+       color = "Depth (m)")
+
+```
+Clearly these data are complex, and modeling should help us make sense of it.
+
+### Data partitioning
+Splitting the data is very important so that we have some independent data on which to judge our models performance. Here we split 75% of the data into the dataset that will be used to train the model, and the remainder into the dataset for testing/assessing our model. 75% is the tidymodels default splitting proportion. 
+```{r, eval=FALSE}
+set.seed(123)
+blgl_split <- initial_split(blgl, strata = occ, prop = .75)
+blgl_train <- training(blgl_split)
+blgl_test <- testing(blgl_split)
+```
 
 ### Pre-processing with recipes
 Build a recipe for data preprocessing.
 
-First, we must tell the recipe() what our model is going to be (using a formula here) and what our training data is.
-Next, we update the role for tree_id, since this is a variable we might like to keep around for convenience as an identifier for rows but is not a predictor or outcome.
-Next, we use step_other() to collapse categorical levels for species, caretaker, and the site info. Before this step, there were 300+ species!
-The date column with when each tree was planted may be useful for fitting this model, but probably not the exact date, given how slowly trees grow. Let’s create a year feature from the date, and then remove the original date variable.
-There are many more DPW maintained trees than not, so let’s downsample the data for training.
-The object tree_rec is a recipe that has not been trained on data yet (for example, which categorical levels should be collapsed has not been calculated) and tree_prep is an object that has been trained on data.
+First, we must tell the recipe() what our model is going to be (using a formula here) and what our training data is. The recipe is where we can do lots of helpful data manipulations, such as normalizing the data (step_normalize()), replacing categorical variables with dummy variables (step_dummy), adding interactions (step_interact()), and numerous other options. Random forest models needed fewer data transformations than many algorithms, so we'll just to one powerful transformation: step_impute_bag(). This uses a machine learning algorithm to impute missing variables, since we can't have any missing predictor data to run this or many other machine learning algorithm. Another option would be to remove any rows with missing data (using step_naomit()), but that would remove a lot of data.
 
 ```{r, eval=FALSE}
-tree_rec <- recipe(legal_status ~ ., data = trees_train) %>%
-  update_role(tree_id, new_role = "ID") %>%
-  step_other(species, caretaker, threshold = 0.01) %>%
-  step_other(site_info, threshold = 0.005) %>%
-  step_dummy(all_nominal(), -all_outcomes()) %>%
-  step_date(date, features = c("year")) %>%
-  step_rm(date) %>%
-  step_downsample(legal_status)
+blgl_rec <- recipe(occ ~ ., data = blgl_train) %>%
+  step_impute_bag(all_predictors())
+```
 
-tree_prep <- prep(tree_rec)
-juiced <- juice(tree_prep)  
+ALthough not strictly necessary, to see what the data look like after applying transformations, we can use the functions `prep` and then `juice`. The `juiced` dataframe now shows us what our data will look like when it's fed into the ML algorithm.
+```{r}
+blgl_prep <- prep(blgl_rec)
+juiced <- juice(blgl_prep)  
 ```  
-  
   
 ### Model specifications with parsnip
 
-Tune some of the parameters.
+We will specify our random forest model. This is where we tell the model whether to try any different combinations of the hyperparameters (i.e., whether to tune the model). In this case, we're going to set the number of trees in our model to be 1,000, but we will tune 2 other hyperparameters. The `mtry` parameter controls how many variables we'll include in each model, and the `min_n` hyperparameter controls tree complexity: it indicates the minimum number of data points needed in a node for that node to be split, so higher values of `min_n` will force trees to be less complex. Tuning both of these parameters will help us find a more predictive model. For the model specification, we also indicate that we want to run our random forest using the version of the algorithm as implemented by the `ranger` package, and we want to do classification as opposed to regression.
+
 ```{r, eval=FALSE}
-rf_spec <- 
+tune_spec <- 
     rand_forest(mtry = tune(), min_n = tune(), trees = 1000) %>% 
     set_engine("ranger") %>% 
     set_mode("classification")
-
 ```
 
 ### Workflow
+Next we set up our workflow. This is simply where we indicate what recipe and model we will use.
 ```{r, eval=FALSE}
 tune_wf <- workflow() %>%
-  add_recipe(tree_rec) %>%
+  add_recipe(blgl_rec) %>%
   add_model(tune_spec)
 ```
 
 ### Tune hyperparameters - Notes from Julia Slige https://juliasilge.com/blog/sf-trees-random-tuning/
-Now it’s time to tune the hyperparameters for a random forest model. First, let’s create a set of cross-validation resamples to use for tuning.
+Now we're ready to tune the hyperparameters. We need to create a set of cross-validation resamples to use for tuning. This means we'll divide our training data into 10 slices, and sequentially fit models with different hyperparameters using 9 of the slices, and testing it on the 10th slice. This is how we'll figure out the best hyperparameters.
 
 ```{r, eval=FALSE}
 set.seed(234)
-trees_folds <- vfold_cv(trees_train)
+blgl_folds <- vfold_cv(blgl_train, v = 10)
 ```
 
-We can’t learn the right values when training a single model, but we can train a whole bunch of models and see which ones turn out best. We can use parallel processing to make this go faster, since the different parts of the grid are independent. Let’s use grid = 20 to choose 20 grid points automatically.
+We will use the `tune_grid` function to tune our model across a grid of hyperparameters (using `grid = 20` will automatically pick 20 grid points automatically, but these can also be chosen by the user). 
 
+We will use parallel processing to make this go faster, but note that this could take about 1-2 minutes, depending on your computer.
 ```{r, eval=FALSE}
 doParallel::registerDoParallel()
 
 set.seed(345)
 tune_res <- tune_grid(
   tune_wf,
-  resamples = trees_folds,
+  resamples = blgl_folds,
   grid = 20
 )
 
 tune_res
 ```
 
-How did this turn out? Let’s look at AUC.
+We can plot the accuracy of our models (using area under the curve, or "AUC") to see which values of our hyperparameters are best. AUC is a score that indicates the balance between the sensitivity and specificity of a model, and thus is a good measure of model generalizability.
+
+It appears that min_n values below 30 and mtry values between 4 and 6 are best.
 
 ```{r, eval=FALSE}
 tune_res %>%
@@ -177,47 +189,13 @@ tune_res %>%
   labs(x = NULL, y = "AUC")
 ```
 
-This grid did not involve every combination of min_n and mtry but we can get an idea of what is going on. It looks like higher values of mtry are good (above about 10) and lower values of min_n are good (below about 10). We can get a better handle on the hyperparameters by tuning one more time, this time using regular_grid(). Let’s set ranges of hyperparameters we want to try, based on the results from our initial tune.
-
-```{r, eval=FALSE}
-rf_grid <- grid_regular(
-  mtry(range = c(10, 30)),
-  min_n(range = c(2, 8)),
-  levels = 5
-)
-
-rf_grid  
-
-```
+This grid did not involve every combination of min_n and mtry but we can get an idea of what is going on. If we wanted we could test a narrower and more specific range of hyperparameters using the grid_regular() function.
   
 ### Choosing the best model 
-It’s much more clear what the best model is now. We can identify it using the function select_best(), and then update our original model specification tune_spec to create our final model specification.
+Now that we've tuned models with several different hyperparameters, we can select the best model with the select_best(), and then update our original model specification to create our final model specification.
 
-We can tune one more time, but this time in a more targeted way with this rf_grid.
-
-```{r, eval=FALSE}
-set.seed(456)
-regular_res <- tune_grid(
-  tune_wf,
-  resamples = trees_folds,
-  grid = rf_grid
-)
-
-regular_res
-```
-
-What the results look like now?
-```{r, eval=FALSE}
-regular_res %>%
-  collect_metrics() %>%
-  filter(.metric == "roc_auc") %>%
-  mutate(min_n = factor(min_n)) %>%
-  ggplot(aes(mtry, mean, color = min_n)) +
-  geom_line(alpha = 0.5, size = 1.5) +
-  geom_point() +
-  labs(y = "AUC")
-
-best_auc <- select_best(regular_res, "roc_auc")
+```{r}
+best_auc <- select_best(tune_res, metric = "roc_auc")
 
 final_rf <- finalize_model(
   tune_spec,
@@ -226,49 +204,110 @@ final_rf <- finalize_model(
 
 final_rf
 ```
+This shows that our final model has an mtry value of 6 and a min_n value of 8. 
 
-Let’s explore our final model a bit. What can we learn about variable importance, using the vip package?
-```{r, eval=FALSE}
-library(vip)
+To ultimately see how our good our model is, we want to evaluate predictions from the best model against the test dataset.
 
-final_rf %>%
-  set_engine("ranger", importance = "permutation") %>%
-  fit(legal_status ~ .,
-    data = juice(tree_prep) %>% select(-tree_id)
-  ) %>%
-  vip(geom = "point")
-```
-
-The private caretaker characteristic important in categorization, as is latitude and longitude. Interesting that year (i.e. age of the tree) is so important!
-
-Let’s make a final workflow, and then fit one last time, using the convenience function last_fit(). This function fits a final model on the entire training set and evaluates on the testing set. We just need to give this funtion our original train/test split.
+To do this, we make a final workflow with our original recipe and our best model `final_rf`. We can fit it one last time with the function last_fit(), which fits our best model on the entire training set and evaluates on the testing set, when provided with our initial data split.
 
 ```{r, eval=FALSE}
 final_wf <- workflow() %>%
-  add_recipe(tree_rec) %>%
+  add_recipe(blgl_rec) %>%
   add_model(final_rf)
 
 final_res <- final_wf %>%
-  last_fit(trees_split)
+  last_fit(blgl_split)
 
 final_res %>%
   collect_metrics()
 ```
+If we collect the metrics from our final model fit we see it has an ROC > .91, where values over .9 are generally considered to be very good.
 
-The metrics for the test set look good and indicate we did not overfit during tuning.
+This suggests that we have a very predictive model for presence of bluegill and one that is not overfit, but we don't know what environmental factors matter to bluegill.
 
-Let’s bind our testing results back to the original test set, and make one more map. Where in San Francisco are there more or less incorrectly predicted trees?
+Let’s bind our testing results back to the original test set, and make one more map. Where in our pool are there more or less incorrectly predicted trees?
 
 ```{r, eval=FALSE}
 final_res %>%
   collect_predictions() %>%
   mutate(correct = case_when(
-    legal_status == .pred_class ~ "Correct",
+    occ == .pred_class ~ "Correct",
     TRUE ~ "Incorrect"
   )) %>%
-  bind_cols(trees_test) %>%
-  ggplot(aes(longitude, latitude, color = correct)) +
+  bind_cols(blgl_test) %>%
+  ggplot(aes(utm_e, utm_n, color = correct)) +
   geom_point(size = 0.5, alpha = 0.5) +
   labs(color = NULL) +
-  scale_color_manual(values = c("gray80", "darkred"))
+  scale_color_manual(values = c("gray80", "darkred"))+
+  facet_wrap(~pool, scales = "free")+
+  theme_void()
 ```
+
+First, we can see what variables are most important, using variable importance factors using the vip package.
+```{r, eval=FALSE}
+
+final_rf %>%
+  set_engine("ranger", importance = "permutation") %>%
+  fit(occ ~ ., data = juice(blgl_prep)) %>%
+  vip(geom = "point")
+```
+
+This indicates that depth and current are far and away the most important factors determining the presence of bluegill compared to other factors.
+
+We can also look at how these variables influence the probability of occurrence of bluegill using partial dependnece plots, implemeneted here with the DALEXtra package.
+
+To make these plots, we first extract the a fitted workflow from the final model fit object.
+
+Then we create an explainer object using the explain_tidymodels function. We need to provide this function with the final workflow, the data used in the model, other than the response variable `occ' and the response variable, as an integer. 
+
+```{r}
+
+final_fitted <- final_res$.workflow[[1]]
+
+blgl_explainer <- explain_tidymodels(
+  final_fitted,
+  data = dplyr::select(blgl_train, -occ),
+  y = as.integer(blgl_train$occ),
+  verbose = FALSE
+)
+```
+
+Once we have the explainer object we can calculate the dependence of occupancy on depth. Here we're including `pool` as a grouping variable to see if the effect of depth varies among pool.
+
+```{r}
+pdp_depth <- model_profile(
+  blgl_explainer,
+  variables = "depth",
+  N = NULL,
+  groups = "pool"
+)
+```
+
+Now we can plot the partial dependence. We could simply run `plot(pdp_depth)` but we can also plot it manually to have more control over the plot. To do this we can extract the relevant portion of the pdp_depth object, and then plot with ggplot. Note that we filter this dataset to depths < 5m, as there are only a couple of points in the dataset greater than this depth.
+
+
+```{r}
+pdp_df <- as_tibble(pdp_depth$agr_profiles) %>%
+  filter(`_x_` < 5) %>%
+  mutate(`_label_` = str_remove(`_label_`, "workflow_"))
+
+ggplot(pdp_df, aes(`_x_`, `_yhat_`, color = `_label_`)) +
+  geom_line(size = 1.2, alpha = 0.8) +
+  labs(
+    x = "Depth",
+    y = "Predicted occurrence probability",
+    color = "Period",
+    title = "Partial dependence plot for Bluegill occupancy"
+  )
+```
+We can see that in general, increases in depths are associated with increased probability of bluegill presence, which holds across pools, although the pools appear to have different overall probabilities of bluegill occurrence. There is also a dip in probability at depths slightly below 1 m, but further investigation would be needed to see if this is biologically meaningful.
+
+## Summary
+
+- Machine learning models can excel at prediction if there is adequate data, suggesting it has great potential value for USACE applications
+- The `tidymodels` package provides a complete and comprehensive framework for utilizing numerous machine learning algorithms and carrying out full analyses
+- Random forest is a powerful, accessible algorithm that can make highly accurate predictions based on tabular data
+
+
+
+
