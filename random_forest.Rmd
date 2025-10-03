@@ -296,7 +296,7 @@ pdp_df <- as_tibble(pdp_depth$agr_profiles) %>%
   mutate(`_label_` = str_remove(`_label_`, "workflow_"))
 
 ggplot(pdp_df, aes(`_x_`, `_yhat_`, color = `_label_`)) +
-  geom_line(size = 1.2, alpha = 0.8) +
+  geom_line(lwd = 1.2, alpha = 0.8) +
   labs(
     x = "Depth",
     y = "Predicted occurrence probability",
