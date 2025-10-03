@@ -2,6 +2,10 @@
 
 # Random Forest
 
+**This module will teach you how to run a full machine learning workflow with a random forest model using the tidymodels package in `R`.**
+
+![*Graphical output of a river network along with associated dams created using **`nhdplusTools`** along with data from the National Inventory of Dams.*](images/blgl_pdp.png){width=100%}
+
 *Authors: Ed Stowe (writing, editing)*   
 *Last update: `r as.Date(file.info('random_forest.Rmd')$mtime)`*  
 *Acknowledgements: Case study includes code that was adapted from demonstration analyses by Julia Silge on [random forest](https://juliasilge.com/blog/sf-trees-random-tuning/) and [partial dependence plots](https://juliasilge.com/blog/mario-kart/), used under [Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/)*
@@ -62,7 +66,7 @@ This case study will use the `tidymodels` package. We will also load the followi
 
 These packages should be installed if you have not used them before (e.g., `install.packages("vip")`)
 
-```{r}
+```{r, load-tidymodels-packages, message = FALSE}
 library(tidyverse)
 library(tidymodels)
 library(doParallel)
@@ -86,7 +90,7 @@ blgl <- blgl %>%
 ```
 
 We may also want to explore the data a bit. Here we look to see if there are any patterns of bluegill occupancy across space, and based on depth.
-```{r}
+```{r, fig.height=4}
 filter(blgl,
        depth < 4) %>%
 ggplot()+
@@ -100,6 +104,7 @@ geom_point(aes(utm_e/1000, utm_n/1000, color = depth, shape = occ))+
        color = "Depth (m)")
 
 ```
+
 Clearly these data are complex, and modeling should help us make sense of it.
 
 ### Data partitioning
@@ -146,7 +151,7 @@ tune_wf <- workflow() %>%
   add_model(tune_spec)
 ```
 
-### Tune hyperparameters - Notes from Julia Slige https://juliasilge.com/blog/sf-trees-random-tuning/
+### Tune hyperparameters
 Now we're ready to tune the hyperparameters. We need to create a set of cross-validation resamples to use for tuning. This means we'll divide our training data into 10 slices, and sequentially fit models with different hyperparameters using 9 of the slices, and testing it on the 10th slice. This is how we'll figure out the best hyperparameters.
 
 ```{r}
@@ -157,7 +162,7 @@ blgl_folds <- vfold_cv(blgl_train, v = 10)
 We will use the `tune_grid` function to tune our model across a grid of hyperparameters (using `grid = 20` will automatically pick 20 grid points automatically, but these can also be chosen by the user). 
 
 We will use parallel processing to make this go faster, but note that this could take about 1-2 minutes, depending on your computer.
-```{r}
+```{r, tune-rf, message=FALSE}
 doParallel::registerDoParallel()
 
 set.seed(345)
@@ -174,7 +179,7 @@ We can plot the accuracy of our models (using area under the curve, or "AUC") to
 
 It appears that min_n values below 30 and mtry values between 4 and 6 are best.
 
-```{r}
+```{r, fig.height=4}
 tune_res %>%
   collect_metrics() %>%
   filter(.metric == "roc_auc") %>%
@@ -227,7 +232,7 @@ This suggests that we have a very predictive model for presence of bluegill and 
 
 Let’s bind our testing results back to the original test set, and make one more map. Where in our pool are there more or less incorrectly predicted trees?
 
-```{r}
+```{r, message=FALSE, fig.height=4}
 final_res %>%
   collect_predictions() %>%
   mutate(correct = case_when(
@@ -245,7 +250,6 @@ final_res %>%
 
 First, we can see what variables are most important, using variable importance factors using the vip package.
 ```{r}
-
 final_rf %>%
   set_engine("ranger", importance = "permutation") %>%
   fit(occ ~ ., data = juice(blgl_prep)) %>%
@@ -286,7 +290,7 @@ pdp_depth <- model_profile(
 Now we can plot the partial dependence. We could simply run `plot(pdp_depth)` but we can also plot it manually to have more control over the plot. To do this we can extract the relevant portion of the pdp_depth object, and then plot with ggplot. Note that we filter this dataset to depths < 5m, as there are only a couple of points in the dataset greater than this depth.
 
 
-```{r}
+```{r, fig.height=4}
 pdp_df <- as_tibble(pdp_depth$agr_profiles) %>%
   filter(`_x_` < 5) %>%
   mutate(`_label_` = str_remove(`_label_`, "workflow_"))
@@ -300,6 +304,7 @@ ggplot(pdp_df, aes(`_x_`, `_yhat_`, color = `_label_`)) +
     title = "Partial dependence plot for Bluegill occupancy"
   )
 ```
+
 We can see that in general, increases in depths are associated with increased probability of bluegill presence, which holds across pools, although the pools appear to have different overall probabilities of bluegill occurrence. There is also a dip in probability at depths slightly below 1 m, but further investigation would be needed to see if this is biologically meaningful.
 
 ## Summary
