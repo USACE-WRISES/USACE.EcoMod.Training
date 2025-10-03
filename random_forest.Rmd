@@ -228,7 +228,7 @@ final_res %>%
 ```
 If we collect the metrics from our final model fit we see it has an ROC > .91, where values over .9 are generally considered to be very good.
 
-This suggests that we have a very predictive model for presence of bluegill and one that is not overfit, but we don't know what environmental factors matter to bluegill.
+This suggests that we have a very predictive model for presence of bluegill and one that is not overfit.
 
 Let’s bind our testing results back to the original test set, and make one more map. Where in our pool are there more or less incorrectly predicted trees?
 
@@ -247,6 +247,10 @@ final_res %>%
   facet_wrap(~pool, scales = "free")+
   theme_void()
 ```
+
+### Examine variable importance and partial dependence
+
+We still don't know what environmental factors matter to bluegill, but there are a couple of ways we can assess this.
 
 First, we can see what variables are most important, using variable importance factors using the vip package.
 ```{r}
