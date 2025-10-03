@@ -90,7 +90,7 @@ blgl <- blgl %>%
 ```
 
 We may also want to explore the data a bit. Here we look to see if there are any patterns of bluegill occupancy across space, and based on depth.
-```{r, fig.height=4}
+```{r, fig.height=4, out.height=60%}
 filter(blgl,
        depth < 4) %>%
 ggplot()+
@@ -179,7 +179,7 @@ We can plot the accuracy of our models (using area under the curve, or "AUC") to
 
 It appears that min_n values below 30 and mtry values between 4 and 6 are best.
 
-```{r, fig.height=4}
+```{r, fig.height=2}
 tune_res %>%
   collect_metrics() %>%
   filter(.metric == "roc_auc") %>%
