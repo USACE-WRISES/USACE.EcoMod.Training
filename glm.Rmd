@@ -6,11 +6,16 @@
 *Last update: `r as.Date(file.info('glm.Rmd')$mtime)`*  
 *Acknowledgements: Some inspiration/language/code have been used or adapted with permission from: Ben Staton's [Intro to R for Natural Resources course](https://bstaton1.github.io/au-r-workshop/ch3.html#glms); and Quebec Center for biodiversity Science's [Generalized linear model workshop](https://r.qcbs.ca/workshop06/book-en/)*
 
+## Learning objectives
+* Understand how generalized linear models might be used to inform USACE planning proccess
+* Understand why and when to use generalized linear models
+* Learn how to interpret output from binomial and negative binomial regression
+
 ## Generalized Linear Model Background
 
-The models we examined in the previous section are linear models. They assume that the residuals are normally-distributed and that the response variable and the predictor variables are linearly-related. However several ubiquitous types of data used in ecological modeling--such as presence/absence data or counts of organisms--do not follow these assumptions. For these types of data, **Generalized linear models (GLMs)** can overcome these problems.
+When USACE biologists and planners are trying to understand important factors controlling a species that will be the target of restoration, they may use linear modeling to determine if empirical data matches the expectation of a habitat model. Or if a habitat model doesn't exist, it may make sense to use linear modeling to inform the habitat models. In some cases, the linear models that we explore in the previous section, linear models, may suit this purpose. Linear models assume that the residuals of a model are normally-distributed and that the response variable and the predictor variables are linearly-related. However several ubiquitous types of data used in ecological modeling--such as presence/absence data or counts of organisms--do not follow these assumptions. For these types of data, **Generalized linear models (GLMs)** can overcome these problems. Therefore, if USACE planners wish to see how certain environmental variables are related to these types of biological outcomes (e.g., presence of a species), they may wish to use GLMs
 
-Here we will not go into all of the statistical details of GLMs, but for a more in-depth description of the statistical underpinnings, see [here] (https://r.qcbs.ca/workshop06/book-en/) and elsewhere. It is important to, however, to understand the three key elements of GLMs:
+Here we will not go into all of the statistical details of GLMs, but for a more in-depth description of the statistical underpinnings, see [here](https://r.qcbs.ca/workshop06/book-en/) and elsewhere. It is important, however, to understand three key elements of GLMs:
 
 1. **Response distribution**: A probability distribution for the response variable Y, such as the binomial distribution for binary data or the Poisson distribution for count data.  
 2. **Linear predictor**: A linear combination of explanatory variables (η=Xβ), analogous to a standard linear model.  
@@ -115,7 +120,7 @@ glm.bin$coefficients
 ```
 Because logistic regression involves the logit link function, it's not as easy as with linear modeling. Here, the coefficient values can be interpreted as the additive effect of, for example, temperature on the **log odds** of success. 
 
-The **odds ratio** is more interpretable than the log odds. We get this by taking the inverse natural log of the coefficicent values, in other words raising e to the power of the coefficients. In R, we use the `exp()` function to do this. 
+The **odds ratio** is more interpretable than the log odds. We get this by exponentiating the coefficicent values, in other words raising e to the power of the coefficients. In R, we use the `exp()` function to do this. 
 ```{r}
 exp(glm.bin$coefficient)
 ```
@@ -155,107 +160,66 @@ There appear to be some potential relationships, but we again want to use a mode
 ```{r}
 library(MASS)
 
-glm.nb = glm.nb(LMBS ~ secchi + temp + depth + current + do,
+mod_nb = glm.nb(LMBS ~ secchi + temp + depth + current + do,
   data = umr_sub)
 
-summary(glm.nb)
+summary(mod_nb)
 ```
 The summary output is similar to before, again indicating the estimates for our model coefficients, and whether the effect of these parameters are significant. We see that depth and dissolved oxygen are not significant based on p-values > 0.05, whereas the other parameters are significant (denoted by the asterices). Now we can look at the value of our model coefficients to indicate the strength of these relationships. 
 
-```{r, eval=FALSE}
-glm.nb$coefficients
+```{r}
+mod_nb$coefficients
 ```
 
-To interpret the coefficient for depth for example, we can , we can say that for a one-unit increase in current, the log count of 
-Y increases significantly by  5.246739516, or the expected count increases by 189.85
-exp(5.246739516)≈189.85. A one-unit increase in current is a lot on this scale, though so it may be better to consider that a 0.1 m/s increase in current increases counts by about 19 fish
+To interpret the coefficient for current, for example, we would say that for a one-unit increase in current, the log of the expected count decreases by  1.81.If we exponentiate this coefficient (i.e., raise `e` to the power of this coefficient), it indicates that raising current by 1 m/s ( a lot! in this system) multiplies the expected count by .16, in other words, it drastically reduces the expected counts. 
 
-Tidymodels version
-```{r, eval=FALSE}
-library(poissonreg)
+To visualize this effect, we can predict some new data and plot the results.
 
-results_counts <- data.frame()
+First, we create a new dataset to hold our predictions across a range of values for current. We create 100 values of current across the entire range of data in our dataset (i.e., from the minimum to the maximum value). We also include the mean values for all of the other predictors. 
 
-for (i in 1:length(species)){
+```{r}
+newdat <- tibble(current = seq(min(umr_sub$current, na.rm = T), max(umr_sub$current, na.rm = T), length.out = 100),
+                 secchi = mean(umr_sub$secchi, na.rm = TRUE),
+                 temp = mean(umr_sub$temp, na.rm = TRUE),
+                 depth = mean(umr_sub$depth, na.rm = TRUE),
+                 do = mean(umr_sub$do, na.rm = TRUE),)
+```
 
-data <- umr_sub %>%
-  rename(count = species[i])
+Next we use the `predict` function to generate our predicted counts. This uses our fitted model and the new data to create the predictions. `se.fit` indicates that standard errors should be returned, and type = "link" means that we want our response on the scale of the linear predictor (i.e., log(counts) in this case). 
+```{r}
+pred_link <- predict(mod_nb, newdata = newdat, se.fit = TRUE, type = "link")
+```
 
-# Split the data into training and testing sets
-set.seed(123)
-data_split <- initial_split(data, prop = 0.8)
-train_data <- training(data_split)
-test_data <- testing(data_split)
+Now we can add the predictions from the `pred_link` object to our new data. Here we also create new columns for the confidence intervals (`lwr` and  `upr`) and our predictions on the count scale.
+```{r}
+newdat <- newdat %>%
+  mutate(
+    fit_link = pred_link$fit,
+    se_link = pred_link$se.fit,
+    lwr = exp(fit_link - 1.96 * se_link),
+    upr = exp(fit_link + 1.96 * se_link),
+    pred_count = exp(fit_link)
+  )
+```
 
-# Specify the model: Poisson Regression
-poisson_spec <- poisson_reg() %>%
-  set_engine("glm") %>%
-  set_mode("regression")
-
-# Specify the model: Negative Binomial Regression
-#nb_spec <- gen_additive_mod() %>%
- # set_engine("glm", family = MASS::negative.binomial(theta = 1)) %>%
-  #set_mode("regression")
-
-# Define a recipe: Preprocessing steps
-reg_recipe <- recipe(count ~ secchi + temp + depth + current + do, data = train_data) %>%
-  step_normalize(all_numeric_predictors())
-
-# Create workflows
-poisson_workflow <- workflow() %>%
-  add_recipe(reg_recipe) %>%
-  add_model(poisson_spec)
-
-#nb_workflow <- workflow() %>%
- # add_recipe(reg_recipe) %>%
-  #add_model(nb_spec)
-
-# Perform 10-fold cross-validation
-set.seed(123)
-cv_splits <- vfold_cv(train_data, v = 10)
-
-# Fit the Poisson model with cross-validation
-poisson_cv_results <- fit_resamples(
-  poisson_workflow,
-  resamples = cv_splits,
-  metrics = metric_set(rmse, mae, rsq),
-  control = control_resamples(save_pred = TRUE)
-)
-
-# Fit the Negative Binomial model with cross-validation
-# nb_cv_results <- fit_resamples(
-#   nb_workflow,
-#   resamples = cv_splits,
-#   metrics = metric_set(rmse, mae, rsq),
-#   control = control_resamples(save_pred = TRUE)
-# )
-
-# View cross-validation metrics
-print(species[i])
-cat("Poisson Regression Metrics:\n")
-collect_metrics(poisson_cv_results)
-
-#cat("\nNegative Binomial Regression Metrics:\n")
-#collect_metrics(nb_cv_results)
-
-# Finalize and test the Poisson model
-final_poisson <- fit(poisson_workflow, data = train_data)
-poisson_test_results <- predict(final_poisson, test_data) %>%
-  bind_cols(test_data) %>%
-  metrics(truth = count, estimate = .pred) %>%
-  mutate(sp = species[i],
-         model = "pois")
-
-# Finalize and test the Negative Binomial model
-#final_nb <- fit(nb_workflow, data = train_data)
-#nb_test_results <- predict(final_nb, test_data) %>%
- # bind_cols(test_data) %>%
-  #metrics(truth = count, estimate = .pred) %>%
-  #mutate(sp = comm_sp[i],
-   #      model = "nb")
-
-results_counts <- bind_rows(results_counts, poisson_test_results)#, nb_test_results)
-
-}
+Finally we can plot our new predicted counts across different values for current.
+```{r}
+ggplot(newdat, aes(x = current, y = pred_count)) +
+  geom_line(color = "blue", size = 1) +
+  geom_ribbon(aes(ymin = lwr, ymax = upr), alpha = 0.2, fill = "blue") +
+  labs(
+    x = "Current (m/s)",
+    y = "Predicted count",
+    title = "Predicted counts from Negative Binomial regression"
+  ) +
+  theme_minimal(base_size = 14)
 
 ```
+This indicates graphically that with the other predictors constrained to their mean values, largemouth bass counts are high when the water current is very low, but declines substantially and approaches low values as currents near 0.8 m/s.
+
+Similar plots could also be made for other predictors, and models could also examine whether there are meaningful interactions between predictors. These models could be used extensively to explore whether habitat models for species of interest reflect the empirical data in a system.
+
+## Summary
+* Generalized linear models (GLMs) examine how a response like counts is affected by environmental predictors, which can be used to inform ecological models used in USACE planning processes.
+* GLMs rely on a link function, such as the `logit` in the case of binomial models, to place the relationship between a response variable and predictor variables on the linear scale.
+* Interpretation of model results needs to account for the link function that is used, and plotting model predictions is often the most intuitive way to interpret results.
