@@ -245,7 +245,7 @@ nid100 <- nid_sf %>%
   st_transform(crs = 26917) %>%
   st_intersection(stream100) 
 
-nid100 %>% select(dam_name, comid) %>%
+nid100 %>% dplyr::select(dam_name, comid) %>%
   head()
 ```
 

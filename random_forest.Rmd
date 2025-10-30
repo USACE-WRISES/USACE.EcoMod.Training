@@ -183,7 +183,7 @@ It appears that min_n values below 30 and mtry values between 4 and 6 are best.
 tune_res %>%
   collect_metrics() %>%
   filter(.metric == "roc_auc") %>%
-  select(mean, min_n, mtry) %>%
+  dplyr::select(mean, min_n, mtry) %>%
   pivot_longer(min_n:mtry,
     values_to = "value",
     names_to = "parameter"

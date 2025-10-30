@@ -64,7 +64,7 @@ Another important object that is contained within the package is the `HSImetadat
 
 ```{r}
 HSImetadata %>%
-  select(model, submodel, Eqtn) %>% # Select which columns to display
+  dplyr::select(model, submodel, Eqtn) %>% # Select which columns to display
   slice(1,4:6) # Select which rows to display
 ```
 
@@ -215,7 +215,7 @@ print(marsh_alts)
 Again, we will create an empty matrix to store the results and calculate the SI values for each parameter using `SIcalc`.
 ```{r}
  # Create a dataframe of just environmental variables associated with each alternative
-env_marsh <- select(marsh_alts, -alt)
+env_marsh <- dplyr::select(marsh_alts, -alt)
 nalternatives<-length(marsh_alts$alt) # Number of alternatives
 
 # Create empty matrix to store SI values for each alternative

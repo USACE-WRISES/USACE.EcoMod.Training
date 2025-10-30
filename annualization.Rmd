@@ -173,7 +173,7 @@ costs_ann <- costs_idc %>%
 Let's create a table to display the results. We use the `dollar()` function from the `scales` packages to format the cost columns in dollars.
 ```{r}
 cost_table <- costs_ann %>%
-  select(SiteID, SiteAction, ConstrDuration, ConstrCost, MonitoringCost, AdManCost, OMAnn, TotalAnn) %>%
+  dplyr::select(SiteID, SiteAction, ConstrDuration, ConstrCost, MonitoringCost, AdManCost, OMAnn, TotalAnn) %>%
   mutate(ConstrCost = dollar(ConstrCost), # Format as dollars with scales package
          MonitoringCost = dollar(MonitoringCost),
          AdManCost = dollar(AdManCost),

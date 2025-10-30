@@ -96,7 +96,7 @@ bb_vector <- BB_list[[1]][,4]
 
 #Create a table of the results
 ceica_table <- first_table %>% 
-  select(-Description) %>%
+  dplyr::select(-Description) %>%
   mutate(
     "Cost Effectiveness" = restCE,
     "Best Buy" = bb_vector) 
@@ -131,7 +131,7 @@ Non-cost effectiveness can be though of in two ways:
 Let's look more closely at the cost/benefit data above:
 ```{r}
 bi_cost_bens %>% 
-  select(AltID, AnnCost, RestBen) %>% 
+  dplyr::select(AltID, AnnCost, RestBen) %>% 
   knitr::kable()
 ```
 
@@ -273,7 +273,7 @@ If we want to view these results in tabular form as we did previously, we can ag
 
 ```{r}
 first_table %>%
-  select(-Description) %>%
+  dplyr::select(-Description) %>%
   mutate("Cost Effective" = CE,
          "Best Buy" = ifelse(`Alt. ID` %in% BB_IDs, 1, 0)) %>%
   knitr::kable(padding = 2, align = "c")
