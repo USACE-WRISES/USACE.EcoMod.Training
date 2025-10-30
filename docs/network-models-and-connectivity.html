@@ -142,7 +142,7 @@
 <em>Passability</em> - Local studies of fish passage rates (i.e., passability) are unavailable in the Bronx River. As such, passability was estimated based on studies elsewhere on the efficacy of technical fishways in general and for river herring specifically. Prior to restoration actions, all structures are assumed to have zero passage of river herring. Alewife studies in New England (Franklin et al. 2012) report high overall passage rates of 64-99% passage in the East River, Massachusetts with particularly high rates for technical steep passes of 94-97%. These values are in line with a meta-analysis of 65 published fish passage studies (Noonan et al. 2011), which indicated that fish passage efforts typically result in 42% fish passage on average across a variety of taxa. Based on the Massachusetts data, we used 80% passability for all fish ladders as a conservative estimate of passage efficiency. The 182nd Street Dam and Ladder were included in all analyses as part of the future without prokect condition. At Stone Mill Dam, Alternative-A includes fish attractors to increase utilization of the ladder, which were assumed to increase passability by 10% (i.e., to 88% total).</li>
 </ul>
 <p>The following script imports data, isolates the necessary input data, computes all permutations of restoration actions, and computes connectivity for each watershed-scale restoration plan. Table 4 presents the output of the WUCT in this application. The connectivity values represent a connectivity- and quality-weighted assessment of total habitat at the watershed scale.</p>
-<div class="sourceCode" id="cb385"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb390"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#Dummy example - Import data</span></span>
 <span><span class="va">barrieralts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/WUCT_HREData_2018-07-18_BarrierAlts.csv"</span>, header<span class="op">=</span><span class="cn">TRUE</span>, dec<span class="op">=</span><span class="st">"."</span><span class="op">)</span></span>
 <span><span class="va">A</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.matrix.html">data.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/WUCT_HREData_2018-07-18_Adjacency.csv"</span>, header<span class="op">=</span><span class="cn">FALSE</span>, dec<span class="op">=</span><span class="st">"."</span><span class="op">)</span><span class="op">)</span></span>
@@ -152,7 +152,7 @@
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">barrieralts</span>, caption<span class="op">=</span><span class="st">"Table 3. Input data for the WUCT to the Bronx River as described in the text. Each node specifies the existing condition (shown as Alt=0), and multiple restoration alternatives are also be specified for each node (shown as Alt&gt;0)."</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
 <caption>
-<span id="tab:unnamed-chunk-82">Table 18.1: </span>Table 3. Input data for the WUCT to the Bronx River as described in the text. Each node specifies the existing condition (shown as Alt=0), and multiple restoration alternatives are also be specified for each node (shown as Alt&gt;0).</caption>
+<span id="tab:unnamed-chunk-81">Table 18.1: </span>Table 3. Input data for the WUCT to the Bronx River as described in the text. Each node specifies the existing condition (shown as Alt=0), and multiple restoration alternatives are also be specified for each node (shown as Alt&gt;0).</caption>
 <thead><tr class="header">
 <th align="left">BarrierID</th>
 <th align="right">Alt</th>
@@ -234,7 +234,7 @@
 </tbody>
 </table></div>
 <p>Next we create <code>connectivity</code> function.</p>
-<div class="sourceCode" id="cb386"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb391"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#Isolate properties of the alternatives at each barrier</span></span>
 <span><span class="va">bnames</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">barrieralts</span><span class="op">$</span><span class="va">BarrierID</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">nbar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">bnames</span><span class="op">)</span></span>
@@ -278,7 +278,7 @@
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">WC.HRE</span>, caption<span class="op">=</span><span class="st">"Table 4. Alternatives analysis using the WUCT in the Bronx River Watershed. Competing restoration alternatives are shown as rows, and the alternative used in the plan is denoted by the number shown."</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
 <caption>
-<span id="tab:unnamed-chunk-84">Table 18.2: </span>Table 4. Alternatives analysis using the WUCT in the Bronx River Watershed. Competing restoration alternatives are shown as rows, and the alternative used in the plan is denoted by the number shown.</caption>
+<span id="tab:unnamed-chunk-83">Table 18.2: </span>Table 4. Alternatives analysis using the WUCT in the Bronx River Watershed. Competing restoration alternatives are shown as rows, and the alternative used in the plan is denoted by the number shown.</caption>
 <thead><tr class="header">
 <th align="right">Plan</th>
 <th align="right">EHB00</th>

@@ -96,7 +96,7 @@
 <div class="float">
 <img src="images/ann_cost_example.png" style="width:100.0%" alt="Example annualized costs calculated using the EngrEcon R package."><div class="figcaption"><em>Example annualized costs calculated using the <code>EngrEcon</code> R package.</em></div>
 </div>
-<p><em>Authors: Ed Stowe (Writing, code), Darixa Hernandez-Abrams (benefits code), Kyle McKay (benefits code), Liya Abera (costs code) Cost annualization write-up from Utoy Creek: Kyle McKay, Stephen Phillips, Liya Abera, and Garrett Menichino</em><br><em>Last update: 2025-02-06</em><br><em>Acknowledgements: </em></p>
+<p><em>Authors: Ed Stowe (Writing, code), Darixa Hernandez-Abrams (benefits code), Kyle McKay (benefits code), Liya Abera (costs code) Cost annualization write-up from Utoy Creek: Kyle McKay, Stephen Phillips, Liya Abera, and Garrett Menichino</em><br><em>Last update: 2025-10-30</em><br><em>Acknowledgements: </em></p>
 <div id="learning-objectives-9" class="section level2" number="21.1">
 <h2>
 <span class="header-section-number">21.1</span> Learning objectives<a class="anchor" aria-label="anchor" href="#learning-objectives-9"><i class="fas fa-link"></i></a>
@@ -118,13 +118,13 @@
 <span class="header-section-number">21.3</span> Annualizing benefits<a class="anchor" aria-label="anchor" href="#annualizing-benefits"><i class="fas fa-link"></i></a>
 </h2>
 <p>Annualization of benefits can be easily carried out in the <code>ecorest</code> package. Along with <code>ecorest</code> we will also load the <code>tidyverse</code> package for plotting/wrangling and the <code>EngrEcon</code> package for cost annualization.</p>
-<div class="sourceCode" id="cb387"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb392"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">ecorest</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">EngrEcon</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://scales.r-lib.org">scales</a></span><span class="op">)</span> <span class="co"># Needed to convert costs to dollars for table outputs</span></span></code></pre></div>
 <p>Let’s imagine a simple scenario with ecosystem or restoration benefits calculated at four time periods from year 0 to year 50. We can store these benefits in a dataframe and plot them with <code>ggplot</code> as follows:</p>
-<div class="sourceCode" id="cb388"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb393"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#User-specified time intervals</span></span>
 <span><span class="va">ben_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>year <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">2</span>,<span class="fl">20</span>,<span class="fl">50</span><span class="op">)</span>,</span>
 <span>                     ben <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">40</span>,<span class="fl">35</span>,<span class="fl">30</span><span class="op">)</span><span class="op">)</span></span>
@@ -136,17 +136,17 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  </span>
 <span><span class="va">p</span></span></code></pre></div>
-<p><img src="usace_R_training_files/figure-html/unnamed-chunk-86-1.png" width="600" height="600">
+<p><img src="usace_R_training_files/figure-html/unnamed-chunk-85-1.png" width="600" height="600">
 In essence, the total benefits of the project can be thought of as the area under this curve, which we can add to our plot using the <code><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html">geom_area()</a></code> function.</p>
-<div class="sourceCode" id="cb389"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb394"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html">geom_area</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">year</span>, y <span class="op">=</span> <span class="va">ben</span><span class="op">)</span>, </span>
 <span>            fill <span class="op">=</span> <span class="st">"skyblue"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p</span></span></code></pre></div>
-<div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-87-1.png" width="600" height="600"></div>
+<div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-86-1.png" width="600" height="600"></div>
 <p>What annualization does is take the total shaded area under the benefits curve, and it divide by the number of years. This essentially looks like carving the area into triangles and rectangles, calculating the areas of these shapes and adding them together, and finally dividing to get an annual benefit. The <code>df_rect</code> code below simply creates a dataframe with the coordinates for two rectangles to add to our plot for visualization purposes.</p>
-<div class="sourceCode" id="cb390"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb395"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df_rect</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>xmin <span class="op">=</span> <span class="va">ben_df</span><span class="op">$</span><span class="va">year</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>,</span>
 <span>                  xmax <span class="op">=</span> <span class="va">ben_df</span><span class="op">$</span><span class="va">year</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>,</span>
 <span>                  ymin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>,</span>
@@ -155,11 +155,11 @@ In essence, the total benefits of the project can be thought of as the area unde
 <span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html">geom_rect</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">df_rect</span>,</span>
 <span>            <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>xmin <span class="op">=</span> <span class="va">xmin</span>, xmax <span class="op">=</span> <span class="va">xmax</span>, ymin <span class="op">=</span> <span class="va">ymin</span>, ymax <span class="op">=</span> <span class="va">ymax</span><span class="op">)</span>,</span>
 <span>            fill <span class="op">=</span> <span class="cn">NA</span>, lty <span class="op">=</span> <span class="st">"dashed"</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-88-1.png" width="600" height="600"></div>
+<div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-87-1.png" width="600" height="600"></div>
 <p>The <code>ecorest</code> package provides an easy way to achieve benefit annualization with the <code>annualizer</code> function, which computes “time-averaged quantities based on linear interpolation.” Linear interpolation here just means that we connect the different points in time with straight lines in order to calculate the overall area.</p>
 <p>Inputs for the <code>annualizer</code> function are 1) a vector of time intervals and
 2) a vector of values to interpolate.</p>
-<div class="sourceCode" id="cb391"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb396"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/ecorest/man/annualizer.html">annualizer</a></span><span class="op">(</span><span class="va">ben_df</span><span class="op">$</span><span class="va">year</span>, <span class="va">ben_df</span><span class="op">$</span><span class="va">ben</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 33.8</code></pre>
 <p>We can see, therefore, that the annualized ecological benefits of this toy project are 87.2 units (e.g., acres, habitat units, etc.).</p>
@@ -177,7 +177,7 @@ In essence, the total benefits of the project can be thought of as the area unde
 <span class="header-section-number">21.4.1</span> Cost data<a class="anchor" aria-label="anchor" href="#cost-data"><i class="fas fa-link"></i></a>
 </h3>
 <p>In order to carry out cost annualization, we will start by storing the federal discount rate of 3.0% in an object called <code>discount</code>. Then, we load the cost data and inspect it with the <code>glimpse</code> function from<code>dplyr</code>.</p>
-<div class="sourceCode" id="cb393"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb398"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Set federal discont rate for water resources projects in FY24</span></span>
 <span><span class="va">discount</span> <span class="op">&lt;-</span> <span class="fl">0.03</span></span>
 <span></span>
@@ -217,7 +217,7 @@ In essence, the total benefits of the project can be thought of as the area unde
 <li><p>Cost incurred at each interval (in present value)</p></li>
 </ol>
 <p>Therefore, starting with our dataframe of costs for each project (<code>costs</code>) and using the <code><a href="https://rdrr.io/pkg/EngrEcon/man/om_distribute.html">om_distribute()</a></code> function, we can use the following code to create a new dataframe of OMRRR costs, including one column for each of the OMRRR categories listed above, along with a column that sums all of the OMRRR costs together (<code>TotalOMRR</code>). For each cost category, the interval costs (e.g., $10,000 for general maintenance) are multiplied by a project specific value, and this ensures that OMRRR costs for the FWOP scenarios will be 0 in all cases, and also adjusts the interval costs by the reach length in the case of biannual monitoring, and by the original construction cost in the case of the repair of structural restoration features.</p>
-<div class="sourceCode" id="cb395"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb400"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">costs_omrrr</span> <span class="op">&lt;-</span> <span class="va">costs</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rowwise.html">rowwise</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>General <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/EngrEcon/man/om_distribute.html">om_distribute</a></span><span class="op">(</span><span class="va">discount</span>, <span class="fl">50</span>, <span class="fl">1</span>, <span class="fl">10000</span> <span class="op">*</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">RipAreaFt2</span><span class="op">&gt;</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -233,7 +233,7 @@ In essence, the total benefits of the project can be thought of as the area unde
 </h3>
 <p>We also need to calculate **interest during construction* (IDC). In the context of the USACE, IDC is thought of as the “opportunity cost of capital incurred druing the construction period.” In other words, money is being spent to do this project, which represents other opportunities not being carried out, and additionally, during construction, the asset being built is not yet functional so it doesn’t yet represent a benefit. Thus, IDC will create the appearance of an added cost for projects with longer construction durations and higher construction costs.</p>
 <p>For Utoy Creek, interest during construction was computed based on construction costs the specific construction durations for each alternative plan. <code>EngrEcon</code> provides a function for calculating IDC <code>interest_during_construction</code>, which takes as inputs the discount rate, the duration of construction in months, and construction costs. The following code calculates a new column for this IDC. Note: as with the OMRR costs, we need to account for FWOP, which have construction durations of 0 months, which the function <code>interest_during_construction</code> does not like. So we use an <code>if_else</code> statement here to indicate that IDC should be calculated using the <code>interest_during_construction</code> function if construction duration is greater than 0 months, and otherwise it should be 0 (for all the FWOP projects).</p>
-<div class="sourceCode" id="cb396"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb401"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">costs_idc</span> <span class="op">&lt;-</span> <span class="va">costs_omrrr</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rowwise.html">rowwise</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>IDC <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">ConstrDuration</span> <span class="op">&gt;</span> <span class="fl">0</span>, </span>
@@ -246,7 +246,7 @@ In essence, the total benefits of the project can be thought of as the area unde
 </h3>
 <p>Finally, we need to convert the present value costs of all of these expenditures into annualized costs, so that we can make fair comparisons among projects. To do this, we will use the <code>EngrEcon</code> function <code>present_to_annual</code>. This function has similar inputs as the previous functions: the discount rate, the life span of the project (50 years) and finally the present value cost of each item.</p>
 <p>The following code uses the <code>mutate</code> finction again to calculate new annualized costs for each cost category, followed by a summation of all the annualized costs, <code>TotalAnn</code>, which is what will ultimately be used to compare among projects!</p>
-<div class="sourceCode" id="cb397"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb402"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">costs_ann</span> <span class="op">&lt;-</span> <span class="va">costs_idc</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rowwise.html">rowwise</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>ConstrCostAnn <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/EngrEcon/man/present_to_annual.html">present_to_annual</a></span><span class="op">(</span><span class="va">discount</span>, <span class="fl">50</span>, <span class="va">ConstrCost</span><span class="op">)</span>,</span>
@@ -256,9 +256,9 @@ In essence, the total benefits of the project can be thought of as the area unde
 <span>         OMAnn <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/EngrEcon/man/present_to_annual.html">present_to_annual</a></span><span class="op">(</span><span class="va">discount</span>, <span class="fl">50</span>, <span class="va">TotalOMRR</span><span class="op">)</span>,</span>
 <span>         TotalAnn <span class="op">=</span> <span class="va">ConstrCostAnn</span> <span class="op">+</span> <span class="va">MonitoringCostAnn</span> <span class="op">+</span> <span class="va">AdManCostAnn</span> <span class="op">+</span> <span class="va">IDCAnn</span> <span class="op">+</span> <span class="va">OMAnn</span><span class="op">)</span></span></code></pre></div>
 <p>Let’s create a table to display the results. We use the <code><a href="https://scales.r-lib.org/reference/dollar_format.html">dollar()</a></code> function from the <code>scales</code> packages to format the cost columns in dollars.</p>
-<div class="sourceCode" id="cb398"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb403"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cost_table</span> <span class="op">&lt;-</span> <span class="va">costs_ann</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">SiteID</span>, <span class="va">SiteAction</span>, <span class="va">ConstrDuration</span>, <span class="va">ConstrCost</span>, <span class="va">MonitoringCost</span>, <span class="va">AdManCost</span>, <span class="va">OMAnn</span>, <span class="va">TotalAnn</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">SiteID</span>, <span class="va">SiteAction</span>, <span class="va">ConstrDuration</span>, <span class="va">ConstrCost</span>, <span class="va">MonitoringCost</span>, <span class="va">AdManCost</span>, <span class="va">OMAnn</span>, <span class="va">TotalAnn</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>ConstrCost <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/dollar_format.html">dollar</a></span><span class="op">(</span><span class="va">ConstrCost</span><span class="op">)</span>, <span class="co"># Format as dollars with scales package</span></span>
 <span>         MonitoringCost <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/dollar_format.html">dollar</a></span><span class="op">(</span><span class="va">MonitoringCost</span><span class="op">)</span>,</span>
 <span>         AdManCost <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/dollar_format.html">dollar</a></span><span class="op">(</span><span class="va">AdManCost</span><span class="op">)</span>,</span>
@@ -272,7 +272,7 @@ In essence, the total benefits of the project can be thought of as the area unde
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">cost_table</span>, caption<span class="op">=</span><span class="st">"Table 1. Monetary cost data for Utoy sites."</span>, align<span class="op">=</span><span class="st">'c'</span><span class="op">)</span> </span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
 <caption>
-<span id="tab:unnamed-chunk-94">Table 21.1: </span>Table 1. Monetary cost data for Utoy sites.</caption>
+<span id="tab:unnamed-chunk-93">Table 21.1: </span>Table 1. Monetary cost data for Utoy sites.</caption>
 <colgroup>
 <col width="4%">
 <col width="9%">

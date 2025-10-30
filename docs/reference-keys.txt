@@ -1,9 +1,9 @@
 tab:unnamed-chunk-31
 tab:unnamed-chunk-37
 eq:logis-reg
-tab:unnamed-chunk-82
-tab:unnamed-chunk-84
-tab:unnamed-chunk-94
+tab:unnamed-chunk-81
+tab:unnamed-chunk-83
+tab:unnamed-chunk-93
 preparations
 install-r-and-rstudio
 operating-system
@@ -100,7 +100,7 @@ index-based-ecological-models
 habitat-suitability-index-models-with-ecorest
 learning-objectives-5
 background-on-hsi-modeling-with-ecorest
-run-an-hsi-analysis-with-ecorest-using-a-bluebook-model
+run-an-hsi-analysis-with-ecorest-using-a-blue-book-model
 explore-the-marsh-wren-hsi-model
 calculate-suitability-values-from-environmental-variables
 aggregate-hsi-value-and-habitat-units
@@ -109,7 +109,7 @@ hsi-modeling-with-custom-model
 explore-model-and-data
 calculate-individual-suitability-indices
 calculate-the-total-hsi-score
-cummulative-hsi-and-habitat-units
+cumulative-hsi-and-habitat-units
 linking-steps-using-pipes
 summary-2
 ecorest-web-app
@@ -163,7 +163,7 @@ logistic-regression
 example-logistic-regression-anaysis
 import-and-explore-data
 fit-model-with-glm-function
-glm-with-the-tidymodels-package
+example-poisson-regression-anaysis
 random-effects
 generalized-additive-models
 random-forest

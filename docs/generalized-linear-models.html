@@ -93,7 +93,7 @@
 <span class="header-section-number">12</span> Generalized Linear Models<a class="anchor" aria-label="anchor" href="#generalized-linear-models"><i class="fas fa-link"></i></a>
 </h1>
 <p><strong>This module will teach you how to use Generalized Linear Models to assess the importance of management-relevant environmental factors for fish species</strong></p>
-<p><em>Authors: Ed Stowe</em><br><em>Last update: 2025-02-03</em><br><em>Acknowledgements: Some inspiration/language/code have been used or adapted with permission from: Ben Staton’s <a href="https://bstaton1.github.io/au-r-workshop/ch3.html#glms">Intro to R for Natural Resources course</a>; and Quebec Center for biodiversity Science’s <a href="https://r.qcbs.ca/workshop06/book-en/">Generalized linear model workshop</a></em></p>
+<p><em>Authors: Ed Stowe</em><br><em>Last update: 2025-10-30</em><br><em>Acknowledgements: Some inspiration/language/code have been used or adapted with permission from: Ben Staton’s <a href="https://bstaton1.github.io/au-r-workshop/ch3.html#glms">Intro to R for Natural Resources course</a>; and Quebec Center for biodiversity Science’s <a href="https://r.qcbs.ca/workshop06/book-en/">Generalized linear model workshop</a></em></p>
 <div id="generalized-linear-model-background" class="section level2" number="12.1">
 <h2>
 <span class="header-section-number">12.1</span> Generalized Linear Model Background<a class="anchor" aria-label="anchor" href="#generalized-linear-model-background"><i class="fas fa-link"></i></a>
@@ -178,8 +178,8 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Warning: Removed 170 rows containing non-finite outside the scale
 ## range (`stat_boxplot()`).</code></pre>
-<pre><code>## Warning: Removed 170 rows containing missing values or values outside
-## the scale range (`geom_point()`).</code></pre>
+<pre><code>## Warning: Removed 170 rows containing missing values or values
+## outside the scale range (`geom_point()`).</code></pre>
 <div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-54-1.png" width="600" height="600"></div>
 <p>From these plots, a few variables pop out as being potentially important. For example locations with carp occurrences appear to have lower secchi disk readings (i.e., less clear water) and higher temperatures, but the strength of these relationships are unclear, which is where modeling comes in to play.</p>
 </div>
@@ -248,118 +248,77 @@
 <pre><code>## `geom_smooth()` using formula = 'y ~ x'</code></pre>
 <div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-59-1.png" width="600" height="600"></div>
 </div>
-<div id="glm-with-the-tidymodels-package" class="section level4" number="12.2.1.3">
-<h4>
-<span class="header-section-number">12.2.1.3</span> GLM with the tidymodels package<a class="anchor" aria-label="anchor" href="#glm-with-the-tidymodels-package"><i class="fas fa-link"></i></a>
-</h4>
-<p>In R, for certain kinds of analysis, there may be different packages that can perform the same statistical procedures, but have different strengths. For our simple glm of CARP, the <code>glm</code> function in base R works well, but as model complexity increases there may be instances where additional capacities make sense. One package that enables this is the <code>tidymodels</code> package, so we’ll first introduce it here, so that we can come back to it later. The following code implements the same type of analysis, but now using tidymodels code.</p>
+</div>
+<div id="example-poisson-regression-anaysis" class="section level3" number="12.2.2">
+<h3>
+<span class="header-section-number">12.2.2</span> Example poisson regression anaysis<a class="anchor" aria-label="anchor" href="#example-poisson-regression-anaysis"><i class="fas fa-link"></i></a>
+</h3>
+<p>What if we want to model counts? For example, do we think counts of Largemouth Bass (LMBS) might change as a function of environmental predictors? We can first plot counts of LMBS as a function of predictors using <code>ggplot</code>.</p>
 <div class="sourceCode" id="cb354"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Load required libraries</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
-<span></span>
-<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">fish_binary</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>species <span class="op">=</span> <span class="va">species</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Split the data into training and testing sets</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
-<span><span class="va">data_split</span> <span class="op">&lt;-</span> <span class="fu">initial_split</span><span class="op">(</span><span class="va">data</span>, prop <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span></span>
-<span><span class="va">train_data</span> <span class="op">&lt;-</span> <span class="fu">training</span><span class="op">(</span><span class="va">data_split</span><span class="op">)</span></span>
-<span><span class="va">test_data</span> <span class="op">&lt;-</span> <span class="fu">testing</span><span class="op">(</span><span class="va">data_split</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Specify the model: GLM for regression</span></span>
-<span><span class="va">glm_spec</span> <span class="op">&lt;-</span> <span class="fu">linear_reg</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">set_engine</span><span class="op">(</span><span class="st">"glm"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">set_mode</span><span class="op">(</span><span class="st">"regression"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Define a recipe: Preprocessing steps</span></span>
-<span><span class="va">glm_recipe</span> <span class="op">&lt;-</span> <span class="fu">recipe</span><span class="op">(</span><span class="va">species</span> <span class="op">~</span> <span class="va">secchi</span> <span class="op">+</span> <span class="va">temp</span> <span class="op">+</span> <span class="va">depth</span> <span class="op">+</span> <span class="va">current</span> <span class="op">+</span> <span class="va">do</span>, data <span class="op">=</span> <span class="va">train_data</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">step_normalize</span><span class="op">(</span><span class="fu">all_numeric_predictors</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Create a workflow</span></span>
-<span><span class="va">glm_workflow</span> <span class="op">&lt;-</span> <span class="fu">workflow</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">add_recipe</span><span class="op">(</span><span class="va">glm_recipe</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">add_model</span><span class="op">(</span><span class="va">glm_spec</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Perform 10-fold cross-validation</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
-<span><span class="va">cv_splits</span> <span class="op">&lt;-</span> <span class="fu">vfold_cv</span><span class="op">(</span><span class="va">train_data</span>, v <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Fit the model with cross-validation</span></span>
-<span><span class="va">cv_results</span> <span class="op">&lt;-</span> <span class="fu">fit_resamples</span><span class="op">(</span></span>
-<span>  <span class="va">glm_workflow</span>,</span>
-<span>  resamples <span class="op">=</span> <span class="va">cv_splits</span>,</span>
-<span>  metrics <span class="op">=</span> <span class="fu">metric_set</span><span class="op">(</span><span class="va">rmse</span>, <span class="va">rsq</span><span class="op">)</span>,</span>
-<span>  control <span class="op">=</span> <span class="fu">control_resamples</span><span class="op">(</span>save_pred <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># View cross-validation metrics</span></span>
-<span><span class="fu">collect_metrics</span><span class="op">(</span><span class="va">cv_results</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Finalize the model on the entire training set</span></span>
-<span><span class="va">final_glm</span> <span class="op">&lt;-</span> <span class="fu">fit</span><span class="op">(</span><span class="va">glm_workflow</span>, data <span class="op">=</span> <span class="va">train_data</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Test the finalized model on the testing set</span></span>
-<span><span class="va">test_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">final_glm</span>, <span class="va">test_data</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_cols.html">bind_cols</a></span><span class="op">(</span><span class="va">test_data</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">metrics</span><span class="op">(</span>truth <span class="op">=</span> <span class="va">species</span>, estimate <span class="op">=</span> <span class="va">.pred</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>sp <span class="op">=</span> <span class="va">species</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co">#print(test_results)</span></span>
-<span></span>
-<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html">bind_rows</a></span><span class="op">(</span><span class="va">results</span>, <span class="va">test_results</span><span class="op">)</span></span>
-<span></span>
-<span><span class="op">}</span></span></code></pre></div>
-<p>What if we want to model counts?</p>
-<div class="sourceCode" id="cb355"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Load required libraries</span></span>
-<span><span class="va">umr_sub</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">umr_sub</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">LMBS</span>, <span class="va">secchi</span><span class="op">:</span><span class="va">do</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="va">secchi</span><span class="op">:</span><span class="va">do</span>, names_to <span class="op">=</span> <span class="st">"variable"</span>, values_to <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">value</span>, <span class="va">LMBS</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter</a></span><span class="op">(</span>height <span class="op">=</span> <span class="fl">.05</span>, pch <span class="op">=</span> <span class="fl">21</span>, alpha <span class="op">=</span><span class="fl">0.5</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter</a></span><span class="op">(</span>pch <span class="op">=</span> <span class="fl">21</span>, alpha <span class="op">=</span><span class="fl">0.5</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"glm"</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">variable</span>, nrow <span class="op">=</span> <span class="fl">2</span>, scales <span class="op">=</span> <span class="st">"free_x"</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb356"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">glm.poisson</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">LMBS</span> <span class="op">~</span> <span class="va">secchi</span> <span class="op">+</span> <span class="va">temp</span> <span class="op">+</span> <span class="va">depth</span> <span class="op">+</span> <span class="va">current</span> <span class="op">+</span> <span class="va">do</span>,</span>
-<span>  data <span class="op">=</span> <span class="va">umr_sub</span>,</span>
-<span>  family <span class="op">=</span> <span class="va">poisson</span><span class="op">)</span> <span class="co"># this is what makes it a Poisson GLM! Note the default link is log.</span></span>
+<pre><code>## `geom_smooth()` using formula = 'y ~ x'</code></pre>
+<pre><code>## Warning: Removed 593 rows containing non-finite outside the scale
+## range (`stat_smooth()`).</code></pre>
+<pre><code>## Warning: Removed 593 rows containing missing values or values
+## outside the scale range (`geom_point()`).</code></pre>
+<p><img src="usace_R_training_files/figure-html/unnamed-chunk-60-1.png" width="600" height="600">
+There appear to be some potential relationships, but we again want to use a model to statistically assess the strength and validity of these relationships. For count data, we often use a poisson or negative-binomial distribution, which indicates that we assume the response variables (i.e., counts) has that distribution. The poisson distribution is pretty restrictive, in that it assumes that the mean and variance of the data are the same, which is often not the case with the biological data (variances are often a lot higher than the mean). In these cases, using a negative binomial distribution usually makes sense. Here we’ll use the MASS package to run a negative binomial model. Specifying the equation of the model is the same as the binomial case, but we use the function <code><a href="https://rdrr.io/pkg/MASS/man/glm.nb.html">glm.nb()</a></code> to indicate the type of regression that we want to do.</p>
+<div class="sourceCode" id="cb358"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.stats.ox.ac.uk/pub/MASS4/">MASS</a></span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+## Attaching package: 'MASS'</code></pre>
+<pre><code>## The following object is masked from 'package:dplyr':
+## 
+##     select</code></pre>
+<div class="sourceCode" id="cb361"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">glm.nb</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/MASS/man/glm.nb.html">glm.nb</a></span><span class="op">(</span><span class="va">LMBS</span> <span class="op">~</span> <span class="va">secchi</span> <span class="op">+</span> <span class="va">temp</span> <span class="op">+</span> <span class="va">depth</span> <span class="op">+</span> <span class="va">current</span> <span class="op">+</span> <span class="va">do</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">umr_sub</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">glm.poisson</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">glm.nb</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
 ## Call:
-## glm(formula = LMBS ~ secchi + temp + depth + current + do, family = poisson, 
-##     data = umr_sub)
+## glm.nb(formula = LMBS ~ secchi + temp + depth + current + do, 
+##     data = umr_sub, init.theta = 0.9811995876, link = log)
 ## 
 ## Coefficients:
-##               Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)  2.1876972  0.0730252  29.958  &lt; 2e-16 ***
-## secchi       0.0060138  0.0003939  15.268  &lt; 2e-16 ***
-## temp         0.0305910  0.0024742  12.364  &lt; 2e-16 ***
-## depth       -0.1558713  0.0317927  -4.903 9.45e-07 ***
-## current     -1.7909347  0.1238641 -14.459  &lt; 2e-16 ***
-## do           0.0262556  0.0042626   6.160 7.30e-10 ***
+##              Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  1.903868   0.346735   5.491 4.00e-08 ***
+## secchi       0.006629   0.001872   3.540 0.000400 ***
+## temp         0.042383   0.011728   3.614 0.000302 ***
+## depth       -0.131093   0.140926  -0.930 0.352256    
+## current     -1.819639   0.465749  -3.907 9.35e-05 ***
+## do           0.031503   0.020885   1.508 0.131458    
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## (Dispersion parameter for poisson family taken to be 1)
+## (Dispersion parameter for Negative Binomial(0.9812) family taken to be 1)
 ## 
-##     Null deviance: 10137.7  on 496  degrees of freedom
-## Residual deviance:  9474.3  on 491  degrees of freedom
+##     Null deviance: 610.56  on 496  degrees of freedom
+## Residual deviance: 574.42  on 491  degrees of freedom
 ##   (349 observations deleted due to missingness)
-## AIC: 11573
+## AIC: 4022.4
 ## 
-## Number of Fisher Scoring iterations: 5</code></pre>
-<div class="sourceCode" id="cb358"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">glm.poisson</span><span class="op">$</span><span class="va">coefficients</span></span></code></pre></div>
-<p>To interpret these coefficients, we can say that for a one-unit increase in current, the log count of
+## Number of Fisher Scoring iterations: 1
+## 
+## 
+##               Theta:  0.9812 
+##           Std. Err.:  0.0626 
+## 
+##  2 x log-likelihood:  -4008.4440</code></pre>
+<p>The summary output is similar to before, again indicating the estimates for our model coefficients, and whether the effect of these parameters are significant. We see that depth and dissolved oxygen are not significant based on p-values &gt; 0.05, whereas the other parameters are significant (denoted by the asterices). Now we can look at the value of our model coefficients to indicate the strength of these relationships.</p>
+<div class="sourceCode" id="cb363"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">glm.nb</span><span class="op">$</span><span class="va">coefficients</span></span></code></pre></div>
+<p>To interpret the coefficient for depth for example, we can , we can say that for a one-unit increase in current, the log count of
 Y increases significantly by 5.246739516, or the expected count increases by 189.85
 exp(5.246739516)≈189.85. A one-unit increase in current is a lot on this scale, though so it may be better to consider that a 0.1 m/s increase in current increases counts by about 19 fish</p>
 <p>Tidymodels version</p>
-<div class="sourceCode" id="cb359"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb364"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/poissonreg">poissonreg</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">results_counts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -449,7 +408,6 @@ exp(5.246739516)≈189.85. A one-unit increase in current is a lot on this scale
 </div>
 </div>
 </div>
-</div>
   <div class="chapter-nav">
 <div class="prev"><a href="linear-models.html"><span class="header-section-number">11</span> Linear Models</a></div>
 <div class="next"><a href="random-effects.html"><span class="header-section-number">13</span> Random Effects</a></div>
@@ -459,7 +417,10 @@ exp(5.246739516)≈189.85. A one-unit increase in current is a lot on this scale
 <li><a class="nav-link" href="#generalized-linear-models"><span class="header-section-number">12</span> Generalized Linear Models</a></li>
 <li><a class="nav-link" href="#generalized-linear-model-background"><span class="header-section-number">12.1</span> Generalized Linear Model Background</a></li>
 <li>
-<a class="nav-link" href="#logistic-regression"><span class="header-section-number">12.2</span> Logistic regression</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#example-logistic-regression-anaysis"><span class="header-section-number">12.2.1</span> Example logistic regression anaysis</a></li></ul>
+<a class="nav-link" href="#logistic-regression"><span class="header-section-number">12.2</span> Logistic regression</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#example-logistic-regression-anaysis"><span class="header-section-number">12.2.1</span> Example logistic regression anaysis</a></li>
+<li><a class="nav-link" href="#example-poisson-regression-anaysis"><span class="header-section-number">12.2.2</span> Example poisson regression anaysis</a></li>
+</ul>
 </li>
 </ul>
 
