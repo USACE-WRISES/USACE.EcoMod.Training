@@ -138,98 +138,35 @@ ggplot(fish_binary, aes(x = depth, y = CARP)) +
 
 ```
 
-#### GLM with the tidymodels package
+### Example poisson regression anaysis
+What if we want to model counts? For example, do we think counts of Largemouth Bass (LMBS) might change as a function of environmental predictors? We can first plot counts of LMBS as a function of predictors using `ggplot`.
 
-In R, for certain kinds of analysis, there may be different packages that can perform the same statistical procedures, but have different strengths. For our simple glm of CARP, the `glm` function in base R works well, but as model complexity increases there may be instances where additional capacities make sense. One package that enables this is the `tidymodels` package, so we'll first introduce it here, so that we can come back to it later. The following code implements the same type of analysis, but now using tidymodels code.
-```{r, eval=FALSE}
-# Load required libraries
-library(tidymodels)
-
-results <- data.frame()
-
-for (i in 1:length(species)){
-
-data <- fish_binary %>%
-  rename(species = species[i])
-
-# Split the data into training and testing sets
-set.seed(123)
-data_split <- initial_split(data, prop = 0.8)
-train_data <- training(data_split)
-test_data <- testing(data_split)
-
-# Specify the model: GLM for regression
-glm_spec <- linear_reg() %>%
-  set_engine("glm") %>%
-  set_mode("regression")
-
-# Define a recipe: Preprocessing steps
-glm_recipe <- recipe(species ~ secchi + temp + depth + current + do, data = train_data) %>%
-  step_normalize(all_numeric_predictors())
-
-# Create a workflow
-glm_workflow <- workflow() %>%
-  add_recipe(glm_recipe) %>%
-  add_model(glm_spec)
-
-# Perform 10-fold cross-validation
-set.seed(123)
-cv_splits <- vfold_cv(train_data, v = 10)
-
-# Fit the model with cross-validation
-cv_results <- fit_resamples(
-  glm_workflow,
-  resamples = cv_splits,
-  metrics = metric_set(rmse, rsq),
-  control = control_resamples(save_pred = TRUE)
-)
-
-# View cross-validation metrics
-collect_metrics(cv_results)
-
-# Finalize the model on the entire training set
-final_glm <- fit(glm_workflow, data = train_data)
-
-# Test the finalized model on the testing set
-test_results <- predict(final_glm, test_data) %>%
-  bind_cols(test_data) %>%
-  metrics(truth = species, estimate = .pred) %>%
-  mutate(sp = species[i])
-
-#print(test_results)
-
-results <- bind_rows(results, test_results)
-
-}
-
-```
-
-What if we want to model counts?
-
-```{r, eval=FALSE}
-# Load required libraries
+```{r}
 umr_sub %>%
   select(LMBS, secchi:do) %>%
   pivot_longer(cols = secchi:do, names_to = "variable", values_to = "value") %>%
   ggplot(aes(value, LMBS))+
-  geom_jitter(height = .05, pch = 21, alpha =0.5)+
+  geom_jitter(pch = 21, alpha =0.5)+
   geom_smooth(method = "glm")+
   facet_wrap(~variable, nrow = 2, scales = "free_x")
 ```
+There appear to be some potential relationships, but we again want to use a model to statistically assess the strength and validity of these relationships. For count data, we often use a poisson or negative-binomial distribution, which indicates that we assume the response variables (i.e., counts) has that distribution. The poisson distribution is pretty restrictive, in that it assumes that the mean and variance of the data are the same, which is often not the case with the biological data (variances are often a lot higher than the mean). In these cases, using a negative binomial distribution usually makes sense. Here we'll use the MASS package to run a negative binomial model. Specifying the equation of the model is the same as the binomial case, but we use the function `glm.nb()` to indicate the type of regression that we want to do.
+
 ```{r}
-glm.poisson = glm(LMBS ~ secchi + temp + depth + current + do,
-  data = umr_sub,
-  family = poisson) # this is what makes it a Poisson GLM! Note the default link is log.
+library(MASS)
 
-summary(glm.poisson)
+glm.nb = glm.nb(LMBS ~ secchi + temp + depth + current + do,
+  data = umr_sub)
 
+summary(glm.nb)
 ```
+The summary output is similar to before, again indicating the estimates for our model coefficients, and whether the effect of these parameters are significant. We see that depth and dissolved oxygen are not significant based on p-values > 0.05, whereas the other parameters are significant (denoted by the asterices). Now we can look at the value of our model coefficients to indicate the strength of these relationships. 
 
 ```{r, eval=FALSE}
-glm.poisson$coefficients
+glm.nb$coefficients
 ```
 
-To interpret these coefficients, we can say that for a one-unit increase in current, the log count of 
+To interpret the coefficient for depth for example, we can , we can say that for a one-unit increase in current, the log count of 
 Y increases significantly by  5.246739516, or the expected count increases by 189.85
 exp(5.246739516)≈189.85. A one-unit increase in current is a lot on this scale, though so it may be better to consider that a 0.1 m/s increase in current increases counts by about 19 fish
 
@@ -322,6 +259,3 @@ results_counts <- bind_rows(results_counts, poisson_test_results)#, nb_test_resu
 }
 
 ```
-
-
-
