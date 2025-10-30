@@ -57,7 +57,7 @@
 <li><a class="" href="ecorest-web-app.html"><span class="header-section-number">8</span> Ecorest Web App</a></li>
 <li><a class="" href="sensitivity-and-uncertainty-analysis-for-habitat-suitability-index-hsi-models.html"><span class="header-section-number">9</span> Sensitivity and uncertainty analysis for habitat suitability index (HSI) models</a></li>
 <li><a class="" href="spatial-habitat-models.html"><span class="header-section-number">10</span> Spatial Habitat Models</a></li>
-<li class="book-part">Linear Models</li>
+<li class="book-part">Linear Models for informing planning HSIs</li>
 <li><a class="" href="linear-models.html"><span class="header-section-number">11</span> Linear Models</a></li>
 <li><a class="" href="generalized-linear-models.html"><span class="header-section-number">12</span> Generalized Linear Models</a></li>
 <li><a class="" href="random-effects.html"><span class="header-section-number">13</span> Random Effects</a></li>
@@ -97,9 +97,9 @@
 <img src="images/blgl_pdp.png" style="width:100.0%" alt="Graphical output of a river network along with associated dams created using nhdplusTools along with data from the National Inventory of Dams."><div class="figcaption"><em>Graphical output of a river network along with associated dams created using <strong><code>nhdplusTools</code></strong> along with data from the National Inventory of Dams.</em></div>
 </div>
 <p><em>Authors: Ed Stowe (writing, editing)</em><br><em>Last update: 2025-10-30</em><br><em>Acknowledgements: Case study includes code that was adapted from demonstration analyses by Julia Silge on <a href="https://juliasilge.com/blog/sf-trees-random-tuning/">random forest</a> and <a href="https://juliasilge.com/blog/mario-kart/">partial dependence plots</a>, used under <a href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a></em></p>
-<div id="learning-objectives-8" class="section level2" number="15.1">
+<div id="learning-objectives-9" class="section level2" number="15.1">
 <h2>
-<span class="header-section-number">15.1</span> Learning objectives<a class="anchor" aria-label="anchor" href="#learning-objectives-8"><i class="fas fa-link"></i></a>
+<span class="header-section-number">15.1</span> Learning objectives<a class="anchor" aria-label="anchor" href="#learning-objectives-9"><i class="fas fa-link"></i></a>
 </h2>
 <ul>
 <li>Understand how random forest models works and when they are useful</li>
@@ -178,7 +178,7 @@
 - <code>vip</code> for calculating variable importance
 - <code>DALEXtra</code> for making partial dependence plots</p>
 <p>These packages should be installed if you have not used them before (e.g., <code>install.packages("vip")</code>)</p>
-<div class="sourceCode" id="cb365"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb370"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/RevolutionAnalytics/doparallel">doParallel</a></span><span class="op">)</span></span>
@@ -186,17 +186,17 @@
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ModelOriented.github.io/DALEXtra/">DALEXtra</a></span><span class="op">)</span></span></code></pre></div>
 <p>First, we can import the bluegill occupancy dataset, and look at the data structure
 ### Import dataset</p>
-<div class="sourceCode" id="cb366"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb371"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">blgl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/bluegill.csv"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Rows: 1422 Columns: 11
-## ── Column specification ───────────────────────────────────
+## ── Column specification ─────────────────────────────────────────────────────
 ## Delimiter: ","
 ## chr  (1): pool
 ## dbl (10): occ, utm_e, utm_n, period, secchi, temp, depth, cond, current, do
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<div class="sourceCode" id="cb368"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb373"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">blgl</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## spc_tbl_ [1,422 × 11] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
 ##  $ occ    : num [1:1422] 0 1 1 1 0 1 1 0 0 0 ...
@@ -226,11 +226,11 @@
 ##   .. )
 ##  - attr(*, "problems")=&lt;externalptr&gt;</code></pre>
 <p>We see that all but one of these variables are numeric. However, for our classification algorithm, we need to convert the presence/absence column (<code>occ</code> for occupancy) to a factor. We also have two other categorical variables that should be factors: pool for the number of the navigation pool, and period, for the season (with 2, 3, 4 being approximately spring, summer, and fall, respectively).</p>
-<div class="sourceCode" id="cb370"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb375"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">blgl</span> <span class="op">&lt;-</span> <span class="va">blgl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span>.cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">occ</span>, <span class="va">pool</span>, <span class="va">period</span><span class="op">)</span>, <span class="va">as.factor</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>We may also want to explore the data a bit. Here we look to see if there are any patterns of bluegill occupancy across space, and based on depth.</p>
-<div class="sourceCode" id="cb371"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb376"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">blgl</span>,</span>
 <span>       <span class="va">depth</span> <span class="op">&lt;</span> <span class="fl">4</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
@@ -242,7 +242,7 @@
 <span>       y <span class="op">=</span> <span class="st">"UTM N (thousands of m)"</span>,</span>
 <span>       shape <span class="op">=</span> <span class="st">"Presence"</span>,</span>
 <span>       color <span class="op">=</span> <span class="st">"Depth (m)"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-66-1.png" width="600" height="70%"></div>
+<div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-69-1.png" width="600" height="70%"></div>
 <p>Clearly these data are complex, and modeling should help us make sense of it.</p>
 </div>
 <div id="data-partitioning" class="section level3" number="15.3.2">
@@ -250,7 +250,7 @@
 <span class="header-section-number">15.3.2</span> Data partitioning<a class="anchor" aria-label="anchor" href="#data-partitioning"><i class="fas fa-link"></i></a>
 </h3>
 <p>Splitting the data is very important so that we have some independent data on which to judge our models performance. Here we split 75% of the data into the dataset that will be used to train the model, and the remainder into the dataset for testing/assessing our model. 75% is the tidymodels default splitting proportion.</p>
-<div class="sourceCode" id="cb372"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb377"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
 <span><span class="va">blgl_split</span> <span class="op">&lt;-</span> <span class="fu">initial_split</span><span class="op">(</span><span class="va">blgl</span>, strata <span class="op">=</span> <span class="va">occ</span>, prop <span class="op">=</span> <span class="fl">.75</span><span class="op">)</span></span>
 <span><span class="va">blgl_train</span> <span class="op">&lt;-</span> <span class="fu">training</span><span class="op">(</span><span class="va">blgl_split</span><span class="op">)</span></span>
@@ -262,11 +262,11 @@
 </h3>
 <p>Build a recipe for data preprocessing.</p>
 <p>First, we must tell the recipe() what our model is going to be (using a formula here) and what our training data is. The recipe is where we can do lots of helpful data manipulations, such as normalizing the data (step_normalize()), replacing categorical variables with dummy variables (step_dummy), adding interactions (step_interact()), and numerous other options. Random forest models needed fewer data transformations than many algorithms, so we’ll just to one powerful transformation: step_impute_bag(). This uses a machine learning algorithm to impute missing variables, since we can’t have any missing predictor data to run this or many other machine learning algorithm. Another option would be to remove any rows with missing data (using step_naomit()), but that would remove a lot of data.</p>
-<div class="sourceCode" id="cb373"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb378"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">blgl_rec</span> <span class="op">&lt;-</span> <span class="fu">recipe</span><span class="op">(</span><span class="va">occ</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">blgl_train</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">step_impute_bag</span><span class="op">(</span><span class="fu">all_predictors</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>ALthough not strictly necessary, to see what the data look like after applying transformations, we can use the functions <code>prep</code> and then <code>juice</code>. The <code>juiced</code> dataframe now shows us what our data will look like when it’s fed into the ML algorithm.</p>
-<div class="sourceCode" id="cb374"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb379"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">blgl_prep</span> <span class="op">&lt;-</span> <span class="fu">prep</span><span class="op">(</span><span class="va">blgl_rec</span><span class="op">)</span></span>
 <span><span class="va">juiced</span> <span class="op">&lt;-</span> <span class="fu">juice</span><span class="op">(</span><span class="va">blgl_prep</span><span class="op">)</span>  </span></code></pre></div>
 </div>
@@ -275,18 +275,18 @@
 <span class="header-section-number">15.3.4</span> Model specifications with parsnip<a class="anchor" aria-label="anchor" href="#model-specifications-with-parsnip"><i class="fas fa-link"></i></a>
 </h3>
 <p>We will specify our random forest model. This is where we tell the model whether to try any different combinations of the hyperparameters (i.e., whether to tune the model). In this case, we’re going to set the number of trees in our model to be 1,000, but we will tune 2 other hyperparameters. The <code>mtry</code> parameter controls how many variables we’ll include in each model, and the <code>min_n</code> hyperparameter controls tree complexity: it indicates the minimum number of data points needed in a node for that node to be split, so higher values of <code>min_n</code> will force trees to be less complex. Tuning both of these parameters will help us find a more predictive model. For the model specification, we also indicate that we want to run our random forest using the version of the algorithm as implemented by the <code>ranger</code> package, and we want to do classification as opposed to regression.</p>
-<div class="sourceCode" id="cb375"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb380"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tune_spec</span> <span class="op">&lt;-</span> </span>
-<span>    <span class="fu"><a href="https://parsnip.tidymodels.org/reference/rand_forest.html">rand_forest</a></span><span class="op">(</span>mtry <span class="op">=</span> <span class="fu"><a href="https://hardhat.tidymodels.org/reference/tune.html">tune</a></span><span class="op">(</span><span class="op">)</span>, min_n <span class="op">=</span> <span class="fu"><a href="https://hardhat.tidymodels.org/reference/tune.html">tune</a></span><span class="op">(</span><span class="op">)</span>, trees <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>    <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"ranger"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>    <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"classification"</span><span class="op">)</span></span></code></pre></div>
+<span>    <span class="fu">rand_forest</span><span class="op">(</span>mtry <span class="op">=</span> <span class="fu">tune</span><span class="op">(</span><span class="op">)</span>, min_n <span class="op">=</span> <span class="fu">tune</span><span class="op">(</span><span class="op">)</span>, trees <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu">set_engine</span><span class="op">(</span><span class="st">"ranger"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu">set_mode</span><span class="op">(</span><span class="st">"classification"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="workflow" class="section level3" number="15.3.5">
 <h3>
 <span class="header-section-number">15.3.5</span> Workflow<a class="anchor" aria-label="anchor" href="#workflow"><i class="fas fa-link"></i></a>
 </h3>
 <p>Next we set up our workflow. This is simply where we indicate what recipe and model we will use.</p>
-<div class="sourceCode" id="cb376"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb381"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tune_wf</span> <span class="op">&lt;-</span> <span class="fu">workflow</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">add_recipe</span><span class="op">(</span><span class="va">blgl_rec</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">add_model</span><span class="op">(</span><span class="va">tune_spec</span><span class="op">)</span></span></code></pre></div>
@@ -296,12 +296,12 @@
 <span class="header-section-number">15.3.6</span> Tune hyperparameters<a class="anchor" aria-label="anchor" href="#tune-hyperparameters"><i class="fas fa-link"></i></a>
 </h3>
 <p>Now we’re ready to tune the hyperparameters. We need to create a set of cross-validation resamples to use for tuning. This means we’ll divide our training data into 10 slices, and sequentially fit models with different hyperparameters using 9 of the slices, and testing it on the 10th slice. This is how we’ll figure out the best hyperparameters.</p>
-<div class="sourceCode" id="cb377"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb382"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">234</span><span class="op">)</span></span>
 <span><span class="va">blgl_folds</span> <span class="op">&lt;-</span> <span class="fu">vfold_cv</span><span class="op">(</span><span class="va">blgl_train</span>, v <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
 <p>We will use the <code>tune_grid</code> function to tune our model across a grid of hyperparameters (using <code>grid = 20</code> will automatically pick 20 grid points automatically, but these can also be chosen by the user).</p>
 <p>We will use parallel processing to make this go faster, but note that this could take about 1-2 minutes, depending on your computer.</p>
-<div class="sourceCode" id="cb378"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb383"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">doParallel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/doParallel/man/registerDoParallel.html">registerDoParallel</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">345</span><span class="op">)</span></span>
@@ -329,7 +329,7 @@
 ## 10 &lt;split [960/106]&gt; Fold10 &lt;tibble [60 × 6]&gt; &lt;tibble [0 × 3]&gt;</code></pre>
 <p>We can plot the accuracy of our models (using area under the curve, or “AUC”) to see which values of our hyperparameters are best. AUC is a score that indicates the balance between the sensitivity and specificity of a model, and thus is a good measure of model generalizability.</p>
 <p>It appears that min_n values below 30 and mtry values between 4 and 6 are best.</p>
-<div class="sourceCode" id="cb380"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb385"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tune_res</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">collect_metrics</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">.metric</span> <span class="op">==</span> <span class="st">"roc_auc"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -342,7 +342,7 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">parameter</span>, scales <span class="op">=</span> <span class="st">"free_x"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="cn">NULL</span>, y <span class="op">=</span> <span class="st">"AUC"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-73-1.png" width="600" height="70%"></div>
+<div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-76-1.png" width="600" height="70%"></div>
 <p>This grid did not involve every combination of min_n and mtry but we can get an idea of what is going on. If we wanted we could test a narrower and more specific range of hyperparameters using the grid_regular() function.</p>
 </div>
 <div id="choosing-the-best-model" class="section level3" number="15.3.7">
@@ -350,7 +350,7 @@
 <span class="header-section-number">15.3.7</span> Choosing the best model<a class="anchor" aria-label="anchor" href="#choosing-the-best-model"><i class="fas fa-link"></i></a>
 </h3>
 <p>Now that we’ve tuned models with several different hyperparameters, we can select the best model with the select_best(), and then update our original model specification to create our final model specification.</p>
-<div class="sourceCode" id="cb381"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb386"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">best_auc</span> <span class="op">&lt;-</span> <span class="fu">select_best</span><span class="op">(</span><span class="va">tune_res</span>, metric <span class="op">=</span> <span class="st">"roc_auc"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">final_rf</span> <span class="op">&lt;-</span> <span class="fu">finalize_model</span><span class="op">(</span></span>
@@ -370,7 +370,7 @@
 <p>This shows that our final model has an mtry value of 6 and a min_n value of 8.</p>
 <p>To ultimately see how our good our model is, we want to evaluate predictions from the best model against the test dataset.</p>
 <p>To do this, we make a final workflow with our original recipe and our best model <code>final_rf</code>. We can fit it one last time with the function last_fit(), which fits our best model on the entire training set and evaluates on the testing set, when provided with our initial data split.</p>
-<div class="sourceCode" id="cb383"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb388"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">final_wf</span> <span class="op">&lt;-</span> <span class="fu">workflow</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">add_recipe</span><span class="op">(</span><span class="va">blgl_rec</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">add_model</span><span class="op">(</span><span class="va">final_rf</span><span class="op">)</span></span>
@@ -389,7 +389,7 @@
 <p>If we collect the metrics from our final model fit we see it has an ROC &gt; .91, where values over .9 are generally considered to be very good.</p>
 <p>This suggests that we have a very predictive model for presence of bluegill and one that is not overfit.</p>
 <p>Let’s bind our testing results back to the original test set, and make one more map. Where in our pool are there more or less incorrectly predicted trees?</p>
-<div class="sourceCode" id="cb385"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb390"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">final_res</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">collect_predictions</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>correct <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span></span>
@@ -403,7 +403,7 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_color_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"gray80"</span>, <span class="st">"darkred"</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">pool</span>, scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-76-1.png" width="600" height="70%"></div>
+<div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-79-1.png" width="600" height="70%"></div>
 </div>
 <div id="examine-variable-importance-and-partial-dependence" class="section level3" number="15.3.8">
 <h3>
@@ -411,17 +411,17 @@
 </h3>
 <p>We still don’t know what environmental factors matter to bluegill, but there are a couple of ways we can assess this.</p>
 <p>First, we can see what variables are most important, using variable importance factors using the vip package.</p>
-<div class="sourceCode" id="cb386"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb391"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">final_rf</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"ranger"</span>, importance <span class="op">=</span> <span class="st">"permutation"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html">fit</a></span><span class="op">(</span><span class="va">occ</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="fu">juice</span><span class="op">(</span><span class="va">blgl_prep</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">set_engine</span><span class="op">(</span><span class="st">"ranger"</span>, importance <span class="op">=</span> <span class="st">"permutation"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">fit</span><span class="op">(</span><span class="va">occ</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="fu">juice</span><span class="op">(</span><span class="va">blgl_prep</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://koalaverse.github.io/vip/reference/vip.html">vip</a></span><span class="op">(</span>geom <span class="op">=</span> <span class="st">"point"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-77-1.png" width="600" height="600"></div>
+<div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-80-1.png" width="600" height="600"></div>
 <p>This indicates that depth and current are far and away the most important factors determining the presence of bluegill compared to other factors.</p>
 <p>We can also look at how these variables influence the probability of occurrence of bluegill using partial dependnece plots, implemeneted here with the DALEXtra package.</p>
 <p>To make these plots, we first extract the a fitted workflow from the final model fit object.</p>
 <p>Then we create an explainer object using the explain_tidymodels function. We need to provide this function with the final workflow, the data used in the model, other than the response variable `occ’ and the response variable, as an integer.</p>
-<div class="sourceCode" id="cb387"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb392"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">final_fitted</span> <span class="op">&lt;-</span> <span class="va">final_res</span><span class="op">$</span><span class="va">.workflow</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span></span>
 <span><span class="va">blgl_explainer</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ModelOriented.github.io/DALEXtra/reference/explain_tidymodels.html">explain_tidymodels</a></span><span class="op">(</span></span>
@@ -431,7 +431,7 @@
 <span>  verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>Once we have the explainer object we can calculate the dependence of occupancy on depth. Here we’re including <code>pool</code> as a grouping variable to see if the effect of depth varies among pool.</p>
-<div class="sourceCode" id="cb388"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb393"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pdp_depth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://modeloriented.github.io/DALEX/reference/model_profile.html">model_profile</a></span><span class="op">(</span></span>
 <span>  <span class="va">blgl_explainer</span>,</span>
 <span>  variables <span class="op">=</span> <span class="st">"depth"</span>,</span>
@@ -439,7 +439,7 @@
 <span>  groups <span class="op">=</span> <span class="st">"pool"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>Now we can plot the partial dependence. We could simply run <code>plot(pdp_depth)</code> but we can also plot it manually to have more control over the plot. To do this we can extract the relevant portion of the pdp_depth object, and then plot with ggplot. Note that we filter this dataset to depths &lt; 5m, as there are only a couple of points in the dataset greater than this depth.</p>
-<div class="sourceCode" id="cb389"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb394"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pdp_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="va">pdp_depth</span><span class="op">$</span><span class="va">agr_profiles</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">`_x_`</span> <span class="op">&lt;</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>`_label_` <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove</a></span><span class="op">(</span><span class="va">`_label_`</span>, <span class="st">"workflow_"</span><span class="op">)</span><span class="op">)</span></span>
@@ -452,13 +452,13 @@
 <span>    color <span class="op">=</span> <span class="st">"Period"</span>,</span>
 <span>    title <span class="op">=</span> <span class="st">"Partial dependence plot for Bluegill occupancy"</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-80-1.png" width="600" height="70%"></div>
+<div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-83-1.png" width="600" height="70%"></div>
 <p>We can see that in general, increases in depths are associated with increased probability of bluegill presence, which holds across pools, although the pools appear to have different overall probabilities of bluegill occurrence. There is also a dip in probability at depths slightly below 1 m, but further investigation would be needed to see if this is biologically meaningful.</p>
 </div>
 </div>
-<div id="summary-5" class="section level2" number="15.4">
+<div id="summary-6" class="section level2" number="15.4">
 <h2>
-<span class="header-section-number">15.4</span> Summary<a class="anchor" aria-label="anchor" href="#summary-5"><i class="fas fa-link"></i></a>
+<span class="header-section-number">15.4</span> Summary<a class="anchor" aria-label="anchor" href="#summary-6"><i class="fas fa-link"></i></a>
 </h2>
 <ul>
 <li>Machine learning models can excel at prediction if there is adequate data, suggesting it has great potential value for USACE applications</li>
@@ -474,7 +474,7 @@
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#random-forest"><span class="header-section-number">15</span> Random Forest</a></li>
-<li><a class="nav-link" href="#learning-objectives-8"><span class="header-section-number">15.1</span> Learning objectives</a></li>
+<li><a class="nav-link" href="#learning-objectives-9"><span class="header-section-number">15.1</span> Learning objectives</a></li>
 <li>
 <a class="nav-link" href="#background-1"><span class="header-section-number">15.2</span> Background</a><ul class="nav navbar-nav">
 <li><a class="nav-link" href="#what-is-machine-learning"><span class="header-section-number">15.2.1</span> What is machine learning?</a></li>
@@ -496,7 +496,7 @@
 <li><a class="nav-link" href="#examine-variable-importance-and-partial-dependence"><span class="header-section-number">15.3.8</span> Examine variable importance and partial dependence</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#summary-5"><span class="header-section-number">15.4</span> Summary</a></li>
+<li><a class="nav-link" href="#summary-6"><span class="header-section-number">15.4</span> Summary</a></li>
 </ul>
 
       <div class="book-extra">
