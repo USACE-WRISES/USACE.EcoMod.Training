@@ -42,7 +42,7 @@
 
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
-<li><a class="" href="index.html">Course overview</a></li>
+<li><a class="" href="index.html">Using R for ecological modeling in USACE restoration planning</a></li>
 <li><a class="" href="required-set-up-for-the-course.html">Required set-up for the course</a></li>
 <li class="book-part">Basic Training on R and RStudio</li>
 <li><a class="" href="introduction-to-r-and-rstudio.html"><span class="header-section-number">1</span> Introduction to R and RStudio</a></li>
@@ -186,10 +186,10 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Value of predictor"</span>, y <span class="op">=</span> <span class="st">"Carp occurrence"</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## Warning: Removed 170 rows containing non-finite outside the scale range
-## (`stat_boxplot()`).</code></pre>
-<pre><code>## Warning: Removed 170 rows containing missing values or values outside the scale range
-## (`geom_point()`).</code></pre>
+<pre><code>## Warning: Removed 170 rows containing non-finite outside the scale
+## range (`stat_boxplot()`).</code></pre>
+<pre><code>## Warning: Removed 170 rows containing missing values or values
+## outside the scale range (`geom_point()`).</code></pre>
 <div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-54-1.png" width="600" height="600"></div>
 <p>From these plots, a few variables pop out as being potentially important. For example locations with carp occurrences appear to have lower secchi disk readings (i.e., less clear water) and higher temperatures, but the strength of these relationships are unclear, which is where modeling comes in to play.</p>
 </div>
@@ -273,10 +273,10 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"glm"</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">variable</span>, nrow <span class="op">=</span> <span class="fl">2</span>, scales <span class="op">=</span> <span class="st">"free_x"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula = 'y ~ x'</code></pre>
-<pre><code>## Warning: Removed 593 rows containing non-finite outside the scale range
-## (`stat_smooth()`).</code></pre>
-<pre><code>## Warning: Removed 593 rows containing missing values or values outside the scale range
-## (`geom_point()`).</code></pre>
+<pre><code>## Warning: Removed 593 rows containing non-finite outside the scale
+## range (`stat_smooth()`).</code></pre>
+<pre><code>## Warning: Removed 593 rows containing missing values or values
+## outside the scale range (`geom_point()`).</code></pre>
 <p><img src="usace_R_training_files/figure-html/unnamed-chunk-60-1.png" width="600" height="600">
 There appear to be some potential relationships, but we again want to use a model to statistically assess the strength and validity of these relationships. For count data, we often use a poisson or negative-binomial distribution, which indicates that we assume the response variables (i.e., counts) has that distribution. The poisson distribution is pretty restrictive, in that it assumes that the mean and variance of the data are the same, which is often not the case with the biological data (variances are often a lot higher than the mean). In these cases, using a negative binomial distribution usually makes sense. Here we’ll use the MASS package to run a negative binomial model. Specifying the equation of the model is the same as the binomial case, but we use the function <code><a href="https://rdrr.io/pkg/MASS/man/glm.nb.html">glm.nb()</a></code> to indicate the type of regression that we want to do.</p>
 <div class="sourceCode" id="cb358"><pre class="downlit sourceCode r">
@@ -359,11 +359,12 @@ There appear to be some potential relationships, but we again want to use a mode
 <span>    title <span class="op">=</span> <span class="st">"Predicted counts from Negative Binomial regression"</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">14</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+<pre><code>## Warning: Using `size` aesthetic for lines was deprecated in ggplot2
+## 3.4.0.
 ## ℹ Please use `linewidth` instead.
 ## This warning is displayed once every 8 hours.
-## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-## generated.</code></pre>
+## Call `lifecycle::last_lifecycle_warnings()` to see where
+## this warning was generated.</code></pre>
 <div class="inline-figure">
 <img src="usace_R_training_files/figure-html/unnamed-chunk-66-1.png" width="600" height="600">
 This indicates graphically that with the other predictors constrained to their mean values, largemouth bass counts are high when the water current is very low, but declines substantially and approaches low values as currents near 0.8 m/s.</div>
