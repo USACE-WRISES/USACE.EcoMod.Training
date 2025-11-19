@@ -64,12 +64,12 @@ So, how should one think about these assumptions and when they are violated? Wel
 ## Application of a linear model
 To demonstrate linear modeling in practice, we'll use data from USACE's Upper Mississippi River Restoration Program's [Long Term Resource Monitoring Program](https://umesc.usgs.gov/ltrmp/about_us_background.html). The data we've collated from this source contains fisheries catch data and corresponding environmental conditions. We may be interested broadly in understanding which environmental conditions--depth, current, etc.--determine aspects of fish communities. However, before throwing several variables in a model to predict drivers of, say, fish abundance, we should assess whether there are any correlations or dependencies among environmental variables. We need to do this to avoid mistaking the effect of one predictor for another.
 
-For example, in aquatic systems, there is often a relationship between water temperature and dissolved oxygen: the solubility of oxygen in water decreases as temperature increases, meaning that colder water is frequently more oxygenated. However, dissolved oxygen levels may also be affected by aquatic plants, or water turbulence that can introduce oxygen to the water surface. Understanding these dependencies may be important for our ultimate goal of understanding what factors affect fish communities. To do so, we will use linear models in R.
+As an example, in aquatic systems, there is often a relationship between water temperature and dissolved oxygen: the solubility of oxygen in water decreases as temperature increases, meaning that colder water is frequently more oxygenated. However, dissolved oxygen levels may also be affected by other factors like aquatic plants or water turbulence that can introduce oxygen to the water surface. Understanding these dependencies may be important for our ultimate goal of understanding what factors affect fish communities. To investigate this, we will use linear models in R.
 
 ### Import and explore the data
-First, we will read in a subset of the fish and environmental data from fall sampling in navigation pools, 4, 8, and 13 of the Upper Mississippi River. We filter the data to remove dissolved oxygen values > 20 mg/L, since values above these levels may be erroneous.
+First, we will read in a subset of the fish and environmental data from fall sampling in navigation pools 4, 8, and 13 of the Upper Mississippi River. Prior to exploring the data, we will filter out dissolved oxygen values > 20 mg/L, since values above these levels are rare in aquatic systems and may be erroneous.
 
-```{r, message = FALSE}
+```{r, message = FALSE, warning=FALSE}
 library(tidyverse)
 
 umr_wide <- read_csv("data/umr_counts_wide.csv")
@@ -79,22 +79,22 @@ umr_sub <- umr_wide %>%
          !is.na(vegd))
 ```
 
-We can use ggplot to plot the relationship between dissolved oxygen and temperature. We can also add a line for these predictors; here we specify that we want the line to be linear by adding the call `method = "lm"`.
+We can use ggplot to plot the relationship between dissolved oxygen concentration and temperature. We can also add a trend line for these predictors; here we will specify that we want the line to be linear by adding the call `method = "lm"`.
 ```{r, message=FALSE}
 ggplot(umr_sub, 
        aes(temp, do))+
   geom_point(alpha = .5, pch = 21, size = 1)+
   geom_smooth(method = "lm") +
-  labs(x = "Temperature (C)", y = "Dissolved Oxygen")+
+  labs(x = "Temperature (C)", y = "Dissolved Oxygen (mg/L)")+
   theme_classic()
 
 ```
 
-We can see that there's a pretty clear relationship between these two variables. But we'd like to go beyond this to quantify this relationship statistically.
+We can see that there's a pretty clear relationship between these two variables. But we'd like to go beyond this to quantify the relationship statistically.
 
 ### Fit a model and assess output
 
-We can now use the `lm()` function in r to create a linear model further assessing the relationship between these variables. To use the lm() function, we provide R with the formula for our model. The formula that we include below (`do ~ temp`) indicates that we are interested in modeling `do` as a function of `temp`. In other words, we are telling R that dissolved oxygen is our response variable, and temperature is our predictor variable. If we wanted to add another predictor we would change the formula (e.g., `do ~ temp + depth` or `do ~ temp*detph` if we wanted an interactive effective). We also have indicate what dataset to use.
+We can now use the `lm()` function in R to create a linear model further assessing the relationship between these variables. To use the lm() function, we provide R with the formula for our model. The formula that we include below (`do ~ temp`) indicates that we are interested in modeling `do` as a function of `temp`. In other words, we are telling R that dissolved oxygen concentration is our response variable, and temperature is our predictor variable. If we wanted to add another predictor, we would change the formula (e.g., `do ~ temp + depth` or `do ~ temp*depth` if we wanted an interactive effect). We must also indicate what dataset these variables should be drawn from.
 ```{r}
 lm.mod <- lm(do ~ temp,
            data = umr_sub)
