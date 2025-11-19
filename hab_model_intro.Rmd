@@ -6,11 +6,9 @@
 
 # Background on habitat models in USACE
 
-THIS IS AN INTRO TO HABITAT MODELS IN GENERAL; CONSIDER WHETHER TO PARE DOWN OR REMOVE
+The U.S. Army Corps of Engineers (USACE) engages in many decisions that affect ecological outcomes (e.g., ecosystem restoration of oyster reefs, environmental flows for imperiled fishes, dredge material management impacting bird breeding grounds). In such scenarios, ecological models are used to quantify environmental impacts and benefits throughout the project life-cycle, including the planning, engineering, construction, operations, and maintenance phases. 
 
-The U.S. Army Corps of Engineers (USACE) engages in many decisions that affect ecological outcomes (e.g., ecosystem restoration of oyster reefs, environmental flows for imperiled fishes, and bird breeding grounds impacted by dredge material management). In such scenarios, ecological models are used to quantify environmental impacts and benefits throughout the project life-cycle of planning, engineering, construction, operations, and maintenance. 
-
-A common approach to ecological modeling of environmental impacts and benefits is based on quantity and quality of habitat. These "index" models (Swannack et al. 2012) were originally developed for species-specific applications (e.g., slider turtles), but the general approach has also been adapted to guilds (e.g., salmonids), communities (e.g., floodplain vegetation), and ecosystem processes (e.g., the Hydrogeomorphic Method). No standard platform for exists for computing outcomes from index models; users often develop ad hoc spreadsheet models, which are highly prone to numerical errors (McKay 2009). The common quantity-quality structure of index models provides an opportunity to develop a consistent, error-checked index modeling calculator adaptable to a variety of applications across the Corps.
+Habitat suitability models are a common approach to ecological modeling of environmental impacts and benefits that reflect on quantity and quality of habitat. Habitat suitability index models use an index-based scoring method to quantify a habitat's ability to support a target taxon (USFWS 1981). These "index" models (Swannack et al. 2012) were originally developed for species-specific applications (e.g., slider turtles), but the general approach has also been adapted to guilds (e.g., salmonids), communities (e.g., floodplain vegetation), and ecosystem processes (e.g., the Hydrogeomorphic Method).
 
 
 #### *2.1. Index-Based Ecological Models*  
