@@ -100,19 +100,20 @@ lm.mod <- lm(do ~ temp,
            data = umr_sub)
 ```
 
-That's all we have to do to fit our first model, which is now stored in the `lm.mod` object.
+That's all we have to do to fit our first model, which is now stored in an object called `lm.mod`.
 
-We use the `summary` function to assess the model results.
+To assess the model results, we can use the `summary` function with our object to view the model output.
 ```{r}
 mod_summ <- summary(lm.mod)
 mod_summ
 ```
 The output of the `summary` function contains important information about:
 
-  1. `Coefficients`: Estimates of the parameters and their standard deviation
-  2. `Pr(>|t|)`: Results of a t-test to determine if the parameters are different from 0
-  3. `Adjusted R squared`: How well does the model explain the data?
-  4. `F-statistic`(ANOVA): Is the model significantly different from a model with no predictor (null model)?
+  1. `Model intercept`: The value of the response variable when the value of the predictor variable(s) is zero
+  2. `Coefficients`: Estimates of the parameters' slopes and their standard deviation
+  3. `Pr(>|t|)`: Results of a t-test to determine if the intercept or parameters' slopes are different from 0
+  4. `Adjusted R squared`: How well does the model explain the data?
+  5. `F-statistic`(ANOVA): Is the model significantly different from a model with no predictor (null model)?
 
 Taken together, these values can be used to assess the extent to which temperature predicts dissolved oxygen in our study location. We can first look at the estimate for our $\beta_1$ coefficient `temp`, which indicates the effect size of temperature on dissolved oxygen, here with an approximate value of `r round(lm.mod$coefficient[2],2)`. This means that on average, for every 1 degree C increase in temperature, the dissolved oxygen decreases by `r round(lm.mod$coefficient[2],2)` mg/L. This represents a moderately substantial relationship. We also get an estimate of the intercept, which is our $\beta_0$ coefficient. This suggests that we would predict a dissolved oxygen level of `r round(lm.mod$coefficient[1],1)` mg/L when temperature is 0 degrees. 
  
