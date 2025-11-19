@@ -4,18 +4,12 @@
 
 **This module will teach you how to use linear models in R to assess relationships among environmental factors in the USACE-managed Upper Mississippi River.**
 
-![*Linear model results showing the relationship betwee temperature, vegetation density, and dissolved oxygen in the Upper Mississippi River.*](images/ancova_plot.png){width=100%}  
+![*Linear model results showing the relationship between temperature, vegetation density, and dissolved oxygen in the Upper Mississippi River.*](images/ancova_plot.png){width=100%}  
 
 *Authors: Ed Stowe*  
 *Last update: `r as.Date(file.info('linear_models.Rmd')$mtime)`*  
-*Acknowledgements: Some inspiration/language/code have been used or adapted with permission from: Ben Staton's [Intro to R for Natural Resources course](https://bstaton1.github.io/au-r-workshop/ch3.html#lm) Quebec Center for biodiversity Science's [Linear model workshop](https://r.qcbs.ca/workshop04/book-en/index.html)*
+*Acknowledgements: Some inspiration/language/code have been used or adapted with permission from: Ben Staton's [Intro to R for Natural Resources course](https://bstaton1.github.io/au-r-workshop/ch3.html#lm) and Quebec Center for biodiversity Science's [Linear model workshop](https://r.qcbs.ca/workshop04/book-en/index.html)*
 
-## Relevance of linear models to USACE 
-Linear models and their offshoots estimate the relationship between a response variable and one or more predictor variables. These models are used widely by ecologists to understand, for example, which environmental or management factors are important for determining biological outcomes or phenomena. Linear models have several potential applications to USACE projects or ecological modeling practices:  
-
-* Validating and updating relationships within existing HSI models
-* Creating new habitat models that are based on empirical data instead of conjecture
-* Estimating the relationship between focal taxa and habitat characteristics in order to predict the response of these species to USACE habitat-altering projects (thus potentially acting as an alternative to a habitat model)
 
 ## Learning objectives
 * Understand the purpose and structure of a linear model
@@ -23,25 +17,32 @@ Linear models and their offshoots estimate the relationship between a response v
 * Interpret the output of a linear model
 * Assess linear model validity
 
+## Relevance of linear models to USACE 
+Linear models and their offshoots estimate the relationship between a response variable and one or more predictor variables. These models are used widely by ecologists to understand, for example, which environmental or management factors are important for determining biological outcomes or phenomena. Linear models have several potential applications to USACE projects and ecological modeling practices, including:  
+
+* Validating and updating relationships within existing HSI models
+* Creating new habitat models that are based on empirical data instead of conjecture
+* Estimating the relationship between focal taxa and habitat characteristics in order to predict the response of these species to USACE habitat-altering projects (thus potentially acting as an alternative to a habitat model)
+
 ## Background on linear models
 
-Linear models are used to estimate the relationship (if any) between a response variable and one or more predictor variable(s). They are typically constructed to analyze an a priori hypothesis about how variables are correlated. The results of the analysis indicate the direction and strength of the relationship between the variables, and what level of confidence we have in this relationship. 
+Linear models are used to estimate the relationship (if any) between a response variable and one or more predictor variable(s). They are typically constructed to analyze an *a priori* hypothesis about how variables are correlated. The results of the analysis indicate the direction and strength of the relationship between the variables, and what level of confidence we have in this relationship. 
 
 ### Linear model formulation
 
 In a linear model, the response variable is the variable that we wish to explain, and is also known as the dependent variable, because its value may depend on the values of the predictor variables. There is only one response variable. Predictor variables (also known as independent or explanatory variables), on the other hand, are variables with the potential to explain or predict the response variable. Linear models can have multiple predictor variables.
 
-In a linear model, a single observation of the response variable $y$ is defined as $y_i$, where as the corresponding observation of the predictor variable $x$ is defined as $x_i$. The values of $y$ and $x$ are related to each other using the below formula, which describes the relationship between the two variables as a straight line: 
+In a linear model, a single observation of the response variable $y$ is defined as $y_i$, whereas the corresponding observation of the predictor variable $x$ is defined as $x_i$. The values of $y$ and $x$ are related to each other using the below formula, which describes the relationship between the two variables as a straight line: 
 
 $$ y_i = \beta_0 + \beta_1 \times x_i + \epsilon_i$$  
 
 * $y_i$ is the response variable
 * $x_i$ is the predictor
 * The parameter $\beta_0$ is the **intercept**
-* The parameter $\beta_1$ quantifies the effect** of $x$ on $y$
+* The parameter $\beta_1$ quantifies the **effect** of $x$ on $y$
 * The residual $\epsilon_i$ represents the **unexplained** variation
 
-Basically, this is just a reformulation of a classic middle school equation used to graph a straight line--$y = mx + b$--only in this case $\beta_1$ stands in for $m$ and $\beta_0$ for $b$. Here, we also inherently have the idea that the explanatory variables will never explain all of the variation in the predictor: what's left over is the model error $\epsilon_i$, also knows as the residuals.
+Basically, this is just a reformulation of the classic equation used to graph a straight line-- $y = mx + b$ --only in this case $\beta_1$ stands in for $m$ and $\beta_0$ for $b$. Here, we also inherently have the idea that the explanatory variables will never explain all of the variation in the predictor: the unexplained variation that remains is the model error $\epsilon_i$, also referred to as the residuals.
 
 Remember, the main purpose of fitting a linear model is to estimate the coefficient values ($\beta$); doing so provides insight into the magnitude and direction of the relationship between the predictors and the response variables. We are also interested in how much of the variation in our response variable is explained by our predictor variables
 
@@ -57,7 +58,7 @@ Linear models have some important assumptions. The statistician Andrew Gelman li
 The last three assumptions listed here have to do with the model residuals. Remember, these are the model error and represent the difference between the data point $y_i$ and the model prediction $\hat{y}_i$. The figure below indicates a model where the residuals meet these assumptions. 
 
 ![*Graphical depiction of linear modeling assumptions from Jan Vanhove*](images/residuals_janhove.png){width=100%}  
-
+<br>
 So, how should one think about these assumptions and when they are violated? Well, academic [Jan Vanhove](https://janhove.github.io/posts/2019-04-11-assumptions-relevance/) has a helpful way of thinking about them: when assumptions are violated, model inferences shouldn't necessarily be thought of as incorrect, but rather as less relevant.
 
 ## Application of a linear model
