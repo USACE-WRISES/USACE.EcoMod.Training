@@ -44,7 +44,7 @@ $$ y_i = \beta_0 + \beta_1 \times x_i + \epsilon_i$$
 
 Basically, this is just a reformulation of the classic equation used to graph a straight line-- $y = mx + b$ --only in this case $\beta_1$ stands in for $m$ and $\beta_0$ for $b$. Here, we also inherently have the idea that the explanatory variables will never explain all of the variation in the predictor: the unexplained variation that remains is the model error $\epsilon_i$, also referred to as the residuals.
 
-Remember, the main purpose of fitting a linear model is to estimate the coefficient values ($\beta$); doing so provides insight into the magnitude and direction of the relationship between the predictors and the response variables. We are also interested in how much of the variation in our response variable is explained by our predictor variables
+Remember, the main purpose of fitting a linear model is to estimate the coefficient values ($\beta$); doing so provides insight into the magnitude and direction of the relationship between the predictors and the response variables. We are also interested in how much of the variation in our response variable is explained by our predictor variables.
 
 ### Linear model assumptions
 Linear models have some important assumptions. The statistician Andrew Gelman lists the [most important linear model assumptions](https://statmodeling.stat.columbia.edu/2013/08/04/19470/), in order of importance, as follows:
@@ -85,12 +85,12 @@ ggplot(umr_sub,
        aes(temp, do))+
   geom_point(alpha = .5, pch = 21, size = 1)+
   geom_smooth(method = "lm") +
-  labs(x = "Temperature (C)", y = "Dissolved Oxygen (mg/L)")+
+  labs(x = "Temperature (C)", y = "Dissolved Oxygen Concentration (mg/L)")+
   theme_classic()
 
 ```
 
-We can see that there's a pretty clear relationship between these two variables. But we'd like to go beyond this to quantify the relationship statistically.
+We can see that there's a pretty clear relationship between these two variables. However, we'd like to go beyond this to quantify the relationship statistically.
 
 ### Fit a model and assess output
 
@@ -111,10 +111,10 @@ The output of the `summary` function contains important information about:
 
   1. `Model intercept`: The value of the response variable when the value of the predictor variable(s) is zero
   2. `Coefficients`: Estimates of the parameters' slopes and their standard deviation
-  3. `Pr(>|t|)`: Results of a t-test to determine if the intercept or parameters' slopes are different from 0
+  3. `Pr(>|t|)`: Results of a t-test to determine if the intercept or parameters' slopes are different from zero
   4. `Residual standard error`: Measure of how much the observed and predicted values in the model differ. Large residual standard error can indicate a poor model fit
   5. `Multiple R squared` or `Adjusted R squared`: How well does the model explain the data? These terms describe the proportion of variance in a response variable that can be explained by one (multiple R squared) or several (adjusted R squared) predictor variables
-  6. `F-statistic`(ANOVA): Is the model significantly different from a model with no predictor (null model)? The F statistic represents a ratio of the explained variance compared to the residual variance
+  6. `F-statistic` (ANOVA): Is the model significantly different from a model with no predictor (null model)? The F-statistic represents a ratio of the explained variance compared to the residual variance
   7. `p-value`: Results of an F-test to determine if the model including the predictor variable(s) performs better than the null model containing only an intercept value
 
 Taken together, these values can be used to assess the extent to which temperature predicts dissolved oxygen in our study location. We can first look at the estimate for our $\beta_1$ coefficient `temp`, which indicates the effect size of temperature on dissolved oxygen concentration, here with an approximate value of `r round(lm.mod$coefficient[2],2)`. This means that on average, for every 1 degree Celsius increase in temperature, the dissolved oxygen concentration decreases by `r round(lm.mod$coefficient[2],2)` mg/L. This represents a moderately substantial relationship. We also get an estimate of the intercept, which is our $\beta_0$ coefficient. This suggests that we would predict a dissolved oxygen level of `r round(lm.mod$coefficient[1],1)` mg/L when temperature is 0 degrees Celsius. 
@@ -131,7 +131,7 @@ But can we trust these results? We first need to verify that the model assumptio
 plot(lm.mod, which = 1)
 ```
 
-The first plot shows the **Residuals vs. the Fitted values**. Remember, the residuals are the difference between predicted values of the response variable (dissolved oxygen here) and observed values of the response variable. If the model assumptions are met, this plot should have a horizontal line with residuals spread around it fairly evenly. If the residuals show non-linear patterns (e.g., a parabola) it may indicate a non-linear relationship between our predictors and our response variable. Here there appears to be fairly random scatter of residuals, suggesting no major problems with non-linearity.
+The first plot shows the **Residuals vs. the Fitted values**. Remember, the residuals are the difference between predicted values of the response variable (dissolved oxygen concentration here) and observed values of the response variable. If the model assumptions are met, this plot should have a horizontal line with residuals spread around it fairly evenly. If the residuals show non-linear patterns (e.g., a parabola) it may indicate a non-linear relationship between our predictors and our response variable. Here there appears to be fairly random scatter of residuals, suggesting no major problems with non-linearity.
 
 ```{r}
 plot(lm.mod, which = 2)
@@ -143,7 +143,7 @@ The **Q-Q residual plot** is used to assess whether the residuals follow a **nor
 plot(lm.mod, which = 3)
 ```
 
-The **Scale-Location plot** checks for **constant variance of residuals**. Similar to the first plot, the red line should be roughly flat, and there shouldn't be any systematic spread in the data. Our model again does fairly well here, although there is a slight increase in variance with higher fitted values.
+The **Scale-Location plot** checks for **constant variance of residuals**. Similarly to the first plot, the red line should be roughly flat, and there shouldn't be any systematic spread in the data. Our model again does fairly well here, although there is a slight increase in variance with higher fitted values.
 
 ```{r}
 plot(lm.mod, which = 5)
@@ -192,7 +192,7 @@ In a real analysis, we might try some data transformations to improve model fit,
 ## Summary
 Here we saw that linear models can be used to describe the linear relationship between a response variable and some number of predictor variables. The best linear models should be thought of as a means to assess hypotheses that have been developed based on some subject matter expertise. The results of the linear model will indicate whether the data support that hypothesis by giving us estimates of the magnitude and direction of our effect sizes, how much variability the model explains, and how much uncertainty there is. 
 
-Linear models are best under fairly constrained scenarios i.e., when response data are continuous variables, when there is a linear relationship between variables, etc. However, in ecological research, many data types--especially binary and count data--rarely if ever meet these criteria, and other model types are required. For example the next module presents an extension of linear models that can be used for ubiquitous data types like counts or binary data that do not conform to the assumptions of linear models.
+Linear models are best under fairly constrained scenarios i.e., when response data are continuous variables, when there is a linear relationship between variables, etc. However, in ecological research, many data types--especially binary and count data--rarely if ever meet these criteria, and other model types are required. The next module presents an extension of linear models that can be used for ubiquitous data types like counts or binary data that do not conform to the assumptions of linear models.
 
 
 
