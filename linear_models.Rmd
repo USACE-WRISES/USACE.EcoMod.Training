@@ -155,7 +155,7 @@ Taken together, these plots suggest that a linear model is a reasonable choice f
 
 ### ANCOVA
 
-Even if a linear model is reasonable in our case, we may hope to explain more of the variance. We alluded to the possibility that other variables may be important. What about submersed aquatic vegetation that could be pumping oxygen into the water column? Our dataset contains a categorical variable for density of vegetation `vegd` which is 1 when vegetation is sparse and 2 when vegetation is dense. Categorical variables can be added to linear models in R, although we need to make sure that they are coded as factors, not as numeric variables. 
+Even if a linear model is reasonable, as in our case, we may hope to explain more of the variance. We alluded to the possibility that other variables may be important. What about submerged aquatic vegetation that could be pumping oxygen into the water column? Our dataset contains a categorical variable for density of vegetation, `vegd`, which is equal to one when vegetation is sparse and two when vegetation is dense. Categorical variables can be added to linear models in R, although we need to make sure that they are coded as factors, not as numeric variables. 
 ```{r}
 umr_sub <- mutate(umr_sub, 
                   vegd = as.factor(vegd))
@@ -169,27 +169,28 @@ ggplot(umr_sub,
        aes(temp, do, color = vegd))+
   geom_point(alpha = .5, pch = 21, size = 1.5)+
   geom_smooth(method = "lm")+
-  labs(x = "Temperature (C)", y = "Dissolved Oxygen (mg/L)", color = "Veg.\ndensity")+
+  labs(x = "Temperature (C)", y = "Dissolved Oxygen Concentration (mg/L)", color = "Veg.\ndensity")+
   theme_classic()
 ```
-Somewhat surprisingly, when we plot this, we see the possibility that sampling location with sparser vegetation tend to have higher dissolved oxygen concentrations, not higher dissolved oxygen as we might have expected.
+<br>
+Somewhat surprisingly, when we plot this relationship, we see the possibility that sampling locations with sparser vegetation tend to have higher dissolved oxygen concentrations, not lower dissolved oxygen concentrations as we might have expected.
 
-To assess the magnitude of this effect, we run a new linear model that includes both our continuous temperature predictor and our categorical vegetation predictor. 
+To assess the magnitude of this effect, we can run a new linear model that includes both our continuous temperature predictor and our categorical vegetation predictor. 
 ```{r}
 ancov.mod <- lm(do ~ temp + vegd, 
                 data = umr_sub)
 
 summary(ancov.mod)
 ```
-The summary shows a coefficient for `vegd2` of `r round(ancov.mod$coefficients[3],2)`. This means that on average, locations with the same temperature will have about 0.6 mg/L less oxygen if dense vegetation is present (i.e., where `vegd` equals 2) compared to sparse vegetation. Note, that there is only a coefficient for one level of the vegetation variable (i.e., where `vegd` equals 2, not where `vegd` equals 1). That is because one level of a categorical variable (here, where `vegd` equals 1) is always used as the reference level, and the coefficients reported represent the difference in the response variable between each level and the baseline level. Beyond coefficients, we can see that R-squared increased but only marginally: adding `vegd` to the model only increased our explanation of the variance in the response data by 1.5%.
+The summary shows a coefficient for `vegd2` of `r round(ancov.mod$coefficients[3],2)`. This means that on average, locations with the same temperature will have about 0.6 mg/L lower oxygen concentrations if dense vegetation is present (i.e., where `vegd` equals two) compared to sparse vegetation. Note, that there is only a coefficient for one level of the vegetation variable (i.e., where `vegd` equals two, not where `vegd` equals one). That is because one level of a categorical variable (here, where `vegd` equals one) is always used as the reference level, and the coefficients reported represent the difference in the response variable between each level and the baseline level. Beyond coefficients, we can see that R-squared increased, but only marginally: adding `vegd` to the model only increased our explanation of the variance in the response data by 1.5%.
 
 In a real analysis, we might try some data transformations to improve model fit, and/or explore other variables for potential model inclusion. Finally, we might assess which model is best using a [model selection approach like AIC](https://bstaton1.github.io/au-r-workshop/ch3.html#aic-model-selection). For in-depth coverage of some of these topics, we point the user to the following sources:
 
-* Quebec Center for biodiversity Science's [Linear model workshop](https://r.qcbs.ca/workshop04/book-en/index.html)  
+* Quebec Center for Biodiversity Science's [Linear model workshop](https://r.qcbs.ca/workshop04/book-en/index.html)  
 * Ben Staton's [Intro to R for Natural Resources course](https://bstaton1.github.io/au-r-workshop/ch3.html#lm)  
 
 ## Summary
-Here we saw that linear models can be used to describe the linear relationship between a response variable and some number of predictor variables. The best linear models should be thought of as means to assess hypotheses that have been developed based on some subject matter expertise. And the results of the linear model will indicate whether the data support that hypothesis, by giving us estimates of the magnitude and direction of our effect sizes, how much variability the model explains and how much uncertainy there is. 
+Here we saw that linear models can be used to describe the linear relationship between a response variable and some number of predictor variables. The best linear models should be thought of as a means to assess hypotheses that have been developed based on some subject matter expertise. The results of the linear model will indicate whether the data support that hypothesis by giving us estimates of the magnitude and direction of our effect sizes, how much variability the model explains, and how much uncertainty there is. 
 
 Linear models are best under fairly constrained scenarios i.e., when response data are continuous variables, when there is a linear relationship between variables, etc. However, in ecological research, many data types--especially binary and count data--rarely if ever meet these criteria, and other model types are required. For example the next module presents an extension of linear models that can be used for ubiquitous data types like counts or binary data that do not conform to the assumptions of linear models.
 
