@@ -137,7 +137,7 @@ The first plot shows the **Residuals vs. the Fitted values**. Remember, the resi
 plot(lm.mod, which = 2)
 ```
 
-The **Q-Q residual plot** is used to assess whether the residuals follow a **normal distribution**; the points in the plot should closely follow the diagonal line. In our example, the residuals deviate a bit in the tails, suggesting that the residuals may not be perfectly distributed, but normality of residuals is not very critical with large datasets like this and is considered to be one of the less important linear model assumptions.
+The **Q-Q residual plot** is used to assess whether the residuals follow a **normal distribution**. The points in the plot should closely follow the diagonal line. In our example, the residuals deviate a bit in the tails, suggesting that the residuals may not be perfectly distributed, but normality of residuals is not very critical with large datasets like this and is considered to be one of the less important linear model assumptions.
 
 ```{r}
 plot(lm.mod, which = 3)
@@ -149,9 +149,9 @@ The **Scale-Location plot** checks for **constant variance of residuals**. Simil
 plot(lm.mod, which = 5)
 ```
 
-Finally the **Residuals vs. Leverage plot** indicate whether there are any **influential outliers** that can bias results. In this plot, we specifically look for any large points in the upper or lower right: these are points with large residuals and high leverage. Depending on the spread of the residuals, there may be some dashed lines in these points called "Cook's distance" scores. Points outside these dashed lines, they may have a strong influence on the regression results, suggesting that parameter estimates might be biased.
+Finally the **Residuals vs. Leverage plot** indicates whether there are any **influential outliers** that could bias our results. In this plot, we specifically look for any large points in the upper or lower right: these are points with large residuals and high leverage. Depending on the spread of the residuals, there may be some dashed lines in these points called "Cook's distance" scores. Points outside these dashed lines may have a strong influence on the regression results, suggesting that parameter estimates might be biased.
 
-Taken together, these plots suggest that a linear model is a reasonable choice for assessing the relationship between temperature and dissolved oxygen. Had our model violated the linear model assumptions more egregiously, we would need to use a different model type, often a generalized linear model, covered in the subsequent module.
+Taken together, these plots suggest that a linear model is a reasonable choice for assessing the relationship between temperature and dissolved oxygen concentration. Had our model violated the linear model assumptions more egregiously, we would need to use a different model type, often a generalized linear model, covered in the subsequent module.
 
 ### ANCOVA
 
