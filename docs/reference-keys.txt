@@ -96,7 +96,8 @@ misconceptions
 storytelling
 art-of-conceptual-modeling-is-iterating
 background-on-habitat-models-in-usace
-index-based-ecological-models
+more-information-on-index-based-ecological-models
+calculating-and-applying-index-based-ecological-models
 habitat-suitability-index-models-with-ecorest
 learning-objectives-5
 background-on-hsi-modeling-with-ecorest
@@ -146,8 +147,8 @@ summary-3
 references-1
 spatial-habitat-models
 linear-models
-relevance-of-linear-models-to-usace
 learning-objectives-7
+relevance-of-linear-models-to-usace
 background-on-linear-models
 linear-model-formulation
 linear-model-assumptions
