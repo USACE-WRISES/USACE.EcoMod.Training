@@ -116,7 +116,7 @@ The Nature Conservancy would like to create a conceptual model outlining importa
 Answering a few questions about marsh management help the developers key in on the type of model that will be most useful to them.
 
 *What aspects of restoration are you focusing on?*
-![](images/CEM/fig7.png){width=80%, fig.topcaption=TRUE} 
+![](images/CEM/fig7.png){width=80%} 
 
 *What should the conceptual model seek to do?*
 ![](images/CEM/fig8.png){width=80%} 
