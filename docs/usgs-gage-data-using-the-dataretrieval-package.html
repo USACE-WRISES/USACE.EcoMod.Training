@@ -49,7 +49,7 @@
 <li><a class="" href="data-visualization-with-ggplot2.html"><span class="header-section-number">2</span> Data Visualization with ggplot2</a></li>
 <li><a class="" href="exploring-and-understanding-data.html"><span class="header-section-number">3</span> Exploring and understanding data</a></li>
 <li><a class="" href="manipulating-tabular-data.html"><span class="header-section-number">4</span> Manipulating Tabular Data</a></li>
-<li class="book-part">Ecological Modeling in R</li>
+<li class="book-part">Ecological Modeling</li>
 <li><a class="" href="conceptual-ecological-models.html"><span class="header-section-number">5</span> Conceptual Ecological Models</a></li>
 <li class="book-part">Habitat Models</li>
 <li><a class="" href="background-on-habitat-models-in-usace.html"><span class="header-section-number">6</span> Background on habitat models in USACE</a></li>
@@ -112,8 +112,9 @@ Here, Parameter code 00060 refers to daily flow in cubic feet per second (cfs).<
 <code class="sourceCode R"><span><span class="va">whatSites</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dataRetrieval/man/read_waterdata_monitoring_location.html">read_waterdata_monitoring_location</a></span><span class="op">(</span>state_name <span class="op">=</span> <span class="st">"Arkansas"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Requesting:
 ## https://api.waterdata.usgs.gov/ogcapi/v0/collections/monitoring-locations/items?f=json&amp;lang=en-US&amp;limit=10000&amp;state_name=Arkansas</code></pre>
-<pre><code>## ⠙ iterating 3 done (1.1/s) | 2.6s⠹ iterating 4 done (1.1/s) | 3.7s⠸ iterating 5 done (1/s) | 4.8s ⠼
-## iterating 6 done (1/s) | 5.8s⠴ iterating 7 done (1/s) | 6.7s⠦ iterating 8 done (1/s) | 7.7s</code></pre>
+<pre><code>## ⠙ iterating 1 done (0.26/s) | 3.9s⠹ iterating 2 done (0.33/s) | 6s ⠸ iterating 3 done (0.37/s) |
+## 8.2s⠼ iterating 4 done (0.39/s) | 10.2s⠴ iterating 5 done (0.4/s) | 12.6s ⠦ iterating 6 done
+## (0.39/s) | 15.5s⠧ iterating 7 done (0.34/s) | 20.8s⠇ iterating 8 done (0.37/s) | 21.7s</code></pre>
 <p>These can be subset to just active sites, or just ones with unit-value flow data (e.g., 15 min flow).</p>
 <div class="sourceCode" id="cb450"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">whatSites</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dataRetrieval/man/whatNWISsites.html">whatNWISsites</a></span><span class="op">(</span>stateCd <span class="op">=</span> <span class="st">"AR"</span>, parameterCd <span class="op">=</span> <span class="st">"00060"</span>, </span>
