@@ -16,13 +16,13 @@ Conceptual ecological models (hereafter conceptual models) are important tools f
 ### What is a conceptual model?
 A conceptual model is a tentative description of a system or sub-system that serves as a basis for intellectual organization. A conceptual model typically features both the structural elements of a system (e.g., migratory fish), but also the key ecosystem processes that link the components (e.g., predation of fish on macroinvertebrates).
 
-![*Conceptual model of the New York Bight ecosystem designed for ecosystem management and restoration projects in the estuary (Durham and McKay).*](CEM/fig1.png){width=70%}  
+![*Conceptual model of the New York Bight ecosystem designed for ecosystem management and restoration projects in the estuary (Durham and McKay).*](images/CEM/fig1.png){width=70%}  
 
 ### What does a conceptual model do?
 
 Conceptual models describe general functional relationships among essential ecosystem components. Crucially, they tell the story of “how the system works.” Understanding how the system functions is a key step towards understanding elements or processes in the system that restoration can seek to repair or recover. For example understanding that depth is of key importance to lentic fishes in Upper Mississippi River backwaters might spur restoration of deep-water habitat.
 
-![*Conceptual model of submerged aquatic vegetation in Chesapeake Bay (Kemp et al. 2004).*](CEM/fig2.png){width=40%} 
+![*Conceptual model of submerged aquatic vegetation in Chesapeake Bay (Kemp et al. 2004).*](images/CEM/fig2.png){width=40%} 
 
 ### How are conceptual models used in ecosystem restoration?
 Conceptual models are used in several key ways in ecosystem restoration projects.
@@ -57,17 +57,17 @@ There is no prescribed way of making a conceptual model. The form that one takes
 * Picture and Diagrams  
 * Box and Arrow Models  
 
-![*Five teams from USACE Ecosystem restoration classes in 2018*](CEM/fig3.png){width=80%} 
+![*Five teams from USACE Ecosystem restoration classes in 2018*](images/CEM/fig3.png){width=80%} 
 
 <br>
 One system can have many different models, designed for different purposes or audiences, or reflecting different viewpoints. For example, conceptual models on human impacts on streams may look very different depending on whether the hydrology, geomorphology, or ecology is being considered.
 
-![*Three conceptual models of stream impacts*](CEM/fig4.png){width=80%} 
+![*Three conceptual models of stream impacts*](images/CEM/fig4.png){width=80%} 
 
 <br>
 And different audiences may need different models. The technical depth of the audience and the breadth of the material covered by the model will prescribe the creation of very different model types.
 
-![*Important axes for determining the form of a conceptual ecological model*](CEM/fig5.png){width=80%} 
+![*Important axes for determining the form of a conceptual ecological model*](images/CEM/fig5.png){width=80%} 
 
 ### What conceptual models are not
 In order to describe conceptual models, it’s crucial to understand that they are NOT:  
@@ -96,7 +96,7 @@ Ecosystems are complex. Distilling them to the essential elements and processes 
 In some ways, omitting is the most important, for the sake of the utility and interpretability of the model. Model developers may be wise to remember the (heavily paraphrased) Einstein quote that models “should be made as simple as possible, but no simpler.”
 
 Figure 6
-![*Sediment release model designed for Tuttle Creek Reservoir, Kansas, which indicates omitted variables*](CEM/fig6.png){width=80%} 
+![*Sediment release model designed for Tuttle Creek Reservoir, Kansas, which indicates omitted variables*](images/CEM/fig6.png){width=80%} 
 
 #### Think of conceptual modeling as storytelling to guide model building process
 A key use of conceptual models is for crystalizing the narrative that will be used for restoration projects. Therefore, thinking of the conceptual modeling process as an act of storytelling can be very effective. The key storytelling questions to ask during the development process are:
@@ -116,31 +116,31 @@ The Nature Conservancy would like to create a conceptual model outlining importa
 Answering a few questions about marsh management help the developers key in on the type of model that will be most useful to them.
 
 *What aspects of restoration are you focusing on?*
-![](CEM/fig7.png){width=80%, fig.topcaption=TRUE} 
+![](images/CEM/fig7.png){width=80%, fig.topcaption=TRUE} 
 
 *What should the conceptual model seek to do?*
-![](CEM/fig8.png){width=80%} 
+![](images/CEM/fig8.png){width=80%} 
 
 *Who is the target audience for the conceptual model?*
-![](CEM/fig9.png){width=80%} 
+![](images/CEM/fig9.png){width=80%} 
 
 #### Step 3: What are the characters in your story?
 
 To start building the conceptual model, it can be helpful to start by identifying all the ecosystem components that may be relevant to the model. Any potentially important elements should be added at this stage. They can be removed later (and many will). Color coding by category (e.g., biochemistry, geomorphology, biology, etc.) can be helpful at this stage. 
 
-![](CEM/fig10.png){width=80%} 
+![](images/CEM/fig10.png){width=80%} 
 
 <br>
 **Step 3 continued:** Refine and organize your cast.
 After including all potential components, ecosystem elements can be organized into relevant configurations. Elements that are deemed not essential can be removed at this stage.
 
-![](CEM/fig11.png){width=80%} 
+![](images/CEM/fig11.png){width=80%} 
 
 #### Step 4: What is the plot of your story?
 
 Finally, with all key elements identified, key linkages can be added to capture the essential relationships within the ecosystem. Model developers might explicitly depict how restoration measures should affect the ecosystem, but in some cases, it may be enough to simply include ecosystem elements (e.g., water depth) that may be manipulated by restoration. Remember the diagram you see here does not happen instantly but is instead the result of extensive iteration and collaboration among model developers and diverse subject matter experts.
 
-![](CEM/fig12.png){width=80%} 
+![](images/CEM/fig12.png){width=80%} 
 
 ## Summary
 
