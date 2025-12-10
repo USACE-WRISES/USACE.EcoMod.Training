@@ -2,7 +2,8 @@
 
 # Conceptual Ecological Models
 
-Authors: Todd Swannack, Kyle McKay, Ed Stowe
+*Authors: Kyle McKay, Todd Swannack, Ed Stowe*  
+*Last update: `r as.Date(file.info('conceptual_ecol_models.Rmd')$mtime)`*  
 
 ## Learning objectives  
 * Learn what a conceptual model is and is not and what its key functions are  
