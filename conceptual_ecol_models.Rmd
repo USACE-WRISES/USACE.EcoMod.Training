@@ -1,4 +1,4 @@
-# (PART) Ecological Modeling in R {-} 
+# (PART) Ecological Modeling {-} 
 
 # Conceptual Ecological Models
 
