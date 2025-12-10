@@ -97,9 +97,9 @@
 <img src="images/blgl_pdp.png" style="width:100.0%" alt="Graphical output of a river network along with associated dams created using nhdplusTools along with data from the National Inventory of Dams."><div class="figcaption"><em>Graphical output of a river network along with associated dams created using <strong><code>nhdplusTools</code></strong> along with data from the National Inventory of Dams.</em></div>
 </div>
 <p><em>Authors: Ed Stowe (writing, editing)</em><br><em>Last update: 2025-10-30</em><br><em>Acknowledgements: Case study includes code that was adapted from demonstration analyses by Julia Silge on <a href="https://juliasilge.com/blog/sf-trees-random-tuning/">random forest</a> and <a href="https://juliasilge.com/blog/mario-kart/">partial dependence plots</a>, used under <a href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a></em></p>
-<div id="learning-objectives-9" class="section level2" number="15.1">
+<div id="learning-objectives-10" class="section level2" number="15.1">
 <h2>
-<span class="header-section-number">15.1</span> Learning objectives<a class="anchor" aria-label="anchor" href="#learning-objectives-9"><i class="fas fa-link"></i></a>
+<span class="header-section-number">15.1</span> Learning objectives<a class="anchor" aria-label="anchor" href="#learning-objectives-10"><i class="fas fa-link"></i></a>
 </h2>
 <ul>
 <li>Understand how random forest models works and when they are useful</li>
@@ -189,7 +189,7 @@
 <div class="sourceCode" id="cb371"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">blgl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/bluegill.csv"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Rows: 1422 Columns: 11
-## ── Column specification ──────────────────────────────────────────────
+## ── Column specification ───────────────────────────────────────────
 ## Delimiter: ","
 ## chr  (1): pool
 ## dbl (10): occ, utm_e, utm_n, period, secchi, temp, depth, cond, current, do
@@ -456,9 +456,9 @@
 <p>We can see that in general, increases in depths are associated with increased probability of bluegill presence, which holds across pools, although the pools appear to have different overall probabilities of bluegill occurrence. There is also a dip in probability at depths slightly below 1 m, but further investigation would be needed to see if this is biologically meaningful.</p>
 </div>
 </div>
-<div id="summary-6" class="section level2" number="15.4">
+<div id="summary-7" class="section level2" number="15.4">
 <h2>
-<span class="header-section-number">15.4</span> Summary<a class="anchor" aria-label="anchor" href="#summary-6"><i class="fas fa-link"></i></a>
+<span class="header-section-number">15.4</span> Summary<a class="anchor" aria-label="anchor" href="#summary-7"><i class="fas fa-link"></i></a>
 </h2>
 <ul>
 <li>Machine learning models can excel at prediction if there is adequate data, suggesting it has great potential value for USACE applications</li>
@@ -474,7 +474,7 @@
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#random-forest"><span class="header-section-number">15</span> Random Forest</a></li>
-<li><a class="nav-link" href="#learning-objectives-9"><span class="header-section-number">15.1</span> Learning objectives</a></li>
+<li><a class="nav-link" href="#learning-objectives-10"><span class="header-section-number">15.1</span> Learning objectives</a></li>
 <li>
 <a class="nav-link" href="#background-1"><span class="header-section-number">15.2</span> Background</a><ul class="nav navbar-nav">
 <li><a class="nav-link" href="#what-is-machine-learning"><span class="header-section-number">15.2.1</span> What is machine learning?</a></li>
@@ -496,7 +496,7 @@
 <li><a class="nav-link" href="#examine-variable-importance-and-partial-dependence"><span class="header-section-number">15.3.8</span> Examine variable importance and partial dependence</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#summary-6"><span class="header-section-number">15.4</span> Summary</a></li>
+<li><a class="nav-link" href="#summary-7"><span class="header-section-number">15.4</span> Summary</a></li>
 </ul>
 
       <div class="book-extra">
