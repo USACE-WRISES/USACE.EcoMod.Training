@@ -1,10 +1,9 @@
 # (PART) Habitat Models {-} 
 
-*Authors: Kyle McKay (writing), Darixa Hernandez-Abrams (writing), Ed Stowe (writing, editing), ; Background from the draft ecorest tech report, authors: Kyle McKay, Darixa Hernández-Abrams, Rachel Nifong, Todd Swannack*   
-*Last update: `r as.Date(file.info('hab_model_intro.Rmd')$mtime)`*  
-*Acknowledgements: *
-
 # Background on habitat models in USACE
+
+*Authors: Kyle McKay (writing), Darixa Hernandez-Abrams (writing), Ed Stowe (writing, editing), Kiara Cushway (writing, editing) ; Background from the draft ecorest tech report, authors: Kyle McKay, Darixa Hernández-Abrams, Rachel Nifong, Todd Swannack*   
+*Last update: `r as.Date(file.info('hab_model_intro.Rmd')$mtime)`*  
 
 The U.S. Army Corps of Engineers (USACE) engages in many decisions that affect ecological outcomes (e.g., ecosystem restoration of oyster reefs, environmental flows for imperiled fishes, dredge material management impacting bird breeding grounds). In such scenarios, ecological models are used to quantify environmental impacts and benefits throughout project life-cycles, including the planning, engineering, construction, operations, and maintenance phases. 
 
