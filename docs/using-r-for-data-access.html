@@ -4,13 +4,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>25 Using R for data access | Using R for ecological modeling in USACE</title>
+<title>21 Using R for data access | Using R for ecological modeling in USACE</title>
 <meta name="author" content="Ed Stowe">
 <meta name="generator" content="bookdown 0.42 with bs4_book()">
-<meta property="og:title" content="25 Using R for data access | Using R for ecological modeling in USACE">
+<meta property="og:title" content="21 Using R for data access | Using R for ecological modeling in USACE">
 <meta property="og:type" content="book">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="25 Using R for data access | Using R for ecological modeling in USACE">
+<meta name="twitter:title" content="21 Using R for data access | Using R for ecological modeling in USACE">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.8.0/transition.js"></script><script src="libs/bs3compat-0.8.0/tabs.js"></script><script src="libs/bs3compat-0.8.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -18,9 +18,9 @@
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   </style>
-<meta name="description" content="25.1 Other datasources to consider   25.2 NLCD   25.3 Precipitation data (PRISM? NOAA data?)   25.4 Temperature data (NOAA)   25.5 Other data sources commonly used in USACE?   25.6 Code for RAS...">
-<meta property="og:description" content="25.1 Other datasources to consider   25.2 NLCD   25.3 Precipitation data (PRISM? NOAA data?)   25.4 Temperature data (NOAA)   25.5 Other data sources commonly used in USACE?   25.6 Code for RAS...">
-<meta name="twitter:description" content="25.1 Other datasources to consider   25.2 NLCD   25.3 Precipitation data (PRISM? NOAA data?)   25.4 Temperature data (NOAA)   25.5 Other data sources commonly used in USACE?   25.6 Code for RAS...">
+<meta name="description" content="21.1 Overview For many USACE-focused analyses, it is crucial to access Federal data sources, including ones that pertain to hydrology, watershed boundaries, weather, infrastructure, or land cover,...">
+<meta property="og:description" content="21.1 Overview For many USACE-focused analyses, it is crucial to access Federal data sources, including ones that pertain to hydrology, watershed boundaries, weather, infrastructure, or land cover,...">
+<meta name="twitter:description" content="21.1 Overview For many USACE-focused analyses, it is crucial to access Federal data sources, including ones that pertain to hydrology, watershed boundaries, weather, infrastructure, or land cover,...">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -60,27 +60,22 @@
 <li class="book-part">Linear Models for informing planning HSIs</li>
 <li><a class="" href="linear-models.html"><span class="header-section-number">11</span> Linear Models</a></li>
 <li><a class="" href="generalized-linear-models.html"><span class="header-section-number">12</span> Generalized Linear Models</a></li>
-<li><a class="" href="random-effects.html"><span class="header-section-number">13</span> Random Effects</a></li>
-<li><a class="" href="generalized-additive-models.html"><span class="header-section-number">14</span> Generalized Additive Models</a></li>
 <li class="book-part">Machine Learning</li>
-<li><a class="" href="random-forest.html"><span class="header-section-number">15</span> Random Forest</a></li>
-<li><a class="" href="boosted-regression-trees.html"><span class="header-section-number">16</span> Boosted Regression Trees</a></li>
+<li><a class="" href="random-forest.html"><span class="header-section-number">13</span> Random Forest</a></li>
 <li class="book-part">Other Modeling Approaches</li>
-<li><a class="" href="population-modeling.html"><span class="header-section-number">17</span> Population Modeling</a></li>
-<li><a class="" href="network-models-and-connectivity.html"><span class="header-section-number">18</span> Network Models and Connectivity</a></li>
-<li><a class="" href="agent-based-models.html"><span class="header-section-number">19</span> Agent-based Models</a></li>
+<li><a class="" href="population-modeling.html"><span class="header-section-number">14</span> Population Modeling</a></li>
+<li><a class="" href="network-models-and-connectivity.html"><span class="header-section-number">15</span> Network Models and Connectivity</a></li>
+<li><a class="" href="agent-based-models.html"><span class="header-section-number">16</span> Agent-based Models</a></li>
 <li class="book-part">Models and decision-making</li>
-<li><a class="" href="decision-support.html"><span class="header-section-number">20</span> Decision Support</a></li>
-<li><a class="" href="annualizing-benefits-and-costs-with-ecorest-and-engrecon.html"><span class="header-section-number">21</span> Annualizing benefits and costs with ecorest and EngrEcon</a></li>
-<li><a class="" href="ceica-chapter.html"><span class="header-section-number">22</span> Cost-Effectiveness and Incremental Cost Analysis (CEICA) with ecorest</a></li>
-<li class="book-part">Models Integration</li>
-<li><a class="" href="model-integration.html"><span class="header-section-number">23</span> Model Integration</a></li>
+<li><a class="" href="decision-support.html"><span class="header-section-number">17</span> Decision Support</a></li>
+<li><a class="" href="annualizing-benefits-and-costs-with-ecorest-and-engrecon.html"><span class="header-section-number">18</span> Annualizing benefits and costs with ecorest and EngrEcon</a></li>
+<li><a class="" href="ceica-chapter.html"><span class="header-section-number">19</span> Cost-Effectiveness and Incremental Cost Analysis (CEICA) with ecorest</a></li>
 <li class="book-part">Other R applications</li>
-<li><a class="" href="r-for-gis.html"><span class="header-section-number">24</span> R for GIS</a></li>
+<li><a class="" href="r-for-gis.html"><span class="header-section-number">20</span> R for GIS</a></li>
 <li class="book-part">Environmental data sources</li>
-<li><a class="active" href="using-r-for-data-access.html"><span class="header-section-number">25</span> Using R for data access</a></li>
-<li><a class="" href="usgs-gage-data-using-the-dataretrieval-package.html"><span class="header-section-number">26</span> USGS gage data using the dataRetrieval package</a></li>
-<li><a class="" href="national-hydrography-dataset.html"><span class="header-section-number">27</span> National Hydrography Dataset</a></li>
+<li><a class="active" href="using-r-for-data-access.html"><span class="header-section-number">21</span> Using R for data access</a></li>
+<li><a class="" href="usgs-gage-data-using-the-dataretrieval-package.html"><span class="header-section-number">22</span> USGS gage data using the dataRetrieval package</a></li>
+<li><a class="" href="national-hydrography-dataset.html"><span class="header-section-number">23</span> National Hydrography Dataset</a></li>
 </ul>
 
         <div class="book-extra">
@@ -88,56 +83,59 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="using-r-for-data-access" class="section level1" number="25">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="using-r-for-data-access" class="section level1" number="21">
 <h1>
-<span class="header-section-number">25</span> Using R for data access<a class="anchor" aria-label="anchor" href="#using-r-for-data-access"><i class="fas fa-link"></i></a>
+<span class="header-section-number">21</span> Using R for data access<a class="anchor" aria-label="anchor" href="#using-r-for-data-access"><i class="fas fa-link"></i></a>
 </h1>
-<div id="other-datasources-to-consider" class="section level2" number="25.1">
+<div id="overview-3" class="section level2" number="21.1">
 <h2>
-<span class="header-section-number">25.1</span> Other datasources to consider<a class="anchor" aria-label="anchor" href="#other-datasources-to-consider"><i class="fas fa-link"></i></a>
+<span class="header-section-number">21.1</span> Overview<a class="anchor" aria-label="anchor" href="#overview-3"><i class="fas fa-link"></i></a>
 </h2>
+<p>For many USACE-focused analyses, it is crucial to access Federal data sources, including ones that pertain to hydrology, watershed boundaries, weather, infrastructure, or land cover, among other features. For analyses being conducted within R, it can be extremely helpful to access these data sources directly from within R. Doing so creates an exact record of the data that was accessed, and helps with keeping analyses and data records organized and reproducible.</p>
+<p>This section of modules includes two full workflows for accessing hydrological data, as well as watershed-focused data. Below, we list additional data sources and associated <code>r</code> packages that may be of use for USACE-focused analyses.</p>
 </div>
-<div id="nlcd" class="section level2" number="25.2">
+<div id="other-datasources-to-consider" class="section level2" number="21.2">
 <h2>
-<span class="header-section-number">25.2</span> NLCD<a class="anchor" aria-label="anchor" href="#nlcd"><i class="fas fa-link"></i></a>
+<span class="header-section-number">21.2</span> Other datasources to consider<a class="anchor" aria-label="anchor" href="#other-datasources-to-consider"><i class="fas fa-link"></i></a>
 </h2>
+<div id="national-land-cover-dataset" class="section level3" number="21.2.1">
+<h3>
+<span class="header-section-number">21.2.1</span> National Land Cover Dataset<a class="anchor" aria-label="anchor" href="#national-land-cover-dataset"><i class="fas fa-link"></i></a>
+</h3>
+<p>The <a href="https://www.usgs.gov/centers/eros/science/national-land-cover-database">National Land Cover Dataset</a> can be accessed using the <code>FedData</code> <a href="https://github.com/ropensci/FedData">package</a>.</p>
 </div>
-<div id="precipitation-data-prism-noaa-data" class="section level2" number="25.3">
-<h2>
-<span class="header-section-number">25.3</span> Precipitation data (PRISM? NOAA data?)<a class="anchor" aria-label="anchor" href="#precipitation-data-prism-noaa-data"><i class="fas fa-link"></i></a>
-</h2>
+<div id="weather-data" class="section level3" number="21.2.2">
+<h3>
+<span class="header-section-number">21.2.2</span> Weather data<a class="anchor" aria-label="anchor" href="#weather-data"><i class="fas fa-link"></i></a>
+</h3>
+<p>Precipitation and temperature data from the long-term Oregon State University <a href="https://prism.oregonstate.edu/">PRISM</a> initiative can be accessed with the <code>prism</code> <a href="https://github.com/ropensci/prism">package</a> in R.</p>
 </div>
-<div id="temperature-data-noaa" class="section level2" number="25.4">
-<h2>
-<span class="header-section-number">25.4</span> Temperature data (NOAA)<a class="anchor" aria-label="anchor" href="#temperature-data-noaa"><i class="fas fa-link"></i></a>
-</h2>
-</div>
-<div id="other-data-sources-commonly-used-in-usace" class="section level2" number="25.5">
-<h2>
-<span class="header-section-number">25.5</span> Other data sources commonly used in USACE?<a class="anchor" aria-label="anchor" href="#other-data-sources-commonly-used-in-usace"><i class="fas fa-link"></i></a>
-</h2>
-</div>
-<div id="code-for-ras-output-files-dss-netcdf" class="section level2" number="25.6">
-<h2>
-<span class="header-section-number">25.6</span> Code for RAS output files (DSS, netCDF)<a class="anchor" aria-label="anchor" href="#code-for-ras-output-files-dss-netcdf"><i class="fas fa-link"></i></a>
-</h2>
-<p>RAS post-processing code from Brian Breaker, etc., dssrip?</p>
+<div id="dam-data" class="section level3" number="21.2.3">
+<h3>
+<span class="header-section-number">21.2.3</span> Dam data<a class="anchor" aria-label="anchor" href="#dam-data"><i class="fas fa-link"></i></a>
+</h3>
+<p>The <a href="https://nid.sec.usace.army.mil/nid/#/">National Inventory of Dams</a> dataset can be accessed using the <code>dams</code> <a href="https://jsta.github.io/dams/">package</a>.</p>
+<p>###Code for hydraulic model (i.e., HEC-RAS) output files
+Various R functions exist to perform post-processing on files generated from HEC-RAS modeling (e.g., DSS, netCDF). For example the <code>dssrip2</code> <a href="https://github.com/mkoohafkan/dssrip2/">package</a> can be used to create, read, and write the .dss files associated with hydraulic modeling in HEC-RAS.</p>
 
 </div>
 </div>
+</div>
   <div class="chapter-nav">
-<div class="prev"><a href="r-for-gis.html"><span class="header-section-number">24</span> R for GIS</a></div>
-<div class="next"><a href="usgs-gage-data-using-the-dataretrieval-package.html"><span class="header-section-number">26</span> USGS gage data using the dataRetrieval package</a></div>
+<div class="prev"><a href="r-for-gis.html"><span class="header-section-number">20</span> R for GIS</a></div>
+<div class="next"><a href="usgs-gage-data-using-the-dataretrieval-package.html"><span class="header-section-number">22</span> USGS gage data using the dataRetrieval package</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#using-r-for-data-access"><span class="header-section-number">25</span> Using R for data access</a></li>
-<li><a class="nav-link" href="#other-datasources-to-consider"><span class="header-section-number">25.1</span> Other datasources to consider</a></li>
-<li><a class="nav-link" href="#nlcd"><span class="header-section-number">25.2</span> NLCD</a></li>
-<li><a class="nav-link" href="#precipitation-data-prism-noaa-data"><span class="header-section-number">25.3</span> Precipitation data (PRISM? NOAA data?)</a></li>
-<li><a class="nav-link" href="#temperature-data-noaa"><span class="header-section-number">25.4</span> Temperature data (NOAA)</a></li>
-<li><a class="nav-link" href="#other-data-sources-commonly-used-in-usace"><span class="header-section-number">25.5</span> Other data sources commonly used in USACE?</a></li>
-<li><a class="nav-link" href="#code-for-ras-output-files-dss-netcdf"><span class="header-section-number">25.6</span> Code for RAS output files (DSS, netCDF)</a></li>
+<li><a class="nav-link" href="#using-r-for-data-access"><span class="header-section-number">21</span> Using R for data access</a></li>
+<li><a class="nav-link" href="#overview-3"><span class="header-section-number">21.1</span> Overview</a></li>
+<li>
+<a class="nav-link" href="#other-datasources-to-consider"><span class="header-section-number">21.2</span> Other datasources to consider</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#national-land-cover-dataset"><span class="header-section-number">21.2.1</span> National Land Cover Dataset</a></li>
+<li><a class="nav-link" href="#weather-data"><span class="header-section-number">21.2.2</span> Weather data</a></li>
+<li><a class="nav-link" href="#dam-data"><span class="header-section-number">21.2.3</span> Dam data</a></li>
+</ul>
+</li>
 </ul>
 
       <div class="book-extra">
