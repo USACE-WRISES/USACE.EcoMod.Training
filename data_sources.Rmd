@@ -2,17 +2,24 @@
 
 # Using R for data access
 
+## Overview
+
+For many USACE-focused analyses, it is crucial to access Federal data sources, including ones that pertain to hydrology, watershed boundaries, weather, infrastructure, or land cover, among other features. For analyses being conducted within R, it can be extremely helpful to access these data sources directly from within R. Doing so creates an exact record of the data that was accessed, and helps with keeping analyses and data records organized and reproducible.
+
+This section of modules includes two full workflows for accessing hydrological data, as well as watershed-focused data. Below, we list additional data sources and associated `r` packages that may be of use for USACE-focused analyses.
 
 ## Other datasources to consider
 
-## NLCD
+### National Land Cover Dataset
+The [National Land Cover Dataset](https://www.usgs.gov/centers/eros/science/national-land-cover-database) can be accessed using the `FedData` [package](https://github.com/ropensci/FedData).
 
-## Precipitation data (PRISM? NOAA data?)
+### Weather data
+Precipitation and temperature data from the long-term Oregon State University [PRISM](https://prism.oregonstate.edu/) initiative can be accessed with the `prism` [package](https://github.com/ropensci/prism) in R.
 
-## Temperature data (NOAA)
+### Dam data
+The [National Inventory of Dams](https://nid.sec.usace.army.mil/nid/#/) dataset can be accessed using the `dams` [package](https://jsta.github.io/dams/).
 
-## Other data sources commonly used in USACE?
+###Code for hydraulic model (i.e., HEC-RAS) output files
+Various R functions exist to perform post-processing on files generated from HEC-RAS modeling (e.g., DSS, netCDF). For example the `dssrip2` [package](https://github.com/mkoohafkan/dssrip2/) can be used to create, read, and write the .dss files associated with hydraulic modeling in HEC-RAS.
 
-## Code for RAS output files (DSS, netCDF)
-RAS post-processing code from Brian Breaker, etc., dssrip?
 
