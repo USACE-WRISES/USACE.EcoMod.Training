@@ -1,8 +1,17 @@
 # (PART) Other Modeling Approaches {-} 
 
+<span style="font-style:italic; font-size:20pt;">In Development</span>
+
 # Population Modeling
 
+## Overview
+Population models examine the attributes and dynamics of populations, and often assess rates of survival, growth, recruitment, or conditions such as the overall abundance of a population, or the probability that a population occurs at different sites. Frequently the attributes of populations are related to environmental conditions. For example, how does annual precipitation affect small mammal populations? Or how does flow alteration affect presence/absence of migratory fishes? Population models often generate relationships between population parameters and features of the environment, and these relationships have the potential to be used in USACE planning studies to predict the affect of projects on species of interest.
+
+Below, find some resources for carrying out population modeling in `R`.
+
 ### Occupancy models in R with unmarked: James Paterson
+
+Occupancy models are used to predict the presence or absence of species at different locations, based on multiple surveys of each location. Occupancy models can include environmental parameters, so that the presence of a species can be related to environmental conditions (e.g., water depth, canopy height, etc.).
 
 Intro to occupancy models
 https://jamesepaterson.github.io/jamespatersonblog/2020-09-01_occupancyintroduction.html
