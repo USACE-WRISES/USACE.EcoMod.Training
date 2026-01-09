@@ -1,17 +1,14 @@
 # Network Models and Connectivity
 
-Placeholder for edited exploration of WUCT Tool, combined from some of the materials on the WUCT Github repo  
+**This module will teach you how to calculate upstream habitat benefits associated with alternative dam passage scenario in R using a USACE-created network model.**
 
 *Authors: Kyle McKay (writing, code), Ed Stowe (writing, editing); Background from WUCT materials (Readme & RMD) on GitHub*   
 *Last update: `r as.Date(file.info('network_models.Rmd')$mtime)`*  
 *Acknowledgements: *
 
-## Background on network analysis
+## Overview of the Watershed Upstream Connectivity Tool
 
-
-## Overview on WUCT tool
-
-This model document describes a procedure for quantifying benefits associated with removal of organism movement barriers within a watershed (e.g., dam removal, culvert repair, fish ladder installation) or impacts of barrier addition (e.g., dam construction, weir installation). The model focuses on upstream movement of migratory organisms such as fish and is intended for application at the watershed-scale.The algorithm is based on four primary components: habitat quantity upstream of a dam, habitat quality upstream of a dam, the passability of a structure for a given organism, and the shape/topology of the watershed. This algorithm combines these data to estimate quality-weighted, accessible habitat at the watershed scale. 
+This module showcases a tool that quantifies benefits associated with the addition or removal of barriers that alter organism movement within a watershed (e.g., dam removal, culvert repair, fish ladder installation). The model focuses on upstream movement of migratory animals such as fish and applies to the watershed-scale.The algorithm is based on four primary components: habitat quantity upstream of a dam, habitat quality upstream of a dam, the passability of a structure for a given organism, and the shape/topology of the watershed. The tool combines these data to estimate quality-weighted, accessible habitat at the watershed scale. 
 
 ## Background
 
@@ -41,17 +38,22 @@ The WUCT requires three general types of inputs, and the HRE parameterization is
 
 The following script imports data, isolates the necessary input data, computes all permutations of restoration actions, and computes connectivity for each watershed-scale restoration plan. Table 4 presents the output of the WUCT in this application. The connectivity values represent a connectivity- and quality-weighted assessment of total habitat at the watershed scale. 
 
+## Case study code
+
+First we import Bronx River barrier and adjacency data. To maximize the ease of using this code, users should change the column names of their input data to match the column names in the example data frame.
+
 ```{r}
-#Dummy example - Import data
+# Import data
 barrieralts <- read.csv("data/WUCT_HREData_2018-07-18_BarrierAlts.csv", header=TRUE, dec=".")
 A <- data.matrix(read.csv("data/WUCT_HREData_2018-07-18_Adjacency.csv", header=FALSE, dec="."))
+```
 
-##########
-#Send input data from the example problem as a table
+We can view the import data as a table using the `knitr` package.
+```{r}
 knitr::kable(barrieralts, caption="Table 3. Input data for the WUCT to the Bronx River as described in the text. Each node specifies the existing condition (shown as Alt=0), and multiple restoration alternatives are also be specified for each node (shown as Alt>0).")
 ```
 
-Next we create `connectivity` function.
+Next we create `connectivity` function. The code to create this function can be used in other applications.
 
 ```{r, echo = FALSE}
 connectivity <- function(n,A,pass,hab){
@@ -87,35 +89,47 @@ connectivity <- function(n,A,pass,hab){
   #Return the final output list (total accesible habitat)
   habtot
 }
-
 ```
+
+Next we need to create objects vectors of the names of the barriers, as well as the number of barriers.
 
 ```{r}
 #Isolate properties of the alternatives at each barrier
 bnames <- paste(unique(barrieralts$BarrierID))
 nbar <- length(bnames)
+```
 
-##########
+We then run a short for-loop calculates the number of alternative designs that focus on each barrier, and then we calculate the total number of alternatives.
+
+```{r}
 #Compute the number of alternatives at each barrier
 nalts <- c()
 for(i in 1:nbar){nalts[i] <- length(which(barrieralts$BarrierID == bnames[i]))}
+
 nalts.total <- prod(nalts) #Compute the total number of combinations of actions
+```
 
+We see from the `nalts` and `nalts.total` objects that the number of alternatives for each barrier varies from one for the first two barriers and 4 for the next two, resulting in a total of 16 alternatives.
+
+Next, we create a list which stores all alternatives at each site. This list stores the row number of each alternative from `barrieralts`.
+
+```{r}
 ##########
-#Create a list which stores all alternatives at each site
-  #This list stores the row number of each alternative from "barrieralts".
 site.alts <- list() #Create an empty list to store the combinations of sites/alts
-for(i in 1:nbar){site.alts[i] <- list(which(barrieralts$BarrierID == bnames[i]))}
 
-#Compute all combinations of alternatives and sites
-  #This returns a data frame where each columns is a site or barrier and each row is a unique plan with a combination of sites and alternatives.
+for(i in 1:nbar){site.alts[i] <- list(which(barrieralts$BarrierID == bnames[i]))}
+```
+
+Our final data preparation step is to compute all combinations of alternatives and sites. We do this using the `expand.grid` function, which creates a data frame from all combinations of variables in our `site.alts` list Within the data frame, each column is a site/barrier and each row is a unique plan with a combination of sites and alternatives. This dataframe needs to be converted to a matrix for the analysis.
+```{r}
 sitealts.combos <- expand.grid(site.alts)
 
 #Convert this data frame to a matrix 
 sitealts.combos <- data.matrix(sitealts.combos)
+```
 
-##########
-#Compute connectivity for each plan
+We're now ready to compute our change in connectivity for each alternative. We use a for-loop to access the relevant passability habitat values from our `barrieralts` data frame, and then using our `connectivity` function to calculate our connectivity metric.
+```{r}
 WC.out <- c() #Empty vector to store watershed connectivity for each plan
 for(i in 1:nalts.total){
   #Isolate the passability and habitat values to be used
@@ -125,7 +139,10 @@ for(i in 1:nalts.total){
   #Compute connectivity and store result
   WC.out[i] <- connectivity(nbar,A,pass.temp,hab.temp)
 }
+```
 
+Finally, we can make another table to view the connectivity indices associated with our different alternatives.
+```{r}
 ##########
 #Send output from the example problem as a table
 WC.HRE <- matrix(NA, nrow=nalts.total,ncol=nbar+2)
@@ -135,22 +152,16 @@ knitr::kable(WC.HRE, caption="Table 4. Alternatives analysis using the WUCT in t
 
 ```
 
-## **Summary**
+## Discussion 
+Here we demonstrated a procedure for quantifying benefits or impacts to organisms of altering riverine barrieres. The model focuses on upstream movement of migratory organisms such as fish and operates at the watershed-scale. The algorithm is based on four primary components: habitat quantity upstream of a dam, habitat quality upstream of a dam, the passability of a structure for a given organism, and the shape/topology of the watershed. This algorithm combines these data to estimate quality-weighted, accessible habitat at the watershed scale. 
 
-This model document describes a procedure for quantifying benefits associated with removal of organism movement barriers within a watershed (e.g., dam removal, culvert repair, fish ladder installation) or impacts of barrier addition (e.g., dam construction, weir installation). The model focuses on upstream movement of migratory organisms such as fish and operates at the watershed-scale. The algorithm is based on four primary components: habitat quantity upstream of a dam, habitat quality upstream of a dam, the passability of a structure for a given organism, and the shape/topology of the watershed. This algorithm combines these data to estimate quality-weighted, accessible habitat at the watershed scale. 
+This modeling framework has been applied to multiple USACE projects with varying input parameters and ecological contexts. A few notable **limitations and assumptions** include the following issues. 
 
-This modeling framework has been applied to multiple USACE projects with varying input parameters and ecological contexts. A few notable **limitations and assumptions** include the following issues. Future improvements to the WUCT should consider addressing these limitations.  
-
-* Upstream only movement. The current model only incorporates movement upstream, which implicitly assumes downstream movement is not a limiting factor for the organism's life cycle. However, downstream movement can be an important driver of ecological function (e.g., fish trapping in agricultural diversion ditches or fish mortality due to hydropower turbines). Other connectivity algorithms can incorporate bidirectional movement, but are not currently incorporated into the WUCT.  
+* Upstream only movement. The current model only incorporates movement upstream, which implicitly assumes downstream movement is not a limiting factor for the organism's life cycle. However, downstream movement can be an important driver of ecological function (e.g., fish trapping in agricultural diversion ditches or fish mortality due to hydropower turbines). Other connectivity algorithms can incorporate bidirectional movement.
 * The WUCT is primarily applicable in the context of migratory fishes because of the focus on connectivity to the outlet of the system. Alternative connectivity algorithms exist for resident fishes (e.g., Cote et al. 2009).  
 * Numerical limits. The basic WUCT algorithm and the example application are extremely flexible for large-scale examination of watershed priorities and benefits. However, numerical problem size increases rapidly with the number of barriers are alternatives. For instance, a watershed with 30 barriers considering only the presence or absence of the barriers could result in more than a billion combinations of actions. As such, care should be taken to limit problem size to the extent practicable.  
-* User interface. The lack of a user interface limits the applicability of the toolkit to those familiar with the R programming language.
 
 ## Summary
 
 - The WUCT is a simple, flexible framework for quantifying the connectivity of watersheds and potential improvements through restoration actions
-- The adaptability of the framework is a primary strength of the tool, but this flexibility could also leads to significant variation in its application.
-
-
-
-
+- The adaptability of the framework is a primary strength of the tool, although this flexibility could also leads to significant variation in its application.
