@@ -2,18 +2,18 @@
 
 # R for GIS
 
-Use this info here:
+<span style="font-style:italic; font-size:20pt;">In Development</span>
+
+## Overview
+
+Spatial analyses are often conducted in specialized software programs (e.g., ArcGIS, QGIS). However, many of the analyses carried out in these programs can also be accomplished in R, including map-making and topological procedures (e.g., spatial intersects, unions, joins, etc.). Many times, doing these procedures in R can be extremely convenient and effective, especially for data that is already being manipulated/wrangled in the R environment. Furthermore, doing spatial analyses with a script leaves a complete record of what manipulations were done, which is often not the case with spatial analyses carried out with point-and-click, GUI-based programs.
+
+For topological operations, the `sf` [package](https://r-spatial.github.io/sf/) has extensive documentation and utility.
+
+For dynamic maps (i.e., maps that can be zoomed in and out), the mapview [package](https://r-spatial.github.io/mapview/) or `leaflet` [package](https://rstudio.github.io/leaflet/) are both widely used tools.
+
+For static maps (i.e., ones for reports or papers), objects created with the `sf` package can be visualized using ggplot with the function `geom_sf()`.
+
+Extensive information about performing spatial analysis in R is available here:
 https://rspatial.org/index.html
-
-## Objectives
-
-
-## Common operations
-
-### Intersections
-### Re-projecting
-### Buffers
-
-
-
 
