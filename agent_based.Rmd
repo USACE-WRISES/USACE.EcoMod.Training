@@ -1,5 +1,9 @@
 # Agent-based Models
 
-Consider exploring the abmR package to conduct agent-based models in R
+<span style="font-style:italic; font-size:20pt;">In Development</span>
 
-https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.14014
+## Overview
+
+Agent-based models (ABMs) are models that focus on the behavior of individual organisms who interact with other individuals and the environment. The collective interactions lead to emergent patterns at the population, community and ecosystem level, such as movement, habitat use patterns, and population dynamics. ABMs can be used to understand the dynamics of systems and predict how populations may be affected by conservation or management actions.  
+
+Agent-based models are often conducted using the NetLogo program or other programs outside of R. R users might consider exploring the NetLogoR package to conduct agent-based models in R (see package website [here](https://netlogor.predictiveecology.org/index.html))
