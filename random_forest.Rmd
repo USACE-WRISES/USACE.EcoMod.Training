@@ -30,7 +30,7 @@ Yes. Machine learning (ML) has a reputation for complexity and technical difficu
 ### What programs can I use for ML?
 There are lots of tools/programs for running ML algorithms, but one very accessible way is to use the tidymodels packages in R, which provides an integrated framework for using dozens of different ML algorithms. Different algorithms might make sense for different applications. Here we use random forest, an algorithm that's been popular for decades because of its flexibility, performance, relative ease, and suitability for tabular data (i.e., spreadsheets).
 
-### How does random forest Work
+### How does random forest work
 Random forest is an extension of a technique called decision trees. Decision trees, like other supervised machine learning algorithms, are designed to predict outcomes based on input data. There are two main types of outcomes that decision trees might predict:
 - Classification: predicting categorical outcomes (e.g., present/absent; male/female, etc.)
 - Regression: predicting numeric outcomes (e.g., abundance of fish; number of species, etc.)
