@@ -138,12 +138,12 @@
 <span class="header-section-number">15.4</span> Case study code<a class="anchor" aria-label="anchor" href="#case-study-code"><i class="fas fa-link"></i></a>
 </h2>
 <p>First we import Bronx River barrier and adjacency data. To maximize the ease of using this code, users should change the column names of their input data to match the column names in the example data frame.</p>
-<div class="sourceCode" id="cb395"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb390"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Import data</span></span>
 <span><span class="va">barrieralts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/WUCT_HREData_2018-07-18_BarrierAlts.csv"</span>, header<span class="op">=</span><span class="cn">TRUE</span>, dec<span class="op">=</span><span class="st">"."</span><span class="op">)</span></span>
 <span><span class="va">A</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.matrix.html">data.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/WUCT_HREData_2018-07-18_Adjacency.csv"</span>, header<span class="op">=</span><span class="cn">FALSE</span>, dec<span class="op">=</span><span class="st">"."</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>We can view the import data as a table using the <code>knitr</code> package.</p>
-<div class="sourceCode" id="cb396"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb391"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">barrieralts</span>, caption<span class="op">=</span><span class="st">"Table 3. Input data for the WUCT to the Bronx River as described in the text. Each node specifies the existing condition (shown as Alt=0), and multiple restoration alternatives are also be specified for each node (shown as Alt&gt;0)."</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
 <caption>
@@ -230,12 +230,12 @@
 </table></div>
 <p>Next we create <code>connectivity</code> function. The code to create this function can be used in other applications.</p>
 <p>Next we need to create objects vectors of the names of the barriers, as well as the number of barriers.</p>
-<div class="sourceCode" id="cb397"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb392"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#Isolate properties of the alternatives at each barrier</span></span>
 <span><span class="va">bnames</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">barrieralts</span><span class="op">$</span><span class="va">BarrierID</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">nbar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">bnames</span><span class="op">)</span></span></code></pre></div>
 <p>We then run a short for-loop calculates the number of alternative designs that focus on each barrier, and then we calculate the total number of alternatives.</p>
-<div class="sourceCode" id="cb398"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb393"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#Compute the number of alternatives at each barrier</span></span>
 <span><span class="va">nalts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">nbar</span><span class="op">)</span><span class="op">{</span><span class="va">nalts</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">barrieralts</span><span class="op">$</span><span class="va">BarrierID</span> <span class="op">==</span> <span class="va">bnames</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span><span class="op">)</span><span class="op">}</span></span>
@@ -243,19 +243,19 @@
 <span><span class="va">nalts.total</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/prod.html">prod</a></span><span class="op">(</span><span class="va">nalts</span><span class="op">)</span> <span class="co">#Compute the total number of combinations of actions</span></span></code></pre></div>
 <p>We see from the <code>nalts</code> and <code>nalts.total</code> objects that the number of alternatives for each barrier varies from one for the first two barriers and 4 for the next two, resulting in a total of 16 alternatives.</p>
 <p>Next, we create a list which stores all alternatives at each site. This list stores the row number of each alternative from <code>barrieralts</code>.</p>
-<div class="sourceCode" id="cb399"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb394"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">##########</span></span>
 <span><span class="va">site.alts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">)</span> <span class="co">#Create an empty list to store the combinations of sites/alts</span></span>
 <span></span>
 <span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">nbar</span><span class="op">)</span><span class="op">{</span><span class="va">site.alts</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">barrieralts</span><span class="op">$</span><span class="va">BarrierID</span> <span class="op">==</span> <span class="va">bnames</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span><span class="op">)</span><span class="op">}</span></span></code></pre></div>
 <p>Our final data preparation step is to compute all combinations of alternatives and sites. We do this using the <code>expand.grid</code> function, which creates a data frame from all combinations of variables in our <code>site.alts</code> list Within the data frame, each column is a site/barrier and each row is a unique plan with a combination of sites and alternatives. This dataframe needs to be converted to a matrix for the analysis.</p>
-<div class="sourceCode" id="cb400"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb395"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sitealts.combos</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid</a></span><span class="op">(</span><span class="va">site.alts</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">#Convert this data frame to a matrix </span></span>
 <span><span class="va">sitealts.combos</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.matrix.html">data.matrix</a></span><span class="op">(</span><span class="va">sitealts.combos</span><span class="op">)</span></span></code></pre></div>
 <p>We’re now ready to compute our change in connectivity for each alternative. We use a for-loop to access the relevant passability habitat values from our <code>barrieralts</code> data frame, and then using our <code>connectivity</code> function to calculate our connectivity metric.</p>
-<div class="sourceCode" id="cb401"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb396"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">WC.out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">)</span> <span class="co">#Empty vector to store watershed connectivity for each plan</span></span>
 <span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">nalts.total</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="co">#Isolate the passability and habitat values to be used</span></span>
@@ -266,7 +266,7 @@
 <span>  <span class="va">WC.out</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">connectivity</span><span class="op">(</span><span class="va">nbar</span>,<span class="va">A</span>,<span class="va">pass.temp</span>,<span class="va">hab.temp</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>Finally, we can make another table to view the connectivity indices associated with our different alternatives.</p>
-<div class="sourceCode" id="cb402"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb397"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">##########</span></span>
 <span><span class="co">#Send output from the example problem as a table</span></span>
 <span><span class="va">WC.HRE</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="cn">NA</span>, nrow<span class="op">=</span><span class="va">nalts.total</span>,ncol<span class="op">=</span><span class="va">nbar</span><span class="op">+</span><span class="fl">2</span><span class="op">)</span></span>
