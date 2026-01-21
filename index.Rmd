@@ -16,31 +16,33 @@ Ecological models are an important tool for ecosystem restoration planning withi
 
 ## Intended audience {-}
 * Modeling experience: Those considering themselves “modelers” on projects, with some familiarity with ecological modeling, or wanting to expand their modeling toolbox. Those open to learning how to use code.
-* Career trajectory: USACE planners, biologists, and geospatial analysts; this course may also benefit ecological/environmental engineers who .
+* Career trajectory: USACE planners, biologists, and geospatial analysts; this course may also benefit ecological/environmental engineers who want to work with data, produce data-driven reports, or generate compelling graphs.
 * Institutional context: USACE team members; partners working closely with USACE.
-* Pre-requisites: None! Although some familiarity with ecological models and how they are used in USACE may be useful. Similarly, experience with numerical modeling, coding, and data analysis may also help but is not required.
+* Pre-requisites: None! Some familiarity with ecological models and how they are used in USACE may be useful, but some of this understanding can be derived from the material. Similarly, experience with numerical modeling, coding, and data analysis may also help but is not required.
 
 ## Learning objectives {-}
 * Become familiar with R coding basics, the RStudio environment, and the benefits of using R for conducting analyses.
 * Learn some important building blocks of data “wrangling” and visualization in R.
 * Learn key methods for seeking help with R coding problems.
 * Increase familiarity with existing habitat modeling tools.
-* Develop ability to conduct basic non-habitat ecological modeling and compare with traditional habitat models.
+* Develop ability to conduct some non-habitat ecological modeling and compare with traditional habitat models.
+* Learn how to use R for other data science tasks, such as accessing public data online and conducting reproducible research.
 
 ## Module format {-}
-Asynchronous, self-directed modules accompanied by full R scripts to carry out analyses. This format was selected because it is:
+Asynchronous, self-directed modules accompanied by R code to carry out analyses. This format was selected because it is:
 
 * Durable (i.e., tutorials persist online)  
 * Flexible for learners  
 * Has potential impact beyond USACE  
 
 ## Module structure {-}
-* Background for context (5-10 minutes)
+Module structure varies but many modules have the following content:
+* Background for context (5-15 minutes)
 * Coding mechanics (10-20 minutes)
-* Application of the code to a real problem (10-20 minutes)
+* Application of the code to a case study (10-30 minutes)
 
 ## Additional resources to be provided by instructors {-}
-* Potential zoom “office hours” to assist trainees with coding and data troubleshooting
+* Potential zoom “office hours” to assist trainees with coding and data troubleshooting. To inquire about this, contact the tutorial organizer listed below.
 * Links to vetted resources for working with R, RStudio, and ecological models
 
 ## Course subject matter {-}
@@ -48,3 +50,7 @@ Asynchronous, self-directed modules accompanied by full R scripts to carry out a
 The training course will include modules that introduce users to coding in R, followed by modules that focus on different ecological modeling topics. Users who are already proficient with R and RStudio but wish to learn more about ecological modeling may skip directly to specific modules relevant to their goals.
 
 Modules on the basics of using R and RStudio (modules 1 through 4) are adapted from an open-source course entitled [Data Analysis and Visualization in R for Ecologists](https://datacarpentry.github.io/R-ecology-lesson/introduction-r-rstudio.html)^[Sections using this source are licensed under [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/) by the authors which enables its adaptation. This material is Copyright (c) Data Carpentry] created by [The Carpentries](https://carpentries.org/), a community of instructors and trainers who teach foundational data science skills to other researchers. This course is designed for a ~6 hour workshop, but has also been adapted into multiple standalone videos (e.g., [here](https://www.youtube.com/watch?v=AJKd8Av6uoQ&list=PLwFqvDRX_4sJ0HnNGXlWjd8A7vFi2k0wp&index=8)); we divide these workshop materials into four modules.
+
+## Contact us! {-}
+
+The current editor and organizer of this material is Ed Stowe, an ecologist and ORISE Postdoctoral Fellow at USACE ERDC Environmental Lab. For inquiries about the material or requests to help, feel free to contact him at: edward.s.stowe AT erdc.dren.mil
