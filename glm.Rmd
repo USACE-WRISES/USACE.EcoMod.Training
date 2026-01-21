@@ -83,7 +83,7 @@ carp_long <- fish_binary %>%
 In `pivot_longer` we tell which columns we want to combine, what we should name the column that now inclues the variable names and what we should name the column that includes the variable values.
 
 Now we can plot the variables.
-```{r}
+```{r, warning = FALSE}
 ggplot(carp_long, 
          aes(value, CARP))+
   geom_jitter(height = .1, width = .02, alpha =0.5, color = "steelblue")+
@@ -128,7 +128,7 @@ These values indicate that the odds of occurrence are `r round(exp(glm.bin$coeff
 
 We can now use ggplot to generate a graph of these model results looking at the effect of depth on Carp occurrence probability. Note, however, that this is only approximate, as our model also included other parameters, and this plot merely considers depth. 
 
-```{r}
+```{r, warning = FALSE}
 ggplot(fish_binary, aes(x = depth, y = CARP)) +
   geom_jitter(height = 0.05, width = 0.05) +
   stat_smooth(
@@ -146,7 +146,7 @@ ggplot(fish_binary, aes(x = depth, y = CARP)) +
 ### Example poisson regression anaysis
 What if we want to model counts? For example, do we think counts of Largemouth Bass (LMBS) might change as a function of environmental predictors? We can first plot counts of LMBS as a function of predictors using `ggplot`.
 
-```{r}
+```{r, warning = FALSE}
 umr_sub %>%
   select(LMBS, secchi:do) %>%
   pivot_longer(cols = secchi:do, names_to = "variable", values_to = "value") %>%
@@ -203,7 +203,7 @@ newdat <- newdat %>%
 ```
 
 Finally we can plot our new predicted counts across different values for current.
-```{r}
+```{r, warning = FALSE}
 ggplot(newdat, aes(x = current, y = pred_count)) +
   geom_line(color = "blue", size = 1) +
   geom_ribbon(aes(ymin = lwr, ymax = upr), alpha = 0.2, fill = "blue") +
