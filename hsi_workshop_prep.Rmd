@@ -11,14 +11,14 @@ Preparing for this workshop is optional, but if attendees want to run code along
 ## Preparation steps
 
 ### Download R and RStudio
-Use the ACE-IT software portal to download and install the latest version of R. Also do this if you have R but not the latest version (version 4.x.x). You don't need to uninstall old versions. 
+Use the [App Portal](https://app-portal.usace.army.mil/esd/Home) to download and install the latest version of R. (Searching for "R Core Team" may be the easiest way to find R). If you previousy downloaded R, but do not have a recent version (e.g., version 4.5.1), you should also download R. You don't need to uninstall old versions. 
 
-Once you have installed R, download and install R Studio. If you open RStudio and do not see an error like `R cannot be found` than you had success. The console on the lower left should also display the R version that you are using (e.g., 'R version 4.5.2 (2025-10-31) -- "[Not] Part in a Rumble" ').
+Once you have installed R, download and install R Studio. When you open RStudio, the console on the lower left should also display the R version that you downloaded (e.g., 'R version 4.5.2 (2025-10-31) -- "[Not] Part in a Rumble" ').
 
 ### Set up folders
-Create a folder for the project with an informative name (e.g., "hsi_workshop").
+On your computer, create a folder for the project with an informative name (e.g., "hsi_workshop").
 
-Make three additional folders within the project folder:
+Make three additional folders within the "hsi_workshop" folder:  
 * One for data (entitled "data")  
 * One for R scripts (entitled "code")  
 * One for output (entitled "output").
@@ -46,9 +46,11 @@ library(ecorest)
 If you do not see an error like `there is no package called ‘...’` you are good to go! 
 
 ### Download data files
-This tutorial will use two data files that are hosted on Github. To access the files, simply visit the links below and click the download button.  
+This tutorial will use two data files that are hosted on GitHub. To access the files, simply visit the links below and click the download button (*see image below*).  
 
-- [Custom HSI model](../data/SF-TM-HEI_InputData.csv)
-- [Environmental data](../data/SF-TM-HEI_FieldData.csv)
+- [Custom HSI model](https://github.com/USACE-WRISES/USACE.EcoMod.Training/blob/main/data/SF-TM-HEI_InputData.csv)
+- [Environmental data](https://github.com/USACE-WRISES/USACE.EcoMod.Training/blob/main/data/SF-TM-HEI_FieldData.csv)
 
-Once you've downloaded the data files, you should move them into the "data" folder of your project directory.
+![*Downloading data from GitHub*](images/github_download.jpg){width=80%} 
+
+Once you've downloaded the data files, you should move them into the "data" folder of your "hsi_workshop" folder.
