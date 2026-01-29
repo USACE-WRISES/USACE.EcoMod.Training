@@ -247,3 +247,11 @@ downloading-nhd-network-data
 use-epa-streamcat-data-for-land-use
 use-nid-for-dams
 finding-streamgages
+summary-11
+hsi-workshop---21126
+overview-4
+preparation-steps
+download-r-and-rstudio
+set-up-folders
+install-packages
+download-data-files
