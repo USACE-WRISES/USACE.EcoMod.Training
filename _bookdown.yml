@@ -31,4 +31,5 @@ rmd_files: [
 "r_spatial.Rmd", 
 "data_sources.Rmd",
 "gage_data.Rmd",
-"nhd_data.Rmd"]
+"nhd_data.Rmd",
+"hsi_workshop_prep.Rmd"]
