@@ -109,9 +109,8 @@ Here, Parameter code 00060 refers to daily flow in cubic feet per second (cfs).<
 <code class="sourceCode R"><span><span class="va">whatSites</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dataRetrieval/man/read_waterdata_monitoring_location.html">read_waterdata_monitoring_location</a></span><span class="op">(</span>state_name <span class="op">=</span> <span class="st">"Arkansas"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Requesting:
 ## https://api.waterdata.usgs.gov/ogcapi/v0/collections/monitoring-locations/items?f=json&amp;lang=en-US&amp;limit=10000&amp;state_name=Arkansas</code></pre>
-<pre><code>## ⠙ iterating 3 done (0.94/s) | 3.2s⠹ iterating 4 done (0.94/s) | 4.3s⠸ iterating 5 done (0.93/s) |
-## 5.4s⠼ iterating 6 done (0.98/s) | 6.1s⠴ iterating 7 done (1/s) | 6.8s ⠦ iterating 8 done (1/s) |
-## 7.7s</code></pre>
+<pre><code>## ⠙ iterating 3 done (1.4/s) | 2.1s⠹ iterating 4 done (1.3/s) | 3.1s⠸ iterating 5 done (1.3/s) | 4s ⠼
+## iterating 6 done (1.3/s) | 4.7s⠴ iterating 7 done (1.3/s) | 5.5s⠦ iterating 8 done (1.3/s) | 6.3s</code></pre>
 <p>These can be subset to just active sites, or just ones with unit-value flow data (e.g., 15 min flow).</p>
 <div class="sourceCode" id="cb451"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">whatSites</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dataRetrieval/man/whatNWISsites.html">whatNWISsites</a></span><span class="op">(</span>stateCd <span class="op">=</span> <span class="st">"AR"</span>, parameterCd <span class="op">=</span> <span class="st">"00060"</span>, </span>
@@ -166,8 +165,8 @@ Here, Parameter code 00060 refers to daily flow in cubic feet per second (cfs).<
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p</span></span></code></pre></div>
-<pre><code>## Warning: Removed 56 rows containing missing values or values
-## outside the scale range (`geom_line()`).</code></pre>
+<pre><code>## Warning: Removed 61 rows containing missing values or values outside the
+## scale range (`geom_line()`).</code></pre>
 <div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-123-1.png" width="600" height="600"></div>
 <p>Now if we wanted to convert the data to hourly data saved at the end of the hour.</p>
 <p>Create a new data frame so you can open both up and look back and forth to see what you are changing with each step</p>
@@ -184,10 +183,10 @@ Here, Parameter code 00060 refers to daily flow in cubic feet per second (cfs).<
 <span>     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
 <span>     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">flowDat2</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">date_hour</span>, y <span class="op">=</span> <span class="va">flow</span> , color <span class="op">=</span> <span class="va">site_no</span><span class="op">)</span>,</span>
 <span>               linetype<span class="op">=</span><span class="st">"dashed"</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## Warning: Removed 56 rows containing missing values or values
-## outside the scale range (`geom_line()`).</code></pre>
-<pre><code>## Warning: Removed 14 rows containing missing values or values
-## outside the scale range (`geom_line()`).</code></pre>
+<pre><code>## Warning: Removed 61 rows containing missing values or values outside the
+## scale range (`geom_line()`).</code></pre>
+<pre><code>## Warning: Removed 16 rows containing missing values or values outside the
+## scale range (`geom_line()`).</code></pre>
 <div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-124-1.png" width="600" height="600"></div>
 <p>We can also download daily data starting many years ago, including data starting in water year 2020 from these 5 sites on the Buffalo River.</p>
 <div class="sourceCode" id="cb475"><pre class="downlit sourceCode r">
@@ -201,8 +200,8 @@ Here, Parameter code 00060 refers to daily flow in cubic feet per second (cfs).<
 <span>     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
 <span>     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">500000</span>, <span class="fl">5000</span><span class="op">)</span> <span class="op">)</span><span class="op">+</span> </span>
 <span>     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_date.html">scale_x_date</a></span><span class="op">(</span>breaks<span class="op">=</span><span class="st">"6 month"</span>, labels<span class="op">=</span><span class="fu"><a href="https://scales.r-lib.org/reference/date_format.html">date_format</a></span><span class="op">(</span><span class="st">"%Y-%m"</span><span class="op">)</span>,expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span> <span class="op">)</span></span></code></pre></div>
-<pre><code>## Warning: Removed 4 rows containing missing values or values
-## outside the scale range (`geom_line()`).</code></pre>
+<pre><code>## Warning: Removed 4 rows containing missing values or values outside the scale
+## range (`geom_line()`).</code></pre>
 <div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-126-1.png" width="600" height="600"></div>
 <p>If you wanted to write out the gages instead of filtering the data,
 you can reference the site number directly in the function.</p>
