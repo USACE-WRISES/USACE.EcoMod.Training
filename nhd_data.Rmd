@@ -163,13 +163,12 @@ This dataset can be downloaded [online](https://www.epa.gov/national-aquatic-res
 ```
 
 Once it's downloaded, we can load the StreamCatTools package. There are several ways to download NLCD data with this package (see more [here](https://usepa.github.io/StreamCatTools/index.html)), but an easy way to do this is to use the `sc_nlcd` function. Here, we indicate that we are interested in catchment data (`cat`), as opposed to watershed data (`ws`) which is at a bigger scale, and then we are interested in data from Georgia, in the latest year for which NLCD data is available, which is 2019.  
-```{r, ga-nlcd-data}
+```{r, ga-nlcd-data, eval = FALSE}
 library(StreamCatTools)
 
 ga_nlcd <- sc_nlcd(aoi = 'cat', state='GA', year = '2019')
 
 names(ga_nlcd)
-
 ```
 
 We can see that in addition to a column for the catchment COMID, we have the percentage of various land cover types, such as percentage mixed forest (`pctmxfst2019cat`) and columns for urban land cover (high, medium, low, and open).
@@ -178,7 +177,7 @@ We're only interested in land cover data for our watershed, not all of GA. So, w
 
 If we are interested in, say, urban land cover, we can sum across the different categories of urban land cover data, which is accomplished by summing across all columns with names that match the string "urb".
 
-```{r}
+```{r, eval=FALSE}
 catchment_lc <- left_join(catchment, ga_nlcd,
                     by = c("featureid" = "comid")) %>%
   mutate(pct_urb = rowSums(across(matches("urb"))))
@@ -186,7 +185,7 @@ catchment_lc <- left_join(catchment, ga_nlcd,
 
 Let's plot our catchments now to see how urban the different catchments are above the dam.
 
-```{r, plot-urb-lc}
+```{r, plot-urb-lc, eval=FALSE}
 ggplot()+
   geom_sf(data = catchment_lc, aes(fill = pct_urb))+
   geom_sf(data = filter(flowline, streamorde > 2), 
@@ -327,7 +326,7 @@ This suggests that removing Juliette Dam would open up approximately 159 kms of 
 ### Finding streamgages
 
 The applications for the `nhdplusTools` package are extensive. One final application we highlight is to find gages upstream of a point that might be used for a hydrologic analysis. The code below, highly analogous to the code that we have already used, finds gages and flow networks upstream of a gage of interest, in this case a gage in Madison, WI.
-```{r}
+```{r, eval=FALSE}
 # Create starting nldi feature
 nldi_feature <- list(featureSource = "nwissite", 
                      featureID = "USGS-05428500")
