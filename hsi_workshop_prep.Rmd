@@ -1,0 +1,54 @@
+# (PART) Workshop Preparation {-} 
+
+# HSI Workshop - 2/11/26
+
+## Overview
+
+As part of the EMRRP webinar series, Ed Stowe (postdoctoral fellow at ERDC) will lead a short course on HSI modeling using the `ecorest` package. More information on this material can be found [here](https://usace-wrises.github.io/USACE.EcoMod.Training/habitat-suitability-index-models-with-ecorest.html).
+
+Preparing for this workshop is optional, but if attendees want to run code along with the instructor, please complete the following steps to get ready. Please send any questions about the prep or tutorial to Ed (edward.s.stowe AT erdc.dren.mil)
+
+## Preparation steps
+
+### Download R and RStudio
+Use the ACE-IT software portal to download and install the latest version of R. Also do this if you have R but not the latest version (version 4.x.x). You don't need to uninstall old versions. 
+
+Once you have installed R, download and install R Studio. If you open RStudio and do not see an error like `R cannot be found` than you had success. The console on the lower left should also display the R version that you are using (e.g., 'R version 4.5.2 (2025-10-31) -- "[Not] Part in a Rumble" ').
+
+### Set up folders
+Create a folder for the project with an informative name (e.g., "hsi_workshop").
+
+Make three additional folders within the project folder:
+* One for data (entitled "data")  
+* One for R scripts (entitled "code")  
+* One for output (entitled "output").
+
+### Install packages
+
+This modules uses two R packages. Packages are useful sets of R code written by other people to supplement the code included in the base R language. 
+
+To try to install these packages, open RStudio and copy and paste the following command into the console window (look for a blinking cursor on the bottom left), then press the <kbd>Enter</kbd> (Windows) or <kbd>Return</kbd> (MacOS) to execute the command.
+
+```r
+install.packages(c("tidyverse", "ecorest"))
+```
+Alternatively, you can install the packages using RStudio's graphical user interface by going to `Tools > Install Packages` and typing the names of the packages separated by a comma.
+
+R will try to download and install the packages on your machine. 
+
+When the installation has finished, you can try to load the packages by pasting the following code into the console:
+
+```r
+library(tidyverse)
+library(ecorest)
+```
+
+If you do not see an error like `there is no package called ‘...’` you are good to go! 
+
+### Download data files
+This tutorial will use two data files that are hosted on Github. To access the files, simply visit the links below and click the download button.  
+
+- [Custom HSI model](../data/SF-TM-HEI_InputData.csv)
+- [Environmental data](../data/SF-TM-HEI_FieldData.csv)
+
+Once you've downloaded the data files, you should move them into the "data" folder of your project directory.
