@@ -51,6 +51,6 @@ This tutorial will use two data files that are hosted on GitHub. To access the f
 - [Custom HSI model](https://github.com/USACE-WRISES/USACE.EcoMod.Training/blob/main/data/SF-TM-HEI_InputData.csv)
 - [Environmental data](https://github.com/USACE-WRISES/USACE.EcoMod.Training/blob/main/data/SF-TM-HEI_FieldData.csv)
 
-![*Downloading data from GitHub*](images/github_download.jpg){width=80%} 
+![*Downloading data from GitHub*](images/github_download.jpg){width=120%} 
 
 Once you've downloaded the data files, you should move them into the "data" folder of your "hsi_workshop" folder.
