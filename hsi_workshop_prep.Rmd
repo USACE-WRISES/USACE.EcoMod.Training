@@ -1,10 +1,10 @@
 # (PART) Workshop Preparation {-} 
 
-# HSI Workshop - 2/11/26
+# HSI Workshop
 
 ## Overview
 
-As part of the EMRRP webinar series, Ed Stowe (postdoctoral fellow at ERDC) will lead a short course on HSI modeling using the `ecorest` package. More information on this material can be found [here](https://usace-wrises.github.io/USACE.EcoMod.Training/habitat-suitability-index-models-with-ecorest.html).
+As part of the EMRRP webinar series, Ed Stowe (postdoctoral fellow at ERDC) will lead a short course on HSI modeling using the `ecorest` package on 2/11/26. More information on this material can be found [here](https://usace-wrises.github.io/USACE.EcoMod.Training/habitat-suitability-index-models-with-ecorest.html).
 
 Preparing for this workshop is optional, but if attendees want to run code along with the instructor, please complete the following steps to get ready. Please send any questions about the prep or tutorial to Ed (edward.s.stowe AT erdc.dren.mil)
 
