@@ -248,7 +248,7 @@ use-epa-streamcat-data-for-land-use
 use-nid-for-dams
 finding-streamgages
 summary-11
-hsi-workshop---21126
+hsi-workshop
 overview-4
 preparation-steps
 download-r-and-rstudio
