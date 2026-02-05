@@ -45,12 +45,14 @@ library(ecorest)
 
 If you do not see an error like `there is no package called ‘...’` you are good to go! 
 
-### Download data files
-This tutorial will use two data files that are hosted on GitHub. To access the files, simply visit the links below and click the download button (*see image below*).  
+### Download data and script files
+This tutorial will use three data files and one R script that are hosted on GitHub. To access the files, simply visit the links below and click the download button (*see image below*).  
 
 - [Custom HSI model](https://github.com/USACE-WRISES/USACE.EcoMod.Training/blob/main/data/SF-TM-HEI_InputData.csv)
 - [Environmental data](https://github.com/USACE-WRISES/USACE.EcoMod.Training/blob/main/data/SF-TM-HEI_FieldData.csv)
+- [Cost-benefit data](https://github.com/USACE-WRISES/USACE.EcoMod.Training/blob/main/data/beaver_island_cost_ben.csv)
+- [R Script](https://github.com/USACE-WRISES/USACE.EcoMod.Training/blob/main/teaching_scripts/hsi_workshop.R)
 
 ![*Downloading data from GitHub*](images/github_download.jpg){width=120%} 
 
-Once you've downloaded the data files, you should move them into the "data" folder of your "hsi_workshop" folder.
+Once you've downloaded the files, you should move the data files into the "data" folder of your "hsi_workshop" folder and the R script file into the "code" folder.
