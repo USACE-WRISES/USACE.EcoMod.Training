@@ -109,9 +109,9 @@ Here, Parameter code 00060 refers to daily flow in cubic feet per second (cfs).<
 <code class="sourceCode R"><span><span class="va">whatSites</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dataRetrieval/man/read_waterdata_monitoring_location.html">read_waterdata_monitoring_location</a></span><span class="op">(</span>state_name <span class="op">=</span> <span class="st">"Arkansas"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Requesting:
 ## https://api.waterdata.usgs.gov/ogcapi/v0/collections/monitoring-locations/items?f=json&amp;lang=en-US&amp;limit=10000&amp;state_name=Arkansas</code></pre>
-<pre><code>## ⠙ iterating 2 done (0.47/s) | 4.3s⠹ iterating 3 done (0.45/s) | 6.7s⠸ iterating 4 done (0.44/s) |
-## 9.1s⠼ iterating 5 done (0.43/s) | 11.6s⠴ iterating 6 done (0.4/s) | 15.1s ⠦ iterating 7 done
-## (0.36/s) | 19.6s⠧ iterating 8 done (0.39/s) | 20.7s</code></pre>
+<pre><code>## ⠙ iterating 1 done (0.36/s) | 2.8s⠹ iterating 2 done (0.35/s) | 5.7s⠸ iterating 3 done (0.36/s) |
+## 8.3s⠼ iterating 4 done (0.32/s) | 12.6s⠴ iterating 5 done (0.34/s) | 14.8s⠦ iterating 6 done
+## (0.32/s) | 18.6s⠧ iterating 7 done (0.3/s) | 23.3s ⠇ iterating 8 done (0.33/s) | 24.1s</code></pre>
 <p>These can be subset to just active sites, or just ones with unit-value flow data (e.g., 15 min flow).</p>
 <div class="sourceCode" id="cb451"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">whatSites</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dataRetrieval/man/whatNWISsites.html">whatNWISsites</a></span><span class="op">(</span>stateCd <span class="op">=</span> <span class="st">"AR"</span>, parameterCd <span class="op">=</span> <span class="st">"00060"</span>, </span>
@@ -147,7 +147,7 @@ Here, Parameter code 00060 refers to daily flow in cubic feet per second (cfs).<
 <p>The “uv” is going to retrieve the 15min data and Sys.Date is set equal to the date the script is run.</p>
 <div class="sourceCode" id="cb463"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">flowDat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dataRetrieval/man/readNWISuv.html">readNWISuv</a></span><span class="op">(</span><span class="va">whatSites</span><span class="op">$</span><span class="va">site_no</span>, startDate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, parameterCd <span class="op">=</span> <span class="st">"00060"</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## GET: https://waterservices.usgs.gov/nwis/iv/?site=07055646%2C07055660%2C07055680%2C07056000%2C07056700&amp;format=waterml%2C1.1&amp;ParameterCd=00060&amp;startDT=2026-01-30</code></pre>
+<pre><code>## GET: https://waterservices.usgs.gov/nwis/iv/?site=07055646%2C07055660%2C07055680%2C07056000%2C07056700&amp;format=waterml%2C1.1&amp;ParameterCd=00060&amp;startDT=2026-02-05</code></pre>
 <div class="sourceCode" id="cb465"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Rename unwieldy names; dataRetrieval has a function to do that.</span></span>
 <span><span class="va">flowDat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dataRetrieval/man/renameNWISColumns.html">renameNWISColumns</a></span><span class="op">(</span><span class="va">flowDat</span><span class="op">)</span></span></code></pre></div>

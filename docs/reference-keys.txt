@@ -254,4 +254,4 @@ preparation-steps
 download-r-and-rstudio
 set-up-folders
 install-packages
-download-data-files
+download-data-and-script-files
