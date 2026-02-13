@@ -114,7 +114,7 @@ output_wren <- new_env_vars %>%
 write_csv(output_wren, "output/marsh_wren_output.csv")
 
 # Print the table using the knitr package
-knitr::kable(output_tab_wren, 
+knitr::kable(output_wren, 
              digits = 2, 
              padding = 1,
              caption = "Table 1. Habitat Suitability Index (HSI) Variables and 
@@ -229,5 +229,5 @@ ceica_table <- bi_cost_bens %>%
 write_csv(ceica_table, "output/ceica_table.csv")
 
 # Create a plot of CEICA results
-CEICAplotter(bi_cost_bens$AltID, benefits, costs, restCE, bb_vector, "output/CEICAexample.jpeg")
+CEICAplotter(bi_cost_bens$AltID, benefits, costs, restCE, bb_vector, "output/CEICAexample.jpg")
 
