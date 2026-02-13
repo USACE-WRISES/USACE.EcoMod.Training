@@ -4,7 +4,7 @@
 
 **This module will teach you how to run a full machine learning workflow with a random forest model using the tidymodels package in `R`.**
 
-![*Graphical output of a river network along with associated dams created using **`nhdplusTools`** along with data from the National Inventory of Dams.*](images/blgl_pdp.png){width=100%}
+![*Output from a random forest model showing the predicted relationship between Bluegill presence and backwater depths.*](images/blgl_pdp.png){width=100%}
 
 *Authors: Ed Stowe (writing, editing)*   
 *Last update: `r as.Date(file.info('random_forest.Rmd')$mtime)`*  
