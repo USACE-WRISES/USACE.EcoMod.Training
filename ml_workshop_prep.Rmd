@@ -1,5 +1,3 @@
-# (PART) Workshop Preparation {-} 
-
 # Machine Learning Workshop
 
 ## Overview
