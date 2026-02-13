@@ -32,4 +32,5 @@ rmd_files: [
 "data_sources.Rmd",
 "gage_data.Rmd",
 "nhd_data.Rmd",
-"hsi_workshop_prep.Rmd"]
+"hsi_workshop_prep.Rmd",
+"ml_workshop_prep.Rmd"]
