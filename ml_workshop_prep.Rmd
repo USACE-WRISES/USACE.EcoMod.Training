@@ -18,7 +18,7 @@ Use the [App Portal](https://app-portal.usace.army.mil/esd/Home) to download and
 Once you have installed R, download and install R Studio. When you open RStudio, the console on the lower left should also display the R version that you downloaded (e.g., 'R version 4.5.2 (2025-10-31) -- "[Not] Part in a Rumble" ').
 
 ### Set up folders
-On your computer, create a folder for the project with an informative name (e.g., "hsi_workshop").
+On your computer, create a folder for the project with an informative name (e.g., "ml_workshop").
 
 Make three additional folders within the "ml_workshop" folder:  
 * One for data (entitled "data")  
