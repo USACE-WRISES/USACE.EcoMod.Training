@@ -224,7 +224,7 @@ If we collect the metrics from our final model fit we see it has an ROC > .91, w
 
 This suggests that we have a very predictive model for presence of bluegill and one that is not overfit.
 
-Let’s bind our testing results back to the original test set, and make one more map. Where in our pool are there more or less incorrectly predicted trees?
+Let’s bind our testing results back to the original test set, and make one more map. Where in our pool are there more or fewer incorrectly predicted presences or absences?
 
 ```{r, message=FALSE, out.height="70%"}
 # Collect model predictions
@@ -243,6 +243,8 @@ preds %>%
   facet_wrap(~paste("Pool",pool), scales = "free")+
   theme_void()
 ```
+
+Based on this plot, we may want to dig a bit more into why the model seems to be doing less well in the lower portion of the pools, especially in Pools 4 and 13.
 
 ### Examine variable importance and partial dependence
 
