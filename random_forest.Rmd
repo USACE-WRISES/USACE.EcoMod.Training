@@ -62,7 +62,7 @@ This case study will use the `tidymodels` package. We will also load the followi
 - `tidyverse` for plotting and data-handling
 - `doParallel` for tuning models in parallel
 - `vip` for calculating variable importance
-- `DALEXtra` for making partial dependence plots
+- `partial` for making partial dependence plots
 
 These packages should be installed if you have not used them before (e.g., `install.packages("vip")`)
 
@@ -71,7 +71,7 @@ library(tidyverse)
 library(tidymodels)
 library(doParallel)
 library(vip)
-library(DALEXtra)
+library(pdp)
 ```
 
 First, we can import the bluegill occupancy dataset, and look at the data structure
@@ -91,18 +91,14 @@ blgl <- blgl %>%
 
 We may also want to explore the data a bit. Here we look to see if there are any patterns of bluegill occupancy across space, and based on depth.
 ```{r, out.height="70%"}
-filter(blgl,
-       depth < 4) %>%
+filter(blgl, depth < 4) %>%
 ggplot()+
-geom_point(aes(utm_e/1000, utm_n/1000, color = depth, shape = occ))+
+geom_point(aes(utm_e, utm_n, color = depth, shape = occ))+
   facet_wrap(~pool, scales = "free")+
   scale_color_viridis_c()+
-  theme_minimal() +
-  labs(x = "UTM E (thousands of m)",
-       y = "UTM N (thousands of m)",
-       shape = "Presence",
+  theme_void() +
+  labs(shape = "Presence",
        color = "Depth (m)")
-
 ```
 
 Clearly these data are complex, and modeling should help us make sense of it.
@@ -110,7 +106,6 @@ Clearly these data are complex, and modeling should help us make sense of it.
 ### Data partitioning
 Splitting the data is very important so that we have some independent data on which to judge our models performance. Here we split 75% of the data into the dataset that will be used to train the model, and the remainder into the dataset for testing/assessing our model. 75% is the tidymodels default splitting proportion. 
 ```{r}
-set.seed(123)
 blgl_split <- initial_split(blgl, strata = occ, prop = .75)
 blgl_train <- training(blgl_split)
 blgl_test <- testing(blgl_split)
@@ -155,7 +150,6 @@ tune_wf <- workflow() %>%
 Now we're ready to tune the hyperparameters. We need to create a set of cross-validation resamples to use for tuning. This means we'll divide our training data into 10 slices, and sequentially fit models with different hyperparameters using 9 of the slices, and testing it on the 10th slice. This is how we'll figure out the best hyperparameters.
 
 ```{r}
-set.seed(234)
 blgl_folds <- vfold_cv(blgl_train, v = 10)
 ```
 
@@ -165,24 +159,27 @@ We will use parallel processing to make this go faster, but note that this could
 ```{r, tune-rf, message=FALSE}
 doParallel::registerDoParallel()
 
-set.seed(345)
-tune_res <- tune_grid(
+tune_mod <- tune_grid(
   tune_wf,
   resamples = blgl_folds,
   grid = 20
 )
 
-tune_res
+tune_mod
 ```
 
 We can plot the accuracy of our models (using area under the curve, or "AUC") to see which values of our hyperparameters are best. AUC is a score that indicates the balance between the sensitivity and specificity of a model, and thus is a good measure of model generalizability.
 
-It appears that min_n values below 30 and mtry values between 4 and 6 are best.
+It appears that min_n values below ~8 and mtry values between 4 and 7 are best.
 
 ```{r, out.height="70%"}
-tune_res %>%
-  collect_metrics() %>%
-  filter(.metric == "roc_auc") %>%
+tuning_results <- collect_metrics(tune_mod) 
+
+# Subset to just ROC AUC results for plotting
+results_auc <- tuning_results %>%
+  filter(.metric == "roc_auc")
+
+results_auc %>%
   dplyr::select(mean, min_n, mtry) %>%
   pivot_longer(min_n:mtry,
     values_to = "value",
@@ -200,16 +197,13 @@ This grid did not involve every combination of min_n and mtry but we can get an 
 Now that we've tuned models with several different hyperparameters, we can select the best model with the select_best(), and then update our original model specification to create our final model specification.
 
 ```{r}
-best_auc <- select_best(tune_res, metric = "roc_auc")
+best_auc <- select_best(tune_mod, metric = "roc_auc")
 
-final_rf <- finalize_model(
-  tune_spec,
-  best_auc
-)
+final_rf <- finalize_model(tune_spec, best_auc)
 
 final_rf
 ```
-This shows that our final model has an mtry value of 6 and a min_n value of 8. 
+This shows that our final model has an mtry value of 6 and a min_n value of 2. 
 
 To ultimately see how our good our model is, we want to evaluate predictions from the best model against the test dataset.
 
@@ -233,18 +227,20 @@ This suggests that we have a very predictive model for presence of bluegill and 
 Let’s bind our testing results back to the original test set, and make one more map. Where in our pool are there more or less incorrectly predicted trees?
 
 ```{r, message=FALSE, out.height="70%"}
-final_res %>%
-  collect_predictions() %>%
-  mutate(correct = case_when(
+# Collect model predictions
+preds <- final_res %>% collect_predictions()
+
+# Plot where predictions are correct/incorrect 
+preds %>%
+  mutate(Accuracy = case_when(
     occ == .pred_class ~ "Correct",
     TRUE ~ "Incorrect"
   )) %>%
   bind_cols(blgl_test) %>%
-  ggplot(aes(utm_e, utm_n, color = correct)) +
-  geom_point(size = 0.5, alpha = 0.5) +
-  labs(color = NULL) +
+  ggplot(aes(utm_e, utm_n, color = Accuracy)) +
+  geom_point(size = 1, alpha = 0.5) +
   scale_color_manual(values = c("gray80", "darkred"))+
-  facet_wrap(~pool, scales = "free")+
+  facet_wrap(~paste("Pool",pool), scales = "free")+
   theme_void()
 ```
 
@@ -262,54 +258,48 @@ final_rf %>%
 
 This indicates that depth and current are far and away the most important factors determining the presence of bluegill compared to other factors.
 
-We can also look at how these variables influence the probability of occurrence of bluegill using partial dependnece plots, implemeneted here with the DALEXtra package.
+We can also look at how these variables influence the probability of occurrence of bluegill using partial dependence plots, implemented here with the 'partial' package.
 
-To make these plots, we first extract the a fitted workflow from the final model fit object.
-
-Then we create an explainer object using the explain_tidymodels function. We need to provide this function with the final workflow, the data used in the model, other than the response variable `occ' and the response variable, as an integer. 
+To make these plots, we first extract the final fitted workflow and model specification (i.e., engine). 
 
 ```{r}
-
 final_fitted <- final_res$.workflow[[1]]
 
-blgl_explainer <- explain_tidymodels(
-  final_fitted,
-  data = dplyr::select(blgl_train, -occ),
-  y = as.integer(blgl_train$occ),
-  verbose = FALSE
-)
+rf_engine <- extract_fit_engine(final_fitted)
 ```
 
-Once we have the explainer object we can calculate the dependence of occupancy on depth. Here we're including `pool` as a grouping variable to see if the effect of depth varies among pool.
+If we want to predict occurrence of bluegill as a function of depth, we also need to create a new data frame of suitable depth data. Here we pick 50 depth values between 0 and 2.5 meters.
 
 ```{r}
-pdp_depth <- model_profile(
-  blgl_explainer,
-  variables = "depth",
-  N = NULL,
-  groups = "pool"
-)
+new_depths <- data.frame(depth = seq(0, 2.5, length.out = 50))
+
+head(new_depths)
+```
+We can now use the `partial` package to create our partial dependence data (i.e., predicted occurrence of bluegill as a function of depth). We need to provide our model specification (the rf_engine), what variable we are interested in, the name of the training data, whether we want the output calculated on the probability scale, what class we are predicting ("1" means we are interested in when bluegill are present), and what depths we want to predict for (i.e., new_depths).
+
+```{r, pdp-calc}
+pdp_depth <- partial(
+  rf_engine,
+  pred.var = "depth",
+  train = blgl_train,
+  prob = TRUE,
+  which.class = "1",
+  pred.grid = new_depths)
 ```
 
-Now we can plot the partial dependence. We could simply run `plot(pdp_depth)` but we can also plot it manually to have more control over the plot. To do this we can extract the relevant portion of the pdp_depth object, and then plot with ggplot. Note that we filter this dataset to depths < 5m, as there are only a couple of points in the dataset greater than this depth.
-
+Now we can plot the partial dependence with `ggplot`. The column `yhat` represents our predicted probability of occurrence, so that will be on the y-axis.
 
 ```{r, out.height="70%"}
-pdp_df <- as_tibble(pdp_depth$agr_profiles) %>%
-  filter(`_x_` < 5) %>%
-  mutate(`_label_` = str_remove(`_label_`, "workflow_"))
-
-ggplot(pdp_df, aes(`_x_`, `_yhat_`, color = `_label_`)) +
-  geom_line(lwd = 1.2, alpha = 0.8) +
+ggplot(pdp_depth) +
+  geom_line(aes(depth, yhat)) +
   labs(
     x = "Depth",
     y = "Predicted occurrence probability",
-    color = "Period",
-    title = "Partial dependence plot for Bluegill occupancy"
+    title = "Partial dependence plot for bluegill occupancy"
   )
 ```
 
-We can see that in general, increases in depths are associated with increased probability of bluegill presence, which holds across pools, although the pools appear to have different overall probabilities of bluegill occurrence. There is also a dip in probability at depths slightly below 1 m, but further investigation would be needed to see if this is biologically meaningful.
+We can see that in general, increases in depths are associated with increased probability of bluegill presence, with maximum occurrence between depths of 0.5 and 0.8 m. The figure shows a sharp dip in probability at depths slightly below 1 m, but this looks likely to be an artifact of the data, and would require more investigation. A plot like this demonstrates the utility of machine learning in planning context. These types of plots can be used to modify existing HSI models that are used for planning, or develop new HSI models. Futhermore, the model itself could be used to predict occurrence of species of interest, and outputs from those models (as opposed to suitability scores) could be used in the planning context once the model is certified.
 
 ## Summary
 
