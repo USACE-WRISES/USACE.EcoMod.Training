@@ -30,7 +30,7 @@ This modules uses five R packages. Packages are useful sets of R code written by
 To try to install these packages, open RStudio and copy and paste the following command into the console window (look for a blinking cursor on the bottom left), then press the <kbd>Enter</kbd> (Windows) or <kbd>Return</kbd> (MacOS) to execute the command.
 
 ```r
-install.packages(c("tidyverse", "tidymodels", "doParallel", "vip", "DALEXtra"))
+install.packages(c("tidyverse", "tidymodels", "doParallel", "vip", "partial"))
 ```
 Alternatively, you can install the packages using RStudio's graphical user interface by going to `Tools > Install Packages` and typing the names of the packages separated by a comma.
 
@@ -43,7 +43,7 @@ library(tidyverse)
 library(tidymodels)
 library(doParallel)
 library(vip)
-library(DALEXtra)
+library(partial)
 ```
 
 If you do not see an error like `there is no package called ‘...’` you are good to go! 
