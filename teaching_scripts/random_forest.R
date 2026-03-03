@@ -3,9 +3,9 @@ library(tidyverse)
 library(tidymodels)
 library(doParallel)
 library(vip)
-library(DALEXtra)
+library(pdp)
 
-## Import and inspect dataset and  ------------------------------------------------------------
+## Import and inspect dataset ------------------------------------------------------------
 blgl <- read_csv("data/bluegill.csv") 
 str(blgl)
 
@@ -16,17 +16,14 @@ blgl <- blgl %>%
 ## Plot spatial patterns ------------------------------------------------------------
 filter(blgl, depth < 4) %>%
 ggplot()+
-geom_point(aes(utm_e/1000, utm_n/1000, color = depth, shape = occ))+
+geom_point(aes(utm_e, utm_n, color = depth, shape = occ))+
   facet_wrap(~pool, scales = "free")+
   scale_color_viridis_c()+
-  theme_minimal() +
-  labs(x = "UTM E (thousands of m)",
-       y = "UTM N (thousands of m)",
-       shape = "Presence",
+  theme_void() +
+  labs(shape = "Presence",
        color = "Depth (m)")
 
 ## Split data--------------------------------------------------
-set.seed(123)
 blgl_split <- initial_split(blgl, strata = occ, prop = .75)
 blgl_train <- training(blgl_split)
 blgl_test <- testing(blgl_split)
@@ -51,42 +48,37 @@ tune_wf <- workflow() %>%
   add_model(tune_spec)
 
 ## Set up cross-validation for tuning --------------------------------------------------
-set.seed(234)
 blgl_folds <- vfold_cv(blgl_train, v = 10)
 
 ## Tune models --------------------------------------------------
+
+# Enable parallel processing to increase speed
 doParallel::registerDoParallel()
 
-set.seed(345)
-tune_res <- tune_grid(
+# Tune and fit model
+tune_mod <- tune_grid(
   tune_wf,
   resamples = blgl_folds,
   grid = 20
 )
 
-tune_res
+tune_mod
 
 ## Plot tuning results --------------------------------------------------
-tune_res %>%
-  collect_metrics() %>%
-  filter(.metric == "roc_auc") %>%
-  select(mean, min_n, mtry) %>%
-  pivot_longer(min_n:mtry,
-    values_to = "value",
-    names_to = "parameter"
-  ) %>%
-  ggplot(aes(value, mean, color = parameter)) +
-  geom_point(show.legend = FALSE) +
-  facet_wrap(~parameter, scales = "free_x") +
-  labs(x = NULL, y = "AUC")
+tuning_results <- collect_metrics(tune_mod) 
+
+# Subset to just ROC AUC results
+results_auc <- tuning_results %>%
+  filter(.metric == "roc_auc")
+
+ggplot(results_auc) +
+  geom_point(aes(min_n, mean)) +
+  labs(y = "AUC")
 
 ## Select best model and finalize ------------------------------------------------------------
-best_auc <- select_best(tune_res, metric = "roc_auc")
+best_auc <- select_best(tune_mod, metric = "roc_auc")
 
-final_rf <- finalize_model(
-  tune_spec,
-  best_auc
-)
+final_rf <- finalize_model(tune_spec, best_auc)
 
 final_rf
 
@@ -108,19 +100,17 @@ preds <- final_res %>% collect_predictions()
 conf_mat(data = preds, truth = occ, estimate = .pred_class)
 
 ## Plot where correct/incorrect --------------------------------------------------
-final_res %>%
-  collect_predictions() %>%
-  mutate(correct = case_when(
+preds %>%
+  mutate(Accuracy = case_when(
     occ == .pred_class ~ "Correct",
     TRUE ~ "Incorrect"
   )) %>%
   bind_cols(blgl_test) %>%
-  ggplot(aes(utm_e/1000, utm_n/1000, color = correct)) +
-  geom_point(size = 0.5, alpha = 0.5) +
-  labs(color = NULL) +
+  ggplot(aes(utm_e, utm_n, color = Accuracy)) +
+  geom_point(size = 1, alpha = 0.5) +
   scale_color_manual(values = c("gray80", "darkred"))+
   facet_wrap(~paste("Pool",pool), scales = "free")+
-  theme_minimal()
+  theme_void()
 
 ## Calculate variable importance with the vip package --------------------------------------------------
 
@@ -129,38 +119,27 @@ final_rf %>%
   fit(occ ~ ., data = juice(blgl_prep)) %>%
   vip(geom = "point")
 
-## PDP data ------------------------------------------------------------
+## Partial dependence plots ------------------------------------------------------------
 
 final_fitted <- final_res$.workflow[[1]]
 
-### Explainer
-blgl_explainer <- explain_tidymodels(
-  final_fitted,
-  data = dplyr::select(blgl_train, -occ),
-  y = as.integer(blgl_train$occ),
-  verbose = FALSE
-)
+rf_engine <- extract_fit_engine(final_fitted)
 
-## Model profile
-pdp_depth <- model_profile(
-  blgl_explainer,
-  variables = "depth",
-  N = NULL,
-  groups = "pool"
-)
+new_depths <- data.frame(depth = seq(0, 2.5, length.out = 50))
 
-plot(pdp_depth)
-
-## PDP Plot ------------------------------------------------------------
-pdp_df <- as_tibble(pdp_depth$agr_profiles) %>%
-  filter(`_x_` < 5) %>%
-  mutate(`_label_` = str_remove(`_label_`, "workflow_"))
-
-ggplot(pdp_df, aes(`_x_`, `_yhat_`, color = `_label_`)) +
-  geom_line(size = 1.2, alpha = 0.8) +
+pdp_depth <- partial(
+  rf_engine,
+  pred.var = "depth",
+  train = blgl_train,
+  prob = TRUE,
+  which.class = "1",
+  pred.grid = new_depths)
+  
+# Plot
+ggplot(pdp_depth) +
+  geom_line(aes(depth, yhat)) +
   labs(
     x = "Depth",
     y = "Predicted occurrence probability",
-    color = "Pool",
-    title = "Partial dependence plot for Largemouth bass occupancy"
+    title = "Partial dependence plot for bluegill occupancy"
   )
