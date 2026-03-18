@@ -79,6 +79,7 @@
 <li class="book-part">Workshop Preparation</li>
 <li><a class="" href="hsi-workshop.html"><span class="header-section-number">24</span> HSI Workshop</a></li>
 <li><a class="" href="machine-learning-workshop.html"><span class="header-section-number">25</span> Machine Learning Workshop</a></li>
+<li><a class="" href="ggplot-workshop.html"><span class="header-section-number">26</span> ggplot Workshop</a></li>
 </ul>
 
         <div class="book-extra">
@@ -125,20 +126,21 @@
 </div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Warning: package 'ggplot2' was built under R version 4.4.3</code></pre>
 <p>Later we will learn how to read data from external files into R, but for now we are going to use a clean and ready-to-use dataset that is provided by the <strong><code>ratdat</code></strong> data package. To make our dataset available, we need to load this package too.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">ratdat</span><span class="op">)</span></span></code></pre></div>
 <p>The <code>ratdat</code> package contains data from the <a href="https://github.com/weecology/PortalData">Portal Project</a>, which is a long-term dataset from Portal, Arizona, in the Chihuahuan desert.</p>
 <p>We will be using a dataset called <code>complete_old</code>, which contains older years of mammal survey data. Let’s try to learn a little bit about the data. We can use a <code>?</code> in front of the name of the dataset, which will bring up the help page for the data.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">?</span><span class="va">complete_old</span></span></code></pre></div>
 <p>Here we can read descriptions of each variable in our data.</p>
 <p>To actually take a look at the data, we can use the <code><a href="https://rdrr.io/r/utils/View.html">View()</a></code> function to open an interactive viewer, which behaves like a simplified version of a spreadsheet program. It’s a handy function, but somewhat limited when trying to view large datasets.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/View.html">View</a></span><span class="op">(</span><span class="va">complete_old</span><span class="op">)</span></span></code></pre></div>
 <p>If you hover over the tab for the interactive <code><a href="https://rdrr.io/r/utils/View.html">View()</a></code>, you can click the “x” that appears, which will close the tab.</p>
 <p>We can find out more about the dataset by using the <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> function to examine the <strong>str</strong>ucture of the data.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">complete_old</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## tibble [16,878 × 13] (S3: tbl_df/tbl/data.frame)
 ##  $ record_id      : int [1:16878] 1 2 3 4 5 6 7 8 9 10 ...
@@ -167,28 +169,28 @@
 <p>Some languages, like Python, require certain spacing or indentation for code to run properly. This isn’t the case in R, so if you see spaces or indentation in the code from this lesson, it is to improve readability.</p>
 </div>
 <p>To build a plot, we will use a basic template that can be used for different types of plots:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="data-visualization-with-ggplot2.html#cb10-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> <span class="sc">&lt;</span>DATA<span class="sc">&gt;</span>, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="sc">&lt;</span>MAPPINGS<span class="sc">&gt;</span>)) <span class="sc">+</span> <span class="er">&lt;</span>GEOM_FUNCTION<span class="sc">&gt;</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="data-visualization-with-ggplot2.html#cb11-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> <span class="sc">&lt;</span>DATA<span class="sc">&gt;</span>, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="sc">&lt;</span>MAPPINGS<span class="sc">&gt;</span>)) <span class="sc">+</span> <span class="er">&lt;</span>GEOM_FUNCTION<span class="sc">&gt;</span>()</span></code></pre></div>
 <p>We use the <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> function to create a plot. In order to tell it what data to use, we need to specify the <code>data</code> <strong>argument</strong>. An argument is an input that a function takes, and you set arguments using the <code>=</code> sign.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">complete_old</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="usace_R_training_files/figure-html/bare-plot-1.png" width="600" height="600"></div>
 <p>We get a blank plot because we haven’t told <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> which variables we want to correspond to parts of the plot. We can specify the “mapping” of variables to plot elements, such as x/y coordinates, size, or shape, by using the <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code> function. We’ll also add a comment, which is any line starting with a <code>#</code>. It’s a good idea to use comments to organize your code or clarify what you are doing.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># adding a mapping to x and y axes</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">complete_old</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">weight</span>, y <span class="op">=</span> <span class="va">hindfoot_length</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="usace_R_training_files/figure-html/plot-with-axes-1.png" width="600" height="600"></div>
 <p>Now we’ve got a plot with x and y axes corresponding to variables from <code>complete_old</code>. However, we haven’t specified how we want the data to be displayed. We do this using <code>geom_</code> functions, which specify the type of <code>geom</code>etry we want, such as points, lines, or bars. We can add a <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point()</a></code> layer to our plot by using the <code>+</code> sign. We indent onto a new line to make it easier to read, and we have to <strong>end</strong> the first line with the <code>+</code> sign.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">complete_old</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">weight</span>, y <span class="op">=</span> <span class="va">hindfoot_length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## Warning: Removed 3081 rows containing missing values or
-## values outside the scale range (`geom_point()`).</code></pre>
+<pre><code>## Warning: Removed 3081 rows containing missing values or values outside the scale range
+## (`geom_point()`).</code></pre>
 <div class="inline-figure"><img src="usace_R_training_files/figure-html/scatter-plot-1.png" width="600" height="600"></div>
 <p>You may notice a warning that missing values were removed. If a variable necessary to make the plot is missing from a given row of data (in this case, <code>hindfoot_length</code> or <code>weight</code>), it can’t be plotted. <code>ggplot2</code> just uses a warning message to let us know that some rows couldn’t be plotted.</p>
 <div class="callout">
 <p><strong>Warning</strong> messages are one of a few ways R will communicate with you. Warnings can be thought of as a “heads up”. Nothing necessarily went <em>wrong</em>, but the author of that function wanted to draw your attention to something. In the above case, it’s worth knowing that some of the rows of your data were not plotted because they had missing data.</p>
 <p>A more serious type of message is an <strong>error</strong>. Here’s an example:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">complete_old</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">weight</span>, y <span class="op">=</span> <span class="va">hindfoot_length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_poit</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Error in geom_poit(): could not find function "geom_poit"</code></pre>
@@ -200,28 +202,28 @@
 <span class="header-section-number">2.4</span> Changing aesthetics<a class="anchor" aria-label="anchor" href="#changing-aesthetics"><i class="fas fa-link"></i></a>
 </h2>
 <p>Building <strong><code>ggplot</code></strong> plots is often an iterative process, so we’ll continue developing the scatter plot we just made. You may have noticed that parts of our scatter plot have many overlapping points, making it difficult to see all the data. We can adjust the transparency of the points using the <code>alpha</code> argument, which takes a value between 0 and 1:</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">complete_old</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">weight</span>, y <span class="op">=</span> <span class="va">hindfoot_length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="usace_R_training_files/figure-html/change-alpha-1.png" width="600" height="600"></div>
 <p>We can also change the color of the points:</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">complete_old</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">weight</span>, y <span class="op">=</span> <span class="va">hindfoot_length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.2</span>, color <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="usace_R_training_files/figure-html/change-color-1.png" width="600" height="600"></div>
 <div class="callout">
 <p>Two common issues you might run into when working in R are forgetting a closing bracket or a closing quote. Let’s take a look at what each one does.</p>
 <p>Try running the following code:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="data-visualization-with-ggplot2.html#cb19-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> complete_old, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> weight, <span class="at">y =</span> hindfoot_length)) <span class="sc">+</span></span>
-<span id="cb19-2"><a href="data-visualization-with-ggplot2.html#cb19-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">alpha =</span> <span class="fl">0.2</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="data-visualization-with-ggplot2.html#cb20-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> complete_old, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> weight, <span class="at">y =</span> hindfoot_length)) <span class="sc">+</span></span>
+<span id="cb20-2"><a href="data-visualization-with-ggplot2.html#cb20-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">alpha =</span> <span class="fl">0.2</span></span></code></pre></div>
 <p>You will see a <code>+</code> appear in your console. This is R telling you that it expects more input in order to finish running the code. It is missing a closing bracket to end the <code>geom_point</code> function call. You can hit <kbd>Esc</kbd> in the console to reset it.</p>
 <p>Something similar will happen if you run the following code:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="data-visualization-with-ggplot2.html#cb20-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> complete_old, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> weight, <span class="at">y =</span> hindfoot_length)) <span class="sc">+</span></span>
-<span id="cb20-2"><a href="data-visualization-with-ggplot2.html#cb20-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"blue, alpha = 0.2)</span></span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="data-visualization-with-ggplot2.html#cb21-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> complete_old, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> weight, <span class="at">y =</span> hindfoot_length)) <span class="sc">+</span></span>
+<span id="cb21-2"><a href="data-visualization-with-ggplot2.html#cb21-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"blue, alpha = 0.2)</span></span></code></pre></div>
 <p>A missing quote at the end of <code>blue</code> means that the rest of the code is treated as part of the quote, which is a bit easier to see since RStudio displays character strings in a different color.</p>
 <p>You will get a different error message if you run the following code:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="data-visualization-with-ggplot2.html#cb21-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> complete_old, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> weight, <span class="at">y =</span> hindfoot_length)) <span class="sc">+</span></span>
-<span id="cb21-2"><a href="data-visualization-with-ggplot2.html#cb21-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>)<span class="er">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="data-visualization-with-ggplot2.html#cb22-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> complete_old, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> weight, <span class="at">y =</span> hindfoot_length)) <span class="sc">+</span></span>
+<span id="cb22-2"><a href="data-visualization-with-ggplot2.html#cb22-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>)<span class="er">)</span></span></code></pre></div>
 <p>This time we have an extra closing <code>)</code>, which R doesn’t know what to do with. It tells you there is an unexpected <code>)</code>, but it doesn’t pinpoint exactly where. With enough time working in R, you will get better at spotting mismatched brackets.</p>
 </div>
 <div id="adding-another-variable" class="section level3" number="2.4.1">
@@ -229,7 +231,7 @@
 <span class="header-section-number">2.4.1</span> Adding another variable<a class="anchor" aria-label="anchor" href="#adding-another-variable"><i class="fas fa-link"></i></a>
 </h3>
 <p>Let’s try coloring our points according to the sampling plot type (plot here refers to the physical area where rodents were sampled and has nothing to do with making graphs). Since we’re now mapping a variable (<code>plot_type</code>) to a component of the ggplot2 plot (<code>color</code>), we need to put the argument inside <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code>:</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">complete_old</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">weight</span>, y <span class="op">=</span> <span class="va">hindfoot_length</span>, color <span class="op">=</span> <span class="va">plot_type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="usace_R_training_files/figure-html/color-plot-type-1.png" width="600" height="600"></div>
@@ -245,7 +247,7 @@
 <p>Do you think this is a good way to represent <code>sex</code> with these data?</p>
 <div class="solution">
 <p><span id="unlabeled-div-1" class="solution"><em>Solution</em>. </span></p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">complete_old</span>, </span>
 <span>       mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">weight</span>, y <span class="op">=</span> <span class="va">hindfoot_length</span>, shape <span class="op">=</span> <span class="va">sex</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span></code></pre></div>
@@ -256,7 +258,7 @@
 </ol>
 <div class="solution">
 <p><span id="unlabeled-div-2" class="solution"><em>Solution</em>. </span></p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">complete_old</span>, </span>
 <span>       mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">weight</span>, y <span class="op">=</span> <span class="va">hindfoot_length</span>, color <span class="op">=</span> <span class="va">year</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span></code></pre></div>
@@ -271,13 +273,13 @@
 <span class="header-section-number">2.6</span> Changing scales<a class="anchor" aria-label="anchor" href="#changing-scales"><i class="fas fa-link"></i></a>
 </h2>
 <p>The default discrete color scale isn’t always ideal: it isn’t friendly to viewers with colorblindness and it doesn’t translate well to grayscale. However, <strong><code>ggplot2</code></strong> comes with quite a few other color scales, including the fantastic <code>viridis</code> scales, which are designed to be colorblind and grayscale friendly. We can change scales by adding <code>scale_</code> functions to our plots:</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">complete_old</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">weight</span>, y <span class="op">=</span> <span class="va">hindfoot_length</span>, color <span class="op">=</span> <span class="va">plot_type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">scale_color_viridis_d</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="usace_R_training_files/figure-html/scale-viridis-1.png" width="600" height="600"></div>
 <p>Scales don’t just apply to colors- any plot component that you put inside <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code> can be modified with <code>scale_</code> functions. Just as we modified the scale used to map <code>plot_type</code> to <code>color</code>, we can modify the way that <code>weight</code> is mapped to the <code>x</code> axis by using the <code><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_log10()</a></code> function:</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">complete_old</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">weight</span>, y <span class="op">=</span> <span class="va">hindfoot_length</span>, color <span class="op">=</span> <span class="va">plot_type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_log10</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -289,30 +291,30 @@
 <span class="header-section-number">2.7</span> Boxplot<a class="anchor" aria-label="anchor" href="#boxplot"><i class="fas fa-link"></i></a>
 </h2>
 <p>Let’s try making a different type of plot altogether. We’ll start off with our same basic building blocks using <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> and <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code>.</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">complete_old</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">plot_type</span>, y <span class="op">=</span> <span class="va">hindfoot_length</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="usace_R_training_files/figure-html/blank-boxplot-1.png" width="600" height="600"></div>
 <p>This time, let’s try making a boxplot, which will have <code>plot_type</code> on the x axis and <code>hindfoot_length</code> on the y axis. We can do this by adding <code><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot()</a></code> to our <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code>:</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">complete_old</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">plot_type</span>, y <span class="op">=</span> <span class="va">hindfoot_length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## Warning: Removed 2733 rows containing non-finite outside the
-## scale range (`stat_boxplot()`).</code></pre>
+<pre><code>## Warning: Removed 2733 rows containing non-finite outside the scale range
+## (`stat_boxplot()`).</code></pre>
 <div class="inline-figure"><img src="usace_R_training_files/figure-html/boxplot-1.png" width="600" height="600"></div>
 <p>Just as we colored the points before, we can color our boxplot by <code>plot_type</code> as well:</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">complete_old</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">plot_type</span>, y <span class="op">=</span> <span class="va">hindfoot_length</span>, color <span class="op">=</span> <span class="va">plot_type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="usace_R_training_files/figure-html/boxplot-color-1.png" width="600" height="600"></div>
 <p>It looks like <code>color</code> has only affected the outlines of the boxplot, not the rectangular portions. This is because the <code>color</code> only impacts 1-dimensional parts of a <code>ggplot</code>: points and lines. To change the color of 2-dimensional parts of a plot, we use <code>fill</code>:</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">complete_old</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">plot_type</span>, y <span class="op">=</span> <span class="va">hindfoot_length</span>, fill <span class="op">=</span> <span class="va">plot_type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="usace_R_training_files/figure-html/boxplot-fill-1.png" width="600" height="600"></div>
 <div class="callout">
 <p>One thing you may notice is that the axis labels are overlapping each other, depending on how wide your plot viewer is. One way to help make them more legible is to <strong>wrap</strong> the text. We can do that by modifying the <strong>labels</strong> for the <code>x</code> axis <code>scale</code>.</p>
 <p>We use the <code><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_x_discrete()</a></code> function because we have a discrete axis, and we modify the <code>labels</code> argument. The function <code><a href="https://ggplot2.tidyverse.org/reference/labellers.html">label_wrap_gen()</a></code> will wrap the text of the labels to make them more legible.</p>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">complete_old</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">plot_type</span>, y <span class="op">=</span> <span class="va">hindfoot_length</span>, fill <span class="op">=</span> <span class="va">plot_type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_x_discrete</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labellers.html">label_wrap_gen</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -325,44 +327,44 @@
 </h2>
 <p>One of the most powerful aspects of <strong><code>ggplot</code></strong> is the way we can add components to a plot in successive layers. While boxplots can be very useful for summarizing data, it is often helpful to show the raw data as well. With <strong><code>ggplot</code></strong>, we can easily add another <code>geom_</code> to our plot to show the raw data.</p>
 <p>Let’s add <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point()</a></code> to visualize the raw data. We will modify the <code>alpha</code> argument to help with overplotting.</p>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">complete_old</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">plot_type</span>, y <span class="op">=</span> <span class="va">hindfoot_length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="usace_R_training_files/figure-html/boxplot-points-1.png" width="600" height="600"></div>
 <p>Uh oh… all our points for a given <code>x</code> axis category fall exactly on a line, which isn’t very useful. We can shift to using <code><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter()</a></code>, which will add points with a bit of random noise added to the positions to prevent this from happening.</p>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">complete_old</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">plot_type</span>, y <span class="op">=</span> <span class="va">hindfoot_length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="usace_R_training_files/figure-html/boxplot-jitter-1.png" width="600" height="600"></div>
 <p>You may have noticed that some of our data points are now appearing on our plot twice: the outliers are plotted as black points from <code><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot()</a></code>, but they are also plotted with <code><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter()</a></code>. Since we don’t want to represent these data multiple times in the same form (points), we can stop <code><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot()</a></code> from plotting them. We do this by setting the <code>outlier.shape</code> argument to <code>NA</code>, which means the outliers don’t have a shape to be plotted.</p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">complete_old</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">plot_type</span>, y <span class="op">=</span> <span class="va">hindfoot_length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span>outlier.shape <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="usace_R_training_files/figure-html/boxplot-outliers-1.png" width="600" height="600"></div>
 <p>Just as before, we can map <code>plot_type</code> to <code>color</code> by putting it inside <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code>.</p>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">complete_old</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">plot_type</span>, y <span class="op">=</span> <span class="va">hindfoot_length</span>, color <span class="op">=</span> <span class="va">plot_type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span>outlier.shape <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="usace_R_training_files/figure-html/global-color-1.png" width="600" height="600"></div>
 <p>Notice that both the color of the points and the color of the boxplot lines changed. Any time we specify an <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code> mapping inside our initial <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> function, that mapping will apply to all our <code>geom</code>s.</p>
 <p>If we want to limit the mapping to a single <code>geom</code>, we can put the mapping into the specific <code>geom_</code> function, like this:</p>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">complete_old</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">plot_type</span>, y <span class="op">=</span> <span class="va">hindfoot_length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span>outlier.shape <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">plot_type</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="usace_R_training_files/figure-html/geom-color-1.png" width="600" height="600"></div>
 <p>Now our points are colored according to <code>plot_type</code>, but the boxplots are all the same color. One thing you might notice is that even with <code>alpha = 0.2</code>, the points obscure parts of the boxplot. This is because the <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point()</a></code> layer comes after the <code><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot()</a></code> layer, which means the points are plotted on top of the boxes. To put the boxplots on top, we switch the order of the layers:</p>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">complete_old</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">plot_type</span>, y <span class="op">=</span> <span class="va">hindfoot_length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">plot_type</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span>outlier.shape <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="usace_R_training_files/figure-html/reverse-layers-1.png" width="600" height="600"></div>
 <p>Now we have the opposite problem! The white <code>fill</code> of the boxplots completely obscures some of the points. To address this problem, we can remove the <code>fill</code> from the boxplots altogether, leaving only the black lines. To do this, we set <code>fill</code> to <code>NA</code>:</p>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">complete_old</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">plot_type</span>, y <span class="op">=</span> <span class="va">hindfoot_length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">plot_type</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span>outlier.shape <span class="op">=</span> <span class="cn">NA</span>, fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span></code></pre></div>
@@ -377,7 +379,7 @@
 <p>This might also be a place to test your search engine skills. It is often useful to search for <code>R package_name stuff you want to search</code>. So for this example we might search for <code>R ggplot2 violin plot</code>.</p>
 <div class="solution">
 <p><span id="unlabeled-div-3" class="solution"><em>Solution</em>. </span></p>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">complete_old</span>, </span>
 <span>       mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">plot_type</span>, </span>
 <span>                     y <span class="op">=</span> <span class="va">hindfoot_length</span>,</span>
@@ -389,7 +391,7 @@
 <p>For an <em>extra challenge</em>, , make the color of the points and outlines of the violins vary by <code>plot_type</code>, and set the fill of the violins to white. Try playing with the order of the layers to see what looks best.</p>
 <div class="solution">
 <p><span id="unlabeled-div-4" class="solution"><em>Solution</em>. </span></p>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">complete_old</span>, </span>
 <span>       mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">plot_type</span>, </span>
 <span>                     y <span class="op">=</span> <span class="va">hindfoot_length</span>,</span>
@@ -406,37 +408,37 @@
 <p>So far we’ve been changing the appearance of parts of our plot related to our data and the <code>geom_</code> functions, but we can also change many of the non-data components of our plot.</p>
 <p>At this point, we are pretty happy with the basic layout of our plot, so we can <strong>assign</strong> it to a plot to a named <strong>object</strong>. We do this using the <strong>assignment arrow</strong> <code>&lt;-</code>. What we are doing here is taking the result of the code on the right side of the arrow, and assigning it to an object whose name is on the left side of the arrow.</p>
 <p>We will create an object called <code>myplot</code>. If you run the name of the <code>ggplot2</code> object, it will show the plot, just like if you ran the code itself.</p>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">myplot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">complete_old</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">plot_type</span>, y <span class="op">=</span> <span class="va">hindfoot_length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">plot_type</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span>outlier.shape <span class="op">=</span> <span class="cn">NA</span>, fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">myplot</span></span></code></pre></div>
-<pre><code>## Warning: Removed 2733 rows containing non-finite outside the
-## scale range (`stat_boxplot()`).</code></pre>
-<pre><code>## Warning: Removed 2733 rows containing missing values or
-## values outside the scale range (`geom_point()`).</code></pre>
+<pre><code>## Warning: Removed 2733 rows containing non-finite outside the scale range
+## (`stat_boxplot()`).</code></pre>
+<pre><code>## Warning: Removed 2733 rows containing missing values or values outside the scale range
+## (`geom_point()`).</code></pre>
 <div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-1-1.png" width="600" height="600"></div>
 <p>This process of assigning something to an <strong>object</strong> is not specific to <code>ggplot2</code>, but rather a general feature of R. We will be using it a lot in the rest of this lesson. We can now work with the <code>myplot</code> object as if it was a block of <code>ggplot2</code> code, which means we can use <code>+</code> to add new components to it.</p>
 <p>We can change the overall appearance using <code>theme_</code> functions. Let’s try a black-and-white theme by adding <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw()</a></code> to our plot:</p>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">myplot</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="usace_R_training_files/figure-html/theme-bw-1.png" width="600" height="600"></div>
 <p>As you can see, a number of parts of the plot have changed. <code>theme_</code> functions usually control many aspects of a plot’s appearance all at once, for the sake of convenience. To individually change parts of a plot, we can use the <code><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme()</a></code> function, which can take many different arguments to change things about the text, grid lines, background color, and more. Let’s try changing the size of the text on our axis titles. We can do this by specifying that the <code>axis.title</code> should be an <code><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text()</a></code> with <code>size</code> set to 14.</p>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">myplot</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">14</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="usace_R_training_files/figure-html/text-size-1.png" width="600" height="600"></div>
 <p>Another change we might want to make is to remove the vertical grid lines. Since our x axis is categorical, those grid lines aren’t useful. To do this, inside <code><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme()</a></code>, we will change the <code>panel.grid.major.x</code> to an <code><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank()</a></code>.</p>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">myplot</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">14</span><span class="op">)</span>, </span>
 <span>        panel.grid.major.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="usace_R_training_files/figure-html/element-blank-1.png" width="600" height="600"></div>
 <p>Another useful change might be to remove the color legend, since that information is already on our x axis. For this one, we will set <code>legend.position</code> to “none”.</p>
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">myplot</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">14</span><span class="op">)</span>, </span>
@@ -491,7 +493,7 @@
 <span class="header-section-number">2.11</span> Changing labels<a class="anchor" aria-label="anchor" href="#changing-labels"><i class="fas fa-link"></i></a>
 </h2>
 <p>Our plot is really shaping up now. However, we probably want to make our axis titles nicer, and perhaps add a main title to the plot. We can do this using the <code><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs()</a></code> function:</p>
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">myplot</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">14</span><span class="op">)</span>, </span>
@@ -510,7 +512,7 @@
 <p><strong>Hint</strong>: “bold” is referred to as a font “face”</p>
 <div class="solution">
 <p><span id="unlabeled-div-5" class="solution"><em>Solution</em>. </span></p>
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">myplot</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">14</span><span class="op">)</span>, legend.position <span class="op">=</span> <span class="st">"none"</span>,</span>
@@ -529,7 +531,7 @@
 <p>One of the most powerful features of <strong><code>ggplot</code></strong> is the ability to quickly split a plot into multiple smaller plots based on a categorical variable, which is called <strong>faceting</strong>.</p>
 <p>So far we’ve mapped variables to the x axis, the y axis, and color, but trying to add a 4th variable becomes difficult. Changing the shape of a point might work, but only for very few categories, and even then, it can be hard to tell the differences between the shapes of small points.</p>
 <p>Instead of cramming one more variable into a single plot, we will use the <code><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap()</a></code> function to generate a series of smaller plots, split out by <code>sex</code>. We also use <code>ncol</code> to specify that we want them arranged in a single column:</p>
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">myplot</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">14</span><span class="op">)</span>, </span>
@@ -556,7 +558,7 @@
 <span class="header-section-number">2.14</span> Exporting plots<a class="anchor" aria-label="anchor" href="#exporting-plots"><i class="fas fa-link"></i></a>
 </h2>
 <p>Once we are happy with our final plot, we can assign the whole thing to a new object, which we can call <code>finalplot</code>.</p>
-<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">finalplot</span> <span class="op">&lt;-</span> <span class="va">myplot</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">14</span><span class="op">)</span>, </span>
@@ -585,13 +587,13 @@
 <span>       y <span class="op">=</span> <span class="st">"Hindfoot length (mm)"</span>,</span>
 <span>       color <span class="op">=</span> <span class="st">"Plot type"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/vars.html">vars</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## Warning: Removed 1460 rows containing non-finite outside the
-## scale range (`stat_boxplot()`).</code></pre>
-<pre><code>## Warning: Removed 1460 rows containing missing values or
-## values outside the scale range (`geom_point()`).</code></pre>
+<pre><code>## Warning: Removed 1460 rows containing non-finite outside the scale range
+## (`stat_boxplot()`).</code></pre>
+<pre><code>## Warning: Removed 1460 rows containing missing values or values outside the scale range
+## (`geom_point()`).</code></pre>
 <div class="inline-figure"><img src="usace_R_training_files/figure-html/assign-finalplot-1.png" width="600" height="600"></div>
 <p>After this, we can run <code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave()</a></code> to save our plot. The first argument we give is the path to the file we want to save, including the correct file extension. This code will make an image called <code>rodent_size_plots.jpg</code> in the <code>images/</code> folder of our current project. We are making a <code>.jpg</code>, but you can save <code>.pdf</code>, <code>.tiff</code>, and other file formats. Next, we tell it the name of the plot object we want to save. We can also specify things like the width and height of the plot in inches.</p>
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave</a></span><span class="op">(</span>filename <span class="op">=</span> <span class="st">"images/rodent_size_plots.jpg"</span>,</span>
 <span>       height <span class="op">=</span> <span class="fl">6</span>, width <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span></code></pre></div>
 </div>

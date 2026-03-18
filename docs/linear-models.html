@@ -79,6 +79,7 @@
 <li class="book-part">Workshop Preparation</li>
 <li><a class="" href="hsi-workshop.html"><span class="header-section-number">24</span> HSI Workshop</a></li>
 <li><a class="" href="machine-learning-workshop.html"><span class="header-section-number">25</span> Machine Learning Workshop</a></li>
+<li><a class="" href="ggplot-workshop.html"><span class="header-section-number">26</span> ggplot Workshop</a></li>
 </ul>
 
         <div class="book-extra">
@@ -173,7 +174,7 @@ So, how should one think about these assumptions and when they are violated? Wel
 <span class="header-section-number">11.4.1</span> Import and explore the data<a class="anchor" aria-label="anchor" href="#import-and-explore-the-data"><i class="fas fa-link"></i></a>
 </h3>
 <p>First, we will read in a subset of the fish and environmental data from fall sampling in navigation pools 4, 8, and 13 of the Upper Mississippi River. Prior to exploring the data, we will filter out dissolved oxygen concentrations &gt; 20 mg/L, since values above these levels are rare in aquatic systems and may be erroneous.</p>
-<div class="sourceCode" id="cb324"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb325"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">umr_wide</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/umr_counts_wide.csv"</span><span class="op">)</span></span>
@@ -182,7 +183,7 @@ So, how should one think about these assumptions and when they are violated? Wel
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">do</span> <span class="op">&lt;</span> <span class="fl">20</span>, </span>
 <span>         <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">vegd</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>We can use ggplot to plot the relationship between dissolved oxygen concentration and temperature. We can also add a trend line for these predictors; here we will specify that we want the line to be linear by adding the call <code>method = "lm"</code>.</p>
-<div class="sourceCode" id="cb325"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb326"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">umr_sub</span>, </span>
 <span>       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">temp</span>, <span class="va">do</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">.5</span>, pch <span class="op">=</span> <span class="fl">21</span>, size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">+</span></span>
@@ -197,12 +198,12 @@ So, how should one think about these assumptions and when they are violated? Wel
 <span class="header-section-number">11.4.2</span> Fit a model and assess output<a class="anchor" aria-label="anchor" href="#fit-a-model-and-assess-output"><i class="fas fa-link"></i></a>
 </h3>
 <p>We can now use the <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> function in R to create a linear model further assessing the relationship between these variables. To use the lm() function, we provide R with the formula for our model. The formula that we include below (<code>do ~ temp</code>) indicates that we are interested in modeling <code>do</code> as a function of <code>temp</code>. In other words, we are telling R that dissolved oxygen concentration is our response variable, and temperature is our predictor variable. If we wanted to add another predictor, we would change the formula (e.g., <code>do ~ temp + depth</code> or <code>do ~ temp*depth</code> if we wanted an interactive effect). We must also indicate what dataset these variables should be drawn from.</p>
-<div class="sourceCode" id="cb326"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb327"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lm.mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">do</span> <span class="op">~</span> <span class="va">temp</span>,</span>
 <span>           data <span class="op">=</span> <span class="va">umr_sub</span><span class="op">)</span></span></code></pre></div>
 <p>That’s all we have to do to fit our first model, which is now stored in an object called <code>lm.mod</code>.</p>
 <p>To assess the model results, we can use the <code>summary</code> function with our object to view the model output.</p>
-<div class="sourceCode" id="cb327"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb328"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mod_summ</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">lm.mod</span><span class="op">)</span></span>
 <span><span class="va">mod_summ</span></span></code></pre></div>
 <pre><code>## 
@@ -249,19 +250,19 @@ So, how should one think about these assumptions and when they are violated? Wel
 <span class="header-section-number">11.4.3</span> Assess model validity<a class="anchor" aria-label="anchor" href="#assess-model-validity"><i class="fas fa-link"></i></a>
 </h3>
 <p>But can we trust these results? We first need to verify that the model assumptions have been met, and examining the residuals is the key for assessing whether a linear model is the appropriate choice for modeling our data. We can check our assumptions by making diagnostic plots of the residuals using the <code>plot(lm.mod)</code> function. Running this function will create four plots sequentially in R, but we will examine them individually with the following code. See a very detailed explanation of these plots <a href="https://r.qcbs.ca/workshop04/book-en/linear-regression-in-r.html#step-2-verify-assumptions-using-diagnostic-plots-of-the-residuals">here</a>.</p>
-<div class="sourceCode" id="cb329"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb330"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">lm.mod</span>, which <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-43-1.png" width="600" height="600"></div>
 <p>The first plot shows the <strong>Residuals vs. the Fitted values</strong>. Remember, the residuals are the difference between predicted values of the response variable (dissolved oxygen concentration here) and observed values of the response variable. If the model assumptions are met, this plot should have a horizontal line with residuals spread around it fairly evenly. If the residuals show non-linear patterns (e.g., a parabola) it may indicate a non-linear relationship between our predictors and our response variable. Here there appears to be fairly random scatter of residuals, suggesting no major problems with non-linearity.</p>
-<div class="sourceCode" id="cb330"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb331"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">lm.mod</span>, which <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-44-1.png" width="600" height="600"></div>
 <p>The <strong>Q-Q residual plot</strong> is used to assess whether the residuals follow a <strong>normal distribution</strong>. The points in the plot should closely follow the diagonal line. In our example, the residuals deviate a bit in the tails, suggesting that the residuals may not be perfectly distributed, but normality of residuals is not very critical with large datasets like this and is considered to be one of the less important linear model assumptions.</p>
-<div class="sourceCode" id="cb331"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb332"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">lm.mod</span>, which <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-45-1.png" width="600" height="600"></div>
 <p>The <strong>Scale-Location plot</strong> checks for <strong>constant variance of residuals</strong>. Similarly to the first plot, the red line should be roughly flat, and there shouldn’t be any systematic spread in the data. Our model again does fairly well here, although there is a slight increase in variance with higher fitted values.</p>
-<div class="sourceCode" id="cb332"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb333"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">lm.mod</span>, which <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-46-1.png" width="600" height="600"></div>
 <p>Finally the <strong>Residuals vs. Leverage plot</strong> indicates whether there are any <strong>influential outliers</strong> that could bias our results. In this plot, we specifically look for any large points in the upper or lower right: these are points with large residuals and high leverage. Depending on the spread of the residuals, there may be some dashed lines in these points called “Cook’s distance” scores. Points outside these dashed lines may have a strong influence on the regression results, suggesting that parameter estimates might be biased.</p>
@@ -272,12 +273,12 @@ So, how should one think about these assumptions and when they are violated? Wel
 <span class="header-section-number">11.4.4</span> ANCOVA<a class="anchor" aria-label="anchor" href="#ancova"><i class="fas fa-link"></i></a>
 </h3>
 <p>Even if a linear model is reasonable, as in our case, we may hope to explain more of the variance. We alluded to the possibility that other variables may be important. What about submerged aquatic vegetation that could be pumping oxygen into the water column? Our dataset contains a categorical variable for density of vegetation, <code>vegd</code>, which is equal to one when vegetation is sparse and two when vegetation is dense. Categorical variables can be added to linear models in R, although we need to make sure that they are coded as factors, not as numeric variables.</p>
-<div class="sourceCode" id="cb333"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb334"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">umr_sub</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">umr_sub</span>, </span>
 <span>                  vegd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">vegd</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>If a model only has categorical variables, it is an ANOVA. When a categorical variable is used in concert with a continuous variable, known as an ANCOVA, it is the equivalent of fitting two regression lines within the same model; these lines will be parallel but have different intercepts. The difference in intercepts represents the average effect of the categorical variable on the response.</p>
 <p>We can start to look at the possibility of an influence of vegetation by first plotting our data again, but this time coloring our points in ggplot differentially (i.e., adding <code>color = vegd</code> to our earlier code):</p>
-<div class="sourceCode" id="cb334"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb335"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">umr_sub</span>, </span>
 <span>       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">temp</span>, <span class="va">do</span>, color <span class="op">=</span> <span class="va">vegd</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">.5</span>, pch <span class="op">=</span> <span class="fl">21</span>, size <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span><span class="op">+</span></span>
@@ -287,7 +288,7 @@ So, how should one think about these assumptions and when they are violated? Wel
 <p><img src="usace_R_training_files/figure-html/unnamed-chunk-48-1.png" width="600" height="600"><br>
 Somewhat surprisingly, when we plot this relationship, we see the possibility that sampling locations with sparser vegetation tend to have higher dissolved oxygen concentrations, not lower dissolved oxygen concentrations as we might have expected.</p>
 <p>To assess the magnitude of this effect, we can run a new linear model that includes both our continuous temperature predictor and our categorical vegetation predictor.</p>
-<div class="sourceCode" id="cb335"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb336"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ancov.mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">do</span> <span class="op">~</span> <span class="va">temp</span> <span class="op">+</span> <span class="va">vegd</span>, </span>
 <span>                data <span class="op">=</span> <span class="va">umr_sub</span><span class="op">)</span></span>
 <span></span>

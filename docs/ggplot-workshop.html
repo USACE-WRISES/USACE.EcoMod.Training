@@ -4,13 +4,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>21 Using R for data access | Using R for ecological modeling in USACE</title>
+<title>26 ggplot Workshop | Using R for ecological modeling in USACE</title>
 <meta name="author" content="Ed Stowe">
 <meta name="generator" content="bookdown 0.42 with bs4_book()">
-<meta property="og:title" content="21 Using R for data access | Using R for ecological modeling in USACE">
+<meta property="og:title" content="26 ggplot Workshop | Using R for ecological modeling in USACE">
 <meta property="og:type" content="book">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="21 Using R for data access | Using R for ecological modeling in USACE">
+<meta name="twitter:title" content="26 ggplot Workshop | Using R for ecological modeling in USACE">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.8.0/transition.js"></script><script src="libs/bs3compat-0.8.0/tabs.js"></script><script src="libs/bs3compat-0.8.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -18,9 +18,9 @@
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   </style>
-<meta name="description" content="21.1 Overview For many USACE-focused analyses, it is crucial to access Federal data sources, including ones that pertain to hydrology, watershed boundaries, weather, infrastructure, or land cover,...">
-<meta property="og:description" content="21.1 Overview For many USACE-focused analyses, it is crucial to access Federal data sources, including ones that pertain to hydrology, watershed boundaries, weather, infrastructure, or land cover,...">
-<meta name="twitter:description" content="21.1 Overview For many USACE-focused analyses, it is crucial to access Federal data sources, including ones that pertain to hydrology, watershed boundaries, weather, infrastructure, or land cover,...">
+<meta name="description" content="26.1 Overview As part of the EMRRP webinar series, Ed Stowe (postdoctoral fellow at ERDC) will lead a short course on data visualiztion in R using the ggplot2 package on 3/25/26. More information...">
+<meta property="og:description" content="26.1 Overview As part of the EMRRP webinar series, Ed Stowe (postdoctoral fellow at ERDC) will lead a short course on data visualiztion in R using the ggplot2 package on 3/25/26. More information...">
+<meta name="twitter:description" content="26.1 Overview As part of the EMRRP webinar series, Ed Stowe (postdoctoral fellow at ERDC) will lead a short course on data visualiztion in R using the ggplot2 package on 3/25/26. More information...">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -73,13 +73,13 @@
 <li class="book-part">Other R applications</li>
 <li><a class="" href="r-for-gis.html"><span class="header-section-number">20</span> R for GIS</a></li>
 <li class="book-part">Environmental data sources</li>
-<li><a class="active" href="using-r-for-data-access.html"><span class="header-section-number">21</span> Using R for data access</a></li>
+<li><a class="" href="using-r-for-data-access.html"><span class="header-section-number">21</span> Using R for data access</a></li>
 <li><a class="" href="usgs-gage-data-using-the-dataretrieval-package.html"><span class="header-section-number">22</span> USGS gage data using the dataRetrieval package</a></li>
 <li><a class="" href="national-hydrography-dataset.html"><span class="header-section-number">23</span> National Hydrography Dataset</a></li>
 <li class="book-part">Workshop Preparation</li>
 <li><a class="" href="hsi-workshop.html"><span class="header-section-number">24</span> HSI Workshop</a></li>
 <li><a class="" href="machine-learning-workshop.html"><span class="header-section-number">25</span> Machine Learning Workshop</a></li>
-<li><a class="" href="ggplot-workshop.html"><span class="header-section-number">26</span> ggplot Workshop</a></li>
+<li><a class="active" href="ggplot-workshop.html"><span class="header-section-number">26</span> ggplot Workshop</a></li>
 </ul>
 
         <div class="book-extra">
@@ -87,57 +87,92 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="using-r-for-data-access" class="section level1" number="21">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="ggplot-workshop" class="section level1" number="26">
 <h1>
-<span class="header-section-number">21</span> Using R for data access<a class="anchor" aria-label="anchor" href="#using-r-for-data-access"><i class="fas fa-link"></i></a>
+<span class="header-section-number">26</span> ggplot Workshop<a class="anchor" aria-label="anchor" href="#ggplot-workshop"><i class="fas fa-link"></i></a>
 </h1>
-<div id="overview-3" class="section level2" number="21.1">
+<div id="overview-6" class="section level2" number="26.1">
 <h2>
-<span class="header-section-number">21.1</span> Overview<a class="anchor" aria-label="anchor" href="#overview-3"><i class="fas fa-link"></i></a>
+<span class="header-section-number">26.1</span> Overview<a class="anchor" aria-label="anchor" href="#overview-6"><i class="fas fa-link"></i></a>
 </h2>
-<p>For many USACE-focused analyses, it is crucial to access Federal data sources, including ones that pertain to hydrology, watershed boundaries, weather, infrastructure, or land cover, among other features. For analyses being conducted within R, it can be extremely helpful to access these data sources directly from within R. Doing so creates an exact record of the data that was accessed, and helps with keeping analyses and data records organized and reproducible.</p>
-<p>This section of modules includes two full workflows for accessing hydrological data, as well as watershed-focused data. Below, we list additional data sources and associated <code>r</code> packages that may be of use for USACE-focused analyses.</p>
+<p>As part of the EMRRP webinar series, Ed Stowe (postdoctoral fellow at ERDC) will lead a short course on data visualiztion in R using the <code>ggplot2</code> package on 3/25/26. More information on this material can be found <a href="https://usace-wrises.github.io/USACE.EcoMod.Training/data-visualization-with-ggplot2.html">here</a>.</p>
+<p>Preparing for this workshop is optional, but if attendees want to run code along with the instructor, please complete the following steps to get ready. Please send any questions about the prep or tutorial to Ed (edward.s.stowe AT erdc.dren.mil)</p>
 </div>
-<div id="other-datasources-to-consider" class="section level2" number="21.2">
+<div id="preparation-steps-2" class="section level2" number="26.2">
 <h2>
-<span class="header-section-number">21.2</span> Other datasources to consider<a class="anchor" aria-label="anchor" href="#other-datasources-to-consider"><i class="fas fa-link"></i></a>
+<span class="header-section-number">26.2</span> Preparation steps<a class="anchor" aria-label="anchor" href="#preparation-steps-2"><i class="fas fa-link"></i></a>
 </h2>
-<div id="national-land-cover-dataset" class="section level3" number="21.2.1">
+<p>If you downloaded R recently, you will only need to download the relevant data and scripts, install appropriate R packages, and set up folders for the relevant files.</p>
+<div id="download-r-and-rstudio-2" class="section level3" number="26.2.1">
 <h3>
-<span class="header-section-number">21.2.1</span> National Land Cover Dataset<a class="anchor" aria-label="anchor" href="#national-land-cover-dataset"><i class="fas fa-link"></i></a>
+<span class="header-section-number">26.2.1</span> Download R and RStudio<a class="anchor" aria-label="anchor" href="#download-r-and-rstudio-2"><i class="fas fa-link"></i></a>
 </h3>
-<p>The <a href="https://www.usgs.gov/centers/eros/science/national-land-cover-database">National Land Cover Dataset</a> can be accessed using the <code>FedData</code> <a href="https://github.com/ropensci/FedData">package</a>.</p>
+<p>Use the <a href="https://app-portal.usace.army.mil/esd/Home">App Portal</a> to download and install the latest version of R. (Searching for “R Core Team” may be the easiest way to find R). If you previousy downloaded R, but do not have a recent version (e.g., version 4.5.1), you should also download R. You don’t need to uninstall old versions.</p>
+<p>Once you have installed R, download and install R Studio. When you open RStudio, the console on the lower left should also display the R version that you downloaded (e.g., ‘R version 4.5.2 (2025-10-31) – “[Not] Part in a Rumble”’).</p>
 </div>
-<div id="weather-data" class="section level3" number="21.2.2">
+<div id="set-up-folders-2" class="section level3" number="26.2.2">
 <h3>
-<span class="header-section-number">21.2.2</span> Weather data<a class="anchor" aria-label="anchor" href="#weather-data"><i class="fas fa-link"></i></a>
+<span class="header-section-number">26.2.2</span> Set up folders<a class="anchor" aria-label="anchor" href="#set-up-folders-2"><i class="fas fa-link"></i></a>
 </h3>
-<p>Precipitation and temperature data from the long-term Oregon State University <a href="https://prism.oregonstate.edu/">PRISM</a> initiative can be accessed with the <code>prism</code> <a href="https://github.com/ropensci/prism">package</a> in R.</p>
+<p>On your computer, create a folder for the project with an informative name (e.g., “ggplot_workshop”).</p>
+<p>Make three additional folders within the “ggplot_workshop” folder:<br>
+* One for data (entitled “data”)<br>
+* One for R scripts (entitled “code”)<br>
+* One for output (entitled “output”).</p>
 </div>
-<div id="dam-data" class="section level3" number="21.2.3">
+<div id="install-packages-2" class="section level3" number="26.2.3">
 <h3>
-<span class="header-section-number">21.2.3</span> Dam data<a class="anchor" aria-label="anchor" href="#dam-data"><i class="fas fa-link"></i></a>
+<span class="header-section-number">26.2.3</span> Install packages<a class="anchor" aria-label="anchor" href="#install-packages-2"><i class="fas fa-link"></i></a>
 </h3>
-<p>The <a href="https://nid.sec.usace.army.mil/nid/#/">National Inventory of Dams</a> dataset can be accessed using the <code>dams</code> <a href="https://jsta.github.io/dams/">package</a>.</p>
-<p>###Code for hydraulic model (i.e., HEC-RAS) output files
-Various R functions exist to perform post-processing on files generated from HEC-RAS modeling (e.g., DSS, netCDF). For example the <code>dssrip2</code> <a href="https://github.com/mkoohafkan/dssrip2/">package</a> can be used to create, read, and write the .dss files associated with hydraulic modeling in HEC-RAS.</p>
+<p>This modules uses two R packages, <code>ggplot2</code> and <code>dplyr</code> both of which are found in the <code>tidyverse</code> family of packages and can be downloaded and loaded simply by referring to <code>tidyverse</code>. Packages are useful sets of R code written by other people to supplement the code included in the base R language.</p>
+<p>To try to install the <code>tidyverse</code>, open RStudio and copy and paste the following command into the console window (look for a blinking cursor on the bottom left), then press the <kbd>Enter</kbd> (Windows) or <kbd>Return</kbd> (MacOS) to execute the command.</p>
+<div class="sourceCode" id="cb533"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"tidyverse"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Alternatively, you can install packages using RStudio’s graphical user interface by going to <code>Tools &gt; Install Packages</code> and typing the names of the packages separated by a comma.</p>
+<p>R will try to download and install the packages on your machine.</p>
+<p>When the installation has finished, you can try to load the packages by pasting the following code into the console:</p>
+<div class="sourceCode" id="cb534"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code></pre></div>
+<p>If you do not see a warning like <code>there is no package called ‘...’</code> you are good to go!</p>
+</div>
+<div id="download-data-and-script-files-2" class="section level3" number="26.2.4">
+<h3>
+<span class="header-section-number">26.2.4</span> Download data and script files<a class="anchor" aria-label="anchor" href="#download-data-and-script-files-2"><i class="fas fa-link"></i></a>
+</h3>
+<p>This tutorial will use a data file and an R script that are hosted on GitHub. To access the files, simply visit the links below and click the download button (<em>see image below</em>).</p>
+<ul>
+<li><a href="https://github.com/USACE-WRISES/USACE.EcoMod.Training/blob/main/data/umr_water.csv">Water data</a></li>
+<li><a href="https://github.com/USACE-WRISES/USACE.EcoMod.Training/blob/main/teaching_scripts/ggplot_script.R">R Script</a></li>
+</ul>
+<div class="float">
+<img src="images/github_download.jpg" style="width:120.0%" alt="Downloading data from GitHub"><div class="figcaption"><em>Downloading data from GitHub</em></div>
+</div>
+<p>Once you’ve downloaded the files, you should move the data files into the “data” folder of your “ggplot_workshop” folder and the R script file into the “code” folder.</p>
 
 </div>
 </div>
 </div>
+
+
+
+
+
+
+
   <div class="chapter-nav">
-<div class="prev"><a href="r-for-gis.html"><span class="header-section-number">20</span> R for GIS</a></div>
-<div class="next"><a href="usgs-gage-data-using-the-dataretrieval-package.html"><span class="header-section-number">22</span> USGS gage data using the dataRetrieval package</a></div>
+<div class="prev"><a href="machine-learning-workshop.html"><span class="header-section-number">25</span> Machine Learning Workshop</a></div>
+<div class="empty"></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#using-r-for-data-access"><span class="header-section-number">21</span> Using R for data access</a></li>
-<li><a class="nav-link" href="#overview-3"><span class="header-section-number">21.1</span> Overview</a></li>
+<li><a class="nav-link" href="#ggplot-workshop"><span class="header-section-number">26</span> ggplot Workshop</a></li>
+<li><a class="nav-link" href="#overview-6"><span class="header-section-number">26.1</span> Overview</a></li>
 <li>
-<a class="nav-link" href="#other-datasources-to-consider"><span class="header-section-number">21.2</span> Other datasources to consider</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#national-land-cover-dataset"><span class="header-section-number">21.2.1</span> National Land Cover Dataset</a></li>
-<li><a class="nav-link" href="#weather-data"><span class="header-section-number">21.2.2</span> Weather data</a></li>
-<li><a class="nav-link" href="#dam-data"><span class="header-section-number">21.2.3</span> Dam data</a></li>
+<a class="nav-link" href="#preparation-steps-2"><span class="header-section-number">26.2</span> Preparation steps</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#download-r-and-rstudio-2"><span class="header-section-number">26.2.1</span> Download R and RStudio</a></li>
+<li><a class="nav-link" href="#set-up-folders-2"><span class="header-section-number">26.2.2</span> Set up folders</a></li>
+<li><a class="nav-link" href="#install-packages-2"><span class="header-section-number">26.2.3</span> Install packages</a></li>
+<li><a class="nav-link" href="#download-data-and-script-files-2"><span class="header-section-number">26.2.4</span> Download data and script files</a></li>
 </ul>
 </li>
 </ul>

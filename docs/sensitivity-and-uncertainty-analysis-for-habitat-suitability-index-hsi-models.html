@@ -79,6 +79,7 @@
 <li class="book-part">Workshop Preparation</li>
 <li><a class="" href="hsi-workshop.html"><span class="header-section-number">24</span> HSI Workshop</a></li>
 <li><a class="" href="machine-learning-workshop.html"><span class="header-section-number">25</span> Machine Learning Workshop</a></li>
+<li><a class="" href="ggplot-workshop.html"><span class="header-section-number">26</span> ggplot Workshop</a></li>
 </ul>
 
         <div class="book-extra">
@@ -129,7 +130,7 @@
 </ul>
 <p>In the remainder of this module, we conduct UA/SA for the OHSIM model using <strong><code>sensobol</code></strong>.</p>
 <p>You will need the <strong><code>sensobol</code></strong>, <strong><code>ecorest</code></strong>, and <strong><code>tidyverse</code></strong> packages for this analysis.</p>
-<div class="sourceCode" id="cb303"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb304"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/arnaldpuy/sensobol">sensobol</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">ecorest</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code></pre></div>
@@ -147,7 +148,7 @@
 <li><p><strong>Annual mean salinity (AS)</strong>: average annual salinity, which captures suitable conditions for adult oysters.</p></li>
 </ol>
 <p>The relationship between each of these variables and habitat suitability are described using oyster suitability indices (OSIs). We import oyster suitability curves, and after a little data wrangling, plot them with <code>ggplot</code>.</p>
-<div class="sourceCode" id="cb304"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb305"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Bring in data</span></span>
 <span><span class="co">#load("ohsim.RData")</span></span>
 <span><span class="va">ohsim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/ohsim_orig.csv"</span><span class="op">)</span></span>
@@ -198,7 +199,7 @@
 <p>Finally, to construct our sample matrix, we need to select a sampling scheme. This determines how the total input space is sampled (i.e., how the sample values are selected from all the possible combinations of input parameters). We will use Quasi-random sampling (“QRN”), the default in <strong><code>sobol_matrices</code></strong> (see Puy et al. 2022 for other options).</p>
 <p>The sample matrix we generate here will be used to assess model uncertainty and sensitivity, and to obtain <em>S<sub>i</sub></em> and <em>T<sub>i</sub></em>. To calculate <em>S<sub>i</sub></em>, we will compare RSI values calculated with sets of sampling points that vary with respect to all parameters except one (parameter <em>x<sub>i</sub></em>) (Puy et al. 2022). To calculate <em>T<sub>i</sub></em>, we will compare RSI values for sets of sampling points where all parameters have the same value except parameter <em>x<sub>i</sub></em>, which will vary (Puy et al. 2022).</p>
 <p>We set up and preview our sample matrix below:</p>
-<div class="sourceCode" id="cb305"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb306"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Set seed for repeatability</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">73</span><span class="op">)</span></span>
 <span></span>
@@ -222,7 +223,7 @@
 <p><img src="images/Choctawhatchee_Bay.jpg" style="width:100.0%" alt="Sample distributions of mean salinity during spawning, minimum annual salinity, and annual mean salinity for Choctawhatchee Bay in Florida."><br><br></p>
 <p>Based on these distributions, minimum annual salinity and annual mean salinity follow a somewhat normal distribution, with averages around 13 and 20 ppt, respectively. Mean salinity during spawning season has a flatter distribution, so we’ll use a uniform distribution for MSSS, and a normal distribution for MAS and AS. To implement the normal probability distributions, we will use the sample mean and standard deviation with the <strong><code>qnorm</code></strong> function to inform our sampling scheme.</p>
 <p>Although we want our sensitivity analysis to explore the entire input variability space, we may be less interested in the portion of the input space where an OSI is equal to zero. Furthermore, including these zero ranges in our analysis will result in many of our RSI scores being zero, which presents challenges. Since our sensitivity indices are calculated based on output variance, if most of our outputs are zero (resulting in low variance), it will be hard to detect how our OSI parameters are inducing variance in the model. Given this, for parameters with a uniform distribution, we will define the entire input variability range as the input space where OSI is greater than zero. In other words, for MSSS, we will sample the space where salinity falls between 5 and 40 ppt, rather than sampling across the range presented in the OSI (0-40 ppt).</p>
-<div class="sourceCode" id="cb307"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb308"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># For each parameter in the model, use the probability in sample_matrix to obtain a sample value from a probability distribution function</span></span>
 <span><span class="va">sample_matrix</span><span class="op">[</span>, <span class="st">"PercentCultch_val"</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">qunif</a></span><span class="op">(</span><span class="va">sample_matrix</span><span class="op">[</span>, <span class="st">"PercentCultch_val"</span><span class="op">]</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
 <span><span class="va">sample_matrix</span><span class="op">[</span>, <span class="st">"MSSS_val"</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">qunif</a></span><span class="op">(</span><span class="va">sample_matrix</span><span class="op">[</span>, <span class="st">"MSSS_val"</span><span class="op">]</span>, min <span class="op">=</span> <span class="fl">5</span>, max <span class="op">=</span> <span class="fl">40</span><span class="op">)</span></span>
@@ -234,7 +235,7 @@
 <span class="header-section-number">9.4.3</span> Calculating OSI and RSI scores with sample data<a class="anchor" aria-label="anchor" href="#calculating-osi-and-rsi-scores-with-sample-data"><i class="fas fa-link"></i></a>
 </h3>
 <p>Now that our sample data is prepared, we can calculate the OSI score for each parameter in every row of our <strong><code>sample_matrix</code></strong>. We do this using the <strong><code>SIcalc</code></strong> function in <strong><code>ecorest</code></strong>. The <strong><code>SIcalc</code></strong> function takes a matrix of suitability curves (in our case, <strong><code>OSI_curves</code></strong>) and uses them to calculate OSI scores for a series of inputs. By applying the <strong><code>SIcalc</code></strong> function row-wise to our <strong><code>sample_matrix</code></strong> using a “for-loop,” we can obtain OSI scores for all 60,000 sets of our sample data.</p>
-<div class="sourceCode" id="cb308"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb309"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create empty data frame with the same dimensions as sample_matrix</span></span>
 <span><span class="va">OSI_scores</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="cn">NA</span>, nrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">sample_matrix</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">sample_matrix</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -243,7 +244,7 @@
 <span>  <span class="va">OSI_scores</span><span class="op">[</span><span class="va">row</span>,<span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/ecorest/man/SIcalc.html">SIcalc</a></span><span class="op">(</span>SI <span class="op">=</span> <span class="va">ohsim</span>, input.proj <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">sample_matrix</span><span class="op">[</span><span class="va">row</span>,<span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>Finally, using the OSI scores calculated with our <strong><code>sample_matrix</code></strong> in the last step, we can apply the <strong><code>HSIgeomean</code></strong> function to each set of sampling points in order to generate an empirical distribution of RSI scores. We will use the variance present in this empirical distribution to understand the uncertainty in RSI values and interpret how sensitive our RSI model is to changes in input parameters.</p>
-<div class="sourceCode" id="cb309"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb310"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create empty vector to store RSI scores</span></span>
 <span><span class="va">RSI</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">vector</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
@@ -257,13 +258,13 @@
 <span class="header-section-number">9.4.4</span> Examining uncertainty in restoration suitability<a class="anchor" aria-label="anchor" href="#examining-uncertainty-in-restoration-suitability"><i class="fas fa-link"></i></a>
 </h3>
 <p>The vector <strong><code>RSI</code></strong> now contains the results of all our model evaluations generated with our <strong><code>sample_matrix</code></strong>. We can examine the distribution of RSI values across the parameter uncertainty using the <strong><code>plot_uncertainty</code></strong> function in <strong><code>sensobol</code></strong>, which generates an empirical distribution of RSI scores.</p>
-<div class="sourceCode" id="cb310"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb311"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Plot uncertainty</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/sensobol/man/plot_uncertainty.html">plot_uncertainty</a></span><span class="op">(</span>Y <span class="op">=</span> <span class="va">RSI</span>, N <span class="op">=</span> <span class="fl">10000</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"RSI score"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="usace_R_training_files/figure-html/plot-uncertainty-1.png" width="600" height="600"></div>
 <p>Based on this distribution, RSI scores are spread across the entire possible output range (0-1).</p>
 <p>We can quantify the variability in RSI values in a few ways. For example, we can use the <strong><code>quantile</code></strong> function to assess the 95% confidence intervals.</p>
-<div class="sourceCode" id="cb311"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb312"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Generate quantiles from RSI values</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">RSI</span>, probs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.025</span>, <span class="fl">0.975</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##      2.5%     97.5% 
@@ -271,12 +272,12 @@
 <p>This suggests the RSI score falls between 0.14 and 0.87 ninety-five percent of the time.</p>
 <p><br></p>
 <p>We can calculate other typical summary statistics and standard deviation of the empirical distribution of RSI scores as well:</p>
-<div class="sourceCode" id="cb313"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb314"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Calculate summary statistics for RSI</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">RSI</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##  0.0000  0.3736  0.5163  0.5140  0.6589  0.9984</code></pre>
-<div class="sourceCode" id="cb315"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb316"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">RSI</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 0.1948817</code></pre>
 <p>Based on these results, across the probability distributions of the OSI values, RSI scores will most commonly fall around 0.5, with 50% of OSI conditions resulting in scores between 0.37 and 0.66.</p>
@@ -288,14 +289,14 @@
 </h3>
 <p>We now use sensitivity analysis to understand which model parameters contribute the most to the uncertainty in RSI values. To calculate sensitivity indices with <strong><code>sensobol</code></strong>, we will use the <strong><code>sobol_indices</code></strong> function:</p>
 <p>We’ll use the default settings for most arguments in <strong><code>sobol_indices</code></strong> (see Puy et al. 2022 for more detailed explanations of settings). In the code below <strong><code>Y</code></strong> is our vector of RSI scores, <strong><code>N</code></strong> is the base sample size we specified for our sample matrix, and <strong><code>params</code></strong> is our list of parameter names. We use <strong><code>boot = "TRUE"</code></strong> and <strong><code>type = "percent"</code></strong> to calculate confidence intervals using percents.</p>
-<div class="sourceCode" id="cb317"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb318"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Compute Sobol' sensitivity indices</span></span>
 <span><span class="va">sensitivity_indices</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/sensobol/man/sobol_indices.html">sobol_indices</a></span><span class="op">(</span>matrices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"AB"</span><span class="op">)</span>, Y <span class="op">=</span> <span class="va">RSI</span>, N <span class="op">=</span> <span class="fl">10000</span>, params <span class="op">=</span> <span class="va">params</span>, first <span class="op">=</span> <span class="st">"saltelli"</span>, total <span class="op">=</span> <span class="st">"jansen"</span>, order <span class="op">=</span> <span class="st">"first"</span>, boot <span class="op">=</span> <span class="cn">TRUE</span>, R <span class="op">=</span> <span class="fl">1000</span>, parallel <span class="op">=</span> <span class="st">"no"</span>, conf <span class="op">=</span> <span class="fl">0.95</span>, type <span class="op">=</span> <span class="st">"percent"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># View results</span></span>
 <span><span class="va">sensitivity_indices</span><span class="op">$</span><span class="va">si.sum</span></span></code></pre></div>
 <pre><code>## [1] 0.9587992</code></pre>
-<div class="sourceCode" id="cb319"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb320"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sensitivity_indices</span><span class="op">$</span><span class="va">results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/where.html">where</a></span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span>, <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">.x</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -325,7 +326,7 @@
 <p>How do we know if a given <em>S<sub>i</sub></em> or <em>T<sub>i</sub></em> value actually signifies that a parameter is influencing the model?</p>
 <p>To determine this we need a threshold for comparison. We can then consider Sobol’ indices below this threshold as not influential on variance in RSI. To do this, we’ll calculate a dummy parameter (Korashadi Zadeh et al. 2017; Puy et al. 2022). The dummy parameter is calculated along with our model inputs but is not actually included in the model (Korashadi Zadeh et al. 2017). In the OHSIM sensitivity analysis, we generate 60,000 RSI values using various combinations of our OSI variables. For each combination, we could also randomly pull and store a value between 0 and 1 from a uniform distribution. This value is completely unrelated to the RSI score, meaning that any relationship it has with RSI is pure coincidence (i.e., spurious). What it represents is numerical approximation error in our model (Puy et al. 2022). If a parameter in the model and the dummy have comparable influence on our RSI values, then that model parameter is essentially unimportant within our model as it’s formulated.</p>
 <p>This code generates values for our dummy parameters (one for <em>S<sub>i</sub></em> and one for <em>T<sub>i</sub></em>):</p>
-<div class="sourceCode" id="cb321"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb322"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Calculate dummy parameter</span></span>
 <span><span class="va">dummy_indices</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/sensobol/man/sobol_dummy.html">sobol_dummy</a></span><span class="op">(</span>Y <span class="op">=</span> <span class="va">RSI</span>, N <span class="op">=</span> <span class="fl">10000</span>, params <span class="op">=</span> <span class="va">params</span>, boot <span class="op">=</span> <span class="cn">TRUE</span>, R <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span></span>
 <span></span>
@@ -337,7 +338,7 @@
 ## 2    0.000 -0.003     0.037  0.000   0.070          Ti      dummy</code></pre>
 <p>Interpretation of dummies is similar to that of our Sobol’ indices, but values represent noise occurring in the model rather than contributions of actual parameters. Here, between 0.067 and 0.071% of the uncertainty in RSI scores for <em>S<sub>i</sub></em> and 0 and 6.958% for <em>T<sub>i</sub></em> can be attributed to noise in the model. If any of our Sobol’ sensitivity indices fall within these ranges, we can say that the RSI model is relatively insensitive to those parameters. Dummy parameters and Sobol’ indices for <em>S<sub>i</sub></em> and <em>T<sub>i</sub></em> are calculated separately, so a parameter could fail to contribute to RSI scores on its own (<em>S<sub>i</sub></em>) but still have important influence through interactions with other variables (<em>T<sub>i</sub></em>), or vice versa.</p>
 <p>For an intuitive summary of the results of our sensitivity analysis, we can use the <strong><code>plot</code></strong> function to create a bar chart of our results:</p>
-<div class="sourceCode" id="cb323"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb324"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Plot results of sensitivity index</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">sensitivity_indices</span>, dummy <span class="op">=</span> <span class="va">dummy_indices</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="usace_R_training_files/figure-html/graph-sensitivity-1.png" width="600" height="600"></div>
