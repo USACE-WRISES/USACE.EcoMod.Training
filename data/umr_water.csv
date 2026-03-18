@@ -1,0 +1,1001 @@
+Date,Easting,Northing,Pool,Temp,Depth,Velocity,DO,Clarity,Stratum,Substrate,Veg_type,Veg_density,Veg_cover
+01/22/2002,639305,4844112,Pool 08,0.9,0.14,0,2.2,30,Connected backwater,Silt,S & E,Dense,>50%
+01/23/2001,637655,4852912,Pool 08,0.1,0.1,0,0.4,23,Isolated,Silt,S & E,Dense,>50%
+01/23/2023,643255,4834312,Pool 08,0.8,0.18,0,1.2,38,Isolated,Silt,Submergent,Sparse,>50%
+01/23/2023,640855,4834112,Pool 08,0.1,0.82,0.08,13.7,106,Impounded lake,Silt,Submergent,Sparse,1 - 19%
+01/23/2023,639455,4832312,Pool 08,0.2,0.75,0.01,13.6,95,Impounded lake,Silt,Submergent,Sparse,1 - 19%
+01/23/2023,640255,4829912,Pool 08,0.4,0.67,0.01,13,94,Impounded lake,Clay,Emergent,Sparse,1 - 19%
+01/23/2024,642655,4835712,Pool 08,0.7,1.31,0,14.6,124,Impounded lake,Silt,Submergent,Dense,1 - 19%
+01/24/2011,637255,4852912,Pool 08,0.2,0.25,0,0.9,40,Isolated,Silt,S & E,Sparse,1 - 19%
+01/24/2011,643455,4829512,Pool 08,0.1,0.09,0.01,11.7,49,Impounded lake,Sand,Submergent,Sparse,1 - 19%
+01/24/2013,638455,4854962,Pool 08,0.2,1.33,0.06,15.5,150,Side channel,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+01/24/2023,641255,4843962,Pool 08,0.3,0.9,0.01,14.1,112,Side channel,Silt/Clay/Sand,Emergent,Sparse,1 - 19%
+01/24/2023,639255,4843912,Pool 08,0.3,0.71,0,7.8,80,Connected backwater,Silt,Submergent,Sparse,1 - 19%
+01/25/2005,643105,4842212,Pool 08,1.3,0.2,0,2,49,Connected backwater,Silt,Submergent,Dense,>50%
+01/25/2018,640390,4839824,Pool 08,0.3,0.23,0.08,13,53,Side channel,Silt,Emergent,Sparse,1 - 19%
+01/25/2024,643455,4845062,Pool 08,1.2,0.59,0.02,13,87,Side channel,Silt/Clay/Sand,Emergent,Sparse,20 - 49%
+01/26/2009,637255,4853112,Pool 08,0.6,0.16,0,0.9,56,Isolated,Silt,S & E,Dense,>50%
+01/26/2016,638704,4850462,Pool 08,1.1,0.58,0,5.8,96,Connected backwater,Silt,Submergent,Dense,>50%
+01/26/2017,640005,4836162,Pool 08,0.1,0.39,0.13,13,71,Connected backwater,Silt,Emergent,Dense,1 - 19%
+01/26/2017,643055,4837512,Pool 08,0.1,0.41,0.1,11.8,73,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+01/26/2023,643055,4845362,Pool 08,0.3,0.09,0,0.2,27,Connected backwater,Clay,S & E,Sparse,>50%
+01/26/2023,644405,4845162,Pool 08,1.4,0.15,0,3.7,32,Connected backwater,Silt,S & E,Dense,20 - 49%
+01/26/2023,636855,4853712,Pool 08,0.5,0.36,0,7.7,57,Isolated,Silt,Submergent,Sparse,20 - 49%
+01/27/2016,641004,4844511,Pool 08,0,0.72,0.1,13.4,103,Side channel,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+01/27/2022,641255,4834912,Pool 08,0.2,1.66,0.02,13.1,116,Impounded lake,Silt,Submergent,Sparse,1 - 19%
+01/28/2010,640955,4843112,Pool 08,0.1,0.56,0,11.4,80,Side channel,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+01/28/2013,636854,4853312,Pool 08,1.4,0.37,0,0.9,57,Isolated,Silt,Submergent,Dense,20 - 49%
+01/28/2013,637254,4853512,Pool 08,1.2,0.27,0,0.8,59,Isolated,Silt,S & E,Dense,20 - 49%
+01/28/2013,637054,4853312,Pool 08,2.5,0.35,0,1.8,68,Isolated,Silt,Submergent,Sparse,20 - 49%
+01/29/2002,637255,4853512,Pool 08,2.5,0.24,0,16.4,42,Isolated,Silt,Submergent,Dense,>50%
+01/29/2002,636855,4853712,Pool 08,3.6,0.46,0,10.8,61,Isolated,Silt,Submergent,Dense,>50%
+01/29/2007,643255,4834512,Pool 08,1.5,0.51,0,7.2,67,Isolated,Silt,Submergent,Sparse,1 - 19%
+01/29/2018,640455,4832712,Pool 08,0.4,0.48,0.03,14.3,90,Impounded lake,Silt,Submergent,Sparse,1 - 19%
+01/29/2018,642055,4830112,Pool 08,0.3,1.51,0.11,13.1,165,Impounded lake,Silt,Submergent,Sparse,1 - 19%
+01/29/2018,641055,4834312,Pool 08,0.2,0.49,0.03,13.4,83,Impounded lake,Silt,Submergent,Sparse,1 - 19%
+01/29/2018,640855,4833712,Pool 08,0.3,0.1,0.02,16,54,Impounded lake,Silt,Emergent,Sparse,>50%
+01/29/2024,640805,4842062,Pool 08,0.9,0.23,0,12.2,48,Side channel,Silt,S & E,Sparse,1 - 19%
+01/29/2024,639305,4849012,Pool 08,0.9,0.41,0,8.8,70,Connected backwater,Silt,Emergent,Sparse,1 - 19%
+01/30/2002,640505,4838562,Pool 08,0.9,0.07,0,18,17,Connected backwater,Silt,Emergent,Sparse,1 - 19%
+01/30/2012,636655,4853112,Pool 08,1.9,0.32,0,1.3,56,Isolated,Silt,S & E,Dense,20 - 49%
+01/30/2012,637455,4852912,Pool 08,1.2,0.23,0,3.3,49,Isolated,Silt,S & E,Sparse,1 - 19%
+01/30/2012,637855,4853312,Pool 08,1,0.22,0,0.6,42,Isolated,Silt,S & E,Dense,>50%
+01/30/2014,642855,4836912,Pool 08,0.3,0.71,0,9.3,115,Impounded lake,Silt,Submergent,Sparse,1 - 19%
+01/30/2015,636855,4853312,Pool 08,1.7,0.46,0,1.4,70,Isolated,Silt,S & E,Dense,>50%
+01/30/2015,637255,4852912,Pool 08,2.2,0.78,0,1,95,Isolated,Silt,S & E,Sparse,20 - 49%
+01/30/2020,639605,4842762,Pool 08,1.3,0.66,0,7.4,93,Connected backwater,Silt,Emergent,Sparse,1 - 19%
+01/30/2020,642655,4835512,Pool 08,0.2,1.19,0.05,11,83,Impounded lake,Silt,Submergent,Sparse,1 - 19%
+01/31/2008,641955,4846862,Pool 08,1.5,0.31,0,0.3,55,Connected backwater,Silt,Submergent,Sparse,1 - 19%
+01/31/2012,641205,4841162,Pool 08,0.3,0.38,0.1,14.2,58,Side channel,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+01/31/2017,733458,4668251,Pool 13,0.3,0.39,0,10.4,60,Side channel,Silt/Clay/Sand,Emergent,Sparse,1 - 19%
+01/31/2018,641905,4840612,Pool 08,0.9,0.15,0.09,13.8,51,Side channel,Sand,Emergent,Sparse,1 - 19%
+01/31/2022,641405,4847362,Pool 08,0.1,1.47,0.04,12.4,109,Side channel,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+02/01/2007,640305,4838712,Pool 08,0,0.05,0.04,15.7,18,Connected backwater,Sand,S & E,Sparse,1 - 19%
+02/01/2008,642005,4834662,Pool 08,0,0.3,0,12.2,57,Side channel,Sand,Submergent,Sparse,1 - 19%
+02/01/2010,639355,4850612,Pool 08,0,0.55,0.07,13.9,81,Side channel,Silt/Clay/Sand,Submergent,Sparse,20 - 49%
+02/01/2016,643904,4843661,Pool 08,0.6,0.35,0.05,13,62,Side channel,Silt,Submergent,Sparse,1 - 19%
+02/01/2021,639305,4843212,Pool 08,1,0.89,0,12.8,103,Connected backwater,Silt,Submergent,Sparse,1 - 19%
+02/01/2022,642955,4845162,Pool 08,0.3,0.39,0,11.9,74,Side channel,Silt,Submergent,Sparse,1 - 19%
+02/01/2023,639405,4835812,Pool 08,0.2,0.06,0.03,14.6,32,Side channel,Sand,Emergent,Sparse,1 - 19%
+02/02/2005,641005,4842412,Pool 08,0.5,0.12,0,1.1,40,Side channel,Silt/Clay/Sand,Submergent,Sparse,>50%
+02/02/2006,642205,4849062,Pool 08,1.7,0.65,0,13.5,81,Side channel,Silt/Clay/Sand,Submergent,Sparse,20 - 49%
+02/02/2006,738208,4645601,Pool 13,2,0.41,0,14.4,41,Impounded lake,Silt/Clay/Sand,Emergent,Sparse,1 - 19%
+02/02/2021,643255,4834512,Pool 08,0.9,0.2,0,10.1,39,Isolated,Silt,Submergent,Dense,1 - 19%
+02/03/2020,638055,4853512,Pool 08,1.5,1.31,0,0.3,57,Isolated,Silt,Submergent,Sparse,1 - 19%
+02/04/2010,641055,4849162,Pool 08,0,0.35,0,12.8,57,Side channel,Silt,Submergent,Sparse,20 - 49%
+02/04/2016,640254,4834511,Pool 08,0.2,1.07,0,11.7,110,Impounded lake,Silt,Submergent,Sparse,1 - 19%
+02/04/2020,642405,4847762,Pool 08,0.6,0.42,0.1,12,42,Connected backwater,Silt,Emergent,Sparse,1 - 19%
+02/05/2009,642255,4834862,Pool 08,0,0.35,0.04,12.8,78,Side channel,Sand,Submergent,Sparse,1 - 19%
+02/05/2016,641454,4835111,Pool 08,0,0.18,0.06,13.1,54,Impounded lake,Silt/Clay/Sand,S & E,Sparse,>50%
+02/06/2007,641705,4844162,Pool 08,0.7,0.46,0,6.7,45,Side channel,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+02/06/2019,641555,4842412,Pool 08,1.2,0.56,0,13.3,91,Side channel,Silt,S & E,Sparse,>50%
+02/07/2017,642305,4846312,Pool 08,0.9,1.05,0,12.2,111,Side channel,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+02/08/2006,637655,4852912,Pool 08,4,0.39,0,3.4,51,Isolated,Silt,S & E,Dense,>50%
+02/08/2006,636855,4853312,Pool 08,5.5,0.4,0,19.7,52,Isolated,Silt,S & E,Dense,>50%
+02/08/2007,637055,4853312,Pool 08,0.2,0.24,0,2.9,55,Isolated,Silt,Submergent,Dense,20 - 49%
+02/11/2004,640105,4840762,Pool 08,0.7,1,0,1.7,110,Side channel,Silt,S & E,Sparse,1 - 19%
+02/11/2009,640805,4840112,Pool 08,0.2,0.06,0,4.3,40,Connected backwater,Silt,S & E,Sparse,1 - 19%
+04/20/1998,638055,4853512,Pool 08,14,0.35,0,17.1,35,Isolated,Silt,Submergent,Sparse,1 - 19%
+04/20/1998,637255,4852912,Pool 08,12.8,0.39,0,7.7,39,Isolated,Silt,S & E,Sparse,1 - 19%
+04/20/1998,637255,4853112,Pool 08,13.6,0.59,0,14.2,38,Isolated,Silt,S & E,Sparse,1 - 19%
+04/20/2009,638055,4853712,Pool 08,12.1,0.2,0,6.1,20,Isolated,Silt,Submergent,Sparse,1 - 19%
+04/20/2009,636655,4853512,Pool 08,11.2,0.51,0,9.3,51,Isolated,Silt,Floating,Sparse,1 - 19%
+04/21/2015,644005,4844962,Pool 08,10.3,1.02,0,11.6,102,Side channel,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+04/22/2009,642155,4846012,Pool 08,12.8,0.81,0.01,15,63,Side channel,Silt,Submergent,Sparse,1 - 19%
+04/22/2009,643105,4845262,Pool 08,10.1,0.95,0.12,12.5,84,Connected backwater,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+04/22/2013,640754,4848211,Pool 08,5.6,1.6,0,11.1,121,Connected backwater,Silt,Submergent,Sparse,1 - 19%
+04/22/2013,639854,4843911,Pool 08,7.5,1.14,0,10,39,Connected backwater,Silt,"S, E, & F",Dense,20 - 49%
+04/22/2015,643255,4834512,Pool 08,6.8,0.44,0,9.9,44,Isolated,Silt,"S, E, & F",Sparse,>50%
+04/22/2015,643455,4834912,Pool 08,7.5,0.62,0,8.2,62,Isolated,Silt,"S, E, & F",Dense,>50%
+04/22/2015,637855,4852912,Pool 08,7,0.35,0,10.4,35,Isolated,Silt,"S, E, & F",Dense,>50%
+04/22/2019,642255,4836112,Pool 08,11.3,1.9,0.03,10.4,50,Impounded lake,Silt,Submergent,Sparse,1 - 19%
+04/22/2024,639755,4840612,Pool 08,12.1,0.32,0.04,16.2,32,Side channel,Silt/Clay/Sand,S & E,Sparse,1 - 19%
+04/22/2024,583880,4909208,Pool 04,10.2,1.69,0.02,11.3,129,Connected backwater,Silt,Submergent,Sparse,1 - 19%
+04/22/2024,637855,4852912,Pool 08,12.4,0.2,0,11.2,20,Isolated,Silt,Emergent,Sparse,1 - 19%
+04/23/2007,732958,4664601,Pool 13,17.3,0.9,0,11,43,Connected backwater,Silt/Clay/Sand,Submergent,Dense,>50%
+04/23/2007,641905,4845812,Pool 08,18.5,0.4,0,15.4,40,Connected backwater,Silt/Clay/Sand,S & E,Sparse,20 - 49%
+04/23/2008,638855,4850762,Pool 08,13.6,1.68,0,15.5,90,Connected backwater,Silt,Submergent,Sparse,1 - 19%
+04/23/2012,642305,4841212,Pool 08,14.8,0.37,0,14.5,37,Side channel,Silt,Submergent,Sparse,20 - 49%
+04/23/2024,643355,4844912,Pool 08,12.4,0.48,0.11,13.3,48,Side channel,Silt,Emergent,Sparse,1 - 19%
+04/24/2006,638405,4849862,Pool 08,15.9,1.11,0,11.9,95,Connected backwater,Silt,S & E,Dense,>50%
+04/24/2006,636655,4853512,Pool 08,18,0.69,0,17.8,55,Isolated,Silt,S & E,Dense,>50%
+04/24/2006,636655,4853112,Pool 08,18.6,0.41,0,19.9,41,Isolated,Silt,S & E,Dense,>50%
+04/24/2006,637655,4852912,Pool 08,17.4,0.58,0,11.7,48,Isolated,Silt,S & E,Dense,>50%
+04/24/2007,636655,4853312,Pool 08,16.8,0.37,0,14.8,37,Isolated,Silt,"S, E, & F",Dense,>50%
+04/24/2012,541929,4936458,Pool 04,16.8,0.25,0,9.4,25,Connected backwater,Silt,Emergent,Sparse,>50%
+04/24/2012,637255,4852912,Pool 08,15.7,0.62,0,11.7,62,Isolated,Silt,"S, E, & F",Sparse,>50%
+04/24/2012,643255,4834312,Pool 08,15.7,0.37,0,12.6,37,Isolated,Silt,Submergent,Dense,>50%
+04/24/2012,636655,4853312,Pool 08,16.6,0.45,0,12.4,45,Isolated,Silt,"S, E, & F",Sparse,>50%
+04/24/2013,638254,4853512,Pool 08,10.1,0.64,0,13.1,64,Isolated,Silt,Submergent,Sparse,1 - 19%
+04/24/2013,637454,4852912,Pool 08,8.1,0.71,0,13.3,71,Isolated,Silt,S & E,Sparse,>50%
+04/24/2013,638054,4853112,Pool 08,7.3,0.63,0,12.2,63,Isolated,Silt,S & E,Dense,>50%
+04/24/2013,637254,4852912,Pool 08,7.8,1.02,0,12.6,83,Isolated,Silt,Submergent,Sparse,>50%
+04/24/2018,638055,4853711,Pool 08,17.9,0.42,0,18,42,Isolated,Silt,Emergent,Sparse,1 - 19%
+04/24/2018,638055,4853511,Pool 08,16.9,0.9,0,15.7,50,Isolated,Silt,Submergent,Sparse,1 - 19%
+04/24/2019,636855,4853512,Pool 08,10.5,2.51,0,11.4,65,Isolated,Silt,Submergent,Sparse,20 - 49%
+04/24/2024,640055,4834912,Pool 08,15.2,0.47,0.06,18,47,Impounded lake,Silt,"S, E, & F",Sparse,1 - 19%
+04/25/2000,643005,4847762,Pool 08,13.6,1,0,15.2,58,Side channel,Sand,Floating,Sparse,1 - 19%
+04/25/2000,738208,4645601,Pool 13,13.7,0.36,0.04,17.6,36,Impounded lake,Sand,Submergent,Sparse,1 - 19%
+04/25/2005,729908,4669351,Pool 13,12.7,0.58,0.05,9.1,37,Connected backwater,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+04/25/2011,638255,4853512,Pool 08,9.6,1.09,0,12.6,96,Isolated,Silt/Clay/Sand,S & E,Sparse,1 - 19%
+04/25/2011,638055,4853112,Pool 08,10.8,1.24,0,15.1,99,Isolated,Silt/Clay/Sand,Emergent,Sparse,20 - 49%
+04/25/2011,643455,4834912,Pool 08,13.5,1.22,0,13.2,97,Isolated,Silt,Submergent,Sparse,1 - 19%
+04/25/2016,637654,4852912,Pool 08,15.1,0.28,0,8.2,28,Isolated,Silt,"S, E, & F",Sparse,>50%
+04/25/2017,639805,4840362,Pool 08,14.7,0.76,0,11.2,76,Side channel,Silt,Submergent,Sparse,1 - 19%
+04/25/2017,640055,4840562,Pool 08,14.7,1.02,0,10.6,71,Side channel,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+04/26/2005,638405,4856362,Pool 08,11.5,1.38,0,8.7,111,Connected backwater,Silt,Emergent,Sparse,1 - 19%
+04/26/2010,637855,4852912,Pool 08,15,0.36,0,10.9,36,Isolated,Silt,"S, E, & F",Dense,>50%
+04/26/2010,637455,4852712,Pool 08,14.9,0.31,0,9.6,31,Isolated,Silt,"S, E, & F",Sparse,>50%
+04/26/2010,643455,4834712,Pool 08,13.9,0.59,0,7.3,59,Isolated,Silt,"S, E, & F",Dense,>50%
+04/26/2010,636855,4853712,Pool 08,13.3,0.71,0,8.1,71,Isolated,Silt,Submergent,Sparse,>50%
+04/26/2018,642855,4837312,Pool 08,11.4,0.78,0.12,12.6,78,Impounded lake,Silt,Submergent,Sparse,>50%
+04/26/2018,640255,4834712,Pool 08,11.4,1.3,0,14,78,Impounded lake,Silt,Submergent,Sparse,>50%
+04/26/2018,642855,4837112,Pool 08,12.1,0.73,0.02,13.5,73,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,>50%
+04/27/2000,637655,4852912,Pool 08,16.6,0.45,0,7,45,Isolated,Silt,S & E,Sparse,>50%
+04/27/2000,636655,4853112,Pool 08,17.4,0.35,0,5.9,35,Isolated,Silt,S & E,Dense,>50%
+04/27/2000,637255,4853112,Pool 08,17.5,0.64,0,8,50,Isolated,Silt,S & E,Sparse,>50%
+04/27/2000,638055,4853112,Pool 08,19.4,0.32,0,7.7,32,Isolated,Silt,S & E,Dense,>50%
+04/27/2000,643455,4834512,Pool 08,19.5,0.6,0,11.8,50,Isolated,Silt,Submergent,Sparse,20 - 49%
+04/27/2005,737758,4658601,Pool 13,10.8,0.59,0,12.5,31,Connected backwater,Silt/Clay/Sand,S & E,Sparse,20 - 49%
+04/27/2006,640755,4843312,Pool 08,16.5,0.35,0.04,14.5,35,Side channel,Silt/Clay/Sand,S & E,Sparse,20 - 49%
+04/27/2009,737458,4656451,Pool 13,16.1,0.6,0,9.8,48,Connected backwater,Silt/Clay/Sand,Emergent,Sparse,1 - 19%
+04/27/2010,577479,4915958,Pool 04,19,0.31,0,15,31,Connected backwater,Silt,Submergent,Sparse,>50%
+04/27/2021,640205,4839462,Pool 08,11.2,0.44,0,16.1,44,Connected backwater,Silt,S & E,Sparse,1 - 19%
+04/27/2022,639905,4836512,Pool 08,8,0.48,0.04,13,48,Connected backwater,Silt,Submergent,Sparse,1 - 19%
+04/27/2023,637055,4853112,Pool 08,8.4,2.95,0.14,10.7,77,Isolated,Silt,Submergent,Sparse,1 - 19%
+04/27/2023,637855,4853312,Pool 08,8.4,2.51,0.05,10.5,79,Isolated,Silt/Clay/Sand,Emergent,Dense,>50%
+04/27/2023,637455,4852912,Pool 08,8.3,2.69,0.07,10.3,81,Isolated,Silt,Emergent,Sparse,1 - 19%
+04/28/1997,637255,4852912,Pool 08,14,1.5,0.01,18.7,60,Isolated,Silt,S & E,Dense,20 - 49%
+04/28/1997,636655,4853312,Pool 08,14,1.27,0.06,16.9,61,Isolated,Silt,Emergent,Dense,20 - 49%
+04/28/1997,638055,4853512,Pool 08,12.3,3.66,0.01,12.3,66,Isolated,Silt,Emergent,Dense,1 - 19%
+04/28/2010,639355,4844412,Pool 08,17.2,0.46,0,9.1,46,Connected backwater,Silt,"S, E, & F",Dense,>50%
+04/28/2010,643755,4840562,Pool 08,14.2,0.44,0.11,12.6,44,Connected backwater,Silt,"S, E, & F",Sparse,20 - 49%
+04/28/2010,643155,4842112,Pool 08,15.5,0.33,0,10.9,33,Connected backwater,Silt,"S, E, & F",Sparse,>50%
+04/28/2014,636855,4853312,Pool 08,9.3,0.98,0,10.5,78,Isolated,Silt,Submergent,Sparse,1 - 19%
+04/28/2014,638055,4853112,Pool 08,9.8,0.92,0,9.6,75,Isolated,Silt,"S, E, & F",Sparse,1 - 19%
+04/28/2014,637855,4852912,Pool 08,9.7,0.9,0,9.9,72,Isolated,Silt,"S, E, & F",Sparse,1 - 19%
+04/28/2014,637055,4853112,Pool 08,9.3,1.15,0,10.3,88,Isolated,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+04/28/2014,643455,4832912,Pool 08,8.5,0.71,0,10,71,Impounded lake,Silt,S & E,Sparse,1 - 19%
+04/28/2021,639655,4836162,Pool 08,10.4,0.71,0.12,11,71,Side channel,Silt/Clay/Sand,Emergent,Sparse,1 - 19%
+04/28/2021,640855,4833912,Pool 08,10,0.38,0.14,10.9,38,Impounded lake,Silt,S & E,Sparse,>50%
+04/29/2002,643055,4840612,Pool 08,9.1,0.66,0,10.7,66,Connected backwater,Silt/Clay/Sand,S & E,Sparse,1 - 19%
+04/29/2013,643054,4835511,Pool 08,16.3,1.15,0,14.8,89,Impounded lake,Silt,Submergent,Dense,>50%
+04/29/2019,644405,4845012,Pool 08,10.3,2.16,0.13,9.9,90,Connected backwater,Silt,Submergent,Sparse,1 - 19%
+04/29/2021,636855,4853512,Pool 08,17.9,0.49,0,12.4,49,Isolated,Silt,"S, E, & F",Dense,>50%
+04/29/2021,643255,4834312,Pool 08,16.9,0.4,0,13.3,40,Isolated,Silt,"S, E, & F",Dense,>50%
+04/29/2021,643455,4834912,Pool 08,16,0.85,0,10.7,85,Isolated,Silt,"S, E, & F",Dense,>50%
+04/29/2021,637055,4853712,Pool 08,19.8,0.55,0,12.2,55,Isolated,Silt,"S, E, & F",Dense,>50%
+04/29/2024,639255,4835862,Pool 08,11.9,0.25,0.13,10.6,25,Side channel,Sand,Emergent,Sparse,20 - 49%
+04/30/1999,637055,4853112,Pool 08,18.2,0.75,0,9.7,68,Isolated,Silt,S & E,Sparse,>50%
+04/30/1999,637655,4852912,Pool 08,18.3,4.55,0,9.8,55,Isolated,Silt,S & E,Sparse,>50%
+04/30/2002,643255,4834512,Pool 08,12.4,0.44,0,14.6,44,Isolated,Silt,Submergent,Dense,>50%
+04/30/2012,641505,4844112,Pool 08,12,0.46,0.12,12.3,46,Side channel,Silt/Clay/Sand,"S, E, & F",Sparse,1 - 19%
+04/30/2012,639455,4837062,Pool 08,12,0.59,0.07,11.4,59,Side channel,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+04/30/2012,737308,4660801,Pool 13,11.3,0.5,0,10.3,50,Connected backwater,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+04/30/2012,737258,4657601,Pool 13,10.8,0.5,0,10.3,50,Connected backwater,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+04/30/2014,639855,4837812,Pool 08,7.1,1.21,0.04,10.3,87,Side channel,Silt,Submergent,Sparse,1 - 19%
+04/30/2019,643205,4842612,Pool 08,10.3,1.76,0.09,9.5,108,Connected backwater,Silt,Submergent,Dense,>50%
+04/30/2021,581780,4913958,Pool 04,11.4,0.62,0.13,11.4,62,Side channel,Silt/Clay/Sand,Submergent,Sparse,>50%
+05/01/2007,639855,4834912,Pool 08,19.2,0.5,0.1,15.5,50,Impounded lake,Silt,"S, E, & F",Dense,20 - 49%
+05/01/2007,733808,4649601,Pool 13,19.4,0.54,0,8,21,Impounded lake,Silt/Clay/Sand,S & E,Dense,20 - 49%
+05/01/2013,641154,4842261,Pool 08,13.1,0.97,0,11.4,48,Side channel,Silt,Submergent,Sparse,20 - 49%
+05/02/2006,639655,4844112,Pool 08,17.8,1.97,0,11.3,168,Connected backwater,Silt/Clay/Sand,Submergent,Dense,1 - 19%
+05/02/2006,643255,4836512,Pool 08,16.5,1.22,0.02,11.2,122,Impounded lake,Silt/Clay/Sand,Submergent,Dense,>50%
+05/02/2007,640455,4841862,Pool 08,16.7,0.32,0.12,13.7,32,Side channel,Sand,Emergent,Sparse,1 - 19%
+05/02/2007,639805,4840462,Pool 08,19.8,0.25,0.07,18,25,Side channel,Sand,"S, E, & F",Sparse,1 - 19%
+05/02/2007,738358,4658151,Pool 13,17.9,0.57,0,9.3,57,Connected backwater,Silt/Clay/Sand,Emergent,Sparse,1 - 19%
+05/02/2018,580230,4917457,Pool 04,13.7,1.6,0.12,6.9,160,Connected backwater,Silt,Submergent,Dense,>50%
+05/02/2022,643055,4836712,Pool 08,9.5,0.68,0,12.7,68,Impounded lake,Silt,Submergent,Dense,>50%
+05/03/1996,638255,4853512,Pool 08,11.4,1.06,0,13.9,61,Isolated,Silt,Emergent,Sparse,1 - 19%
+05/03/2005,639655,4836912,Pool 08,14.7,0.18,0,18.3,18,Connected backwater,Sand,S & E,Sparse,1 - 19%
+05/03/2006,642355,4845862,Pool 08,17.7,0.35,0,16.6,35,Side channel,Silt/Clay/Sand,S & E,Dense,20 - 49%
+05/03/2011,640755,4840062,Pool 08,8.7,0.82,0.13,14,82,Connected backwater,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+05/03/2016,641754,4843861,Pool 08,15,0.58,0.02,11.7,58,Side channel,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+05/03/2017,641455,4847512,Pool 08,10.4,2.23,0.02,11.3,91,Side channel,Silt,Submergent,Sparse,1 - 19%
+05/03/2017,643055,4836312,Pool 08,10.3,1.39,0.04,12.5,110,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,20 - 49%
+05/04/2004,638055,4853512,Pool 08,15.3,3,0,9.8,62,Isolated,Silt,Floating,Sparse,20 - 49%
+05/04/2004,638255,4853312,Pool 08,15.6,0.74,0,11.2,65,Isolated,Silt/Clay/Sand,Floating,Sparse,20 - 49%
+05/04/2004,637455,4852712,Pool 08,18.5,0.29,0,11.1,29,Isolated,Silt,"S, E, & F",Dense,>50%
+05/04/2010,639855,4833112,Pool 08,14.6,0.52,0,10.8,52,Impounded lake,Sand,Submergent,Sparse,1 - 19%
+05/04/2011,734608,4650601,Pool 13,10.4,0.59,0,13.5,59,Impounded lake,Silt/Clay/Sand,Emergent,Sparse,20 - 49%
+05/04/2017,581280,4912508,Pool 04,14.8,0.92,0.01,13.9,92,Connected backwater,Silt,S & E,Dense,>50%
+05/04/2017,637055,4853312,Pool 08,14.3,0.81,0,13.6,62,Isolated,Silt,"S, E, & F",Sparse,>50%
+05/04/2017,636655,4853712,Pool 08,16.2,0.78,0,12.1,70,Isolated,Silt,"S, E, & F",Sparse,>50%
+05/04/2017,637455,4853312,Pool 08,15.5,0.84,0,13,56,Isolated,Silt,Floating,Sparse,>50%
+05/04/2017,637255,4853112,Pool 08,14.1,0.94,0,12.7,55,Isolated,Silt,Floating,Sparse,>50%
+05/04/2017,637455,4852912,Pool 08,14.5,0.72,0,12.5,65,Isolated,Silt,Floating,Sparse,>50%
+05/04/2021,641155,4842162,Pool 08,18.2,0.19,0,17.4,19,Side channel,Silt,"S, E, & F",Sparse,>50%
+05/04/2021,641355,4842612,Pool 08,18.9,0.23,0,16.1,23,Connected backwater,Silt,"S, E, & F",Dense,>50%
+05/06/2002,640905,4843012,Pool 08,13.5,0.38,0.1,11.2,38,Side channel,Sand,S & E,Sparse,1 - 19%
+05/06/2004,642105,4845012,Pool 08,15.6,0.29,0,12,29,Side channel,Silt/Clay/Sand,"S, E, & F",Sparse,1 - 19%
+05/06/2004,641005,4842412,Pool 08,15.7,0.5,0.06,15,40,Side channel,Silt/Clay/Sand,S & E,Sparse,1 - 19%
+05/06/2004,640755,4843262,Pool 08,18.2,0.18,0,9.6,18,Side channel,Silt/Clay/Sand,S & E,Dense,20 - 49%
+05/07/2002,639155,4855312,Pool 08,14.4,0.92,0,9.5,65,Side channel,Silt/Clay/Sand,S & E,Sparse,1 - 19%
+05/07/2002,636855,4853512,Pool 08,17.5,0.78,0,11.9,50,Isolated,Silt,Floating,Sparse,>50%
+05/07/2002,637055,4853712,Pool 08,16.9,0.68,0,9.9,52,Isolated,Silt,Floating,Sparse,>50%
+05/07/2021,733308,4669801,Pool 13,16.6,0.94,0,10.2,40,Connected backwater,Silt/Clay/Sand,Floating,Sparse,1 - 19%
+05/09/1995,637255,4853512,Pool 08,12.7,0.54,0,5.8,54,Isolated,Silt,Emergent,Sparse,20 - 49%
+05/09/1995,636655,4853712,Pool 08,12.6,0.56,0,5.6,56,Isolated,Silt,Emergent,Sparse,>50%
+05/09/1995,638055,4853512,Pool 08,14,0.5,0,8.9,50,Isolated,Silt,Emergent,Sparse,1 - 19%
+05/09/2005,636655,4853712,Pool 08,21.8,0.48,0,10.2,48,Isolated,Silt,"S, E, & F",Dense,>50%
+05/09/2005,637855,4853312,Pool 08,23.5,0.28,0,6.8,28,Isolated,Silt,"S, E, & F",Dense,>50%
+05/09/2005,638255,4853512,Pool 08,22.3,0.32,0,7,32,Isolated,Silt,"S, E, & F",Dense,>50%
+05/09/2005,638255,4853312,Pool 08,19.8,0.93,0,10.2,93,Isolated,Silt,"S, E, & F",Dense,>50%
+05/10/1994,636655,4853712,Pool 08,15.2,1.1,0,13.7,83,Isolated,Silt,Floating,Sparse,1 - 19%
+05/10/2001,643455,4834512,Pool 08,19.3,1.55,0,16,75,Isolated,Silt,Submergent,Sparse,1 - 19%
+05/13/2004,641055,4835912,Pool 08,18.9,0.42,0.04,12,42,Impounded lake,Sand,Submergent,Sparse,1 - 19%
+05/13/2004,643055,4836112,Pool 08,18.4,1,0,8.4,54,Impounded lake,Silt/Clay/Sand,"S, E, & F",Sparse,1 - 19%
+07/21/2014,732758,4663901,Pool 13,24,1.46,0,9.2,49,Connected backwater,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+07/21/2014,636655,4853112,Pool 08,21.8,0.42,0,0.1,42,Isolated,Silt,"S, E, & F",Dense,>50%
+07/21/2014,643255,4834512,Pool 08,25.2,0.91,0,7.9,91,Isolated,Silt,"S, E, & F",Dense,>50%
+07/21/2014,637455,4852912,Pool 08,22.6,0.58,0,1.4,58,Isolated,Silt,"S, E, & F",Dense,>50%
+07/21/2014,636655,4853712,Pool 08,25.5,0.71,0,4.2,71,Isolated,Silt,"S, E, & F",Dense,>50%
+07/22/1993,640655,4842912,Pool 08,23.2,1.5,0.09,6.5,50,Side channel,Silt,Emergent,Sparse,1 - 19%
+07/22/1993,640655,4843112,Pool 08,23.2,1,0.04,6.4,50,Connected backwater,Silt,Emergent,Dense,>50%
+07/22/1996,641655,4843862,Pool 08,26.6,0.36,0,15.1,36,Side channel,Silt,S & E,Dense,>50%
+07/22/1997,643405,4844112,Pool 08,24.8,0.89,0,5.2,64,Connected backwater,Silt,Floating,Sparse,1 - 19%
+07/22/2002,641055,4828312,Pool 08,29.7,0.35,0.03,13.6,35,Impounded lake,Sand,Submergent,Sparse,>50%
+07/22/2002,640655,4833912,Pool 08,27.8,0.69,0.03,8.4,69,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,20 - 49%
+07/22/2008,640905,4845512,Pool 08,26.5,0.4,0.07,9.7,40,Side channel,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+07/22/2019,736258,4657651,Pool 13,27,0.52,0,5.7,40,Side channel,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+07/22/2019,639255,4842612,Pool 08,26.1,1.16,0,11,116,Connected backwater,Silt,"S, E, & F",Dense,>50%
+07/22/2024,637255,4853112,Pool 08,22.4,0.88,0,0.1,40,Isolated,Silt,"S, E, & F",Dense,>50%
+07/22/2024,737808,4648201,Pool 13,27.1,1.6,0.08,6.7,54,Impounded lake,Silt/Clay/Sand,Submergent,Dense,>50%
+07/23/1997,642055,4840262,Pool 08,24.4,0.2,0.13,6.7,20,Connected backwater,Sand,S & E,Dense,>50%
+07/23/2007,643255,4841512,Pool 08,23,1.25,0.02,5.8,84,Side channel,Silt/Clay/Sand,"S, E, & F",Sparse,1 - 19%
+07/23/2007,642755,4841362,Pool 08,25,1.7,0.11,8.8,75,Side channel,Sand,"S, E, & F",Sparse,1 - 19%
+07/23/2007,641755,4848112,Pool 08,25.1,0.3,0,10.2,30,Side channel,Sand,Submergent,Sparse,1 - 19%
+07/23/2008,642755,4834612,Pool 08,27.1,2.27,0.07,8.6,187,Side channel,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+07/23/2008,737808,4643401,Pool 13,27.9,0.4,0,15.4,40,Impounded lake,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+07/23/2008,733808,4644601,Pool 13,26,0.98,0.04,6.5,38,Impounded lake,Silt/Clay/Sand,S & E,Dense,20 - 49%
+07/23/2008,736608,4647401,Pool 13,24.8,1.42,0.1,6.8,90,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+07/23/2008,735008,4644201,Pool 13,27,1.24,0,12.3,40,Impounded lake,Silt/Clay/Sand,Submergent,Dense,>50%
+07/23/2013,637054,4853312,Pool 08,22.4,0.78,0,2.5,78,Isolated,Silt,"S, E, & F",Dense,>50%
+07/23/2013,638254,4853512,Pool 08,25.2,0.64,0,1.9,64,Isolated,Silt,"S, E, & F",Dense,>50%
+07/23/2014,640805,4849712,Pool 08,25.6,1.36,0.1,7.5,118,Side channel,Silt/Clay/Sand,"S, E, & F",Sparse,20 - 49%
+07/23/2014,736808,4650601,Pool 13,26.7,0.58,0.05,12.7,58,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,>50%
+07/23/2018,640805,4840162,Pool 08,26,0.82,0.03,9,82,Connected backwater,Silt,"S, E, & F",Dense,>50%
+07/23/2018,737407,4652401,Pool 13,26.5,1.2,0.1,9.3,58,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,20 - 49%
+07/23/2019,735808,4655801,Pool 13,27,1.06,0.01,6.7,32,Side channel,Silt/Clay/Sand,"S, E, & F",Sparse,1 - 19%
+07/23/2019,639805,4838512,Pool 08,25.5,0.8,0.11,7.3,60,Connected backwater,Silt,"S, E, & F",Dense,>50%
+07/24/2000,639805,4843012,Pool 08,22.2,0.26,0,2.7,26,Connected backwater,Silt,S & E,Dense,>50%
+07/24/2001,642255,4834762,Pool 08,29.4,0.99,0.04,7.5,99,Side channel,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+07/24/2002,644005,4841562,Pool 08,25.9,0.71,0,7.9,55,Connected backwater,Silt/Clay/Sand,Submergent,Dense,20 - 49%
+07/24/2006,642805,4841262,Pool 08,27.6,1.5,0.13,14.4,50,Side channel,Sand,Emergent,Dense,1 - 19%
+07/24/2006,643305,4845212,Pool 08,28,0.95,0,13.3,45,Side channel,Silt/Clay/Sand,"S, E, & F",Dense,20 - 49%
+07/24/2007,739558,4646951,Pool 13,21.3,0.56,0,1,56,Connected backwater,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+07/24/2007,735408,4645401,Pool 13,26.2,1.26,0,8,48,Impounded lake,Silt/Clay/Sand,Floating,Sparse,1 - 19%
+07/24/2007,735008,4643001,Pool 13,26.4,1.58,0.1,7.2,78,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+07/24/2008,643455,4834912,Pool 08,25.4,1.01,0,4.7,60,Isolated,Silt,"S, E, & F",Dense,>50%
+07/24/2013,736808,4646600,Pool 13,26.3,1.42,0,10.6,78,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,20 - 49%
+07/24/2014,642805,4838362,Pool 08,25.5,2.03,0.07,8,117,Side channel,Silt/Clay/Sand,Submergent,Sparse,20 - 49%
+07/24/2014,581430,4914158,Pool 04,26,0.48,0.06,9,48,Connected backwater,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+07/24/2014,738208,4645201,Pool 13,26.2,0.44,0,11,44,Impounded lake,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+07/24/2017,739058,4645201,Pool 13,25.1,0.52,0,4.4,52,Connected backwater,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+07/24/2017,641255,4832712,Pool 08,24.5,1.31,0.07,7.5,87,Impounded lake,Silt,Submergent,Dense,>50%
+07/24/2018,736057,4660550,Pool 13,25.6,1.2,0,10.5,42,Connected backwater,Silt/Clay/Sand,Submergent,Sparse,20 - 49%
+07/24/2018,643055,4839712,Pool 08,26.3,1.3,0.04,8.7,130,Impounded lake,Silt,"S, E, & F",Dense,>50%
+07/24/2019,737808,4643001,Pool 13,21.2,0.48,0,1.9,48,Impounded lake,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+07/24/2023,737008,4643201,Pool 13,26.1,0.8,0,13.9,80,Impounded lake,Sand,"S, E, & F",Dense,>50%
+07/24/2023,736608,4645801,Pool 13,27.3,1.5,0,9.7,72,Impounded lake,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+07/24/2023,735008,4644601,Pool 13,27.2,1.22,0,9.5,68,Impounded lake,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+07/24/2024,581680,4913958,Pool 04,25.7,0.76,0.01,7,76,Side channel,Silt,S & E,Dense,>50%
+07/24/2024,640355,4840812,Pool 08,25.5,0.49,0.09,6.4,49,Side channel,Silt/Clay/Sand,S & E,Sparse,20 - 49%
+07/24/2024,735908,4654451,Pool 13,26.1,0.6,0,6.4,56,Side channel,Sand,Submergent,Dense,1 - 19%
+07/24/2024,640855,4841412,Pool 08,25.6,0.93,0.03,6.3,93,Side channel,Silt/Clay/Sand,S & E,Dense,>50%
+07/24/2024,737408,4657101,Pool 13,24.7,1.7,0,1.8,49,Connected backwater,Silt/Clay/Sand,"S, E, & F",Dense,20 - 49%
+07/25/1996,738008,4657601,Pool 13,23.1,0.65,0.05,9.6,29,Connected backwater,Silt/Clay/Sand,S & E,Sparse,1 - 19%
+07/25/1997,738108,4658801,Pool 13,25.8,0.94,0,9.9,35,Connected backwater,Silt,Submergent,Dense,1 - 19%
+07/25/1997,643455,4834512,Pool 08,27.9,0.75,0,6.4,45,Isolated,Silt,Submergent,Dense,>50%
+07/25/2000,642455,4847712,Pool 08,23.9,0.3,0.05,7.5,30,Side channel,Silt/Clay/Sand,S & E,Sparse,1 - 19%
+07/25/2000,641255,4842112,Pool 08,24.8,1.19,0.11,9.2,60,Side channel,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+07/25/2002,721208,4674600,Pool 13,26.3,1.6,0.08,5.9,44,Side channel,Silt/Clay/Sand,Emergent,Sparse,1 - 19%
+07/25/2002,637455,4852712,Pool 08,21.2,0.51,0,0.5,51,Isolated,Silt,"S, E, & F",Dense,>50%
+07/25/2002,638055,4853712,Pool 08,24.4,0.57,0,4.2,57,Isolated,Silt,"S, E, & F",Dense,>50%
+07/25/2002,638055,4853512,Pool 08,24.3,2.08,0,5.2,127,Isolated,Silt,"S, E, & F",Dense,>50%
+07/25/2002,637855,4852912,Pool 08,21.5,0.49,0,1.3,49,Isolated,Silt,"S, E, & F",Dense,>50%
+07/25/2007,639605,4835962,Pool 08,25.9,0.58,0,5.8,42,Side channel,Silt,"S, E, & F",Dense,>50%
+07/25/2007,738208,4647401,Pool 13,29.1,0.52,0,14.6,52,Impounded lake,Silt/Clay/Sand,Submergent,Dense,>50%
+07/25/2007,737808,4648401,Pool 13,28,1.12,0,15.9,112,Impounded lake,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+07/25/2007,640655,4832112,Pool 08,28.3,1.52,0,10.5,91,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,>50%
+07/25/2007,736608,4648001,Pool 13,26.4,1.18,0,16.3,118,Impounded lake,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+07/25/2007,733608,4647201,Pool 13,23.4,0.82,0,3.9,82,Impounded lake,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+07/25/2008,736808,4648001,Pool 13,24.9,1.2,0,11.2,120,Impounded lake,Silt/Clay/Sand,Submergent,Dense,>50%
+07/25/2011,637055,4853312,Pool 08,23.7,1.2,0,0.2,49,Isolated,Silt,"S, E, & F",Dense,>50%
+07/25/2011,638255,4853512,Pool 08,25.9,0.67,0,0.1,67,Isolated,Silt,"S, E, & F",Dense,>50%
+07/25/2012,637055,4853712,Pool 08,25.4,0.81,0,0.2,63,Isolated,Silt,"S, E, & F",Dense,>50%
+07/25/2012,643455,4834512,Pool 08,26.3,0.45,0,10.2,45,Isolated,Silt,"S, E, & F",Dense,>50%
+07/25/2012,637255,4852912,Pool 08,24.9,0.68,0,0.2,50,Isolated,Silt,"S, E, & F",Dense,>50%
+07/25/2013,642554,4845661,Pool 08,22.3,0.42,0,4.6,42,Side channel,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+07/25/2013,580630,4914358,Pool 04,24.1,0.2,0,1.8,20,Side channel,Clay,Emergent,Dense,>50%
+07/25/2013,735408,4651000,Pool 13,26.4,0.55,0.05,7.7,55,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+07/25/2013,734408,4648600,Pool 13,23.6,0.4,0,5.7,40,Impounded lake,Silt/Clay/Sand,Submergent,Dense,>50%
+07/25/2014,580180,4912108,Pool 04,22.8,0.76,0.02,6.3,76,Connected backwater,Silt,"S, E, & F",Sparse,>50%
+07/25/2014,578930,4917208,Pool 04,24.8,0.2,0,2.1,20,Connected backwater,Silt,Emergent,Dense,>50%
+07/25/2016,737008,4650600,Pool 13,28.4,1.1,0.04,7.7,45,Impounded lake,Silt/Clay/Sand,Submergent,Dense,>50%
+07/25/2018,733807,4646601,Pool 13,24.3,1.4,0.03,6,50,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,20 - 49%
+07/25/2022,738408,4644201,Pool 13,25,0.98,0,4,98,Connected backwater,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+07/25/2022,737808,4648401,Pool 13,27.9,1.06,0,11.5,38,Impounded lake,Sand,Emergent,Dense,20 - 49%
+07/25/2022,734208,4646801,Pool 13,26.1,0.8,0,7.1,30,Impounded lake,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+07/25/2023,642505,4846512,Pool 08,27,1.48,0.07,11.7,105,Side channel,Sand,Submergent,Sparse,20 - 49%
+07/25/2024,642355,4845512,Pool 08,25.7,0.8,0.02,6.6,80,Side channel,Silt/Clay/Sand,S & E,Dense,>50%
+07/26/1994,642255,4844312,Pool 08,24.2,0.4,0.1,10.2,40,Side channel,Silt/Clay/Sand,Emergent,Dense,1 - 19%
+07/26/1994,733208,4668801,Pool 13,24.8,0.88,0.01,7.3,36,Connected backwater,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+07/26/1996,638055,4853112,Pool 08,22.9,0.35,0,2,35,Isolated,Silt,S & E,Dense,>50%
+07/26/2000,636855,4853312,Pool 08,19.9,0.63,0,0.4,24,Isolated,Silt,S & E,Dense,>50%
+07/26/2000,638255,4853512,Pool 08,21.5,0.42,0,1.8,42,Isolated,Silt,S & E,Dense,>50%
+07/26/2001,641255,4840562,Pool 08,27.9,0.39,0.08,8.8,39,Side channel,Sand,"S, E, & F",Dense,>50%
+07/26/2001,643255,4841562,Pool 08,26.8,1.4,0.11,8.8,68,Side channel,Sand,Emergent,Dense,1 - 19%
+07/26/2001,579179,4917108,Pool 04,23.4,0.23,0,4.7,23,Connected backwater,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+07/26/2006,642005,4840712,Pool 08,26,0.83,0,3.1,83,Connected backwater,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+07/26/2007,642855,4845212,Pool 08,28.4,1.85,0.03,9.2,79,Side channel,Silt,"S, E, & F",Sparse,1 - 19%
+07/26/2007,584680,4911208,Pool 04,26.5,2.36,0.05,8.4,66,Connected backwater,Silt/Clay/Sand,Submergent,Sparse,>50%
+07/26/2010,642155,4834162,Pool 08,26.3,1.52,0.07,4.5,152,Side channel,Silt/Clay/Sand,Submergent,Sparse,>50%
+07/26/2010,641255,4836512,Pool 08,27.4,1.97,0,6.1,131,Impounded lake,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+07/26/2010,640455,4837512,Pool 08,27.7,0.91,0.03,7.3,91,Impounded lake,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+07/26/2010,642655,4835912,Pool 08,26.6,1.31,0,5.6,119,Impounded lake,Silt,"S, E, & F",Dense,>50%
+07/26/2011,732708,4662751,Pool 13,31,1.08,0.05,5.1,52,Connected backwater,Silt/Clay/Sand,S & E,Sparse,1 - 19%
+07/26/2011,641655,4829512,Pool 08,28.2,1.25,0.09,8.5,125,Impounded lake,Silt/Clay/Sand,Submergent,Dense,>50%
+07/26/2012,736658,4656801,Pool 13,29.6,0.58,0,8.3,32,Side channel,Silt/Clay/Sand,"S, E, & F",Sparse,1 - 19%
+07/26/2012,640555,4835412,Pool 08,28.1,0.31,0,9,31,Connected backwater,Silt,"S, E, & F",Dense,>50%
+07/26/2016,642654,4829711,Pool 08,26.8,2.07,0.1,5.6,207,Impounded lake,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+07/26/2016,642854,4828112,Pool 08,27.2,1.21,0.02,7.4,121,Impounded lake,Sand,"S, E, & F",Dense,>50%
+07/26/2016,734608,4643000,Pool 13,26.9,1.58,0.04,4.3,62,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,20 - 49%
+07/26/2018,639205,4851761,Pool 08,25.5,1.54,0,8.2,103,Side channel,Silt,Submergent,Sparse,1 - 19%
+07/26/2019,732508,4664101,Pool 13,25.2,1.42,0,6.7,39,Connected backwater,Silt/Clay/Sand,"S, E, & F",Sparse,1 - 19%
+07/26/2020,580230,4915258,Pool 04,25.9,1.8,0.02,7.3,112,Connected backwater,Silt/Clay/Sand,Submergent,Sparse,>50%
+07/26/2021,739458,4646901,Pool 13,24,0.4,0,0,40,Connected backwater,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+07/26/2021,737608,4644001,Pool 13,27.8,0.76,0,8,76,Impounded lake,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+07/26/2021,738008,4644601,Pool 13,27.3,0.78,0,5.2,78,Impounded lake,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+07/26/2021,641655,4838312,Pool 08,25.9,1.28,0.01,5,128,Impounded lake,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+07/26/2022,641305,4849062,Pool 08,27.7,1.76,0.05,14.8,72,Side channel,Sand,"S, E, & F",Sparse,1 - 19%
+07/26/2022,638505,4856912,Pool 08,24.7,1.41,0.05,6.5,103,Side channel,Sand,"S, E, & F",Dense,>50%
+07/26/2022,638705,4850712,Pool 08,23.7,0.29,0,3.1,29,Connected backwater,Silt,"S, E, & F",Dense,>50%
+07/26/2022,737208,4651601,Pool 13,28,0.4,0,11.7,40,Impounded lake,Sand,"S, E, & F",Dense,>50%
+07/26/2023,583830,4909658,Pool 04,24.3,0.97,0,4.3,97,Connected backwater,Silt,"S, E, & F",Dense,1 - 19%
+07/26/2023,638255,4853312,Pool 08,26.4,2.9,0,5.5,101,Isolated,Silt,"S, E, & F",Sparse,20 - 49%
+07/26/2024,728408,4671001,Pool 13,24.8,1.4,0,4,128,Connected backwater,Silt/Clay/Sand,Emergent,Dense,1 - 19%
+07/27/1994,736608,4659201,Pool 13,24.3,0.4,0.02,12.6,18,Connected backwater,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+07/27/1999,733608,4668201,Pool 13,30.2,1,0,5.1,44,Side channel,Silt,S & E,Dense,20 - 49%
+07/27/2000,739408,4646701,Pool 13,21.6,0.38,0,1.5,38,Connected backwater,Silt,S & E,Dense,>50%
+07/27/2000,735208,4644601,Pool 13,25.8,1.3,0.14,9.5,60,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+07/27/2001,640305,4839912,Pool 08,27.5,0.11,0.11,11.7,11,Side channel,Sand,"S, E, & F",Dense,>50%
+07/27/2004,639855,4835362,Pool 08,26.7,0.52,0,13.6,48,Connected backwater,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+07/27/2005,639355,4850312,Pool 08,23.9,0.35,0,5.7,35,Side channel,Sand,"S, E, & F",Dense,>50%
+07/27/2006,642755,4834862,Pool 08,28.2,1.83,0,11.3,58,Side channel,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+07/27/2006,585230,4909358,Pool 04,28,0.72,0.02,13,62,Connected backwater,Sand,Submergent,Sparse,>50%
+07/27/2006,734008,4646001,Pool 13,28,1.62,0,9.3,47,Impounded lake,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+07/27/2009,640955,4847612,Pool 08,25.1,0.45,0,10.6,45,Side channel,Sand,"S, E, & F",Dense,20 - 49%
+07/27/2012,736208,4648601,Pool 13,27.5,0.88,0,8.5,64,Impounded lake,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+07/27/2015,641505,4841962,Pool 08,28.3,1.12,0.13,14.3,78,Side channel,Silt/Clay/Sand,"S, E, & F",Sparse,20 - 49%
+07/27/2015,641055,4840512,Pool 08,29.4,0.3,0.11,16.3,30,Side channel,Silt/Clay/Sand,S & E,Sparse,1 - 19%
+07/27/2015,734758,4657101,Pool 13,26.1,0.6,0,6.4,28,Side channel,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+07/27/2015,640655,4840762,Pool 08,24.2,0.45,0,0,45,Connected backwater,Silt,"S, E, & F",Dense,>50%
+07/27/2015,640855,4838912,Pool 08,27.2,0.74,0,8.5,74,Impounded lake,Silt,"S, E, & F",Dense,>50%
+07/27/2016,642154,4841011,Pool 08,27.6,0.78,0.04,4.8,70,Side channel,Silt,"S, E, & F",Dense,>50%
+07/27/2016,736708,4655701,Pool 13,26.3,0.7,0,1.8,70,Connected backwater,Silt/Clay/Sand,Emergent,Dense,>50%
+07/27/2017,733908,4659801,Pool 13,24.8,1.2,0.12,5.3,20,Side channel,Silt/Clay/Sand,Floating,Sparse,1 - 19%
+07/27/2017,639355,4841762,Pool 08,31.3,0.51,0,15,51,Connected backwater,Silt,"S, E, & F",Dense,>50%
+07/27/2017,639255,4843162,Pool 08,27.8,1.3,0,9.2,110,Connected backwater,Silt,"S, E, & F",Dense,>50%
+07/27/2018,585079,4910757,Pool 04,25.6,0.44,0,8.7,44,Connected backwater,Silt,"S, E, & F",Dense,>50%
+07/27/2018,583829,4912607,Pool 04,23,0.54,0.05,11,54,Connected backwater,Silt,S & E,Sparse,>50%
+07/27/2020,639455,4855912,Pool 08,27.1,1.14,0.02,8.2,70,Side channel,Silt/Clay/Sand,"S, E, & F",Dense,1 - 19%
+07/27/2020,637655,4856012,Pool 08,27.3,0.89,0,8.5,89,Connected backwater,Silt,"S, E, & F",Sparse,20 - 49%
+07/27/2021,737508,4656551,Pool 13,26.5,0.4,0,1.5,40,Connected backwater,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+07/27/2021,737108,4659551,Pool 13,26,0.59,0,0,59,Connected backwater,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+07/27/2022,582680,4913258,Pool 04,25.5,0.82,0.05,11.1,82,Connected backwater,Silt/Clay/Sand,S & E,Dense,20 - 49%
+07/27/2022,640205,4840662,Pool 08,24.8,0.25,0.04,10.3,25,Connected backwater,Sand,"S, E, & F",Sparse,1 - 19%
+07/27/2022,639905,4839012,Pool 08,24.2,0.28,0,6.9,28,Connected backwater,Silt,"S, E, & F",Dense,>50%
+07/27/2022,643255,4836712,Pool 08,25.9,1,0,1.3,100,Impounded lake,Silt,"S, E, & F",Dense,>50%
+07/27/2022,642855,4838112,Pool 08,26.6,1.23,0.04,13,69,Impounded lake,Silt/Clay/Sand,Submergent,Dense,>50%
+07/27/2023,642355,4834912,Pool 08,27.9,1.31,0,9.3,116,Side channel,Clay,Submergent,Sparse,20 - 49%
+07/27/2023,641855,4837712,Pool 08,27.6,1.48,0,9.4,148,Impounded lake,Silt/Clay/Sand,Submergent,Dense,20 - 49%
+07/28/1993,643450,4834910,Pool 08,24.7,1.1,0,11.6,43,Isolated,Silt,Submergent,Sparse,1 - 19%
+07/28/1994,640655,4842912,Pool 08,25,0.83,0.01,9.3,50,Side channel,Silt/Clay/Sand,Emergent,Dense,20 - 49%
+07/28/1995,737608,4659701,Pool 13,27.5,0.84,0.02,8.5,22,Connected backwater,Silt,S & E,Sparse,1 - 19%
+07/28/1995,736458,4658151,Pool 13,27.4,1,0.06,6.7,21,Connected backwater,Silt,Submergent,Sparse,1 - 19%
+07/28/1997,642205,4848962,Pool 08,27.8,1.2,0.02,7,86,Side channel,Silt/Clay/Sand,S & E,Dense,1 - 19%
+07/28/1998,579529,4916458,Pool 04,26.6,0.26,0.12,11.7,26,Connected backwater,Sand,Submergent,Sparse,1 - 19%
+07/28/1998,638805,4850362,Pool 08,26.9,0.88,0,8.6,35,Connected backwater,Silt,S & E,Dense,1 - 19%
+07/28/1999,734008,4647601,Pool 13,31.7,0.7,0,13.8,38,Impounded lake,Silt,S & E,Dense,>50%
+07/28/1999,734408,4648201,Pool 13,31.7,0.51,0,7.5,17,Impounded lake,Silt,S & E,Dense,>50%
+07/28/1999,734408,4642601,Pool 13,28.5,0.68,0,7.3,53,Impounded lake,Silt,S & E,Dense,>50%
+07/28/2000,738208,4657001,Pool 13,23.6,0.22,0,3.8,22,Connected backwater,Silt,S & E,Dense,>50%
+07/28/2000,738308,4657001,Pool 13,23.1,0.26,0,7.8,26,Connected backwater,Silt,S & E,Dense,>50%
+07/28/2004,641855,4833312,Pool 08,26,0.48,0,9.6,48,Impounded lake,Sand,"S, E, & F",Dense,20 - 49%
+07/28/2005,644355,4843212,Pool 08,24.5,0.32,0,6.6,32,Side channel,Silt/Clay/Sand,"S, E, & F",Dense,1 - 19%
+07/28/2005,642255,4841212,Pool 08,26.2,0.3,0,8.6,30,Side channel,Sand,"S, E, & F",Sparse,20 - 49%
+07/28/2005,641805,4843862,Pool 08,24.4,1,0.11,7.6,100,Side channel,Silt/Clay/Sand,"S, E, & F",Dense,20 - 49%
+07/28/2005,643005,4843612,Pool 08,20.4,0.82,0,0.5,32,Connected backwater,Silt,"S, E, & F",Dense,>50%
+07/28/2005,642055,4839912,Pool 08,25.5,0.59,0,7.8,59,Impounded lake,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+07/28/2006,737408,4644201,Pool 13,29.6,1.48,0,12.8,148,Impounded lake,Silt/Clay/Sand,Submergent,Dense,1 - 19%
+07/28/2006,734408,4642801,Pool 13,27.8,0.82,0,5.2,82,Impounded lake,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+07/28/2006,736208,4647001,Pool 13,29.8,1,0,15.6,69,Impounded lake,Silt/Clay/Sand,Submergent,Dense,>50%
+07/28/2006,738008,4646201,Pool 13,28.4,0.69,0,11.1,69,Impounded lake,Silt/Clay/Sand,Submergent,Dense,>50%
+07/28/2008,642255,4845862,Pool 08,29.1,0.52,0,13.5,52,Side channel,Silt,"S, E, & F",Dense,20 - 49%
+07/28/2008,643805,4846312,Pool 08,26.8,0.58,0,10.5,58,Connected backwater,Silt/Clay/Sand,"S, E, & F",Dense,20 - 49%
+07/28/2009,726558,4670151,Pool 13,24.4,0.94,0,5.2,46,Connected backwater,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+07/28/2009,637455,4852712,Pool 08,21,0.48,0,0.3,48,Isolated,Silt,"S, E, & F",Dense,>50%
+07/28/2009,638055,4853512,Pool 08,23.9,2.28,0,7.6,127,Isolated,Silt,"S, E, & F",Dense,>50%
+07/28/2010,581680,4914358,Pool 04,27.2,1.05,0,6.9,105,Connected backwater,Silt,"S, E, & F",Dense,>50%
+07/28/2010,638255,4853512,Pool 08,26.9,0.67,0,0.3,67,Isolated,Silt,"S, E, & F",Dense,>50%
+07/28/2014,639305,4844712,Pool 08,23.1,0.28,0,1.1,28,Connected backwater,Silt,"S, E, & F",Dense,>50%
+07/28/2014,735858,4661101,Pool 13,22.6,0.52,0,4.1,52,Connected backwater,Silt/Clay/Sand,Submergent,Sparse,20 - 49%
+07/28/2015,580030,4913308,Pool 04,26.1,0.16,0,13.2,16,Side channel,Sand,Submergent,Sparse,1 - 19%
+07/28/2015,581180,4915108,Pool 04,26.8,1.41,0.01,6.6,141,Connected backwater,Silt,Submergent,Dense,>50%
+07/28/2017,735208,4650001,Pool 13,26.4,0.68,0,10.6,17,Impounded lake,Silt/Clay/Sand,Submergent,Dense,>50%
+07/28/2020,538829,4935858,Pool 04,27.5,0.86,0,10.3,39,Connected backwater,Silt,Submergent,Sparse,>50%
+07/28/2020,637255,4853512,Pool 08,25.1,0.43,0,2.5,43,Isolated,Silt,"S, E, & F",Dense,>50%
+07/28/2020,637855,4853312,Pool 08,30.4,0.2,0,0.6,20,Isolated,Silt,"S, E, & F",Dense,>50%
+07/28/2020,637455,4853312,Pool 08,27.7,0.9,0,6.5,38,Isolated,Silt,"S, E, & F",Dense,>50%
+07/28/2020,636855,4853712,Pool 08,27.9,0.58,0,15.2,58,Isolated,Silt,"S, E, & F",Dense,>50%
+07/28/2020,637855,4853712,Pool 08,28.3,1.4,0,12,82,Isolated,Silt,"S, E, & F",Dense,20 - 49%
+07/28/2022,734858,4656601,Pool 13,27.5,1.1,0.07,10.3,45,Side channel,Silt/Clay/Sand,Submergent,Dense,1 - 19%
+07/28/2022,579280,4913908,Pool 04,24.4,0.58,0,5.3,58,Connected backwater,Silt,Submergent,Sparse,>50%
+07/29/1993,580630,4914308,Pool 04,23.2,0.7,0.05,7.5,50,Side channel,Silt,Submergent,Dense,>50%
+07/29/1993,636849,4853721,Pool 08,22.1,1.4,0,0.6,70,Isolated,Silt,S & E,Dense,>50%
+07/29/1993,637464,4852716,Pool 08,22.2,0.7,0,1.2,70,Isolated,Silt,S & E,Dense,>50%
+07/29/1994,641655,4846112,Pool 08,24.9,0.62,0,10.2,58,Side channel,Silt/Clay/Sand,S & E,Dense,20 - 49%
+07/29/1996,736158,4653451,Pool 13,24.2,0.78,0.08,8,50,Connected backwater,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+07/29/1996,734008,4648801,Pool 13,24.5,0.93,0.04,7.2,28,Impounded lake,Silt,S & E,Dense,1 - 19%
+07/29/1996,736408,4650401,Pool 13,24.2,0.59,0.01,8.6,38,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+07/29/1996,736808,4650801,Pool 13,24.2,0.36,0.1,8.4,36,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+07/29/1997,637055,4853112,Pool 08,22.8,0.76,0,0.8,76,Isolated,Silt,S & E,Dense,>50%
+07/29/1997,637855,4853312,Pool 08,22.3,0.45,0,0.8,45,Isolated,Silt,S & E,Dense,>50%
+07/29/1997,636855,4853312,Pool 08,23.4,0.55,0,1.1,55,Isolated,Silt,S & E,Dense,>50%
+07/29/1998,734308,4658751,Pool 13,27.2,0.3,0,9.4,30,Side channel,Silt,Submergent,Dense,20 - 49%
+07/29/1998,579980,4914508,Pool 04,25.5,0.43,0,6.7,43,Side channel,Silt,S & E,Dense,>50%
+07/29/1999,736458,4656751,Pool 13,30.4,2.1,0.12,5.6,22,Side channel,Silt/Clay/Sand,S & E,Dense,1 - 19%
+07/29/2002,580330,4913108,Pool 04,26.6,1.39,0.11,7.2,101,Connected backwater,Silt/Clay/Sand,Submergent,Sparse,>50%
+07/29/2004,639305,4849762,Pool 08,26.1,0.39,0,9.8,39,Connected backwater,Silt,"S, E, & F",Dense,>50%
+07/29/2005,583130,4910608,Pool 04,25.4,1.06,0,4.9,94,Side channel,Silt,Submergent,Dense,>50%
+07/29/2008,642655,4833712,Pool 08,27.9,1.33,0,13.3,133,Impounded lake,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+07/29/2008,643455,4832512,Pool 08,28,1,0,14,100,Impounded lake,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+07/29/2009,637755,4858412,Pool 08,23.9,0.52,0,8.9,52,Side channel,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+07/29/2009,638355,4856062,Pool 08,24.4,0.45,0,12.8,45,Side channel,Sand,Submergent,Sparse,1 - 19%
+07/29/2010,639955,4841362,Pool 08,27.5,0.75,0.01,6.1,75,Side channel,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+07/29/2010,584730,4908358,Pool 04,27.2,0.99,0,6.3,99,Connected backwater,Silt,Submergent,Dense,>50%
+07/29/2010,735008,4644201,Pool 13,27.1,1.4,0.07,5.5,30,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+07/29/2010,737608,4644001,Pool 13,26.4,0.8,0.03,1.1,60,Impounded lake,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+07/29/2010,737608,4644601,Pool 13,26.2,1.3,0.06,6.1,50,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+07/29/2011,580630,4914358,Pool 04,26.7,0.4,0.01,5,40,Side channel,Silt,"S, E, & F",Sparse,>50%
+07/29/2011,580780,4916758,Pool 04,26.8,1.08,0.04,3.2,89,Connected backwater,Silt,"S, E, & F",Dense,20 - 49%
+07/29/2013,637555,4858062,Pool 08,20.6,0.47,0,9.4,47,Connected backwater,Silt,"S, E, & F",Dense,>50%
+07/29/2013,737658,4657801,Pool 13,21.1,0.72,0,5.3,72,Connected backwater,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+07/29/2019,641255,4841212,Pool 08,26.5,0.89,0.07,7.8,74,Side channel,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+07/29/2020,735008,4643401,Pool 13,28.1,1.54,0,13,46,Impounded lake,Silt/Clay/Sand,Submergent,Dense,20 - 49%
+07/29/2020,736408,4647201,Pool 13,26.5,1.3,0,8.8,130,Impounded lake,Silt/Clay/Sand,Submergent,Dense,>50%
+07/29/2020,640055,4830112,Pool 08,27.2,0.28,0,9.7,28,Impounded lake,Silt,"S, E, & F",Sparse,20 - 49%
+07/29/2024,642855,4846512,Pool 08,27.5,1.15,0.01,3.6,115,Connected backwater,Silt,"S, E, & F",Dense,>50%
+07/29/2024,641855,4848362,Pool 08,28.6,0.71,0,6.7,71,Connected backwater,Silt/Clay/Sand,Submergent,Sparse,>50%
+07/30/1996,580680,4917058,Pool 04,24,0.68,0.11,9.1,28,Connected backwater,Silt/Clay/Sand,S & E,Dense,1 - 19%
+07/30/1998,639155,4855312,Pool 08,26.7,0.31,0,11.4,31,Side channel,Silt/Clay/Sand,S & E,Dense,20 - 49%
+07/30/2002,637655,4857762,Pool 08,28.3,0.71,0,8.9,71,Connected backwater,Silt,"S, E, & F",Sparse,>50%
+07/30/2002,735408,4645601,Pool 13,26.6,1.1,0.08,5.6,39,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+07/30/2002,734208,4646601,Pool 13,26.9,0.9,0,10.4,60,Impounded lake,Silt/Clay/Sand,Submergent,Dense,>50%
+07/30/2004,643455,4834512,Pool 08,22.9,0.7,0,1.2,55,Isolated,Silt,Submergent,Dense,20 - 49%
+07/30/2007,642455,4835712,Pool 08,29,1.7,0,8.2,126,Impounded lake,Silt,"S, E, & F",Sparse,20 - 49%
+07/30/2008,641855,4832712,Pool 08,26.8,0.5,0,11.2,50,Impounded lake,Sand,"S, E, & F",Dense,>50%
+07/30/2008,643455,4839912,Pool 08,27.3,0.56,0,9.3,56,Impounded lake,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+07/30/2009,641305,4843412,Pool 08,23.6,1.77,0.12,8.3,117,Side channel,Sand,"S, E, & F",Dense,1 - 19%
+07/30/2010,579980,4915008,Pool 04,25.4,1.52,0,3.6,152,Connected backwater,Silt,Submergent,Sparse,>50%
+07/30/2012,639455,4841712,Pool 08,26.8,1.25,0,8.1,58,Side channel,Silt,"S, E, & F",Sparse,20 - 49%
+07/30/2012,640205,4840462,Pool 08,27.9,1.55,0.06,9.3,109,Connected backwater,Sand,"S, E, & F",Dense,20 - 49%
+07/30/2012,734208,4647201,Pool 13,29.8,0.59,0,8.3,54,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+07/30/2013,642054,4833711,Pool 08,22.8,0.83,0.03,11.9,83,Impounded lake,Sand,"S, E, & F",Dense,20 - 49%
+07/30/2015,735108,4659101,Pool 13,27.9,0.4,0,9,40,Side channel,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+07/30/2015,640255,4834912,Pool 08,23.5,0.8,0.02,8.7,80,Impounded lake,Silt,"S, E, & F",Dense,>50%
+07/30/2018,642655,4827913,Pool 08,25,1.77,0.02,8.5,177,Impounded lake,Sand,"S, E, & F",Dense,>50%
+07/30/2021,638055,4853112,Pool 08,23.9,0.24,0,0.9,24,Isolated,Silt,"S, E, & F",Dense,>50%
+07/31/1995,581780,4914308,Pool 04,26.1,0.75,0.03,7.5,50,Connected backwater,Silt/Clay/Sand,Floating,Dense,>50%
+07/31/1998,637055,4853512,Pool 08,22.2,0.48,0,0.8,35,Isolated,Silt,S & E,Dense,>50%
+07/31/1998,636655,4853512,Pool 08,22.1,0.55,0,1.5,47,Isolated,Silt,S & E,Dense,>50%
+07/31/2000,639205,4850062,Pool 08,26.1,0.7,0,11,30,Connected backwater,Silt,S & E,Dense,20 - 49%
+07/31/2001,641455,4846962,Pool 08,31.7,0.19,0,8.3,19,Side channel,Sand,S & E,Sparse,1 - 19%
+07/31/2001,735358,4656151,Pool 13,28.7,0.95,0.13,9.5,62,Side channel,Silt/Clay/Sand,Emergent,Dense,1 - 19%
+07/31/2001,735408,4648801,Pool 13,28.3,0.56,0,10.8,45,Impounded lake,Silt/Clay/Sand,S & E,Dense,>50%
+07/31/2001,734608,4648201,Pool 13,28.1,0.5,0,8.7,50,Impounded lake,Silt,S & E,Dense,>50%
+07/31/2001,736608,4650201,Pool 13,27.3,0.71,0.03,9,50,Impounded lake,Silt/Clay/Sand,Submergent,Dense,1 - 19%
+07/31/2002,738108,4657001,Pool 13,27.2,0.7,0,4.6,70,Connected backwater,Silt,S & E,Dense,>50%
+07/31/2002,641855,4832912,Pool 08,27.5,0.59,0.07,10.4,59,Impounded lake,Sand,Submergent,Sparse,>50%
+07/31/2006,737008,4655101,Pool 13,29.3,0.33,0,7.2,33,Connected backwater,Silt/Clay/Sand,Emergent,Dense,>50%
+07/31/2012,726808,4670001,Pool 13,27.9,0.42,0,3.3,42,Connected backwater,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+07/31/2012,639105,4850612,Pool 08,27.1,0.41,0,5.7,41,Connected backwater,Silt,"S, E, & F",Dense,>50%
+07/31/2013,640654,4838311,Pool 08,23.2,0.38,0,8.3,38,Impounded lake,Silt,"S, E, & F",Dense,>50%
+07/31/2013,643254,4836111,Pool 08,23.9,1.24,0,10.1,124,Impounded lake,Silt,"S, E, & F",Dense,>50%
+07/31/2015,733608,4662401,Pool 13,22.9,0.4,0,1.1,40,Side channel,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+07/31/2017,641955,4834712,Pool 08,26.6,0.59,0,9.6,59,Side channel,Sand,S & E,Dense,>50%
+07/31/2017,643955,4843962,Pool 08,28.3,0.7,0,10.3,53,Side channel,Sand,Submergent,Sparse,>50%
+07/31/2017,642955,4840812,Pool 08,30.9,0.75,0,12.8,75,Connected backwater,Sand,"S, E, & F",Dense,>50%
+07/31/2019,639805,4835512,Pool 08,25.9,0.62,0.13,9.1,42,Connected backwater,Silt,"S, E, & F",Sparse,>50%
+07/31/2019,640455,4830712,Pool 08,26.4,1.63,0.07,10.2,115,Impounded lake,Silt,Submergent,Sparse,>50%
+07/31/2023,640705,4838912,Pool 08,26.8,0.72,0,8.7,72,Side channel,Silt/Clay/Sand,S & E,Sparse,20 - 49%
+08/01/2000,727308,4670451,Pool 13,26.3,0.5,0,8.2,42,Connected backwater,Silt,Floating,Sparse,1 - 19%
+08/01/2001,734608,4644201,Pool 13,29.6,1.15,0,12.7,115,Impounded lake,Silt/Clay/Sand,Submergent,Dense,>50%
+08/01/2002,735808,4654851,Pool 13,29.4,0.4,0,9.5,40,Side channel,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+08/01/2005,640005,4833062,Pool 08,27.2,2.67,0.08,11.6,75,Side channel,Silt/Clay/Sand,"S, E, & F",Dense,1 - 19%
+08/01/2005,640005,4832662,Pool 08,26.4,3.5,0.11,10.5,70,Side channel,Sand,"S, E, & F",Dense,1 - 19%
+08/01/2005,735208,4650001,Pool 13,26.6,0.58,0,10.3,52,Impounded lake,Silt/Clay/Sand,Submergent,Dense,>50%
+08/01/2005,640455,4829112,Pool 08,27.8,1.08,0,12.8,108,Impounded lake,Silt/Clay/Sand,Submergent,Dense,>50%
+08/01/2006,640205,4843512,Pool 08,29.9,0.3,0,12.1,30,Side channel,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+08/01/2006,737258,4652101,Pool 13,30.4,0.92,0,11.8,36,Connected backwater,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+08/01/2006,736608,4650401,Pool 13,31,0.48,0,11,48,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,20 - 49%
+08/01/2006,735008,4649401,Pool 13,31.4,0.98,0,14.6,40,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,20 - 49%
+08/01/2007,640755,4841512,Pool 08,27.9,2.41,0.14,9.1,85,Side channel,Sand,"S, E, & F",Dense,1 - 19%
+08/01/2007,640355,4840412,Pool 08,27.9,0.38,0,7.8,38,Side channel,Silt,"S, E, & F",Dense,>50%
+08/01/2007,639405,4856212,Pool 08,29.5,1.21,0.04,7.9,62,Side channel,Silt/Clay/Sand,Floating,Sparse,1 - 19%
+08/01/2011,638955,4837112,Pool 08,28.4,0.61,0.01,7.8,61,Connected backwater,Silt,"S, E, & F",Dense,>50%
+08/01/2011,639005,4837212,Pool 08,28.3,0.29,0.02,7.6,29,Connected backwater,Silt,"S, E, & F",Dense,>50%
+08/01/2011,738958,4644851,Pool 13,29.9,1.86,0,2.5,186,Connected backwater,Silt/Clay/Sand,Submergent,Sparse,20 - 49%
+08/01/2011,638855,4837962,Pool 08,27.9,0.66,0,6.6,66,Connected backwater,Silt,"S, E, & F",Dense,>50%
+08/01/2011,736408,4642801,Pool 13,30,0.74,0,11.8,74,Impounded lake,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+08/01/2011,734208,4647601,Pool 13,30.1,0.5,0.04,6.8,29,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,20 - 49%
+08/01/2012,642605,4834462,Pool 08,27.5,1.66,0.01,7.1,100,Side channel,Silt,Submergent,Dense,>50%
+08/01/2012,640855,4828712,Pool 08,28.6,0.9,0,9.9,90,Impounded lake,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+08/01/2012,642655,4832112,Pool 08,27.4,1.35,0.11,8,75,Impounded lake,Sand,"S, E, & F",Dense,20 - 49%
+08/01/2013,640554,4840161,Pool 08,23.3,0.59,0,8.8,59,Side channel,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+08/01/2016,733458,4662151,Pool 13,25.4,1.26,0,3.8,82,Side channel,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+08/01/2016,639354,4842161,Pool 08,25.4,1.26,0,5.4,50,Connected backwater,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+08/01/2016,641054,4834511,Pool 08,26.7,1.21,0.08,8,121,Impounded lake,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+08/01/2016,643054,4836511,Pool 08,27.7,1.17,0,5.4,117,Impounded lake,Silt,"S, E, & F",Sparse,>50%
+08/01/2017,643105,4845762,Pool 08,27.7,1.2,0.11,12.5,61,Side channel,Sand,S & E,Sparse,1 - 19%
+08/01/2019,643355,4845612,Pool 08,26,1.72,0.13,9.1,85,Side channel,Sand,"S, E, & F",Sparse,1 - 19%
+08/01/2022,641855,4836312,Pool 08,26.2,2.62,0.05,14.2,55,Side channel,Silt/Clay/Sand,Submergent,Sparse,>50%
+08/01/2022,637255,4853512,Pool 08,24.2,0.4,0,2.9,40,Isolated,Silt,"S, E, & F",Dense,>50%
+08/01/2022,638055,4853112,Pool 08,25.6,0.36,0,3.2,36,Isolated,Silt,"S, E, & F",Dense,>50%
+08/01/2022,636855,4853512,Pool 08,23.2,0.7,0,0.2,40,Isolated,Silt,"S, E, & F",Dense,>50%
+08/01/2022,637055,4853112,Pool 08,23.4,0.62,0,3.1,38,Isolated,Silt,"S, E, & F",Dense,>50%
+08/01/2022,641055,4829512,Pool 08,25.3,2.02,0.09,11.1,99,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,>50%
+08/01/2022,640655,4829912,Pool 08,26.1,1.45,0,17.5,145,Impounded lake,Silt,"S, E, & F",Dense,>50%
+08/01/2022,640255,4829312,Pool 08,26.2,0.97,0,8.8,97,Impounded lake,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+08/01/2023,642355,4843862,Pool 08,27.9,0.58,0.04,9.9,58,Side channel,Sand,Emergent,Dense,20 - 49%
+08/01/2023,642305,4844062,Pool 08,28.6,0.86,0.03,11,66,Connected backwater,Sand,S & E,Sparse,20 - 49%
+08/02/1994,636855,4853712,Pool 08,23.9,0.68,0,0.2,54,Isolated,Silt,S & E,Dense,>50%
+08/02/1994,636855,4853512,Pool 08,22.5,0.59,0,1,42,Isolated,Silt,S & E,Dense,>50%
+08/02/1994,636655,4853112,Pool 08,21.1,0.38,0,1,20,Isolated,Silt,S & E,Dense,>50%
+08/02/1994,638255,4853312,Pool 08,24.9,0.83,0,2.9,40,Isolated,Silt,S & E,Dense,>50%
+08/02/1999,641555,4844212,Pool 08,27.7,0.31,0,6.9,31,Side channel,Silt/Clay/Sand,S & E,Dense,>50%
+08/02/2000,579930,4915908,Pool 04,24.6,0.21,0,5.9,21,Side channel,Silt,S & E,Dense,>50%
+08/02/2000,581280,4914408,Pool 04,25.2,0.6,0,9.3,43,Connected backwater,Silt/Clay/Sand,S & E,Sparse,>50%
+08/02/2001,637455,4852712,Pool 08,25.4,0.45,0,0,45,Isolated,Silt,"S, E, & F",Dense,>50%
+08/02/2001,637855,4853312,Pool 08,27.3,0.29,0,0.9,29,Isolated,Silt,"S, E, & F",Dense,>50%
+08/02/2001,643455,4834912,Pool 08,28.8,0.89,0,5.7,45,Isolated,Silt,Submergent,Dense,>50%
+08/02/2004,640905,4843012,Pool 08,24.7,0.63,0,7.7,63,Side channel,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+08/02/2004,640705,4842012,Pool 08,24.4,1.26,0.02,5.8,115,Side channel,Silt,"S, E, & F",Dense,20 - 49%
+08/02/2005,581130,4914558,Pool 04,25.8,0.52,0,1.2,52,Side channel,Silt,"S, E, & F",Dense,>50%
+08/02/2005,579680,4912458,Pool 04,26.9,0.78,0,5.1,78,Connected backwater,Silt,Submergent,Dense,>50%
+08/02/2006,641855,4833512,Pool 08,27.5,1.15,0,7.3,65,Impounded lake,Silt/Clay/Sand,Submergent,Dense,>50%
+08/02/2010,637805,4856662,Pool 08,26.1,2.42,0.14,3.9,117,Side channel,Sand,"S, E, & F",Dense,20 - 49%
+08/02/2011,735508,4659351,Pool 13,27.6,1.04,0,4.8,58,Connected backwater,Silt/Clay/Sand,Submergent,Sparse,20 - 49%
+08/02/2016,643454,4834711,Pool 08,28.4,0.86,0,15.2,86,Isolated,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+08/02/2016,636654,4853512,Pool 08,25.9,0.77,0,0.7,77,Isolated,Silt,"S, E, & F",Dense,>50%
+08/02/2017,643255,4834512,Pool 08,28.7,0.65,0,7.3,65,Isolated,Silt,"S, E, & F",Sparse,>50%
+08/02/2017,637055,4853712,Pool 08,26.5,0.65,0,2.6,65,Isolated,Silt,"S, E, & F",Dense,>50%
+08/02/2017,643455,4834512,Pool 08,28.5,0.46,0,8.8,46,Isolated,Silt,"S, E, & F",Dense,>50%
+08/02/2017,636855,4853312,Pool 08,29.6,0.73,0,10.7,73,Isolated,Silt,"S, E, & F",Dense,>50%
+08/02/2017,637455,4852712,Pool 08,25,0.51,0,0.6,51,Isolated,Silt,"S, E, & F",Dense,>50%
+08/02/2018,641705,4849612,Pool 08,25.1,1.56,0.05,10.1,156,Side channel,Silt,"S, E, & F",Sparse,1 - 19%
+08/02/2018,639855,4832912,Pool 08,22.2,0.48,0.02,4.3,48,Impounded lake,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+08/02/2018,643055,4837512,Pool 08,24.1,0.68,0.04,5.3,68,Impounded lake,Silt,"S, E, & F",Dense,>50%
+08/02/2021,641155,4842512,Pool 08,26.8,1.19,0.09,8.8,111,Side channel,Silt/Clay/Sand,"S, E, & F",Sparse,1 - 19%
+08/02/2021,641205,4842312,Pool 08,27.1,0.73,0.07,9.2,73,Side channel,Sand,"S, E, & F",Sparse,1 - 19%
+08/02/2022,640455,4833112,Pool 08,25.5,1.14,0.01,7,103,Impounded lake,Silt,"S, E, & F",Sparse,>50%
+08/02/2023,643705,4844162,Pool 08,27.8,1.31,0.03,6.4,131,Side channel,Sand,"S, E, & F",Dense,20 - 49%
+08/03/1995,735458,4661651,Pool 13,26.2,0.28,0,5.5,28,Connected backwater,Silt,Submergent,Sparse,1 - 19%
+08/03/1998,639155,4836312,Pool 08,24.6,0.81,0.13,10.2,65,Side channel,Sand,Submergent,Sparse,1 - 19%
+08/03/1998,639855,4834112,Pool 08,24.1,0.6,0.01,9.8,58,Impounded lake,Silt,Floating,Sparse,1 - 19%
+08/03/1998,643055,4837312,Pool 08,24,0.79,0.03,9.7,49,Impounded lake,Silt/Clay/Sand,Submergent,Dense,>50%
+08/03/1998,640455,4836912,Pool 08,23.8,0.98,0,6,98,Impounded lake,Silt/Clay/Sand,S & E,Dense,>50%
+08/03/1999,643455,4834912,Pool 08,25.4,1.14,0,6.2,29,Isolated,Silt,Submergent,Sparse,>50%
+08/03/1999,643455,4834712,Pool 08,25.6,0.98,0,6.5,34,Isolated,Silt,Submergent,Sparse,20 - 49%
+08/03/1999,636655,4853112,Pool 08,21.5,0.4,0,0.8,40,Isolated,Silt,S & E,Dense,>50%
+08/03/1999,637455,4852912,Pool 08,21.6,0.4,0,0.8,40,Isolated,Silt,S & E,Dense,>50%
+08/03/2000,640255,4829312,Pool 08,26.4,0.58,0,10.9,49,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,20 - 49%
+08/03/2000,642055,4833112,Pool 08,25.4,1.13,0.05,10.2,67,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+08/03/2004,641255,4833312,Pool 08,25.7,1.2,0,5.7,86,Impounded lake,Sand,Submergent,Dense,20 - 49%
+08/03/2005,639155,4855312,Pool 08,29,0.35,0,10.8,35,Side channel,Sand,"S, E, & F",Dense,>50%
+08/03/2005,580880,4916708,Pool 04,26.5,1.03,0,4.3,103,Connected backwater,Silt,"S, E, & F",Dense,>50%
+08/03/2005,639355,4855612,Pool 08,28.4,0.38,0,10.1,38,Connected backwater,Sand,"S, E, & F",Dense,20 - 49%
+08/03/2005,636855,4853512,Pool 08,24.8,0.7,0,0.4,70,Isolated,Silt,"S, E, & F",Dense,>50%
+08/03/2005,637255,4852912,Pool 08,23.7,0.59,0,0.6,59,Isolated,Silt,"S, E, & F",Dense,>50%
+08/03/2005,636655,4853312,Pool 08,23,0.5,0,0.5,50,Isolated,Silt,"S, E, & F",Dense,>50%
+08/03/2006,637055,4853312,Pool 08,29,0.82,0,13.4,31,Isolated,Silt,"S, E, & F",Dense,>50%
+08/03/2006,636855,4853512,Pool 08,24.1,0.86,0,0.3,29,Isolated,Silt,"S, E, & F",Dense,>50%
+08/03/2006,637855,4853712,Pool 08,27.3,3.3,0,3.5,94,Isolated,Silt/Clay/Sand,"S, E, & F",Dense,20 - 49%
+08/03/2009,736308,4657001,Pool 13,25.5,0.4,0,14.6,40,Side channel,Silt/Clay/Sand,"S, E, & F",Sparse,20 - 49%
+08/03/2009,640605,4842962,Pool 08,23.2,2.36,0.05,9.3,112,Side channel,Sand,S & E,Sparse,1 - 19%
+08/03/2009,640055,4841662,Pool 08,24.1,1.46,0,7.3,93,Side channel,Silt,"S, E, & F",Sparse,1 - 19%
+08/03/2009,642005,4836562,Pool 08,24.3,1.88,0,8.4,188,Side channel,Silt/Clay/Sand,Submergent,Sparse,20 - 49%
+08/03/2009,737308,4653001,Pool 13,25.2,0.5,0,9.9,50,Connected backwater,Silt/Clay/Sand,Submergent,Sparse,20 - 49%
+08/03/2009,639255,4834312,Pool 08,23.6,0.59,0,6.6,59,Connected backwater,Silt,"S, E, & F",Dense,>50%
+08/03/2009,643255,4829112,Pool 08,23.2,1.82,0.04,8.1,137,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+08/03/2009,736408,4650601,Pool 13,23.9,0.2,0,10.6,20,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+08/03/2009,643055,4830712,Pool 08,24.1,1.43,0,12.6,143,Impounded lake,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+08/03/2010,642155,4843812,Pool 08,27.4,0.87,0.08,4.8,87,Side channel,Sand,"S, E, & F",Sparse,>50%
+08/03/2011,736208,4648601,Pool 13,30.1,1.08,0,11,28,Impounded lake,Silt/Clay/Sand,Submergent,Dense,>50%
+08/03/2015,638505,4856012,Pool 08,26.9,1.08,0,13,70,Side channel,Sand,S & E,Sparse,1 - 19%
+08/03/2015,734408,4645001,Pool 13,27.1,1.12,0.12,13.2,40,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+08/03/2015,733408,4647601,Pool 13,24,0.59,0,1.5,59,Impounded lake,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+08/03/2015,734008,4646401,Pool 13,27.7,0.9,0,10.3,42,Impounded lake,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+08/03/2016,642504,4845961,Pool 08,27,2.28,0.08,6.1,89,Side channel,Sand,"S, E, & F",Sparse,1 - 19%
+08/03/2016,641554,4844011,Pool 08,27.7,0.9,0.06,6.2,90,Side channel,Silt,"S, E, & F",Dense,>50%
+08/03/2016,641554,4842811,Pool 08,27.6,1.24,0.07,6.1,90,Connected backwater,Silt,"S, E, & F",Dense,>50%
+08/03/2020,643455,4834712,Pool 08,23.1,0.83,0,11.7,83,Isolated,Silt,"S, E, & F",Dense,>50%
+08/03/2020,643255,4834512,Pool 08,25.5,0.51,0,18.9,51,Isolated,Silt,"S, E, & F",Dense,>50%
+08/03/2020,640255,4830312,Pool 08,23,0.92,0.07,7.3,92,Impounded lake,Silt,"S, E, & F",Dense,>50%
+08/03/2021,641855,4839712,Pool 08,27.1,0.57,0.03,8.3,57,Impounded lake,Silt/Clay/Sand,"S, E, & F",Sparse,>50%
+08/03/2022,642805,4841012,Pool 08,27,0.49,0,15.2,49,Side channel,Sand,"S, E, & F",Sparse,>50%
+08/04/1994,736808,4657401,Pool 13,26,0.74,0.13,7.9,32,Side channel,Silt/Clay/Sand,Emergent,Dense,1 - 19%
+08/04/2004,639205,4856462,Pool 08,24.8,0.43,0,10,43,Side channel,Silt,"S, E, & F",Sparse,20 - 49%
+08/04/2004,638505,4857662,Pool 08,24.7,0.56,0,1.6,56,Connected backwater,Silt,"S, E, & F",Dense,>50%
+08/04/2004,637255,4852912,Pool 08,24,0.82,0,3.8,45,Isolated,Silt,"S, E, & F",Dense,>50%
+08/04/2004,637855,4853712,Pool 08,24.9,3.2,0,5.5,90,Isolated,Silt,"S, E, & F",Dense,1 - 19%
+08/04/2005,643455,4834512,Pool 08,27.2,0.6,0,6,60,Isolated,Silt,Submergent,Dense,>50%
+08/04/2009,641055,4831912,Pool 08,24.4,1.89,0.07,8.4,141,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+08/04/2010,639305,4835612,Pool 08,27.6,0.47,0.06,5.6,47,Side channel,Silt,"S, E, & F",Dense,>50%
+08/04/2010,640455,4829712,Pool 08,27.7,0.92,0.03,7,92,Impounded lake,Silt,"S, E, & F",Dense,>50%
+08/04/2010,640255,4831112,Pool 08,27.8,1.15,0.1,8.5,115,Impounded lake,Silt,"S, E, & F",Sparse,20 - 49%
+08/04/2015,643255,4845462,Pool 08,25.6,0.28,0,9.9,28,Connected backwater,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+08/04/2020,643105,4839612,Pool 08,25.7,0.94,0.06,10.9,94,Side channel,Silt/Clay/Sand,Submergent,Dense,>50%
+08/04/2021,642705,4840362,Pool 08,27.1,0.21,0,10,21,Side channel,Sand,"S, E, & F",Dense,>50%
+08/05/1998,642055,4844412,Pool 08,22.6,0.56,0.05,5.9,56,Connected backwater,Silt/Clay/Sand,S & E,Dense,>50%
+08/05/2004,733808,4644801,Pool 13,22.2,1.02,0,7.7,26,Impounded lake,Silt/Clay/Sand,S & E,Dense,>50%
+08/05/2010,736658,4656651,Pool 13,26.5,0.88,0,5.2,31,Side channel,Silt/Clay/Sand,Emergent,Sparse,1 - 19%
+08/05/2010,737308,4657701,Pool 13,27.7,1.02,0,3.1,44,Connected backwater,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+08/05/2010,639905,4844262,Pool 08,23.8,0.52,0,0.3,52,Connected backwater,Silt,"S, E, & F",Dense,>50%
+08/05/2014,642205,4843712,Pool 08,25.2,0.93,0.03,10.4,93,Side channel,Sand,Emergent,Sparse,1 - 19%
+08/05/2014,641505,4842362,Pool 08,25,0.4,0,9.6,40,Side channel,Silt,"S, E, & F",Dense,>50%
+08/05/2015,637055,4853312,Pool 08,23.5,0.85,0,3.4,85,Isolated,Silt,"S, E, & F",Dense,>50%
+08/05/2015,637455,4852912,Pool 08,21.8,0.53,0,0,53,Isolated,Silt,"S, E, & F",Dense,>50%
+08/05/2021,639705,4843762,Pool 08,23.8,1.89,0.03,6.6,113,Connected backwater,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+08/09/2004,737458,4657251,Pool 13,23.9,0.7,0,5.1,70,Connected backwater,Silt/Clay/Sand,S & E,Dense,20 - 49%
+08/11/2021,643455,4834512,Pool 08,24.1,0.71,0,1.9,13,Isolated,Silt,"S, E, & F",Dense,>50%
+09/23/1993,639853,4836508,Pool 08,12.9,0.4,0.01,10,26,Connected backwater,Silt,S & E,Sparse,1 - 19%
+09/27/1993,640855,4842493,Pool 08,13.1,0.3,0,10.6,30,Side channel,Silt,S & E,Dense,>50%
+09/27/1993,641256,4841309,Pool 08,15.1,0.8,0.09,10.2,61,Side channel,Silt/Clay/Sand,Emergent,Sparse,1 - 19%
+09/27/1993,638255,4853512,Pool 08,10,0.2,0,2.1,20,Isolated,Silt,S & E,Dense,>50%
+09/28/1993,643440,4834512,Pool 08,12.5,0.8,0,8,80,Isolated,Silt,Emergent,Dense,1 - 19%
+09/28/1993,638255,4853312,Pool 08,12.8,1.4,0.03,2.7,150,Isolated,Silt,S & E,Dense,20 - 49%
+10/07/1997,727108,4670901,Pool 13,23,1.8,0,8.4,62,Connected backwater,Silt,S & E,Dense,>50%
+10/08/1997,580380,4914258,Pool 04,18.4,0.57,0.03,8.4,57,Side channel,Silt,Submergent,Dense,>50%
+10/08/1997,736708,4656801,Pool 13,20.9,0.75,0.11,8.3,38,Side channel,Silt/Clay/Sand,S & E,Sparse,1 - 19%
+10/08/1997,737308,4659501,Pool 13,22.8,0.59,0,9.4,51,Connected backwater,Silt,S & E,Sparse,20 - 49%
+10/08/1997,579680,4914908,Pool 04,19.2,1.1,0.01,7.7,110,Connected backwater,Silt,Floating,Sparse,1 - 19%
+10/08/2012,637255,4853512,Pool 08,8.7,0.7,0,10.1,70,Isolated,Silt,"S, E, & F",Dense,>50%
+10/08/2012,638055,4853512,Pool 08,11.5,2.4,0,6.2,240,Isolated,Silt,"S, E, & F",Dense,>50%
+10/08/2018,641455,4834512,Pool 08,12.9,0.65,0.06,9.4,65,Impounded lake,Silt,"S, E, & F",Dense,>50%
+10/08/2018,640655,4831912,Pool 08,12.7,1.56,0.12,8.7,156,Impounded lake,Silt/Clay/Sand,Submergent,Dense,>50%
+10/08/2018,642655,4831712,Pool 08,12.8,1.1,0.06,9.2,90,Impounded lake,Silt,S & E,Dense,>50%
+10/09/1996,733358,4669001,Pool 13,13.1,0.3,0,11.9,30,Connected backwater,Silt,Floating,Sparse,1 - 19%
+10/09/1997,637055,4853712,Pool 08,18.3,0.71,0,4.3,59,Isolated,Silt,S & E,Dense,>50%
+10/09/1997,638255,4853312,Pool 08,18.7,0.9,0.02,5.1,87,Isolated,Silt,S & E,Dense,>50%
+10/09/1997,736808,4651001,Pool 13,20.1,0.35,0.14,8.9,28,Impounded lake,Silt/Clay/Sand,Submergent,Dense,1 - 19%
+10/09/2000,639355,4843862,Pool 08,7.6,0.66,0,13.4,66,Connected backwater,Silt,S & E,Dense,>50%
+10/09/2000,641855,4831912,Pool 08,10.2,1.08,0.01,10.5,108,Impounded lake,Sand,Submergent,Sparse,1 - 19%
+10/09/2000,735608,4644801,Pool 13,10.2,1.28,0.04,10.1,66,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+10/09/2000,734008,4646601,Pool 13,8.5,0.86,0.02,12.8,86,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+10/09/2006,640755,4841312,Pool 08,15,1.47,0.11,9.8,75,Connected backwater,Silt,"S, E, & F",Sparse,20 - 49%
+10/09/2006,641455,4836712,Pool 08,13.9,1.68,0,11.2,168,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+10/09/2012,639205,4834862,Pool 08,11.5,1.31,0.07,12.3,69,Side channel,Silt/Clay/Sand,"S, E, & F",Dense,20 - 49%
+10/09/2012,639505,4834512,Pool 08,11.4,1.65,0,12.5,67,Connected backwater,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+10/09/2017,640505,4829512,Pool 08,17.3,1.04,0.1,8.1,79,Side channel,Silt,S & E,Sparse,>50%
+10/09/2017,643005,4840412,Pool 08,16,0.3,0.01,4.5,30,Connected backwater,Silt,"S, E, & F",Dense,>50%
+10/09/2023,642955,4841062,Pool 08,14.9,0.9,0.07,8,90,Side channel,Sand,S & E,Sparse,20 - 49%
+10/09/2023,642855,4847962,Pool 08,15.7,0.53,0,8.4,53,Side channel,Silt/Clay/Sand,"S, E, & F",Sparse,20 - 49%
+10/09/2023,644455,4845062,Pool 08,13.1,0.42,0,8.4,42,Connected backwater,Silt,"S, E, & F",Dense,20 - 49%
+10/09/2024,639655,4835762,Pool 08,17.9,1.34,0.05,7.1,54,Side channel,Silt/Clay/Sand,S & E,Sparse,>50%
+10/09/2024,639655,4829712,Pool 08,16.6,0.56,0,9.1,56,Impounded lake,Silt,"S, E, & F",Dense,>50%
+10/09/2024,640855,4833912,Pool 08,17.6,0.42,0,8.1,42,Impounded lake,Silt,S & E,Sparse,20 - 49%
+10/10/1996,637755,4857712,Pool 08,13.1,0.55,0.04,17.9,38,Connected backwater,Silt,S & E,Dense,20 - 49%
+10/10/1996,637255,4852912,Pool 08,10.9,0.44,0,8.3,44,Isolated,Silt,S & E,Dense,>50%
+10/10/1996,637055,4853112,Pool 08,9.3,0.44,0,8.6,44,Isolated,Silt,S & E,Dense,>50%
+10/10/1997,579780,4913708,Pool 04,16.3,0.67,0,9.3,67,Side channel,Silt/Clay/Sand,Submergent,Sparse,>50%
+10/10/2001,639205,4855312,Pool 08,13.1,1.31,0.02,10.5,104,Side channel,Sand,"S, E, & F",Sparse,1 - 19%
+10/10/2005,738658,4644601,Pool 13,15,0.51,0,11.2,51,Connected backwater,Silt/Clay/Sand,S & E,Dense,>50%
+10/10/2005,735008,4644801,Pool 13,15.2,1.2,0.04,9.6,51,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+10/10/2006,640455,4839562,Pool 08,13.7,0.87,0.07,8.7,87,Side channel,Silt,"S, E, & F",Dense,>50%
+10/10/2006,643055,4836312,Pool 08,12.6,1.26,0,10.5,126,Impounded lake,Silt,Floating,Dense,20 - 49%
+10/10/2011,580129,4916908,Pool 04,18.4,0.98,0.01,12.1,98,Connected backwater,Silt,S & E,Dense,>50%
+10/10/2011,579880,4915408,Pool 04,18.7,0.49,0,1,49,Connected backwater,Silt,"S, E, & F",Dense,>50%
+10/10/2011,729358,4670601,Pool 13,20.3,0.4,0,9.2,40,Connected backwater,Silt/Clay/Sand,Submergent,Sparse,20 - 49%
+10/10/2011,641055,4839112,Pool 08,18.4,0.74,0,12,74,Impounded lake,Silt/Clay/Sand,S & E,Sparse,20 - 49%
+10/10/2011,642055,4833512,Pool 08,18.9,0.59,0.04,12.7,59,Impounded lake,Sand,Submergent,Sparse,>50%
+10/10/2011,641655,4839312,Pool 08,19,0.82,0,13.8,78,Impounded lake,Silt/Clay/Sand,"S, E, & F",Sparse,>50%
+10/10/2012,640005,4838562,Pool 08,9.2,0.68,0,11.9,57,Side channel,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+10/10/2012,579730,4913258,Pool 04,10.8,0.17,0,8.4,17,Connected backwater,Silt,"S, E, & F",Dense,>50%
+10/10/2012,641655,4833312,Pool 08,9.4,0.58,0,12.5,58,Impounded lake,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+10/10/2012,643455,4840512,Pool 08,10.7,1.4,0.04,14.1,64,Impounded lake,Sand,"S, E, & F",Sparse,1 - 19%
+10/10/2016,579830,4915958,Pool 04,15.5,0.28,0,9.4,28,Side channel,Silt,Emergent,Dense,>50%
+10/10/2016,642804,4841561,Pool 08,15.9,0.96,0,5.4,96,Connected backwater,Silt,"S, E, & F",Dense,>50%
+10/10/2018,642605,4845362,Pool 08,15.5,0.91,0,9.6,91,Connected backwater,Silt,"S, E, & F",Sparse,20 - 49%
+10/10/2022,642505,4837612,Pool 08,14.6,2.62,0.12,8.8,161,Side channel,Silt/Clay/Sand,Floating,Sparse,1 - 19%
+10/10/2022,641655,4829512,Pool 08,13.8,1.36,0.02,11.1,136,Impounded lake,Clay,Submergent,Dense,>50%
+10/10/2022,641455,4829312,Pool 08,13.6,1.89,0.02,9.4,189,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,20 - 49%
+10/10/2022,640655,4829112,Pool 08,14.1,1.29,0.01,9.8,129,Impounded lake,Silt,"S, E, & F",Sparse,20 - 49%
+10/10/2022,738008,4644001,Pool 13,11.7,0.53,0,7.7,53,Impounded lake,Sand,"S, E, & F",Dense,>50%
+10/10/2022,737408,4646601,Pool 13,15.4,0.92,0,12.9,87,Impounded lake,Sand,Submergent,Sparse,1 - 19%
+10/10/2022,642055,4832112,Pool 08,13.8,0.82,0.03,8.1,82,Impounded lake,Silt,"S, E, & F",Sparse,>50%
+10/10/2023,639955,4838312,Pool 08,13.3,0.31,0.04,8.4,31,Connected backwater,Silt,S & E,Dense,20 - 49%
+10/10/2023,641255,4831112,Pool 08,14.1,1.5,0.02,10.9,150,Impounded lake,Silt/Clay/Sand,Submergent,Dense,20 - 49%
+10/10/2023,734608,4647601,Pool 13,15.4,0.4,0,7.1,18,Impounded lake,Sand,"S, E, & F",Dense,>50%
+10/10/2023,640255,4831312,Pool 08,13,1.19,0.01,8.1,119,Impounded lake,Silt,"S, E, & F",Dense,20 - 49%
+10/11/1996,643655,4844662,Pool 08,12,1.12,0.03,17.6,46,Side channel,Silt/Clay/Sand,Floating,Dense,20 - 49%
+10/11/1999,637055,4853312,Pool 08,12.8,0.53,0,1.6,53,Isolated,Silt,S & E,Dense,>50%
+10/11/2000,639205,4836212,Pool 08,10.1,1.86,0.05,11.5,119,Side channel,Sand,S & E,Sparse,1 - 19%
+10/11/2000,641455,4835512,Pool 08,8.3,0.87,0,10.6,48,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+10/11/2005,735208,4657101,Pool 13,13.5,0.41,0,7.3,41,Connected backwater,Silt/Clay/Sand,S & E,Dense,>50%
+10/11/2005,737408,4650001,Pool 13,15.3,0.78,0.06,8.1,51,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+10/11/2005,640655,4832912,Pool 08,15.2,1.4,0.13,9,90,Impounded lake,Silt/Clay/Sand,Submergent,Dense,20 - 49%
+10/11/2005,736408,4649001,Pool 13,15.2,0.72,0.1,9.6,69,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+10/11/2007,581080,4915808,Pool 04,13.7,1.34,0.08,7.6,134,Connected backwater,Silt,Submergent,Dense,>50%
+10/11/2007,643855,4841962,Pool 08,13.5,0.49,0,9.7,49,Connected backwater,Silt/Clay/Sand,"S, E, & F",Sparse,20 - 49%
+10/11/2007,643055,4836912,Pool 08,12,0.7,0,9,70,Impounded lake,Silt,"S, E, & F",Dense,>50%
+10/11/2011,641505,4842312,Pool 08,17.8,0.72,0.03,11.6,72,Side channel,Silt/Clay/Sand,"S, E, & F",Sparse,>50%
+10/11/2011,642355,4840362,Pool 08,18.2,0.78,0.08,11.8,68,Connected backwater,Silt/Clay/Sand,S & E,Sparse,1 - 19%
+10/11/2011,734408,4642601,Pool 13,17.7,0.7,0,11.2,70,Impounded lake,Silt/Clay/Sand,"S, E, & F",Sparse,>50%
+10/11/2011,733808,4650201,Pool 13,18.4,0.42,0,5.8,42,Impounded lake,Silt,"S, E, & F",Sparse,20 - 49%
+10/11/2011,737208,4646801,Pool 13,17.9,1.38,0.07,9.3,52,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+10/11/2012,578379,4916408,Pool 04,8.7,0.95,0.01,4.1,65,Connected backwater,Silt,"S, E, & F",Sparse,>50%
+10/11/2012,734058,4668601,Pool 13,12,0.41,0,11.4,41,Connected backwater,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+10/11/2012,579829,4916608,Pool 04,10.5,0.69,0,9.3,61,Connected backwater,Silt,Emergent,Dense,>50%
+10/11/2016,640904,4843061,Pool 08,15.9,1.2,0.06,8.1,92,Side channel,Silt/Clay/Sand,"S, E, & F",Sparse,>50%
+10/11/2016,641454,4843761,Pool 08,16.5,0.9,0.02,8.6,75,Side channel,Silt,"S, E, & F",Dense,>50%
+10/11/2017,643255,4837112,Pool 08,14.5,1.09,0.03,7.7,109,Impounded lake,Silt,"S, E, & F",Sparse,>50%
+10/11/2017,642255,4830112,Pool 08,14.4,2,0.13,8.1,119,Impounded lake,Silt,"S, E, & F",Sparse,>50%
+10/11/2018,580080,4915808,Pool 04,9.8,0.44,0.02,9.3,44,Side channel,Silt,Emergent,Sparse,>50%
+10/11/2018,639555,4852312,Pool 08,12.7,1.02,0,6.1,102,Connected backwater,Silt,Floating,Sparse,1 - 19%
+10/11/2022,580980,4914258,Pool 04,16.7,0.21,0,6.1,17,Connected backwater,Silt,"S, E, & F",Dense,>50%
+10/11/2022,643455,4834912,Pool 08,13.4,0.81,0,8.6,81,Isolated,Silt,Submergent,Sparse,>50%
+10/11/2022,637255,4853512,Pool 08,17.4,0.31,0,7.5,31,Isolated,Silt,"S, E, & F",Dense,>50%
+10/11/2022,636655,4853312,Pool 08,17.1,0.3,0,10.4,30,Isolated,Silt,"S, E, & F",Dense,>50%
+10/11/2023,581130,4914658,Pool 04,14.2,0.79,0.01,9.2,79,Side channel,Silt,"S, E, & F",Sparse,1 - 19%
+10/11/2023,639155,4834712,Pool 08,13.7,1.57,0.08,9,157,Side channel,Sand,Emergent,Sparse,20 - 49%
+10/11/2023,638955,4836912,Pool 08,13.7,1.72,0.05,8.9,146,Side channel,Sand,Emergent,Sparse,20 - 49%
+10/11/2023,580380,4917158,Pool 04,11.8,0.61,0,7,61,Connected backwater,Silt,"S, E, & F",Dense,>50%
+10/11/2023,734208,4643201,Pool 13,14.7,1.14,0,9.7,114,Impounded lake,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+10/11/2023,643255,4831712,Pool 08,15,1.1,0,9.5,110,Impounded lake,Silt/Clay/Sand,"S, E, & F",Dense,20 - 49%
+10/11/2023,734008,4647401,Pool 13,11.9,0.48,0,4.2,48,Impounded lake,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+10/11/2023,737608,4649601,Pool 13,15.2,0.9,0.03,8.6,39,Impounded lake,Sand,"S, E, & F",Dense,20 - 49%
+10/11/2023,737608,4648401,Pool 13,14.5,1.1,0,10.7,100,Impounded lake,Silt/Clay/Sand,"S, E, & F",Dense,20 - 49%
+10/12/1995,642855,4841862,Pool 08,17.1,0.9,0.01,11.1,42,Connected backwater,Silt,Floating,Sparse,20 - 49%
+10/12/1999,641905,4840912,Pool 08,15.1,0.71,0.08,12,71,Side channel,Silt/Clay/Sand,S & E,Dense,20 - 49%
+10/12/2000,642305,4843812,Pool 08,11.4,1.58,0.05,13.3,89,Side channel,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+10/12/2000,643805,4844962,Pool 08,10.9,0.37,0,10.1,37,Side channel,Silt,S & E,Sparse,>50%
+10/12/2001,735808,4655801,Pool 13,14,0.58,0.02,10.3,47,Side channel,Silt/Clay/Sand,S & E,Sparse,1 - 19%
+10/12/2004,736208,4650201,Pool 13,14.9,0.54,0.02,9.6,54,Impounded lake,Silt/Clay/Sand,Submergent,Dense,20 - 49%
+10/12/2005,643605,4842262,Pool 08,16.9,1.27,0,6.9,82,Connected backwater,Silt,S & E,Dense,>50%
+10/12/2005,737908,4658751,Pool 13,15.2,0.51,0,8.6,51,Connected backwater,Silt/Clay/Sand,S & E,Dense,20 - 49%
+10/12/2005,643455,4838512,Pool 08,14.5,1.29,0,5.3,129,Impounded lake,Silt,"S, E, & F",Dense,>50%
+10/12/2006,641005,4848162,Pool 08,11.8,0.8,0,10.6,80,Side channel,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+10/12/2010,636655,4853512,Pool 08,18.6,1.11,0,6.5,111,Isolated,Silt,"S, E, & F",Dense,>50%
+10/12/2010,637455,4852912,Pool 08,17.9,1.05,0,10.7,72,Isolated,Silt,"S, E, & F",Dense,>50%
+10/12/2010,637855,4852912,Pool 08,17.9,1.26,0,8.4,93,Isolated,Silt,"S, E, & F",Dense,>50%
+10/12/2010,637055,4853112,Pool 08,18.4,1.23,0,10.6,83,Isolated,Silt,"S, E, & F",Dense,>50%
+10/12/2010,640255,4831912,Pool 08,16.3,1.27,0.1,7,53,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,20 - 49%
+10/12/2011,735908,4660801,Pool 13,18.6,0.6,0,15.1,60,Connected backwater,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+10/12/2011,636655,4853512,Pool 08,19,0.72,0,4.3,72,Isolated,Silt,"S, E, & F",Dense,>50%
+10/12/2011,637255,4853112,Pool 08,18.1,0.74,0,2,74,Isolated,Silt,"S, E, & F",Dense,>50%
+10/12/2011,637655,4852912,Pool 08,17.9,0.57,0,0.4,57,Isolated,Silt,"S, E, & F",Dense,>50%
+10/12/2011,643455,4834712,Pool 08,18.7,0.7,0,11.8,70,Isolated,Silt,"S, E, & F",Dense,>50%
+10/12/2017,638155,4855562,Pool 08,14.5,2.9,0.12,7.4,78,Side channel,Silt/Clay/Sand,Floating,Sparse,1 - 19%
+10/12/2017,639555,4854112,Pool 08,14.6,2.7,0,7.4,85,Side channel,Silt/Clay/Sand,Floating,Sparse,1 - 19%
+10/12/2017,636955,4857662,Pool 08,15.2,2.35,0,7.3,90,Connected backwater,Clay,Floating,Sparse,1 - 19%
+10/12/2017,638455,4857212,Pool 08,14.3,2,0,7.4,110,Connected backwater,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+10/12/2017,637255,4853512,Pool 08,13.8,0.98,0,6.3,98,Isolated,Silt,"S, E, & F",Dense,>50%
+10/12/2017,636655,4853512,Pool 08,13.8,1,0,6.8,100,Isolated,Silt,"S, E, & F",Dense,>50%
+10/12/2017,636655,4853712,Pool 08,14.1,1.05,0,6.8,105,Isolated,Silt,"S, E, & F",Dense,>50%
+10/12/2020,641255,4828113,Pool 08,15.4,0.88,0,7.2,88,Impounded lake,Silt/Clay/Sand,"S, E, & F",Sparse,>50%
+10/12/2021,641455,4834512,Pool 08,18.7,0.61,0,7.5,61,Impounded lake,Silt,"S, E, & F",Dense,>50%
+10/12/2022,579830,4912508,Pool 04,15.7,0.98,0,10.8,98,Connected backwater,Silt,"S, E, & F",Dense,>50%
+10/12/2022,641605,4841662,Pool 08,15.1,0.81,0.1,9.2,81,Connected backwater,Silt/Clay/Sand,"S, E, & F",Sparse,1 - 19%
+10/12/2023,637055,4853712,Pool 08,9.8,0.26,0,7.5,26,Isolated,Silt,"S, E, & F",Dense,20 - 49%
+10/13/2000,644305,4842162,Pool 08,18.8,0.3,0,10.3,30,Connected backwater,Silt,S & E,Sparse,20 - 49%
+10/13/2004,584980,4911458,Pool 04,11.6,0.35,0,15.1,35,Connected backwater,Silt,"S, E, & F",Dense,>50%
+10/13/2005,641655,4843612,Pool 08,14.8,0.71,0,5.2,71,Connected backwater,Silt,"S, E, & F",Sparse,1 - 19%
+10/13/2006,732958,4663301,Pool 13,5.7,0.4,0,9.9,40,Connected backwater,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+10/13/2006,732558,4664051,Pool 13,4.9,0.43,0,4.7,43,Connected backwater,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+10/13/2008,639855,4830712,Pool 08,16.5,0.8,0,8.8,80,Impounded lake,Silt,"S, E, & F",Dense,20 - 49%
+10/13/2009,639255,4842862,Pool 08,7,0.26,0,11.8,26,Connected backwater,Silt,"S, E, & F",Dense,>50%
+10/13/2009,639305,4844262,Pool 08,7,0.42,0,7.8,42,Connected backwater,Silt,"S, E, & F",Dense,>50%
+10/13/2010,640105,4840662,Pool 08,16.9,0.91,0.03,5.9,91,Side channel,Sand,S & E,Sparse,20 - 49%
+10/13/2010,640655,4835312,Pool 08,16.8,0.85,0.07,8.2,61,Impounded lake,Silt,"S, E, & F",Sparse,20 - 49%
+10/13/2011,641355,4845312,Pool 08,18.5,0.37,0.02,11.5,37,Side channel,Sand,"S, E, & F",Sparse,20 - 49%
+10/13/2011,640605,4842412,Pool 08,18.1,0.9,0.12,12.3,82,Side channel,Sand,"S, E, & F",Sparse,1 - 19%
+10/13/2011,639405,4841962,Pool 08,17.7,0.29,0,8.8,29,Connected backwater,Silt,"S, E, & F",Dense,>50%
+10/13/2015,639155,4834812,Pool 08,15.2,1.51,0.13,10.1,115,Side channel,Sand,"S, E, & F",Dense,20 - 49%
+10/13/2015,642105,4834412,Pool 08,14.9,0.94,0.04,10.6,94,Side channel,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+10/13/2015,640655,4837712,Pool 08,15.6,1.02,0.04,10.3,102,Impounded lake,Silt,S & E,Dense,>50%
+10/13/2015,641055,4831312,Pool 08,13.5,1.53,0,8.5,105,Impounded lake,Silt,Submergent,Sparse,1 - 19%
+10/13/2016,641654,4831911,Pool 08,13.5,1.34,0.11,9.3,96,Impounded lake,Silt,Submergent,Dense,>50%
+10/13/2016,734408,4646800,Pool 13,15.2,0.9,0.1,8.6,42,Impounded lake,Silt/Clay/Sand,"S, E, & F",Sparse,20 - 49%
+10/13/2016,737608,4644200,Pool 13,15.4,1.1,0.03,8.5,44,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+10/13/2017,735358,4659151,Pool 13,15.9,0.58,0,4.6,36,Side channel,Silt/Clay/Sand,"S, E, & F",Sparse,1 - 19%
+10/13/2020,738158,4656501,Pool 13,14.3,0.8,0,8.7,44,Connected backwater,Silt/Clay/Sand,"S, E, & F",Sparse,20 - 49%
+10/13/2020,737058,4660401,Pool 13,14.7,0.6,0,5.8,60,Connected backwater,Silt/Clay/Sand,Submergent,Sparse,20 - 49%
+10/13/2022,640055,4842862,Pool 08,13.3,0.3,0.03,10.1,30,Side channel,Silt/Clay/Sand,"S, E, & F",Sparse,>50%
+10/13/2022,639205,4849912,Pool 08,10.3,0.44,0,12.5,44,Connected backwater,Silt,"S, E, & F",Sparse,>50%
+10/14/1998,641205,4843862,Pool 08,13.5,0.2,0,12.6,20,Side channel,Silt,S & E,Sparse,1 - 19%
+10/14/1998,728208,4670751,Pool 13,14.9,0.2,0,10.5,20,Connected backwater,Silt,Floating,Sparse,1 - 19%
+10/14/1999,640455,4838412,Pool 08,13.8,0.39,0.04,10.8,39,Side channel,Sand,Submergent,Sparse,>50%
+10/14/1999,640105,4840512,Pool 08,13.7,0.43,0,12.4,43,Side channel,Silt/Clay/Sand,S & E,Sparse,1 - 19%
+10/14/1999,577329,4916958,Pool 04,11.1,0.23,0,2.5,6,Connected backwater,Silt,S & E,Sparse,>50%
+10/14/1999,640155,4839312,Pool 08,12.8,0.42,0,11.6,42,Connected backwater,Silt/Clay/Sand,Floating,Sparse,>50%
+10/14/2005,585230,4911258,Pool 04,14,0.3,0,11.9,30,Side channel,Silt,"S, E, & F",Dense,>50%
+10/14/2008,639205,4836162,Pool 08,16,0.58,0.11,9.4,58,Side channel,Sand,Emergent,Dense,1 - 19%
+10/14/2008,640005,4834462,Pool 08,14.8,2.11,0.12,8.8,134,Side channel,Sand,Submergent,Sparse,20 - 49%
+10/14/2008,640255,4832312,Pool 08,15.7,1.09,0.03,8.9,109,Impounded lake,Silt/Clay/Sand,Submergent,Dense,>50%
+10/14/2008,640655,4832312,Pool 08,15.1,1.44,0.02,8.9,144,Impounded lake,Sand,Submergent,Dense,>50%
+10/14/2010,639855,4843212,Pool 08,15,0.93,0.03,7,93,Connected backwater,Silt,"S, E, & F",Dense,>50%
+10/14/2019,582430,4913508,Pool 04,10.8,1.09,0.08,10,53,Connected backwater,Silt,Emergent,Dense,>50%
+10/14/2021,640005,4837962,Pool 08,16.5,0.51,0.02,7.1,51,Side channel,Silt,"S, E, & F",Sparse,20 - 49%
+10/14/2021,640005,4840462,Pool 08,18.7,0.55,0,10.2,55,Side channel,Silt/Clay/Sand,"S, E, & F",Sparse,>50%
+10/14/2021,540579,4936058,Pool 04,11.3,0.07,0,12,7,Connected backwater,Silt,Submergent,Sparse,>50%
+10/14/2021,736208,4642601,Pool 13,17.1,0.57,0,4.5,57,Impounded lake,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+10/14/2021,734608,4646001,Pool 13,18.7,1.3,0.11,7.2,60,Impounded lake,Silt/Clay/Sand,Floating,Sparse,1 - 19%
+10/14/2021,734408,4644601,Pool 13,18.4,0.92,0,6.9,86,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,20 - 49%
+10/14/2024,637755,4857412,Pool 08,9.3,0.2,0,9.7,20,Connected backwater,Silt,"S, E, & F",Dense,>50%
+10/14/2024,636855,4853312,Pool 08,10.1,0.67,0,11.5,66,Isolated,Silt,"S, E, & F",Sparse,>50%
+10/14/2024,637855,4853312,Pool 08,10.3,0.24,0,4.1,24,Isolated,Silt,S & E,Dense,>50%
+10/15/1998,641405,4840662,Pool 08,13,1.4,0.1,12.1,71,Side channel,Hard,Emergent,Sparse,1 - 19%
+10/15/1999,643055,4845912,Pool 08,13.9,0.56,0,11.6,56,Side channel,Sand,Submergent,Sparse,1 - 19%
+10/15/1999,639405,4848912,Pool 08,13.7,0.97,0,10.1,58,Connected backwater,Silt/Clay/Sand,S & E,Sparse,1 - 19%
+10/15/2001,641105,4842512,Pool 08,11.9,0.34,0,11.8,34,Side channel,Sand,Emergent,Dense,20 - 49%
+10/15/2007,636855,4853312,Pool 08,11.5,0.58,0,4.8,58,Isolated,Silt,"S, E, & F",Dense,>50%
+10/15/2008,639905,4838612,Pool 08,15.1,0.87,0.04,9,87,Side channel,Silt,"S, E, & F",Sparse,1 - 19%
+10/15/2012,641255,4840562,Pool 08,9.9,0.51,0.04,13,51,Side channel,Silt/Clay/Sand,"S, E, & F",Sparse,20 - 49%
+10/15/2012,641855,4849362,Pool 08,11.1,1.27,0,8.5,76,Side channel,Silt,"S, E, & F",Sparse,20 - 49%
+10/15/2012,640655,4840812,Pool 08,8.7,0.27,0,5.6,27,Connected backwater,Silt,"S, E, & F",Dense,>50%
+10/15/2012,641755,4849412,Pool 08,12.3,1.18,0,8.9,89,Connected backwater,Silt,"S, E, & F",Sparse,1 - 19%
+10/15/2012,641305,4841312,Pool 08,9.2,0.4,0.03,11.8,40,Connected backwater,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+10/15/2012,738408,4644601,Pool 13,11.8,0.4,0,9.9,40,Impounded lake,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+10/15/2012,735408,4648601,Pool 13,13.3,0.5,0.03,11.5,24,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+10/15/2012,737408,4643601,Pool 13,11.5,0.97,0,8.4,97,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,20 - 49%
+10/15/2015,640255,4840312,Pool 08,15.2,0.37,0.03,12.6,37,Connected backwater,Silt,Submergent,Sparse,1 - 19%
+10/15/2015,640105,4839312,Pool 08,12.6,0.35,0,3,35,Connected backwater,Silt,"S, E, & F",Dense,>50%
+10/15/2015,737008,4650801,Pool 13,14.2,0.4,0,8.5,40,Impounded lake,Silt/Clay/Sand,"S, E, & F",Sparse,20 - 49%
+10/15/2018,636655,4853512,Pool 08,8.1,1.2,0,11.1,110,Isolated,Silt,"S, E, & F",Dense,>50%
+10/15/2018,638055,4853712,Pool 08,8.3,0.92,0,9.4,92,Isolated,Silt,"S, E, & F",Sparse,>50%
+10/15/2018,636655,4853112,Pool 08,7.5,1.12,0,11.7,112,Isolated,Silt,"S, E, & F",Dense,>50%
+10/15/2018,637055,4853712,Pool 08,7.9,1.43,0,9.5,92,Isolated,Silt,"S, E, & F",Dense,>50%
+10/15/2021,637455,4853312,Pool 08,15.4,0.54,0,2.8,54,Isolated,Silt,"S, E, & F",Dense,>50%
+10/15/2021,643255,4834512,Pool 08,15.2,0.32,0,4,32,Isolated,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+10/16/1995,636655,4853712,Pool 08,8.7,0.5,0,8.5,50,Isolated,Silt,S & E,Dense,>50%
+10/16/1995,637455,4852712,Pool 08,9.1,0.38,0,2.1,38,Isolated,Silt,S & E,Dense,>50%
+10/16/1995,637455,4853312,Pool 08,8.9,0.39,0,3.2,39,Isolated,Silt,Emergent,Dense,>50%
+10/16/1998,638255,4853512,Pool 08,14.5,0.28,0,4.9,28,Isolated,Silt,S & E,Dense,>50%
+10/16/1998,637655,4852912,Pool 08,14,0.44,0,4.6,44,Isolated,Silt,S & E,Dense,>50%
+10/16/2000,639405,4855712,Pool 08,12.8,1.42,0.1,14.3,50,Side channel,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+10/16/2000,638255,4853312,Pool 08,14,0.78,0,13.7,78,Isolated,Silt,Submergent,Dense,>50%
+10/16/2000,643255,4834312,Pool 08,13.1,0.67,0,5.2,67,Isolated,Silt,Submergent,Sparse,>50%
+10/16/2001,641055,4847712,Pool 08,10.5,0.27,0,8.4,20,Side channel,Silt,Submergent,Sparse,>50%
+10/16/2007,641905,4841212,Pool 08,14.7,0.26,0.05,8,26,Side channel,Silt,Submergent,Sparse,1 - 19%
+10/16/2007,640055,4832112,Pool 08,14.1,0.54,0.08,7.7,54,Impounded lake,Silt,Submergent,Dense,>50%
+10/16/2008,735358,4661451,Pool 13,15.9,0.4,0,6.4,40,Connected backwater,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+10/16/2014,638905,4837762,Pool 08,12.4,2.5,0.02,9.6,90,Connected backwater,Silt,Submergent,Sparse,1 - 19%
+10/16/2014,640655,4832312,Pool 08,11.8,1.25,0.05,10.1,87,Impounded lake,Silt,Submergent,Sparse,>50%
+10/16/2014,641455,4834912,Pool 08,14.3,0.4,0.01,11,40,Impounded lake,Silt,"S, E, & F",Dense,>50%
+10/16/2017,640005,4838462,Pool 08,13.3,0.82,0.08,7.8,82,Side channel,Silt,"S, E, & F",Dense,>50%
+10/16/2017,733808,4650201,Pool 13,11.6,0.6,0,5.4,60,Impounded lake,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+10/16/2017,733808,4644401,Pool 13,13.9,1.02,0.12,6.2,102,Impounded lake,Silt/Clay/Sand,"S, E, & F",Sparse,1 - 19%
+10/16/2018,735408,4659251,Pool 13,10.5,1.23,0.11,9.6,48,Side channel,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+10/16/2023,640655,4842012,Pool 08,12.6,0.58,0,9.9,58,Side channel,Silt,"S, E, & F",Dense,20 - 49%
+10/16/2024,640455,4839912,Pool 08,10.8,0.3,0,9,30,Connected backwater,Silt,Emergent,Dense,>50%
+10/16/2024,639355,4842512,Pool 08,10.8,1.74,0.03,10.7,174,Connected backwater,Silt/Clay/Sand,"S, E, & F",Sparse,>50%
+10/16/2024,640905,4840412,Pool 08,9.7,0.43,0,6.6,43,Connected backwater,Silt,S & E,Dense,>50%
+10/16/2024,736608,4642801,Pool 13,10,0.5,0,11.1,50,Impounded lake,Sand,"S, E, & F",Dense,>50%
+10/17/2001,636655,4853112,Pool 08,7.4,0.48,0,10.1,48,Isolated,Silt,"S, E, & F",Dense,>50%
+10/17/2001,636855,4853712,Pool 08,8.1,0.77,0,12.7,68,Isolated,Silt,"S, E, & F",Sparse,>50%
+10/17/2005,638505,4856862,Pool 08,14.4,2.07,0.05,7.2,133,Side channel,Sand,S & E,Sparse,1 - 19%
+10/17/2005,579630,4912358,Pool 04,14,1.59,0.09,8,64,Connected backwater,Silt,Submergent,Sparse,>50%
+10/17/2005,638055,4853512,Pool 08,14.3,4.7,0,6,164,Isolated,Silt,"S, E, & F",Dense,20 - 49%
+10/17/2005,636855,4853712,Pool 08,14.9,1.02,0,5.3,102,Isolated,Silt,"S, E, & F",Dense,>50%
+10/17/2005,637855,4853712,Pool 08,14,4.1,0,5.8,160,Isolated,Silt,Submergent,Dense,1 - 19%
+10/17/2005,637255,4853512,Pool 08,14.9,0.72,0,7,72,Isolated,Silt,"S, E, & F",Dense,>50%
+10/17/2005,637455,4853312,Pool 08,14.4,0.38,0,2.9,38,Isolated,Silt,"S, E, & F",Dense,>50%
+10/17/2006,738008,4649401,Pool 13,10.8,1.16,0.05,10.6,52,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+10/17/2006,734808,4649201,Pool 13,10.6,0.8,0.05,10.7,58,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+10/17/2006,643055,4833312,Pool 08,10.1,0.6,0.03,11.1,60,Impounded lake,Silt/Clay/Sand,"S, E, & F",Dense,20 - 49%
+10/17/2006,640655,4832712,Pool 08,8.1,1.33,0.03,11.7,133,Impounded lake,Silt/Clay/Sand,"S, E, & F",Sparse,>50%
+10/17/2006,641255,4837512,Pool 08,9.6,1.05,0,13.1,105,Impounded lake,Clay,Submergent,Sparse,20 - 49%
+10/17/2006,736408,4646001,Pool 13,9.8,1.42,0.06,9.8,67,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+10/17/2006,641055,4831312,Pool 08,8.9,1.64,0.02,10.6,82,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,20 - 49%
+10/17/2007,738258,4659001,Pool 13,13.7,0.4,0,2.9,40,Connected backwater,Silt/Clay/Sand,"S, E, & F",Sparse,20 - 49%
+10/17/2008,733808,4647601,Pool 13,11.8,0.6,0,6.2,38,Impounded lake,Silt/Clay/Sand,"S, E, & F",Sparse,1 - 19%
+10/17/2011,641255,4836912,Pool 08,12.6,2.1,0.14,11.1,110,Impounded lake,Sand,Submergent,Sparse,20 - 49%
+10/17/2012,640455,4836712,Pool 08,11.5,0.94,0.02,13.4,94,Impounded lake,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+10/17/2013,641654,4832311,Pool 08,14,2.66,0.11,9.9,148,Impounded lake,Silt/Clay/Sand,Submergent,Dense,1 - 19%
+10/17/2016,643154,4840461,Pool 08,15.5,0.73,0.1,8.8,73,Connected backwater,Silt,"S, E, & F",Dense,>50%
+10/17/2018,643105,4845212,Pool 08,8.8,1.73,0.1,9.6,67,Side channel,Silt,"S, E, & F",Sparse,20 - 49%
+10/17/2019,641555,4846062,Pool 08,10.6,1.74,0.09,9.2,126,Side channel,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+10/17/2019,642005,4849312,Pool 08,11.9,1.71,0,9.6,85,Side channel,Sand,Floating,Sparse,1 - 19%
+10/18/2001,581130,4914658,Pool 04,10,0.85,0.01,9,85,Side channel,Silt,"S, E, & F",Dense,20 - 49%
+10/18/2004,642455,4847962,Pool 08,9.2,0.87,0.04,10,87,Side channel,Silt/Clay/Sand,S & E,Sparse,1 - 19%
+10/18/2004,642505,4847812,Pool 08,9.8,0.43,0,10.7,43,Side channel,Silt,Emergent,Sparse,1 - 19%
+10/18/2019,738308,4659501,Pool 13,10.7,1.4,0,9.8,62,Connected backwater,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+10/18/2021,736608,4649001,Pool 13,17.7,1.26,0.03,8.8,64,Impounded lake,Silt/Clay/Sand,Submergent,Dense,20 - 49%
+10/18/2024,580380,4917108,Pool 04,10.6,1.03,0.03,10.7,103,Connected backwater,Silt,"S, E, & F",Sparse,>50%
+10/18/2024,580280,4916808,Pool 04,11.8,0.79,0.03,9.9,49,Connected backwater,Silt,"S, E, & F",Dense,>50%
+10/19/1998,643305,4842562,Pool 08,11.4,0.45,0,8.4,45,Connected backwater,Silt,Submergent,Sparse,>50%
+10/19/2004,737458,4656601,Pool 13,9.1,0.42,0,7,17,Connected backwater,Silt/Clay/Sand,Emergent,Sparse,>50%
+10/19/2004,638555,4857262,Pool 08,9.2,0.27,0,10.4,27,Connected backwater,Silt,Submergent,Dense,>50%
+10/19/2004,737858,4657551,Pool 13,8.4,0.7,0,9.9,70,Connected backwater,Silt/Clay/Sand,S & E,Dense,>50%
+10/19/2006,735458,4659251,Pool 13,8.3,0.88,0,8.3,38,Side channel,Silt/Clay/Sand,Emergent,Sparse,1 - 19%
+10/19/2006,637955,4857312,Pool 08,7.6,0.36,0.04,12.8,36,Connected backwater,Silt,"S, E, & F",Dense,>50%
+10/19/2009,637605,4856812,Pool 08,9.3,0.8,0.14,10.9,80,Side channel,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+10/19/2009,732758,4663051,Pool 13,8.6,0.3,0,10.7,30,Connected backwater,Silt/Clay/Sand,"S, E, & F",Sparse,20 - 49%
+10/19/2009,733358,4669751,Pool 13,9.7,0.59,0,12.3,59,Connected backwater,Silt/Clay/Sand,Submergent,Dense,>50%
+10/19/2009,637455,4853312,Pool 08,10.8,0.4,0,8.5,40,Isolated,Silt,"S, E, & F",Dense,>50%
+10/19/2017,643255,4834512,Pool 08,13.9,0.46,0,10.1,46,Isolated,Silt,"S, E, & F",Sparse,>50%
+10/19/2020,643155,4834112,Pool 08,7.3,0.7,0,5.2,70,Connected backwater,Silt,"S, E, & F",Sparse,>50%
+10/19/2020,642255,4829712,Pool 08,8.4,1.68,0.03,11.1,94,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,>50%
+10/19/2020,642655,4835712,Pool 08,8.5,1.56,0,10.6,156,Impounded lake,Silt,Submergent,Dense,>50%
+10/19/2020,642655,4830912,Pool 08,8.8,1.68,0.07,9.8,168,Impounded lake,Silt,Submergent,Sparse,>50%
+10/19/2022,639955,4839312,Pool 08,7.7,0.57,0.05,12.3,57,Side channel,Sand,"S, E, & F",Sparse,>50%
+10/19/2022,640755,4842612,Pool 08,7.8,1.42,0.12,11.7,142,Side channel,Sand,Floating,Sparse,1 - 19%
+10/19/2022,641455,4846662,Pool 08,9,0.54,0.07,13,54,Side channel,Silt/Clay/Sand,"S, E, & F",Sparse,1 - 19%
+10/19/2022,727558,4670601,Pool 13,7.7,0.4,0,13.1,40,Connected backwater,Silt/Clay/Sand,"S, E, & F",Dense,20 - 49%
+10/20/2004,637455,4852712,Pool 08,10.5,0.48,0,2.4,48,Isolated,Silt,"S, E, & F",Dense,>50%
+10/20/2004,638055,4853512,Pool 08,10.6,2.07,0,10.4,98,Isolated,Silt,"S, E, & F",Dense,20 - 49%
+10/20/2004,637055,4853512,Pool 08,9.8,0.48,0,7.9,48,Isolated,Silt,"S, E, & F",Dense,>50%
+10/20/2004,643455,4834712,Pool 08,9.3,0.48,0,5.9,48,Isolated,Silt/Clay/Sand,"S, E, & F",Sparse,>50%
+10/20/2004,735808,4649001,Pool 13,10.1,0.5,0.07,10,50,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,20 - 49%
+10/20/2005,641105,4849812,Pool 08,14.1,1.35,0.02,8.9,62,Side channel,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+10/20/2006,583130,4910608,Pool 04,8.9,1.21,0,11,121,Side channel,Silt,Submergent,Sparse,>50%
+10/20/2008,643255,4834512,Pool 08,12.9,0.48,0,8.9,48,Isolated,Silt,"S, E, & F",Dense,>50%
+10/20/2009,735308,4659301,Pool 13,11.4,0.4,0,10.1,40,Side channel,Silt/Clay/Sand,"S, E, & F",Sparse,1 - 19%
+10/20/2009,640805,4847612,Pool 08,10.3,1.24,0.04,10.3,124,Side channel,Silt/Clay/Sand,"S, E, & F",Sparse,20 - 49%
+10/20/2009,738008,4658951,Pool 13,11.5,0.54,0,11.4,54,Connected backwater,Silt/Clay/Sand,"S, E, & F",Sparse,1 - 19%
+10/20/2009,578079,4915758,Pool 04,11,0.24,0,6.5,24,Connected backwater,Silt,Emergent,Dense,>50%
+10/20/2014,637255,4852912,Pool 08,10.8,0.98,0,6.3,98,Isolated,Silt,"S, E, & F",Dense,>50%
+10/20/2014,637455,4852912,Pool 08,10.5,0.48,0,4,48,Isolated,Silt,"S, E, & F",Dense,>50%
+10/20/2014,637455,4853312,Pool 08,11.4,0.31,0,6.1,31,Isolated,Silt,"S, E, & F",Dense,>50%
+10/20/2015,583130,4910608,Pool 04,13.8,0.39,0,9.9,39,Side channel,Silt,Submergent,Sparse,1 - 19%
+10/20/2015,641255,4841212,Pool 08,13.3,0.52,0,5.4,52,Side channel,Silt,Submergent,Dense,>50%
+10/20/2015,640505,4842162,Pool 08,13.2,0.86,0.13,12.4,86,Connected backwater,Sand,"S, E, & F",Sparse,1 - 19%
+10/20/2015,726008,4670651,Pool 13,15.9,0.4,0,15.3,40,Connected backwater,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+10/20/2016,637054,4853112,Pool 08,12.9,0.73,0,6.6,73,Isolated,Silt,"S, E, & F",Dense,>50%
+10/20/2016,643254,4834511,Pool 08,13.8,0.47,0,4.1,47,Isolated,Silt,"S, E, & F",Sparse,>50%
+10/20/2016,637454,4853312,Pool 08,12.9,0.35,0,8,35,Isolated,Silt,"S, E, & F",Sparse,>50%
+10/20/2016,637054,4853312,Pool 08,12.8,0.69,0,6.2,69,Isolated,Silt,"S, E, & F",Dense,>50%
+10/20/2020,736608,4650401,Pool 13,5.2,0.4,0,11.6,40,Impounded lake,Silt/Clay/Sand,"S, E, & F",Sparse,20 - 49%
+10/20/2022,736458,4657951,Pool 13,5.4,0.54,0,11.7,54,Connected backwater,Silt/Clay/Sand,"S, E, & F",Dense,>50%
+10/20/2022,737258,4657801,Pool 13,5.5,1.88,0,11.5,134,Connected backwater,Silt/Clay/Sand,"S, E, & F",Dense,1 - 19%
+10/21/2009,640355,4838412,Pool 08,10.1,0.58,0.05,10.3,58,Connected backwater,Silt/Clay/Sand,Emergent,Sparse,>50%
+10/21/2009,739208,4645551,Pool 13,14.9,0.5,0,11.6,50,Connected backwater,Silt/Clay/Sand,"S, E, & F",Sparse,20 - 49%
+10/21/2009,640655,4839162,Pool 08,10.1,0.56,0,9.6,56,Connected backwater,Silt,"S, E, & F",Dense,>50%
+10/21/2009,641455,4833712,Pool 08,10.3,1.02,0.08,9.9,102,Impounded lake,Silt/Clay/Sand,Submergent,Dense,>50%
+10/21/2013,637054,4853112,Pool 08,6.4,0.69,0,8.8,69,Isolated,Silt,"S, E, & F",Dense,>50%
+10/21/2013,638054,4853712,Pool 08,9,0.32,0,9.6,32,Isolated,Silt,"S, E, & F",Dense,>50%
+10/21/2013,636654,4853312,Pool 08,6.2,0.48,0,7.7,48,Isolated,Silt,"S, E, & F",Dense,>50%
+10/21/2013,637054,4853512,Pool 08,6.1,0.58,0,9.8,58,Isolated,Silt,"S, E, & F",Dense,>50%
+10/21/2013,636654,4853112,Pool 08,6.2,0.46,0,7.6,46,Isolated,Silt,"S, E, & F",Dense,>50%
+10/21/2013,641654,4830911,Pool 08,9.6,1.37,0.06,9.7,137,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+10/21/2013,643054,4835511,Pool 08,7.2,1.19,0,12.1,119,Impounded lake,Silt,"S, E, & F",Dense,20 - 49%
+10/21/2014,643055,4832912,Pool 08,11,1.82,0.07,9.6,135,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,>50%
+10/21/2014,736008,4647001,Pool 13,11.8,1.14,0.06,9.9,63,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+10/21/2020,639555,4842762,Pool 08,6.8,0.32,0,18.8,32,Connected backwater,Silt,"S, E, & F",Dense,>50%
+10/21/2020,641255,4837912,Pool 08,7.8,1.07,0.05,9.8,107,Impounded lake,Silt,"S, E, & F",Sparse,>50%
+10/21/2024,737108,4658801,Pool 13,17.3,0.42,0,11.2,42,Connected backwater,Silt/Clay/Sand,"S, E, & F",Sparse,20 - 49%
+10/22/2013,643504,4845111,Pool 08,10,1.32,0.02,11,132,Side channel,Sand,"S, E, & F",Sparse,>50%
+10/22/2013,738258,4656401,Pool 13,8.6,0.51,0,8.7,51,Connected backwater,Silt/Clay/Sand,Submergent,Sparse,20 - 49%
+10/22/2013,737908,4659201,Pool 13,6,0.49,0,10.4,49,Connected backwater,Silt/Clay/Sand,Submergent,Sparse,20 - 49%
+10/22/2014,579930,4915208,Pool 04,10.4,0.58,0,7.2,23,Connected backwater,Silt,"S, E, & F",Sparse,>50%
+10/22/2014,736808,4649001,Pool 13,11.3,1.14,0.11,9.8,82,Impounded lake,Silt/Clay/Sand,Submergent,Sparse,1 - 19%
+10/23/2013,640004,4841461,Pool 08,8.6,0.56,0,11,56,Side channel,Silt/Clay/Sand,"S, E, & F",Sparse,>50%
+10/23/2014,640205,4839962,Pool 08,10,0.49,0,5.2,49,Side channel,Silt,"S, E, & F",Dense,>50%
+10/23/2019,637255,4853112,Pool 08,8.8,1.28,0,9.5,128,Isolated,Silt,"S, E, & F",Sparse,>50%
+10/23/2019,638055,4853112,Pool 08,8.9,1.18,0,8.7,118,Isolated,Silt,"S, E, & F",Dense,>50%
+10/23/2019,637855,4852912,Pool 08,8.8,1.08,0,9.4,108,Isolated,Silt,"S, E, & F",Sparse,>50%
+10/23/2019,643255,4834512,Pool 08,10.3,0.38,0,8.7,38,Isolated,Silt/Clay/Sand,"S, E, & F",Sparse,>50%
+10/23/2019,643255,4834312,Pool 08,9.9,0.48,0,10.9,48,Isolated,Silt,"S, E, & F",Sparse,>50%
+10/23/2020,643455,4834912,Pool 08,5.5,0.79,0,11.3,79,Isolated,Silt,"S, E, & F",Dense,>50%
+10/24/2006,638255,4853312,Pool 08,6.2,1,0,8.4,100,Isolated,Silt/Clay/Sand,"S, E, & F",Sparse,20 - 49%
+10/24/2006,636855,4853512,Pool 08,3.8,0.9,0,13.1,90,Isolated,Silt,"S, E, & F",Sparse,>50%
+10/24/2006,637055,4853712,Pool 08,4.1,0.68,0,14,68,Isolated,Silt,"S, E, & F",Dense,>50%
+10/24/2006,637455,4852712,Pool 08,3.8,0.45,0,7.9,45,Isolated,Silt,"S, E, & F",Dense,>50%
+10/25/1995,735208,4650601,Pool 13,10.6,0.4,0,10.6,18,Impounded lake,Silt,S & E,Dense,1 - 19%
+10/26/2015,642305,4843862,Pool 08,12.6,0.93,0.06,12.3,93,Side channel,Silt,S & E,Sparse,1 - 19%
+10/28/2013,581230,4911058,Pool 04,7.6,0.48,0,10.6,48,Connected backwater,Silt,Submergent,Dense,>50%
+10/28/2015,637255,4853112,Pool 08,10.8,0.8,0,6.3,80,Isolated,Silt,"S, E, & F",Dense,>50%
+10/28/2015,636655,4853312,Pool 08,11,0.52,0,6.6,52,Isolated,Silt,"S, E, & F",Dense,>50%
+10/28/2015,643455,4834912,Pool 08,10.8,0.86,0,9.3,86,Isolated,Silt,Submergent,Dense,>50%
