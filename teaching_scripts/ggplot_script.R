@@ -194,4 +194,6 @@ finalplot <- myplot +
       color = "Vegetation type") +
  facet_wrap(vars(Stratum), ncol = 1)
 
-finalplot       
+finalplot   
+
+ggsave(filename = "output/umr_wq.png", height = 7, width = 7, units = "in")
