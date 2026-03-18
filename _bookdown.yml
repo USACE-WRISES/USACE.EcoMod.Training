@@ -33,4 +33,5 @@ rmd_files: [
 "gage_data.Rmd",
 "nhd_data.Rmd",
 "hsi_workshop_prep.Rmd",
-"ml_workshop_prep.Rmd"]
+"ml_workshop_prep.Rmd",
+"ggplot_workshop_prep.Rmd"]
