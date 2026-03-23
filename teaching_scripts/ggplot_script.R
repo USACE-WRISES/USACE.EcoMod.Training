@@ -27,7 +27,7 @@ ggplot(data = water_dat, mapping = aes(x = Temp, y = DO)) +
 ggplot(data = water_dat, mapping = aes(x = Temp, y = DO, color = Substrate)) +
   geom_point(alpha = 0.5)
 
-# Changing variables
+# Changing variables and geometries
 ggplot(data = water_dat, 
        mapping = aes(x = Temp, y = DO, shape = Substrate)) +
   geom_point(alpha = 0.5)
@@ -35,6 +35,16 @@ ggplot(data = water_dat,
 ggplot(data = water_dat, 
        mapping = aes(x = Temp, y = DO, color = Velocity)) +
   geom_point(alpha = 0.5)
+
+ggplot(data = water_dat, 
+       mapping = aes(x = Temp, y = DO, size = Velocity)) +
+  geom_point(alpha = 0.5)
+
+# Add trend line
+ggplot(data = water_dat, 
+       mapping = aes(x = Temp, y = DO, size = Velocity)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "lm", se = TRUE)
 
 ## Changing scales
 
@@ -54,25 +64,18 @@ ggplot(water_dat, aes(Easting, Northing, color = Stratum))+
 
 pool08 <- filter(water_dat, Pool == "Pool 08")
 
+# Also change color to Substrate, Veg_density
 ggplot(pool08, aes(Easting, Northing, color = Stratum))+
   geom_point()
 
-ggplot(pool08, aes(Easting, Northing, color = Substrate))+
-  geom_point()
-
-ggplot(pool08, aes(Easting, Northing, color = Veg_density))+
-  geom_point()
-
-
 ## Boxplot
-
 ggplot(data = water_dat, mapping = aes(x = Veg_type, y = DO, color = Veg_type)) +
  geom_boxplot()
 
 ggplot(data = water_dat, mapping = aes(x = Veg_type, y = DO, fill = Veg_type)) +
  geom_boxplot()
 
-# Label wrap
+# Label wrap; if data labels are too long, this will wrap them
 ggplot(data = water_dat, mapping = aes(x = Veg_type, y = DO, fill = Veg_type)) +
  geom_boxplot() +
  scale_x_discrete(labels = label_wrap_gen(width = 10))
@@ -125,7 +128,6 @@ myplot <- ggplot(data = water_dat, mapping = aes(x = Veg_type, y = DO)) +
  geom_boxplot(outlier.shape = NA, fill = NA)
 
 myplot
-
 
 #theme bw
 myplot + theme_bw()
@@ -180,8 +182,20 @@ myplot +
       color = "Vegetation type") +
  facet_wrap(vars(Stratum), ncol = 1)
 
+## Horizontal line
+myplot +
+  geom_hline(aes(yintercept = 5), linetype = "dashed") +
+  theme_bw() +
+  theme(axis.title = element_text(size = 14), 
+        legend.position = "none", 
+        panel.grid.major.x = element_blank()) +
+  labs(title = "Dissolved oxygen by vegetation type",
+       x = "Vegetation type",
+       y = "Dissolved oxygen (mg/l)",
+       color = "Vegetation type") +
+  facet_wrap(vars(Stratum), ncol = 1)
 
-# final plot
+# Final plot
 finalplot <- myplot +
  geom_hline(aes(yintercept = 5), linetype = "dashed") +
  theme_bw() +
@@ -197,3 +211,22 @@ finalplot <- myplot +
 finalplot   
 
 ggsave(filename = "output/umr_wq.png", height = 7, width = 7, units = "in")
+
+# BONUS: Plotting count data to assess HSI
+catch_dat <- read_csv("data/umr_counts_wide.csv") %>% 
+  filter(gear == "D",
+         depth < 2.5, 
+         current < 0.4,
+         stratum_full %in% c("Backwater", "Impoundment")) %>%
+  pivot_longer(BLGL:SFSN, names_to = "species", values_to = "count") 
+
+# Scatterplot
+ggplot(data = catch_dat, mapping = aes(x = depth, y = count)) +
+  geom_jitter(alpha = 0.2, width = 0.03) +
+  scale_y_log10()+
+  geom_smooth(method = "loess") +
+  facet_wrap(~species, scales = "free_y")
+
+
+
+
