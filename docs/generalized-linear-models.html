@@ -143,7 +143,7 @@
 <span class="header-section-number">12.3.1.1</span> Import and explore data<a class="anchor" aria-label="anchor" href="#import-and-explore-data"><i class="fas fa-link"></i></a>
 </h4>
 <p>First we read in the data filter it so that it only includes data from daylight electrofishing (<code>gear == "D"</code>), backwater habitat, and depths &lt; 5 m, as this is where this gear is most accurate.</p>
-<div class="sourceCode" id="cb338"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb340"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">umr_wide</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/umr_counts_wide.csv"</span><span class="op">)</span></span>
@@ -154,7 +154,7 @@
 <span>         <span class="va">stratum_full</span> <span class="op">==</span> <span class="st">"Backwater"</span>,</span>
 <span>         <span class="va">depth</span> <span class="op">&lt;</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div>
 <p>Let’s look at the column names of our dataframe. We see that the last 10 columns, starting with BLGL are codes for species. These columns are counts of the different species in each sampling event.</p>
-<div class="sourceCode" id="cb339"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb341"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">umr_sub</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##  [1] "date"         "utm_e"        "utm_n"        "stratum_full" "year"         "period"      
 ##  [7] "pool"         "gear"         "secchi"       "temp"         "depth"        "cond"        
@@ -162,20 +162,20 @@
 ## [19] "CARP"         "LMBS"         "ERSN"         "BKCP"         "SHRH"         "GZSD"        
 ## [25] "WTBS"         "SFSN"</code></pre>
 <p>Counts can be very “noisy” data and often difficult to predict, so it’s common to instead model presence/absence. In order to do this, we can convert our counts to 1’s and 0’s using the following code. Here we are using <code>mutate</code> to change the values of each of the species columns. <code>case_when</code> is a <code>dplyr</code> function that operates similarly to an if-else statement. So here, we are saying that in all the columns with species names, if the value is greater than 0, we convert this to 1, and if the value is not (i.e., if it’s 0), it will remain 0.</p>
-<div class="sourceCode" id="cb341"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb343"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">species</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">umr_sub</span><span class="op">)</span><span class="op">[</span><span class="fl">17</span><span class="op">:</span><span class="fl">26</span><span class="op">]</span></span>
 <span></span>
 <span><span class="va">fish_binary</span> <span class="op">&lt;-</span> <span class="va">umr_sub</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html">any_of</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span>, <span class="op">~</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span><span class="va">.</span> <span class="op">&gt;</span> <span class="fl">0</span> <span class="op">~</span> <span class="fl">1</span>, <span class="cn">TRUE</span> <span class="op">~</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>We’re going to examine whether any of the predictor variables in the dataset are predictive of the occurrence of one of the species, the common carp. Being able to predict habitat variables that influence the presence of a species might be the basis for predicting how USACE management activities impact species.</p>
 <p>First, let’s plot common carp occurrence as a function of several predictor variables: temperature, water transparency (i.e., secchi disk reading), depth, and conductivity. To do this most easily with ggplot, we need all of the variables in one column so we can use the <code>facet_wrap</code> function to make a singe panel for each variable. To do this we create a dataframe called <code>carp_long</code> using the <code>pivot_longer</code> function to go from a wide format to a long format, which makes the plotting seemless.</p>
-<div class="sourceCode" id="cb342"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb344"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">carp_long</span> <span class="op">&lt;-</span> <span class="va">fish_binary</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">CARP</span>, <span class="va">secchi</span><span class="op">:</span><span class="va">do</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="va">secchi</span><span class="op">:</span><span class="va">cond</span>, names_to <span class="op">=</span> <span class="st">"variable"</span>, values_to <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span></span></code></pre></div>
 <p>In <code>pivot_longer</code> we tell which columns we want to combine, what we should name the column that now inclues the variable names and what we should name the column that includes the variable values.</p>
 <p>Now we can plot the variables.</p>
-<div class="sourceCode" id="cb343"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb345"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">carp_long</span>, </span>
 <span>         <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">value</span>, <span class="va">CARP</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter</a></span><span class="op">(</span>height <span class="op">=</span> <span class="fl">.1</span>, width <span class="op">=</span> <span class="fl">.02</span>, alpha <span class="op">=</span><span class="fl">0.5</span>, color <span class="op">=</span> <span class="st">"steelblue"</span><span class="op">)</span><span class="op">+</span></span>
@@ -193,12 +193,12 @@
 <span class="header-section-number">12.3.1.2</span> Fit model with <code>glm</code> function<a class="anchor" aria-label="anchor" href="#fit-model-with-glm-function"><i class="fas fa-link"></i></a>
 </h4>
 <p>We’ll use the <code>glm</code> function in base R to do this, and the same kind of formula notation as with linear models, here indicating that we want to model carp occurrences as a function of four of our predictor variables. We’ll use the <code>fish_binary</code> dataset to do this. Finally we need to select a ‘family’ for the error distribution of our response variable. For presence/absence data, the binomial distribution is typically chosen because it’s a distribution with only two states, typically 1 for “success” and 0 for “failure.”</p>
-<div class="sourceCode" id="cb344"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb346"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">glm.bin</span><span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">CARP</span> <span class="op">~</span> <span class="va">secchi</span> <span class="op">+</span> <span class="va">temp</span> <span class="op">+</span> <span class="va">depth</span> <span class="op">+</span> <span class="va">cond</span>,</span>
 <span>            data <span class="op">=</span> <span class="va">fish_binary</span>,</span>
 <span>            family <span class="op">=</span> <span class="va">binomial</span><span class="op">)</span></span></code></pre></div>
 <p>We can look at the results of the model with the <code>summary</code> function.</p>
-<div class="sourceCode" id="cb345"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb347"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">glm.bin</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
 ## Call:
@@ -225,20 +225,20 @@
 ## Number of Fisher Scoring iterations: 3</code></pre>
 <p>The summary function generates output very similar to what we’ve observed with linear modeling. The Estimate column shows us the parameter estimate for our different model parameters, and we can also get an indication of whether the parameters are considered to be significant, e.g., with p-values less than 0.05. Here, we see that all the parameters are considered significant, except for conductivity.</p>
 <p>But how do we interpret the model coefficient values? Let’s look at these values again:</p>
-<div class="sourceCode" id="cb347"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb349"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Extracting model coefficients</span></span>
 <span><span class="va">glm.bin</span><span class="op">$</span><span class="va">coefficients</span></span></code></pre></div>
 <pre><code>##  (Intercept)       secchi         temp        depth         cond 
 ## -1.203602861 -0.032202531  0.095737510  0.996366684  0.002767454</code></pre>
 <p>Because logistic regression involves the logit link function, it’s not as easy as with linear modeling. Here, the coefficient values can be interpreted as the additive effect of, for example, temperature on the <strong>log odds</strong> of success.</p>
 <p>The <strong>odds ratio</strong> is more interpretable than the log odds. We get this by exponentiating the coefficicent values, in other words raising e to the power of the coefficients. In R, we use the <code><a href="https://rdrr.io/r/base/Log.html">exp()</a></code> function to do this.</p>
-<div class="sourceCode" id="cb349"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb351"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="va">glm.bin</span><span class="op">$</span><span class="va">coefficient</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## (Intercept)      secchi        temp       depth        cond 
 ##   0.3001110   0.9683104   1.1004702   2.7084234   1.0027713</code></pre>
 <p>These values indicate that the odds of occurrence are 2.71 times (or 171% higher) when depth increases by a meter.</p>
 <p>We can now use ggplot to generate a graph of these model results looking at the effect of depth on Carp occurrence probability. Note, however, that this is only approximate, as our model also included other parameters, and this plot merely considers depth.</p>
-<div class="sourceCode" id="cb351"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb353"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">fish_binary</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">depth</span>, y <span class="op">=</span> <span class="va">CARP</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter</a></span><span class="op">(</span>height <span class="op">=</span> <span class="fl">0.05</span>, width <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">stat_smooth</a></span><span class="op">(</span></span>
@@ -259,7 +259,7 @@
 <span class="header-section-number">12.3.2</span> Example poisson regression anaysis<a class="anchor" aria-label="anchor" href="#example-poisson-regression-anaysis"><i class="fas fa-link"></i></a>
 </h3>
 <p>What if we want to model counts? For example, do we think counts of Largemouth Bass (LMBS) might change as a function of environmental predictors? We can first plot counts of LMBS as a function of predictors using <code>ggplot</code>.</p>
-<div class="sourceCode" id="cb353"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb355"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">umr_sub</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">LMBS</span>, <span class="va">secchi</span><span class="op">:</span><span class="va">do</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="va">secchi</span><span class="op">:</span><span class="va">do</span>, names_to <span class="op">=</span> <span class="st">"variable"</span>, values_to <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -270,14 +270,14 @@
 <pre><code>## `geom_smooth()` using formula = 'y ~ x'</code></pre>
 <p><img src="usace_R_training_files/figure-html/unnamed-chunk-60-1.png" width="600" height="600">
 There appear to be some potential relationships, but we again want to use a model to statistically assess the strength and validity of these relationships. For count data, we often use a poisson or negative-binomial distribution, which indicates that we assume the response variables (i.e., counts) has that distribution. The poisson distribution is pretty restrictive, in that it assumes that the mean and variance of the data are the same, which is often not the case with the biological data (variances are often a lot higher than the mean). In these cases, using a negative binomial distribution usually makes sense. Here we’ll use the MASS package to run a negative binomial model. Specifying the equation of the model is the same as the binomial case, but we use the function <code><a href="https://rdrr.io/pkg/MASS/man/glm.nb.html">glm.nb()</a></code> to indicate the type of regression that we want to do.</p>
-<div class="sourceCode" id="cb355"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb357"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.stats.ox.ac.uk/pub/MASS4/">MASS</a></span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
 ## Attaching package: 'MASS'</code></pre>
 <pre><code>## The following object is masked from 'package:dplyr':
 ## 
 ##     select</code></pre>
-<div class="sourceCode" id="cb358"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb360"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mod_nb</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/MASS/man/glm.nb.html">glm.nb</a></span><span class="op">(</span><span class="va">LMBS</span> <span class="op">~</span> <span class="va">secchi</span> <span class="op">+</span> <span class="va">temp</span> <span class="op">+</span> <span class="va">depth</span> <span class="op">+</span> <span class="va">current</span> <span class="op">+</span> <span class="va">do</span>,</span>
 <span>  data <span class="op">=</span> <span class="va">umr_sub</span><span class="op">)</span></span>
 <span></span>
@@ -313,24 +313,24 @@ There appear to be some potential relationships, but we again want to use a mode
 ## 
 ##  2 x log-likelihood:  -4008.4440</code></pre>
 <p>The summary output is similar to before, again indicating the estimates for our model coefficients, and whether the effect of these parameters are significant. We see that depth and dissolved oxygen are not significant based on p-values &gt; 0.05, whereas the other parameters are significant (denoted by the asterices). Now we can look at the value of our model coefficients to indicate the strength of these relationships.</p>
-<div class="sourceCode" id="cb360"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb362"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mod_nb</span><span class="op">$</span><span class="va">coefficients</span></span></code></pre></div>
 <pre><code>##  (Intercept)       secchi         temp        depth      current           do 
 ##  1.903867784  0.006628509  0.042382903 -0.131092770 -1.819638862  0.031502635</code></pre>
 <p>To interpret the coefficient for current, for example, we would say that for a one-unit increase in current, the log of the expected count decreases by 1.81.If we exponentiate this coefficient (i.e., raise <code>e</code> to the power of this coefficient), it indicates that raising current by 1 m/s ( a lot! in this system) multiplies the expected count by .16, in other words, it drastically reduces the expected counts.</p>
 <p>To visualize this effect, we can predict some new data and plot the results.</p>
 <p>First, we create a new dataset to hold our predictions across a range of values for current. We create 100 values of current across the entire range of data in our dataset (i.e., from the minimum to the maximum value). We also include the mean values for all of the other predictors.</p>
-<div class="sourceCode" id="cb362"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb364"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">newdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>current <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">umr_sub</span><span class="op">$</span><span class="va">current</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">umr_sub</span><span class="op">$</span><span class="va">current</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>, length.out <span class="op">=</span> <span class="fl">100</span><span class="op">)</span>,</span>
 <span>                 secchi <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">umr_sub</span><span class="op">$</span><span class="va">secchi</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>                 temp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">umr_sub</span><span class="op">$</span><span class="va">temp</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>                 depth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">umr_sub</span><span class="op">$</span><span class="va">depth</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>                 do <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">umr_sub</span><span class="op">$</span><span class="va">do</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,<span class="op">)</span></span></code></pre></div>
 <p>Next we use the <code>predict</code> function to generate our predicted counts. This uses our fitted model and the new data to create the predictions. <code>se.fit</code> indicates that standard errors should be returned, and type = “link” means that we want our response on the scale of the linear predictor (i.e., log(counts) in this case).</p>
-<div class="sourceCode" id="cb363"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb365"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pred_link</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mod_nb</span>, newdata <span class="op">=</span> <span class="va">newdat</span>, se.fit <span class="op">=</span> <span class="cn">TRUE</span>, type <span class="op">=</span> <span class="st">"link"</span><span class="op">)</span></span></code></pre></div>
 <p>Now we can add the predictions from the <code>pred_link</code> object to our new data. Here we also create new columns for the confidence intervals (<code>lwr</code> and <code>upr</code>) and our predictions on the count scale.</p>
-<div class="sourceCode" id="cb364"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb366"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">newdat</span> <span class="op">&lt;-</span> <span class="va">newdat</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>    fit_link <span class="op">=</span> <span class="va">pred_link</span><span class="op">$</span><span class="va">fit</span>,</span>
@@ -340,7 +340,7 @@ There appear to be some potential relationships, but we again want to use a mode
 <span>    pred_count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="va">fit_link</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p>Finally we can plot our new predicted counts across different values for current.</p>
-<div class="sourceCode" id="cb365"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb367"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">newdat</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">current</span>, y <span class="op">=</span> <span class="va">pred_count</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"blue"</span>, size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html">geom_ribbon</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">lwr</span>, ymax <span class="op">=</span> <span class="va">upr</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.2</span>, fill <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span> <span class="op">+</span></span>
