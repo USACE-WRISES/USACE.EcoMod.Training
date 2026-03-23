@@ -45,9 +45,10 @@ library(tidyverse)
 If you do not see a warning like `there is no package called ‘...’` you are good to go! 
 
 ### Download data and script files
-This tutorial will use a data file and an R script that are hosted on GitHub. To access the files, simply visit the links below and click the download button (*see image below*).  
+This tutorial will use two data files and an R script that are hosted on GitHub. To access the files, simply visit the links below and click the download button (*see image below*).  
 
 - [Water data](https://github.com/USACE-WRISES/USACE.EcoMod.Training/blob/main/data/umr_water.csv)
+- [Supplemental counts data](https://github.com/USACE-WRISES/USACE.EcoMod.Training/blob/main/data/umr_counts_wide.csv)
 - [R Script](https://github.com/USACE-WRISES/USACE.EcoMod.Training/blob/main/teaching_scripts/ggplot_script.R)
 
 ![*Downloading data from GitHub*](images/github_download.jpg){width=120%} 
