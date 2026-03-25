@@ -1,5 +1,10 @@
 # ggplot Workshop
 
+##TL;DR
+* Set up a folder named "ggplot_workshop" with three subfolders named "code", "data", and "output".
+* Download [code](https://github.com/USACE-WRISES/USACE.EcoMod.Training/blob/main/teaching_scripts/ggplot_script.R), [water data](https://github.com/USACE-WRISES/USACE.EcoMod.Training/blob/main/data/umr_water.csv), and [count data](https://github.com/USACE-WRISES/USACE.EcoMod.Training/blob/main/data/umr_counts_wide.csv) by clicking the download button at each link (see below for image) Place files in the appropriate subfolders.
+* Install the `tidyverse` within R by running `install.packages(c("tidyverse"))`.
+
 ## Overview
 
 As part of the EMRRP webinar series, Ed Stowe (postdoctoral fellow at ERDC) will lead a short course on data visualiztion in R using the `ggplot2` package on 3/25/26. More information on this material can be found [here](https://usace-wrises.github.io/USACE.EcoMod.Training/data-visualization-with-ggplot2.html).
@@ -48,7 +53,7 @@ If you do not see a warning like `there is no package called ‘...’` you are 
 This tutorial will use two data files and an R script that are hosted on GitHub. To access the files, simply visit the links below and click the download button (*see image below*).  
 
 - [Water data](https://github.com/USACE-WRISES/USACE.EcoMod.Training/blob/main/data/umr_water.csv)
-- [Supplemental counts data](https://github.com/USACE-WRISES/USACE.EcoMod.Training/blob/main/data/umr_counts_wide.csv)
+- [Supplemental count data](https://github.com/USACE-WRISES/USACE.EcoMod.Training/blob/main/data/umr_counts_wide.csv)
 - [R Script](https://github.com/USACE-WRISES/USACE.EcoMod.Training/blob/main/teaching_scripts/ggplot_script.R)
 
 ![*Downloading data from GitHub*](images/github_download.jpg){width=120%} 
