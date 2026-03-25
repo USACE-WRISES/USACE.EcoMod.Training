@@ -1,6 +1,6 @@
 # ggplot Workshop
 
-##TL;DR
+## TL;DR
 * Set up a folder named "ggplot_workshop" with three subfolders named "code", "data", and "output".
 * Download [code](https://github.com/USACE-WRISES/USACE.EcoMod.Training/blob/main/teaching_scripts/ggplot_script.R), [water data](https://github.com/USACE-WRISES/USACE.EcoMod.Training/blob/main/data/umr_water.csv), and [count data](https://github.com/USACE-WRISES/USACE.EcoMod.Training/blob/main/data/umr_counts_wide.csv) by clicking the download button at each link (see below for image) Place files in the appropriate subfolders.
 * Install the `tidyverse` within R by running `install.packages(c("tidyverse"))`.
