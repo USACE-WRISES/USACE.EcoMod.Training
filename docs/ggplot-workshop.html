@@ -18,9 +18,9 @@
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   </style>
-<meta name="description" content="26.1 Overview As part of the EMRRP webinar series, Ed Stowe (postdoctoral fellow at ERDC) will lead a short course on data visualiztion in R using the ggplot2 package on 3/25/26. More information...">
-<meta property="og:description" content="26.1 Overview As part of the EMRRP webinar series, Ed Stowe (postdoctoral fellow at ERDC) will lead a short course on data visualiztion in R using the ggplot2 package on 3/25/26. More information...">
-<meta name="twitter:description" content="26.1 Overview As part of the EMRRP webinar series, Ed Stowe (postdoctoral fellow at ERDC) will lead a short course on data visualiztion in R using the ggplot2 package on 3/25/26. More information...">
+<meta name="description" content="26.1 TL;DR Set up a folder named “ggplot_workshop” with three subfolders named “code”, “data”, and “output”. Download code, water data, and count data by clicking the download button at each link...">
+<meta property="og:description" content="26.1 TL;DR Set up a folder named “ggplot_workshop” with three subfolders named “code”, “data”, and “output”. Download code, water data, and count data by clicking the download button at each link...">
+<meta name="twitter:description" content="26.1 TL;DR Set up a folder named “ggplot_workshop” with three subfolders named “code”, “data”, and “output”. Download code, water data, and count data by clicking the download button at each link...">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -91,28 +91,40 @@
 <h1>
 <span class="header-section-number">26</span> ggplot Workshop<a class="anchor" aria-label="anchor" href="#ggplot-workshop"><i class="fas fa-link"></i></a>
 </h1>
-<div id="overview-6" class="section level2" number="26.1">
+<div id="tldr" class="section level2" number="26.1">
 <h2>
-<span class="header-section-number">26.1</span> Overview<a class="anchor" aria-label="anchor" href="#overview-6"><i class="fas fa-link"></i></a>
+<span class="header-section-number">26.1</span> TL;DR<a class="anchor" aria-label="anchor" href="#tldr"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li>Set up a folder named “ggplot_workshop” with three subfolders named “code”, “data”, and “output”.<br>
+</li>
+<li>Download <a href="https://github.com/USACE-WRISES/USACE.EcoMod.Training/blob/main/teaching_scripts/ggplot_script.R">code</a>, <a href="https://github.com/USACE-WRISES/USACE.EcoMod.Training/blob/main/data/umr_water.csv">water data</a>, and <a href="https://github.com/USACE-WRISES/USACE.EcoMod.Training/blob/main/data/umr_counts_wide.csv">count data</a> by clicking the download button at each link (see below for image) Place files in the appropriate subfolders.<br>
+</li>
+<li>Install the <code>tidyverse</code> within R by running <code>install.packages(c("tidyverse"))</code>.</li>
+</ul>
+</div>
+<div id="overview-6" class="section level2" number="26.2">
+<h2>
+<span class="header-section-number">26.2</span> Overview<a class="anchor" aria-label="anchor" href="#overview-6"><i class="fas fa-link"></i></a>
 </h2>
 <p>As part of the EMRRP webinar series, Ed Stowe (postdoctoral fellow at ERDC) will lead a short course on data visualiztion in R using the <code>ggplot2</code> package on 3/25/26. More information on this material can be found <a href="https://usace-wrises.github.io/USACE.EcoMod.Training/data-visualization-with-ggplot2.html">here</a>.</p>
 <p>Preparing for this workshop is optional, but if attendees want to run code along with the instructor, please complete the following steps to get ready. Please send any questions about the prep or tutorial to Ed (edward.s.stowe AT erdc.dren.mil)</p>
 </div>
-<div id="preparation-steps-2" class="section level2" number="26.2">
+<div id="preparation-steps-2" class="section level2" number="26.3">
 <h2>
-<span class="header-section-number">26.2</span> Preparation steps<a class="anchor" aria-label="anchor" href="#preparation-steps-2"><i class="fas fa-link"></i></a>
+<span class="header-section-number">26.3</span> Preparation steps<a class="anchor" aria-label="anchor" href="#preparation-steps-2"><i class="fas fa-link"></i></a>
 </h2>
 <p>If you downloaded R recently, you will only need to download the relevant data and scripts, install appropriate R packages, and set up folders for the relevant files.</p>
-<div id="download-r-and-rstudio-2" class="section level3" number="26.2.1">
+<div id="download-r-and-rstudio-2" class="section level3" number="26.3.1">
 <h3>
-<span class="header-section-number">26.2.1</span> Download R and RStudio<a class="anchor" aria-label="anchor" href="#download-r-and-rstudio-2"><i class="fas fa-link"></i></a>
+<span class="header-section-number">26.3.1</span> Download R and RStudio<a class="anchor" aria-label="anchor" href="#download-r-and-rstudio-2"><i class="fas fa-link"></i></a>
 </h3>
 <p>Use the <a href="https://app-portal.usace.army.mil/esd/Home">App Portal</a> to download and install the latest version of R. (Searching for “R Core Team” may be the easiest way to find R). If you previousy downloaded R, but do not have a recent version (e.g., version 4.5.1), you should also download R. You don’t need to uninstall old versions.</p>
 <p>Once you have installed R, download and install R Studio. When you open RStudio, the console on the lower left should also display the R version that you downloaded (e.g., ‘R version 4.5.2 (2025-10-31) – “[Not] Part in a Rumble”’).</p>
 </div>
-<div id="set-up-folders-2" class="section level3" number="26.2.2">
+<div id="set-up-folders-2" class="section level3" number="26.3.2">
 <h3>
-<span class="header-section-number">26.2.2</span> Set up folders<a class="anchor" aria-label="anchor" href="#set-up-folders-2"><i class="fas fa-link"></i></a>
+<span class="header-section-number">26.3.2</span> Set up folders<a class="anchor" aria-label="anchor" href="#set-up-folders-2"><i class="fas fa-link"></i></a>
 </h3>
 <p>On your computer, create a folder for the project with an informative name (e.g., “ggplot_workshop”).</p>
 <p>Make three additional folders within the “ggplot_workshop” folder:<br>
@@ -120,9 +132,9 @@
 * One for R scripts (entitled “code”)<br>
 * One for output (entitled “output”).</p>
 </div>
-<div id="install-packages-2" class="section level3" number="26.2.3">
+<div id="install-packages-2" class="section level3" number="26.3.3">
 <h3>
-<span class="header-section-number">26.2.3</span> Install packages<a class="anchor" aria-label="anchor" href="#install-packages-2"><i class="fas fa-link"></i></a>
+<span class="header-section-number">26.3.3</span> Install packages<a class="anchor" aria-label="anchor" href="#install-packages-2"><i class="fas fa-link"></i></a>
 </h3>
 <p>This modules uses two R packages, <code>ggplot2</code> and <code>dplyr</code> both of which are found in the <code>tidyverse</code> family of packages and can be downloaded and loaded simply by referring to <code>tidyverse</code>. Packages are useful sets of R code written by other people to supplement the code included in the base R language.</p>
 <p>To try to install the <code>tidyverse</code>, open RStudio and copy and paste the following command into the console window (look for a blinking cursor on the bottom left), then press the <kbd>Enter</kbd> (Windows) or <kbd>Return</kbd> (MacOS) to execute the command.</p>
@@ -135,14 +147,14 @@
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code></pre></div>
 <p>If you do not see a warning like <code>there is no package called ‘...’</code> you are good to go!</p>
 </div>
-<div id="download-data-and-script-files-2" class="section level3" number="26.2.4">
+<div id="download-data-and-script-files-2" class="section level3" number="26.3.4">
 <h3>
-<span class="header-section-number">26.2.4</span> Download data and script files<a class="anchor" aria-label="anchor" href="#download-data-and-script-files-2"><i class="fas fa-link"></i></a>
+<span class="header-section-number">26.3.4</span> Download data and script files<a class="anchor" aria-label="anchor" href="#download-data-and-script-files-2"><i class="fas fa-link"></i></a>
 </h3>
 <p>This tutorial will use two data files and an R script that are hosted on GitHub. To access the files, simply visit the links below and click the download button (<em>see image below</em>).</p>
 <ul>
 <li><a href="https://github.com/USACE-WRISES/USACE.EcoMod.Training/blob/main/data/umr_water.csv">Water data</a></li>
-<li><a href="https://github.com/USACE-WRISES/USACE.EcoMod.Training/blob/main/data/umr_counts_wide.csv">Supplemental counts data</a></li>
+<li><a href="https://github.com/USACE-WRISES/USACE.EcoMod.Training/blob/main/data/umr_counts_wide.csv">Supplemental count data</a></li>
 <li><a href="https://github.com/USACE-WRISES/USACE.EcoMod.Training/blob/main/teaching_scripts/ggplot_script.R">R Script</a></li>
 </ul>
 <div class="float">
@@ -167,13 +179,14 @@
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#ggplot-workshop"><span class="header-section-number">26</span> ggplot Workshop</a></li>
-<li><a class="nav-link" href="#overview-6"><span class="header-section-number">26.1</span> Overview</a></li>
+<li><a class="nav-link" href="#tldr"><span class="header-section-number">26.1</span> TL;DR</a></li>
+<li><a class="nav-link" href="#overview-6"><span class="header-section-number">26.2</span> Overview</a></li>
 <li>
-<a class="nav-link" href="#preparation-steps-2"><span class="header-section-number">26.2</span> Preparation steps</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#download-r-and-rstudio-2"><span class="header-section-number">26.2.1</span> Download R and RStudio</a></li>
-<li><a class="nav-link" href="#set-up-folders-2"><span class="header-section-number">26.2.2</span> Set up folders</a></li>
-<li><a class="nav-link" href="#install-packages-2"><span class="header-section-number">26.2.3</span> Install packages</a></li>
-<li><a class="nav-link" href="#download-data-and-script-files-2"><span class="header-section-number">26.2.4</span> Download data and script files</a></li>
+<a class="nav-link" href="#preparation-steps-2"><span class="header-section-number">26.3</span> Preparation steps</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#download-r-and-rstudio-2"><span class="header-section-number">26.3.1</span> Download R and RStudio</a></li>
+<li><a class="nav-link" href="#set-up-folders-2"><span class="header-section-number">26.3.2</span> Set up folders</a></li>
+<li><a class="nav-link" href="#install-packages-2"><span class="header-section-number">26.3.3</span> Install packages</a></li>
+<li><a class="nav-link" href="#download-data-and-script-files-2"><span class="header-section-number">26.3.4</span> Download data and script files</a></li>
 </ul>
 </li>
 </ul>

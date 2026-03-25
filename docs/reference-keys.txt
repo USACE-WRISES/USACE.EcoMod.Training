@@ -263,6 +263,7 @@ set-up-folders-1
 install-packages-1
 download-data-and-script-files-1
 ggplot-workshop
+tldr
 overview-6
 preparation-steps-2
 download-r-and-rstudio-2
