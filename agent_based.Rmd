@@ -12,7 +12,7 @@
 Agent-based models (ABMs) simulate the behavior of individual organisms—called “agents”—and how their interactions with each other and with their environment create larger-scale patterns. Each agent follows a set of simple rules based on physiology, behavior, or environmental cues. When many agents follow these rules simultaneously, complex system-level outcomes emerge, such as  pathways, schooling patterns, habitat bottlenecks, or exposure hotspots. ABMs are especially useful for ecological systems because they allow researchers and communities to explore how individual decisions scale up to influence population dynamics, habitat use, and risk in changing environments.
 
 ![*Agent-based model outputs integrate the behavioral decisions of individual organims to generate insights about populations, communities, and ecosystems.*](images/abm.png){width=50%}  
-
+<br>
 
 ABMs are designed to capture processes that depend on **behavior**, **timing**, **environmental variability**, and **individual differences**. They allow modelers to explore how organisms respond to their surroundings, make movement decisions, and interact with other individuals or species. Because agents experience the environment at fine spatial and temporal scales, ABMs can reveal patterns that occur only when many individuals interact across a dynamic landscape.
 
@@ -57,7 +57,7 @@ Instead, ABMs offer **process-based insight**, showing how behavior and environm
 ## Emergent Behaviors
 
 ![*The decision of numerous individual agents can result in the emergence of phenomena at the population, community, or landscape scale.*](images/emergent_behaviors.png){width=50%}  
-
+<br>
 
 Emergent behavior refers to patterns that arise when many individual agents follow their own rules, creating outcomes that cannot be predicted from observing a single fish on its own. These outcomes develop only when many individuals interact with each other and respond to their surrounding environment at the same time. Many ecological processes such as migration timing, habitat bottlenecks, exposure hotspots, schooling dynamics, predator and prey encounters, and shifts in group structure are emergent rather than linear. They form through small, individual decisions that accumulate into larger and sometimes unexpected system-level patterns.
 
