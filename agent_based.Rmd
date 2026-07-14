@@ -13,6 +13,7 @@ Agent-based models (ABMs) simulate the behavior of individual organisms—called
 
 ![*Agent-based model outputs integrate the behavioral decisions of individual organims to generate insights about populations, communities, and ecosystems.*](images/abm.png){width=50%}  
 
+
 ABMs are designed to capture processes that depend on **behavior**, **timing**, **environmental variability**, and **individual differences**. They allow modelers to explore how organisms respond to their surroundings, make movement decisions, and interact with other individuals or species. Because agents experience the environment at fine spatial and temporal scales, ABMs can reveal patterns that occur only when many individuals interact across a dynamic landscape.
 
 ## What ABMs Can Help Us Understand
