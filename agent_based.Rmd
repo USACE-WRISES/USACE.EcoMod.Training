@@ -58,7 +58,7 @@ Instead, ABMs offer **process-based insight**, showing how behavior and environm
 
 ## Emergent Behaviors
 
-```{r, fig.cap="The decision of numerous individual agents can result in the emergence of phenomena at the population, community, or landscape scale.", out.width="70%", echo=FALSE}
+```{r, fig.cap="The decision of numerous individual agents can result in the emergence of phenomena at the population, community, or landscape scale.", out.width="80%", echo=FALSE}
 knitr::include_graphics("images/emergent_behaviors.png")
 ```
 
