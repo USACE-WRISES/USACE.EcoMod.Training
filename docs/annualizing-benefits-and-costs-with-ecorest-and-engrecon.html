@@ -135,7 +135,7 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  </span>
 <span><span class="va">p</span></span></code></pre></div>
-<p><img src="usace_R_training_files/figure-html/unnamed-chunk-94-1.png" width="600" height="600">
+<p><img src="usace_R_training_files/figure-html/unnamed-chunk-96-1.png" width="600" height="600">
 In essence, the total benefits of the project can be thought of as the area under this curve, which we can add to our plot using the <code><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html">geom_area()</a></code> function.</p>
 <div class="sourceCode" id="cb406"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op">+</span> </span>
@@ -143,7 +143,7 @@ In essence, the total benefits of the project can be thought of as the area unde
 <span>            fill <span class="op">=</span> <span class="st">"skyblue"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p</span></span></code></pre></div>
-<div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-95-1.png" width="600" height="600"></div>
+<div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-97-1.png" width="600" height="600"></div>
 <p>What annualization does is take the total shaded area under the benefits curve, and it divide by the number of years. This essentially looks like carving the area into triangles and rectangles, calculating the areas of these shapes and adding them together, and finally dividing to get an annual benefit. The <code>df_rect</code> code below simply creates a dataframe with the coordinates for two rectangles to add to our plot for visualization purposes.</p>
 <div class="sourceCode" id="cb407"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df_rect</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>xmin <span class="op">=</span> <span class="va">ben_df</span><span class="op">$</span><span class="va">year</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>,</span>
@@ -154,7 +154,7 @@ In essence, the total benefits of the project can be thought of as the area unde
 <span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html">geom_rect</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">df_rect</span>,</span>
 <span>            <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>xmin <span class="op">=</span> <span class="va">xmin</span>, xmax <span class="op">=</span> <span class="va">xmax</span>, ymin <span class="op">=</span> <span class="va">ymin</span>, ymax <span class="op">=</span> <span class="va">ymax</span><span class="op">)</span>,</span>
 <span>            fill <span class="op">=</span> <span class="cn">NA</span>, lty <span class="op">=</span> <span class="st">"dashed"</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-96-1.png" width="600" height="600"></div>
+<div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-98-1.png" width="600" height="600"></div>
 <p>The <code>ecorest</code> package provides an easy way to achieve benefit annualization with the <code>annualizer</code> function, which computes “time-averaged quantities based on linear interpolation.” Linear interpolation here just means that we connect the different points in time with straight lines in order to calculate the overall area.</p>
 <p>Inputs for the <code>annualizer</code> function are 1) a vector of time intervals and
 2) a vector of values to interpolate.</p>
@@ -271,7 +271,7 @@ In essence, the total benefits of the project can be thought of as the area unde
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">cost_table</span>, caption<span class="op">=</span><span class="st">"Table 1. Monetary cost data for Utoy sites."</span>, align<span class="op">=</span><span class="st">'c'</span><span class="op">)</span> </span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
 <caption>
-<span id="tab:unnamed-chunk-102">Table 18.1: </span>Table 1. Monetary cost data for Utoy sites.</caption>
+<span id="tab:unnamed-chunk-104">Table 18.1: </span>Table 1. Monetary cost data for Utoy sites.</caption>
 <colgroup>
 <col width="4%">
 <col width="9%">

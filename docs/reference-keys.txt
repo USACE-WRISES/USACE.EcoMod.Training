@@ -3,7 +3,9 @@ tab:unnamed-chunk-37
 eq:logis-reg
 tab:unnamed-chunk-85
 tab:unnamed-chunk-92
-tab:unnamed-chunk-102
+fig:unnamed-chunk-93
+fig:unnamed-chunk-94
+tab:unnamed-chunk-104
 preparations
 install-r-and-rstudio
 operating-system
@@ -211,6 +213,10 @@ discussion
 summary-8
 agent-based-models
 overview-1
+what-abms-can-help-us-understand
+what-abms-are-not-designed-to-do
+emergent-behaviors
+example-agent-based-modeling-framework-gofish
 decision-support
 annualizing-benefits-and-costs-with-ecorest-and-engrecon
 learning-objectives-11
