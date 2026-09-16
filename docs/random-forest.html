@@ -4,13 +4,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>13 Random Forest | Using R for ecological modeling in USACE</title>
+<title>12 Random Forest | Using R for ecological modeling in USACE</title>
 <meta name="author" content="Ed Stowe">
 <meta name="generator" content="bookdown 0.42 with bs4_book()">
-<meta property="og:title" content="13 Random Forest | Using R for ecological modeling in USACE">
+<meta property="og:title" content="12 Random Forest | Using R for ecological modeling in USACE">
 <meta property="og:type" content="book">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="13 Random Forest | Using R for ecological modeling in USACE">
+<meta name="twitter:title" content="12 Random Forest | Using R for ecological modeling in USACE">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.8.0/transition.js"></script><script src="libs/bs3compat-0.8.0/tabs.js"></script><script src="libs/bs3compat-0.8.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -54,32 +54,31 @@
 <li class="book-part">Habitat Models</li>
 <li><a class="" href="background-on-habitat-models-in-usace.html"><span class="header-section-number">6</span> Background on habitat models in USACE</a></li>
 <li><a class="" href="habitat-suitability-index-models-with-ecorest.html"><span class="header-section-number">7</span> Habitat Suitability Index models with ecorest</a></li>
-<li><a class="" href="ecorest-web-app.html"><span class="header-section-number">8</span> Ecorest Web App</a></li>
-<li><a class="" href="sensitivity-and-uncertainty-analysis-for-habitat-suitability-index-hsi-models.html"><span class="header-section-number">9</span> Sensitivity and uncertainty analysis for habitat suitability index (HSI) models</a></li>
-<li><a class="" href="spatial-habitat-models.html"><span class="header-section-number">10</span> Spatial Habitat Models</a></li>
+<li><a class="" href="sensitivity-and-uncertainty-analysis-for-habitat-suitability-index-hsi-models.html"><span class="header-section-number">8</span> Sensitivity and uncertainty analysis for habitat suitability index (HSI) models</a></li>
+<li><a class="" href="spatial-habitat-models.html"><span class="header-section-number">9</span> Spatial Habitat Models</a></li>
 <li class="book-part">Linear Models for informing planning HSIs</li>
-<li><a class="" href="linear-models.html"><span class="header-section-number">11</span> Linear Models</a></li>
-<li><a class="" href="generalized-linear-models.html"><span class="header-section-number">12</span> Generalized Linear Models</a></li>
+<li><a class="" href="linear-models.html"><span class="header-section-number">10</span> Linear Models</a></li>
+<li><a class="" href="generalized-linear-models.html"><span class="header-section-number">11</span> Generalized Linear Models</a></li>
 <li class="book-part">Machine Learning</li>
-<li><a class="active" href="random-forest.html"><span class="header-section-number">13</span> Random Forest</a></li>
+<li><a class="active" href="random-forest.html"><span class="header-section-number">12</span> Random Forest</a></li>
 <li class="book-part">Other Modeling Approaches</li>
-<li><a class="" href="population-modeling.html"><span class="header-section-number">14</span> Population Modeling</a></li>
-<li><a class="" href="network-models-and-connectivity.html"><span class="header-section-number">15</span> Network Models and Connectivity</a></li>
-<li><a class="" href="agent-based-models.html"><span class="header-section-number">16</span> Agent-based Models</a></li>
+<li><a class="" href="population-modeling.html"><span class="header-section-number">13</span> Population Modeling</a></li>
+<li><a class="" href="network-models-and-connectivity.html"><span class="header-section-number">14</span> Network Models and Connectivity</a></li>
+<li><a class="" href="agent-based-models.html"><span class="header-section-number">15</span> Agent-based Models</a></li>
 <li class="book-part">Models and decision-making</li>
-<li><a class="" href="decision-support.html"><span class="header-section-number">17</span> Decision Support</a></li>
-<li><a class="" href="annualizing-benefits-and-costs-with-ecorest-and-engrecon.html"><span class="header-section-number">18</span> Annualizing benefits and costs with ecorest and EngrEcon</a></li>
-<li><a class="" href="ceica-chapter.html"><span class="header-section-number">19</span> Cost-Effectiveness and Incremental Cost Analysis (CEICA) with ecorest</a></li>
+<li><a class="" href="decision-support.html"><span class="header-section-number">16</span> Decision Support</a></li>
+<li><a class="" href="annualizing-benefits-and-costs-with-ecorest-and-engrecon.html"><span class="header-section-number">17</span> Annualizing benefits and costs with ecorest and EngrEcon</a></li>
+<li><a class="" href="ceica-chapter.html"><span class="header-section-number">18</span> Cost-Effectiveness and Incremental Cost Analysis (CEICA) with ecorest</a></li>
 <li class="book-part">Other R applications</li>
-<li><a class="" href="r-for-gis.html"><span class="header-section-number">20</span> R for GIS</a></li>
+<li><a class="" href="r-for-gis.html"><span class="header-section-number">19</span> R for GIS</a></li>
 <li class="book-part">Environmental data sources</li>
-<li><a class="" href="using-r-for-data-access.html"><span class="header-section-number">21</span> Using R for data access</a></li>
-<li><a class="" href="usgs-gage-data-using-the-dataretrieval-package.html"><span class="header-section-number">22</span> USGS gage data using the dataRetrieval package</a></li>
-<li><a class="" href="national-hydrography-dataset.html"><span class="header-section-number">23</span> National Hydrography Dataset</a></li>
+<li><a class="" href="using-r-for-data-access.html"><span class="header-section-number">20</span> Using R for data access</a></li>
+<li><a class="" href="usgs-gage-data-using-the-dataretrieval-package.html"><span class="header-section-number">21</span> USGS gage data using the dataRetrieval package</a></li>
+<li><a class="" href="national-hydrography-dataset.html"><span class="header-section-number">22</span> National Hydrography Dataset</a></li>
 <li class="book-part">Workshop Preparation</li>
-<li><a class="" href="hsi-workshop.html"><span class="header-section-number">24</span> HSI Workshop</a></li>
-<li><a class="" href="machine-learning-workshop.html"><span class="header-section-number">25</span> Machine Learning Workshop</a></li>
-<li><a class="" href="ggplot-workshop.html"><span class="header-section-number">26</span> ggplot Workshop</a></li>
+<li><a class="" href="hsi-workshop.html"><span class="header-section-number">23</span> HSI Workshop</a></li>
+<li><a class="" href="machine-learning-workshop.html"><span class="header-section-number">24</span> Machine Learning Workshop</a></li>
+<li><a class="" href="ggplot-workshop.html"><span class="header-section-number">25</span> ggplot Workshop</a></li>
 </ul>
 
         <div class="book-extra">
@@ -87,18 +86,18 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="random-forest" class="section level1" number="13">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="random-forest" class="section level1" number="12">
 <h1>
-<span class="header-section-number">13</span> Random Forest<a class="anchor" aria-label="anchor" href="#random-forest"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12</span> Random Forest<a class="anchor" aria-label="anchor" href="#random-forest"><i class="fas fa-link"></i></a>
 </h1>
 <p><strong>This module will teach you how to run a full machine learning workflow with a random forest model using the tidymodels package in <code>R</code>.</strong></p>
 <div class="float">
 <img src="images/blgl_pdp.png" style="width:100.0%" alt="Output from a random forest model showing the predicted relationship between Bluegill presence and backwater depths."><div class="figcaption"><em>Output from a random forest model showing the predicted relationship between Bluegill presence and backwater depths.</em></div>
 </div>
 <p><em>Authors: Ed Stowe (writing, editing)</em><br><em>Last update: 2026-03-03</em><br><em>Acknowledgements: Case study includes code that was adapted from demonstration analyses by Julia Silge on <a href="https://juliasilge.com/blog/sf-trees-random-tuning/">random forest</a> and <a href="https://juliasilge.com/blog/mario-kart/">partial dependence plots</a>, used under <a href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a></em></p>
-<div id="learning-objectives-10" class="section level2" number="13.1">
+<div id="learning-objectives-10" class="section level2" number="12.1">
 <h2>
-<span class="header-section-number">13.1</span> Learning objectives<a class="anchor" aria-label="anchor" href="#learning-objectives-10"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.1</span> Learning objectives<a class="anchor" aria-label="anchor" href="#learning-objectives-10"><i class="fas fa-link"></i></a>
 </h2>
 <ul>
 <li>Understand how random forest models works and when they are useful</li>
@@ -106,37 +105,37 @@
 <li>Learn how to tune and assess a random forest model and determine which variables are important</li>
 </ul>
 </div>
-<div id="background-1" class="section level2" number="13.2">
+<div id="background" class="section level2" number="12.2">
 <h2>
-<span class="header-section-number">13.2</span> Background<a class="anchor" aria-label="anchor" href="#background-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.2</span> Background<a class="anchor" aria-label="anchor" href="#background"><i class="fas fa-link"></i></a>
 </h2>
-<div id="what-is-machine-learning" class="section level3" number="13.2.1">
+<div id="what-is-machine-learning" class="section level3" number="12.2.1">
 <h3>
-<span class="header-section-number">13.2.1</span> What is machine learning?<a class="anchor" aria-label="anchor" href="#what-is-machine-learning"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.2.1</span> What is machine learning?<a class="anchor" aria-label="anchor" href="#what-is-machine-learning"><i class="fas fa-link"></i></a>
 </h3>
 <p>Machine learning constitutes using algorithms that can learn to recognize patterns in data and then make predictions in new scenarios.</p>
 </div>
-<div id="when-is-it-most-useful" class="section level3" number="13.2.2">
+<div id="when-is-it-most-useful" class="section level3" number="12.2.2">
 <h3>
-<span class="header-section-number">13.2.2</span> When is it most useful?<a class="anchor" aria-label="anchor" href="#when-is-it-most-useful"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.2.2</span> When is it most useful?<a class="anchor" aria-label="anchor" href="#when-is-it-most-useful"><i class="fas fa-link"></i></a>
 </h3>
 <p>In general, ML is most useful when prediction are more important than explanation; and when there is an adequate amount of data. ML models work better with more data, typically when there are at least a few hundred observations.</p>
 </div>
-<div id="can-i-do-machine-learning" class="section level3" number="13.2.3">
+<div id="can-i-do-machine-learning" class="section level3" number="12.2.3">
 <h3>
-<span class="header-section-number">13.2.3</span> Can I do machine learning<a class="anchor" aria-label="anchor" href="#can-i-do-machine-learning"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.2.3</span> Can I do machine learning<a class="anchor" aria-label="anchor" href="#can-i-do-machine-learning"><i class="fas fa-link"></i></a>
 </h3>
 <p>Yes. Machine learning (ML) has a reputation for complexity and technical difficulty. But many machine learning algorithms are relatively simple, have been in use for decades, and are now fairly accessible via R packages like the tidymodels</p>
 </div>
-<div id="what-programs-can-i-use-for-ml" class="section level3" number="13.2.4">
+<div id="what-programs-can-i-use-for-ml" class="section level3" number="12.2.4">
 <h3>
-<span class="header-section-number">13.2.4</span> What programs can I use for ML?<a class="anchor" aria-label="anchor" href="#what-programs-can-i-use-for-ml"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.2.4</span> What programs can I use for ML?<a class="anchor" aria-label="anchor" href="#what-programs-can-i-use-for-ml"><i class="fas fa-link"></i></a>
 </h3>
 <p>There are lots of tools/programs for running ML algorithms, but one very accessible way is to use the tidymodels packages in R, which provides an integrated framework for using dozens of different ML algorithms. Different algorithms might make sense for different applications. Here we use random forest, an algorithm that’s been popular for decades because of its flexibility, performance, relative ease, and suitability for tabular data (i.e., spreadsheets).</p>
 </div>
-<div id="how-does-random-forest-work" class="section level3" number="13.2.5">
+<div id="how-does-random-forest-work" class="section level3" number="12.2.5">
 <h3>
-<span class="header-section-number">13.2.5</span> How does random forest work<a class="anchor" aria-label="anchor" href="#how-does-random-forest-work"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.2.5</span> How does random forest work<a class="anchor" aria-label="anchor" href="#how-does-random-forest-work"><i class="fas fa-link"></i></a>
 </h3>
 <p>Random forest is an extension of a technique called decision trees. Decision trees, like other supervised machine learning algorithms, are designed to predict outcomes based on input data. There are two main types of outcomes that decision trees might predict:
 - Classification: predicting categorical outcomes (e.g., present/absent; male/female, etc.)
@@ -153,9 +152,9 @@
 <p>Using random data and input variables for each tree has been shown to increase the overall accuracy and generalizability of these models compared to single decision trees.</p>
 </div>
 </div>
-<div id="case-study" class="section level2" number="13.3">
+<div id="case-study" class="section level2" number="12.3">
 <h2>
-<span class="header-section-number">13.3</span> Case study<a class="anchor" aria-label="anchor" href="#case-study"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.3</span> Case study<a class="anchor" aria-label="anchor" href="#case-study"><i class="fas fa-link"></i></a>
 </h2>
 <p>Here we present a case study using machine learning to predict whether or not bluegill will be present at different sites in the Upper Mississippi River based on habitat covariates. Bluegill are often the focus of restoration efforts there, so better understanding what controls bluegill presence can help determine what features restoration should focus on. This analysis includes steps that are fundamental to all machine learning workflows and also relevant in many other models forms as well, which include:</p>
 <ul>
@@ -167,9 +166,9 @@
 <li>
 <em>Predicting independent data</em>: compare model predictions to test dataset to see if it performs well</li>
 </ul>
-<div id="add-packages" class="section level3" number="13.3.1">
+<div id="add-packages" class="section level3" number="12.3.1">
 <h3>
-<span class="header-section-number">13.3.1</span> Add packages<a class="anchor" aria-label="anchor" href="#add-packages"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.3.1</span> Add packages<a class="anchor" aria-label="anchor" href="#add-packages"><i class="fas fa-link"></i></a>
 </h3>
 <p>This case study will use the <code>tidymodels</code> package. We will also load the following packages:
 - <code>tidyverse</code> for plotting and data-handling
@@ -177,7 +176,7 @@
 - <code>vip</code> for calculating variable importance
 - <code>partial</code> for making partial dependence plots</p>
 <p>These packages should be installed if you have not used them before (e.g., <code>install.packages("vip")</code>)</p>
-<div class="sourceCode" id="cb368"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb369"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/RevolutionAnalytics/doparallel">doParallel</a></span><span class="op">)</span></span>
@@ -186,17 +185,17 @@
 <pre><code>## Warning: package 'pdp' was built under R version 4.4.3</code></pre>
 <p>First, we can import the bluegill occupancy dataset, and look at the data structure
 ### Import dataset</p>
-<div class="sourceCode" id="cb370"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb371"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">blgl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/bluegill.csv"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Rows: 1422 Columns: 11
-## ── Column specification ───────────────────────────────────────────────────────────────────────────────────
+## ── Column specification ───────────────────────────────────────────────────────────────────────────────────────────
 ## Delimiter: ","
 ## chr  (1): pool
 ## dbl (10): occ, utm_e, utm_n, period, secchi, temp, depth, cond, current, do
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<div class="sourceCode" id="cb372"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb373"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">blgl</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## spc_tbl_ [1,422 × 11] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
 ##  $ occ    : num [1:1422] 0 1 1 1 0 1 1 0 0 0 ...
@@ -226,11 +225,11 @@
 ##   .. )
 ##  - attr(*, "problems")=&lt;externalptr&gt;</code></pre>
 <p>We see that all but one of these variables are numeric. However, for our classification algorithm, we need to convert the presence/absence column (<code>occ</code> for occupancy) to a factor. We also have two other categorical variables that should be factors: pool for the number of the navigation pool, and period, for the season (with 2, 3, 4 being approximately spring, summer, and fall, respectively).</p>
-<div class="sourceCode" id="cb374"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb375"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">blgl</span> <span class="op">&lt;-</span> <span class="va">blgl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span>.cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">occ</span>, <span class="va">pool</span>, <span class="va">period</span><span class="op">)</span>, <span class="va">as.factor</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>We may also want to explore the data a bit. Here we look to see if there are any patterns of bluegill occupancy across space, and based on depth.</p>
-<div class="sourceCode" id="cb375"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb376"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">blgl</span>, <span class="va">depth</span> <span class="op">&lt;</span> <span class="fl">4</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">utm_e</span>, <span class="va">utm_n</span>, color <span class="op">=</span> <span class="va">depth</span>, shape <span class="op">=</span> <span class="va">occ</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
@@ -242,61 +241,61 @@
 <div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-69-1.png" width="600" height="70%"></div>
 <p>Clearly these data are complex, and modeling should help us make sense of it.</p>
 </div>
-<div id="data-partitioning" class="section level3" number="13.3.2">
+<div id="data-partitioning" class="section level3" number="12.3.2">
 <h3>
-<span class="header-section-number">13.3.2</span> Data partitioning<a class="anchor" aria-label="anchor" href="#data-partitioning"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.3.2</span> Data partitioning<a class="anchor" aria-label="anchor" href="#data-partitioning"><i class="fas fa-link"></i></a>
 </h3>
 <p>Splitting the data is very important so that we have some independent data on which to judge our models performance. Here we split 75% of the data into the dataset that will be used to train the model, and the remainder into the dataset for testing/assessing our model. 75% is the tidymodels default splitting proportion.</p>
-<div class="sourceCode" id="cb376"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb377"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">blgl_split</span> <span class="op">&lt;-</span> <span class="fu">initial_split</span><span class="op">(</span><span class="va">blgl</span>, strata <span class="op">=</span> <span class="va">occ</span>, prop <span class="op">=</span> <span class="fl">.75</span><span class="op">)</span></span>
 <span><span class="va">blgl_train</span> <span class="op">&lt;-</span> <span class="fu">training</span><span class="op">(</span><span class="va">blgl_split</span><span class="op">)</span></span>
 <span><span class="va">blgl_test</span> <span class="op">&lt;-</span> <span class="fu">testing</span><span class="op">(</span><span class="va">blgl_split</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="pre-processing-with-recipes" class="section level3" number="13.3.3">
+<div id="pre-processing-with-recipes" class="section level3" number="12.3.3">
 <h3>
-<span class="header-section-number">13.3.3</span> Pre-processing with recipes<a class="anchor" aria-label="anchor" href="#pre-processing-with-recipes"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.3.3</span> Pre-processing with recipes<a class="anchor" aria-label="anchor" href="#pre-processing-with-recipes"><i class="fas fa-link"></i></a>
 </h3>
 <p>Build a recipe for data preprocessing.</p>
 <p>First, we must tell the recipe() what our model is going to be (using a formula here) and what our training data is. The recipe is where we can do lots of helpful data manipulations, such as normalizing the data (step_normalize()), replacing categorical variables with dummy variables (step_dummy), adding interactions (step_interact()), and numerous other options. Random forest models needed fewer data transformations than many algorithms, so we’ll just to one powerful transformation: step_impute_bag(). This uses a machine learning algorithm to impute missing variables, since we can’t have any missing predictor data to run this or many other machine learning algorithm. Another option would be to remove any rows with missing data (using step_naomit()), but that would remove a lot of data.</p>
-<div class="sourceCode" id="cb377"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb378"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">blgl_rec</span> <span class="op">&lt;-</span> <span class="fu">recipe</span><span class="op">(</span><span class="va">occ</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">blgl_train</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">step_impute_bag</span><span class="op">(</span><span class="fu">all_predictors</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>ALthough not strictly necessary, to see what the data look like after applying transformations, we can use the functions <code>prep</code> and then <code>juice</code>. The <code>juiced</code> dataframe now shows us what our data will look like when it’s fed into the ML algorithm.</p>
-<div class="sourceCode" id="cb378"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb379"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">blgl_prep</span> <span class="op">&lt;-</span> <span class="fu">prep</span><span class="op">(</span><span class="va">blgl_rec</span><span class="op">)</span></span>
 <span><span class="va">juiced</span> <span class="op">&lt;-</span> <span class="fu">juice</span><span class="op">(</span><span class="va">blgl_prep</span><span class="op">)</span>  </span></code></pre></div>
 </div>
-<div id="model-specifications-with-parsnip" class="section level3" number="13.3.4">
+<div id="model-specifications-with-parsnip" class="section level3" number="12.3.4">
 <h3>
-<span class="header-section-number">13.3.4</span> Model specifications with parsnip<a class="anchor" aria-label="anchor" href="#model-specifications-with-parsnip"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.3.4</span> Model specifications with parsnip<a class="anchor" aria-label="anchor" href="#model-specifications-with-parsnip"><i class="fas fa-link"></i></a>
 </h3>
 <p>We will specify our random forest model. This is where we tell the model whether to try any different combinations of the hyperparameters (i.e., whether to tune the model). In this case, we’re going to set the number of trees in our model to be 1,000, but we will tune 2 other hyperparameters. The <code>mtry</code> parameter controls how many variables we’ll include in each model, and the <code>min_n</code> hyperparameter controls tree complexity: it indicates the minimum number of data points needed in a node for that node to be split, so higher values of <code>min_n</code> will force trees to be less complex. Tuning both of these parameters will help us find a more predictive model. For the model specification, we also indicate that we want to run our random forest using the version of the algorithm as implemented by the <code>ranger</code> package, and we want to do classification as opposed to regression.</p>
-<div class="sourceCode" id="cb379"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb380"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tune_spec</span> <span class="op">&lt;-</span> </span>
 <span>    <span class="fu">rand_forest</span><span class="op">(</span>mtry <span class="op">=</span> <span class="fu">tune</span><span class="op">(</span><span class="op">)</span>, min_n <span class="op">=</span> <span class="fu">tune</span><span class="op">(</span><span class="op">)</span>, trees <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>    <span class="fu">set_engine</span><span class="op">(</span><span class="st">"ranger"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>    <span class="fu">set_mode</span><span class="op">(</span><span class="st">"classification"</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="workflow" class="section level3" number="13.3.5">
+<div id="workflow" class="section level3" number="12.3.5">
 <h3>
-<span class="header-section-number">13.3.5</span> Workflow<a class="anchor" aria-label="anchor" href="#workflow"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.3.5</span> Workflow<a class="anchor" aria-label="anchor" href="#workflow"><i class="fas fa-link"></i></a>
 </h3>
 <p>Next we set up our workflow. This is simply where we indicate what recipe and model we will use.</p>
-<div class="sourceCode" id="cb380"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb381"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tune_wf</span> <span class="op">&lt;-</span> <span class="fu">workflow</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">add_recipe</span><span class="op">(</span><span class="va">blgl_rec</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">add_model</span><span class="op">(</span><span class="va">tune_spec</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="tune-hyperparameters" class="section level3" number="13.3.6">
+<div id="tune-hyperparameters" class="section level3" number="12.3.6">
 <h3>
-<span class="header-section-number">13.3.6</span> Tune hyperparameters<a class="anchor" aria-label="anchor" href="#tune-hyperparameters"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.3.6</span> Tune hyperparameters<a class="anchor" aria-label="anchor" href="#tune-hyperparameters"><i class="fas fa-link"></i></a>
 </h3>
 <p>Now we’re ready to tune the hyperparameters. We need to create a set of cross-validation resamples to use for tuning. This means we’ll divide our training data into 10 slices, and sequentially fit models with different hyperparameters using 9 of the slices, and testing it on the 10th slice. This is how we’ll figure out the best hyperparameters.</p>
-<div class="sourceCode" id="cb381"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb382"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">blgl_folds</span> <span class="op">&lt;-</span> <span class="fu">vfold_cv</span><span class="op">(</span><span class="va">blgl_train</span>, v <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
 <p>We will use the <code>tune_grid</code> function to tune our model across a grid of hyperparameters (using <code>grid = 20</code> will automatically pick 20 grid points automatically, but these can also be chosen by the user).</p>
 <p>We will use parallel processing to make this go faster, but note that this could take about 1-2 minutes, depending on your computer.</p>
-<div class="sourceCode" id="cb382"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb383"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">doParallel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/doParallel/man/registerDoParallel.html">registerDoParallel</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">tune_mod</span> <span class="op">&lt;-</span> <span class="fu">tune_grid</span><span class="op">(</span></span>
@@ -323,7 +322,7 @@
 ## 10 &lt;split [960/106]&gt; Fold10 &lt;tibble [60 × 6]&gt; &lt;tibble [0 × 3]&gt;</code></pre>
 <p>We can plot the accuracy of our models (using area under the curve, or “AUC”) to see which values of our hyperparameters are best. AUC is a score that indicates the balance between the sensitivity and specificity of a model, and thus is a good measure of model generalizability.</p>
 <p>It appears that min_n values below ~8 and mtry values between 4 and 7 are best.</p>
-<div class="sourceCode" id="cb384"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb385"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tuning_results</span> <span class="op">&lt;-</span> <span class="fu">collect_metrics</span><span class="op">(</span><span class="va">tune_mod</span><span class="op">)</span> </span>
 <span></span>
 <span><span class="co"># Subset to just ROC AUC results for plotting</span></span>
@@ -343,12 +342,12 @@
 <div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-76-1.png" width="600" height="70%"></div>
 <p>This grid did not involve every combination of min_n and mtry but we can get an idea of what is going on. If we wanted we could test a narrower and more specific range of hyperparameters using the grid_regular() function.</p>
 </div>
-<div id="choosing-the-best-model" class="section level3" number="13.3.7">
+<div id="choosing-the-best-model" class="section level3" number="12.3.7">
 <h3>
-<span class="header-section-number">13.3.7</span> Choosing the best model<a class="anchor" aria-label="anchor" href="#choosing-the-best-model"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.3.7</span> Choosing the best model<a class="anchor" aria-label="anchor" href="#choosing-the-best-model"><i class="fas fa-link"></i></a>
 </h3>
 <p>Now that we’ve tuned models with several different hyperparameters, we can select the best model with the select_best(), and then update our original model specification to create our final model specification.</p>
-<div class="sourceCode" id="cb385"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb386"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">best_auc</span> <span class="op">&lt;-</span> <span class="fu">select_best</span><span class="op">(</span><span class="va">tune_mod</span>, metric <span class="op">=</span> <span class="st">"roc_auc"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">final_rf</span> <span class="op">&lt;-</span> <span class="fu">finalize_model</span><span class="op">(</span><span class="va">tune_spec</span>, <span class="va">best_auc</span><span class="op">)</span></span>
@@ -365,7 +364,7 @@
 <p>This shows that our final model has an mtry value of 6 and a min_n value of 2.</p>
 <p>To ultimately see how our good our model is, we want to evaluate predictions from the best model against the test dataset.</p>
 <p>To do this, we make a final workflow with our original recipe and our best model <code>final_rf</code>. We can fit it one last time with the function last_fit(), which fits our best model on the entire training set and evaluates on the testing set, when provided with our initial data split.</p>
-<div class="sourceCode" id="cb387"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb388"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">final_wf</span> <span class="op">&lt;-</span> <span class="fu">workflow</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">add_recipe</span><span class="op">(</span><span class="va">blgl_rec</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">add_model</span><span class="op">(</span><span class="va">final_rf</span><span class="op">)</span></span>
@@ -384,13 +383,13 @@
 <p>If we collect the metrics from our final model fit we see it has an ROC &gt; .91, where values over .9 are generally considered to be very good.</p>
 <p>This suggests that we have a very predictive model for presence of bluegill and one that is not overfit.</p>
 <p>Let’s bind our testing results back to the original test set, and make one more map. Where in our pool are there more or fewer incorrectly predicted presences or absences?</p>
-<div class="sourceCode" id="cb389"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb390"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Collect model predictions</span></span>
 <span><span class="va">preds</span> <span class="op">&lt;-</span> <span class="va">final_res</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">collect_predictions</span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Plot where predictions are correct/incorrect </span></span>
 <span><span class="va">preds</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Accuracy <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Accuracy <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case-and-replace-when.html">case_when</a></span><span class="op">(</span></span>
 <span>    <span class="va">occ</span> <span class="op">==</span> <span class="va">.pred_class</span> <span class="op">~</span> <span class="st">"Correct"</span>,</span>
 <span>    <span class="cn">TRUE</span> <span class="op">~</span> <span class="st">"Incorrect"</span></span>
 <span>  <span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -403,13 +402,13 @@
 <div class="inline-figure"><img src="usace_R_training_files/figure-html/unnamed-chunk-79-1.png" width="600" height="70%"></div>
 <p>Based on this plot, we may want to dig a bit more into why the model seems to be doing less well in the lower portion of the pools, especially in Pools 4 and 13.</p>
 </div>
-<div id="examine-variable-importance-and-partial-dependence" class="section level3" number="13.3.8">
+<div id="examine-variable-importance-and-partial-dependence" class="section level3" number="12.3.8">
 <h3>
-<span class="header-section-number">13.3.8</span> Examine variable importance and partial dependence<a class="anchor" aria-label="anchor" href="#examine-variable-importance-and-partial-dependence"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.3.8</span> Examine variable importance and partial dependence<a class="anchor" aria-label="anchor" href="#examine-variable-importance-and-partial-dependence"><i class="fas fa-link"></i></a>
 </h3>
 <p>We still don’t know what environmental factors matter to bluegill, but there are a couple of ways we can assess this.</p>
 <p>First, we can see what variables are most important, using variable importance factors using the vip package.</p>
-<div class="sourceCode" id="cb390"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb391"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">final_rf</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">set_engine</span><span class="op">(</span><span class="st">"ranger"</span>, importance <span class="op">=</span> <span class="st">"permutation"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">fit</span><span class="op">(</span><span class="va">occ</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="fu">juice</span><span class="op">(</span><span class="va">blgl_prep</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -418,12 +417,12 @@
 <p>This indicates that depth and current are far and away the most important factors determining the presence of bluegill compared to other factors.</p>
 <p>We can also look at how these variables influence the probability of occurrence of bluegill using partial dependence plots, implemented here with the ‘partial’ package.</p>
 <p>To make these plots, we first extract the final fitted workflow and model specification (i.e., engine).</p>
-<div class="sourceCode" id="cb391"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb392"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">final_fitted</span> <span class="op">&lt;-</span> <span class="va">final_res</span><span class="op">$</span><span class="va">.workflow</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span></span>
 <span><span class="va">rf_engine</span> <span class="op">&lt;-</span> <span class="fu">extract_fit_engine</span><span class="op">(</span><span class="va">final_fitted</span><span class="op">)</span></span></code></pre></div>
 <p>If we want to predict occurrence of bluegill as a function of depth, we also need to create a new data frame of suitable depth data. Here we pick 50 depth values between 0 and 2.5 meters.</p>
-<div class="sourceCode" id="cb392"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb393"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">new_depths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>depth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2.5</span>, length.out <span class="op">=</span> <span class="fl">50</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">new_depths</span><span class="op">)</span></span></code></pre></div>
@@ -435,7 +434,7 @@
 ## 5 0.20408163
 ## 6 0.25510204</code></pre>
 <p>We can now use the <code>partial</code> package to create our partial dependence data (i.e., predicted occurrence of bluegill as a function of depth). We need to provide our model specification (the rf_engine), what variable we are interested in, the name of the training data, whether we want the output calculated on the probability scale, what class we are predicting (“1” means we are interested in when bluegill are present), and what depths we want to predict for (i.e., new_depths).</p>
-<div class="sourceCode" id="cb394"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb395"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pdp_depth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pdp/man/partial.html">partial</a></span><span class="op">(</span></span>
 <span>  <span class="va">rf_engine</span>,</span>
 <span>  pred.var <span class="op">=</span> <span class="st">"depth"</span>,</span>
@@ -444,7 +443,7 @@
 <span>  which.class <span class="op">=</span> <span class="st">"1"</span>,</span>
 <span>  pred.grid <span class="op">=</span> <span class="va">new_depths</span><span class="op">)</span></span></code></pre></div>
 <p>Now we can plot the partial dependence with <code>ggplot</code>. The column <code>yhat</code> represents our predicted probability of occurrence, so that will be on the y-axis.</p>
-<div class="sourceCode" id="cb395"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb396"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">pdp_depth</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">depth</span>, <span class="va">yhat</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
@@ -456,9 +455,9 @@
 <p>We can see that in general, increases in depths are associated with increased probability of bluegill presence, with maximum occurrence between depths of 0.5 and 0.8 m. The figure shows a sharp dip in probability at depths slightly below 1 m, but this looks likely to be an artifact of the data, and would require more investigation. A plot like this demonstrates the utility of machine learning in planning context. These types of plots can be used to modify existing HSI models that are used for planning, or develop new HSI models. Futhermore, the model itself could be used to predict occurrence of species of interest, and outputs from those models (as opposed to suitability scores) could be used in the planning context once the model is certified.</p>
 </div>
 </div>
-<div id="summary-7" class="section level2" number="13.4">
+<div id="summary-7" class="section level2" number="12.4">
 <h2>
-<span class="header-section-number">13.4</span> Summary<a class="anchor" aria-label="anchor" href="#summary-7"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.4</span> Summary<a class="anchor" aria-label="anchor" href="#summary-7"><i class="fas fa-link"></i></a>
 </h2>
 <ul>
 <li>Machine learning models can excel at prediction if there is adequate data, suggesting it has great potential value for USACE applications</li>
@@ -471,35 +470,35 @@
 
 
 <div class="chapter-nav">
-<div class="prev"><a href="generalized-linear-models.html"><span class="header-section-number">12</span> Generalized Linear Models</a></div>
-<div class="next"><a href="population-modeling.html"><span class="header-section-number">14</span> Population Modeling</a></div>
+<div class="prev"><a href="generalized-linear-models.html"><span class="header-section-number">11</span> Generalized Linear Models</a></div>
+<div class="next"><a href="population-modeling.html"><span class="header-section-number">13</span> Population Modeling</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#random-forest"><span class="header-section-number">13</span> Random Forest</a></li>
-<li><a class="nav-link" href="#learning-objectives-10"><span class="header-section-number">13.1</span> Learning objectives</a></li>
+<li><a class="nav-link" href="#random-forest"><span class="header-section-number">12</span> Random Forest</a></li>
+<li><a class="nav-link" href="#learning-objectives-10"><span class="header-section-number">12.1</span> Learning objectives</a></li>
 <li>
-<a class="nav-link" href="#background-1"><span class="header-section-number">13.2</span> Background</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#what-is-machine-learning"><span class="header-section-number">13.2.1</span> What is machine learning?</a></li>
-<li><a class="nav-link" href="#when-is-it-most-useful"><span class="header-section-number">13.2.2</span> When is it most useful?</a></li>
-<li><a class="nav-link" href="#can-i-do-machine-learning"><span class="header-section-number">13.2.3</span> Can I do machine learning</a></li>
-<li><a class="nav-link" href="#what-programs-can-i-use-for-ml"><span class="header-section-number">13.2.4</span> What programs can I use for ML?</a></li>
-<li><a class="nav-link" href="#how-does-random-forest-work"><span class="header-section-number">13.2.5</span> How does random forest work</a></li>
+<a class="nav-link" href="#background"><span class="header-section-number">12.2</span> Background</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#what-is-machine-learning"><span class="header-section-number">12.2.1</span> What is machine learning?</a></li>
+<li><a class="nav-link" href="#when-is-it-most-useful"><span class="header-section-number">12.2.2</span> When is it most useful?</a></li>
+<li><a class="nav-link" href="#can-i-do-machine-learning"><span class="header-section-number">12.2.3</span> Can I do machine learning</a></li>
+<li><a class="nav-link" href="#what-programs-can-i-use-for-ml"><span class="header-section-number">12.2.4</span> What programs can I use for ML?</a></li>
+<li><a class="nav-link" href="#how-does-random-forest-work"><span class="header-section-number">12.2.5</span> How does random forest work</a></li>
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#case-study"><span class="header-section-number">13.3</span> Case study</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#add-packages"><span class="header-section-number">13.3.1</span> Add packages</a></li>
-<li><a class="nav-link" href="#data-partitioning"><span class="header-section-number">13.3.2</span> Data partitioning</a></li>
-<li><a class="nav-link" href="#pre-processing-with-recipes"><span class="header-section-number">13.3.3</span> Pre-processing with recipes</a></li>
-<li><a class="nav-link" href="#model-specifications-with-parsnip"><span class="header-section-number">13.3.4</span> Model specifications with parsnip</a></li>
-<li><a class="nav-link" href="#workflow"><span class="header-section-number">13.3.5</span> Workflow</a></li>
-<li><a class="nav-link" href="#tune-hyperparameters"><span class="header-section-number">13.3.6</span> Tune hyperparameters</a></li>
-<li><a class="nav-link" href="#choosing-the-best-model"><span class="header-section-number">13.3.7</span> Choosing the best model</a></li>
-<li><a class="nav-link" href="#examine-variable-importance-and-partial-dependence"><span class="header-section-number">13.3.8</span> Examine variable importance and partial dependence</a></li>
+<a class="nav-link" href="#case-study"><span class="header-section-number">12.3</span> Case study</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#add-packages"><span class="header-section-number">12.3.1</span> Add packages</a></li>
+<li><a class="nav-link" href="#data-partitioning"><span class="header-section-number">12.3.2</span> Data partitioning</a></li>
+<li><a class="nav-link" href="#pre-processing-with-recipes"><span class="header-section-number">12.3.3</span> Pre-processing with recipes</a></li>
+<li><a class="nav-link" href="#model-specifications-with-parsnip"><span class="header-section-number">12.3.4</span> Model specifications with parsnip</a></li>
+<li><a class="nav-link" href="#workflow"><span class="header-section-number">12.3.5</span> Workflow</a></li>
+<li><a class="nav-link" href="#tune-hyperparameters"><span class="header-section-number">12.3.6</span> Tune hyperparameters</a></li>
+<li><a class="nav-link" href="#choosing-the-best-model"><span class="header-section-number">12.3.7</span> Choosing the best model</a></li>
+<li><a class="nav-link" href="#examine-variable-importance-and-partial-dependence"><span class="header-section-number">12.3.8</span> Examine variable importance and partial dependence</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#summary-7"><span class="header-section-number">13.4</span> Summary</a></li>
+<li><a class="nav-link" href="#summary-7"><span class="header-section-number">12.4</span> Summary</a></li>
 </ul>
 
       <div class="book-extra">
