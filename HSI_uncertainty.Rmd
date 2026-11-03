@@ -64,7 +64,7 @@ HSI models are used to quantify available oyster habitat and identify areas with
 
 The relationship between each of these variables and habitat suitability are described using oyster suitability indices (OSIs). We import oyster suitability curves, and after a little data wrangling, plot them with `ggplot`.
 
-```{r ohsim, message=FALSE, fig.align='center', fig.width=6}
+```{r ohsim, message=FALSE, fig.align='center', fig.width=8}
 
 # Bring in data
 #load("ohsim.RData")
@@ -169,7 +169,7 @@ sample_matrix[, "AS_val"] = qnorm(sample_matrix[, "AS_val"], mean = 19.85, sd = 
 
 Now that our sample data is prepared, we can calculate the OSI score for each parameter in every row of our **`sample_matrix`**. We do this using the **`SIcalc`** function in **`ecorest`**. The **`SIcalc`** function takes a matrix of suitability curves (in our case, **`OSI_curves`**) and uses them to calculate OSI scores for a series of inputs. By applying the **`SIcalc`** function row-wise to our **`sample_matrix`** using a "for-loop," we can obtain OSI scores for all 360,000 sets of our sample data. Note that this step can take some time when running many model evaluations. 
 
-```{r calculate-SI-scores, message=FALSE, eval = FALSE}
+```{r calculate-SI-scores, eval = FALSE}
 
 # Create empty data frame with the same dimensions as sample_matrix
 OSI_scores = data.frame(matrix(NA, nrow = nrow(sample_matrix), ncol = ncol(sample_matrix)))
@@ -183,7 +183,7 @@ for (row in 1:nrow(sample_matrix)) {
 
 Finally, using the OSI scores calculated with our **`sample_matrix`** in the last step, we can apply the **`HSIgeomean`** function to each set of sampling points in order to generate an empirical distribution of RSI scores. We will use the variance present in this empirical distribution to understand the distribution of RSI values and interpret how sensitive our RSI model is to changes in input parameters.
 
-```{r calculate-overall-HSI, message=FALSE}
+```{r calculate-overall-HSI, message=FALSE, warning=FALSE}
 
 # Load OSI data from previous step
 OSI_scores = read.csv("data/OSI_scores.csv")
