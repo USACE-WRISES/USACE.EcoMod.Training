@@ -43,6 +43,9 @@ p <- ggplot(ben_df)+
 p
   
 ```
+
+<br>
+
 In essence, the total benefits of the project can be thought of as the area under this curve, which we can add to our plot using the `geom_area()` function.
 
 ```{r}
@@ -82,7 +85,7 @@ Cost annualization is carried out so that fair cost comparisons can be made amon
 
 Cost annualization procedures will vary among projects, but typically involves first calculating the *present value* of all project costs, including operation and maintenance costs that will be incurred at future time periods, and interest during construction costs. Present value means the current value of a future sum of money, and are calculated by discounting the future value by how much the money could be earned if invested. Once present values for all costs have been calculated, then *annualized costs* can be calculated from these present values. Annualized costs will then serve as the basis for comparing the cost differences among project alternatives.
 
-To provide a real-world example of how to carry out cost annualization, we will use data from a feasibility study of potential restoration actions in Utoy Creek, a degraded watershed in Atlanta, GA. The USACE’s Mobile District is partnering with the city of Atlanta to carry out the work. Cost effectiveness and Incremental Cost analysis (CEICA) were used to guide development of a recommended analysis and CEICA requires the use of annualized cost (and benefit) data. See the \@ref(ceica-chapter) for a full implementation of CEICA.
+To provide a real-world example of how to carry out cost annualization, we will use data from a feasibility study of potential restoration actions in Utoy Creek, a degraded watershed in Atlanta, GA. The USACE’s Mobile District is partnering with the city of Atlanta to carry out the work. Cost effectiveness and Incremental Cost analysis (CEICA) were used to guide development of a recommended analysis and CEICA requires the use of annualized cost (and benefit) data. See chapter \@ref(ceica-chapter) for a full implementation of CEICA.
 
 We will annualize cost data using the [EngrEcon](https://cran.r-project.org/web/packages/EngrEcon/index.html) R package. Note: a [web application](https://wrises.shinyapps.io/engrecon-webapp/) also exists for conducting these calculations that leverages the same R package. 
 
@@ -141,9 +144,9 @@ Our new dataframe `costs_omrr` now contains the *present value* of all costs in 
 
 ### Interest during construction
 
-We also need to calculate **interest during construction* (IDC). In the context of the USACE, IDC is thought of as the "opportunity cost of capital incurred druing the construction period." In other words, money is being spent to do this project, which represents other opportunities not being carried out, and additionally, during construction, the asset being built is not yet functional so it doesn't yet represent a benefit. Thus, IDC will create the appearance of an added cost for projects with longer construction durations and higher construction costs. 
+We also need to calculate **interest during construction* (IDC). In the context of the USACE, IDC is thought of as the "opportunity cost of capital incurred during the construction period." In other words, money is being spent to do this project, which represents other opportunities not being carried out, and additionally, during construction, the asset being built is not yet functional so it doesn't yet represent a benefit. Thus, IDC will create the appearance of an added cost for projects with longer construction durations and higher construction costs. 
 
-For Utoy Creek, interest during construction was computed based on construction costs the specific construction durations for each alternative plan. `EngrEcon` provides a function for calculating IDC `interest_during_construction`, which takes as inputs the discount rate, the duration of construction in months, and construction costs. The following code calculates a new column for this IDC. Note: as with the OMRR costs, we need to account for FWOP, which have construction durations of 0 months, which the function `interest_during_construction` does not like. So we use an `if_else` statement here to indicate that IDC should be calculated using the `interest_during_construction` function if construction duration is greater than 0 months, and otherwise it should be 0 (for all the FWOP projects). 
+For Utoy Creek, interest during construction was computed based on construction costs and the specific construction durations for each alternative plan. `EngrEcon` provides a function for calculating IDC `interest_during_construction`, which takes as inputs the discount rate, the duration of construction in months, and construction costs. The following code calculates a new column for this IDC. Note: as with the OMRR costs, we need to account for FWOP, which have construction durations of 0 months, which the function `interest_during_construction` does not like. So we use an `if_else` statement here to indicate that IDC should be calculated using the `interest_during_construction` function if construction duration is greater than 0 months, and otherwise it should be 0 (for all the FWOP projects). 
 
 ```{r}
 costs_idc <- costs_omrrr %>%
@@ -157,7 +160,7 @@ costs_idc <- costs_omrrr %>%
 
 Finally, we need to convert the present value costs of all of these expenditures into annualized costs, so that we can make fair comparisons among projects. To do this, we will use the `EngrEcon` function `present_to_annual`. This function has similar inputs as the previous functions: the discount rate, the life span of the project (50 years) and finally the present value cost of each item.
 
-The following code uses the `mutate` finction again to calculate new annualized costs for each cost category, followed by a summation of all the annualized costs, `TotalAnn`, which is what will ultimately be used to compare among projects!
+The following code uses the `mutate` function again to calculate new annualized costs for each cost category, followed by a summation of all the annualized costs, `TotalAnn`, which is what will ultimately be used to compare among projects!
 ```{r}
 costs_ann <- costs_idc %>% 
   rowwise() %>%
@@ -189,6 +192,6 @@ knitr::kable(cost_table, caption="Table 1. Monetary cost data for Utoy sites.", 
 ```
 
 ## Summary
-* Annualizing costs and benefits is an important step so that apples-to-apples comparisons can be made among alternative projects that may oeprate on different time scales
+* Annualizing costs and benefits is an important step so that apples-to-apples comparisons can be made among alternative projects that may operate on different time scales
 * Annualizing benefits is simple to calculate using the `annualizer` function from the `ecorest` package
 * Annualizing costs is more involved, but is also made considerably more manageable using the `EngrEcon` package
