@@ -50,7 +50,7 @@ env_vars <- data.frame(hydrophytes = "a",
 area = 34
 
 # Use the SI calc function to view the model suitability
-si_vars <- SIcalc(wren_hsi, unlist(env_vars))
+si_vars <- SIcalc(wren_hsi, env_vars)
 print(si_vars)
 
 # Built-in equations to calculate overall HSI score
@@ -87,11 +87,12 @@ new_area = c(68, 102, 136, 170)
 
 # Create an empty matrix and vector to hold the results of the SI and HSI calculations, respectively
 new_si_vars <- matrix(0, nrow=n_alts, ncol=n_vars)
+colnames(new_si_vars) =c("SIV1", "SIV2", "SIV3", "SIV4") # Name the columns of the matrix based on variables in HSImetadata
 new_total_HSI <- rep(NA, 4)
 
 # Use a for-loop to calculate SI values and HSI scores for each year/scenario
 for (i in 1:n_alts) {
-  new_si_vars[i, ] <- SIcalc(wren_hsi, unlist(new_env_vars[i, ]))
+  new_si_vars[i, ] <- SIcalc(wren_hsi, new_env_vars[i, ])
   new_total_HSI[i] <- HSIeqtn("marshwren", new_si_vars[i, ], HSImetadata)
 }
 
